@@ -1,16 +1,14 @@
-#include "Chronauto.hpp"
-#include "Logger.hpp"
-#include <SFML\Graphics.hpp>
+#include "Chronact.hpp"
 
-Chronauto::Chronauto() {
+Chronact::Chronact() {
 
 }
 
-Chronauto::~Chronauto() {
+Chronact::~Chronact() {
 
 }
 
-bool Chronauto::Init() {
+bool Chronact::Init() {
     window = new sf::RenderWindow(sf::VideoMode(800, 600, 32), "Iteration II");
 
     if (!window)
@@ -19,11 +17,11 @@ bool Chronauto::Init() {
     return true;
 }
 
-void Chronauto::RenderFrame() {
+void Chronact::RenderFrame() {
 
 }
 
-void Chronauto::ProcessInput() {
+void Chronact::ProcessInput() {
     sf::Event event;
 
     // Loop through all window events
@@ -34,11 +32,11 @@ void Chronauto::ProcessInput() {
     }
 }
 
-void Chronauto::Update() {
+void Chronact::Update() {
 
 }
 
-void Chronauto::MainLoop() {
+void Chronact::MainLoop() {
     // Loop until our window is closed
     while (window->isOpen()) {
         ProcessInput();
@@ -47,7 +45,7 @@ void Chronauto::MainLoop() {
     }
 }
 
-void Chronauto::Go() {
+void Chronact::Go() {
     if (!Init())
         throw "Could not initalize engine!";
 

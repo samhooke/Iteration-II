@@ -1,9 +1,10 @@
-#ifndef CHRONAUTO_HPP_INCLUDED
-#define CHRONAUTO_HPP_INCLUDED
+#ifndef CHRONACT_HPP_INCLUDED
+#define CHRONACT_HPP_INCLUDED
 
 #include <SFML\Graphics.hpp>
+#include "Logger\Logger.hpp"
 
-class Chronauto
+class Chronact
 {
 private:
     // SFML Render Window
@@ -25,11 +26,11 @@ private:
     void Update();
 
 public:
-    Chronauto();
-    ~Chronauto();
+    Chronact();
+    ~Chronact();
 
     // Starts the engine
     void Go();
 };
 
-#endif // CHRONAUTO_HPP_INCLUDED
+#endif // CHRONACT_HPP_INCLUDED

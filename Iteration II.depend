@@ -348,11 +348,31 @@
 1380641041 e:\projects\video games\ongoing\iteration ii\iteration ii\logger.hpp
 	<iostream>
 
-1380641771 source:e:\projects\video games\ongoing\iteration ii\iteration ii\chronauto.cpp
+1380641923 source:e:\projects\video games\ongoing\iteration ii\iteration ii\chronauto.cpp
 	"Chronauto.hpp"
 	"Logger.hpp"
 	<SFML\Graphics.hpp>
 
 1380641806 e:\projects\video games\ongoing\iteration ii\iteration ii\chronauto.hpp
 	<SFML\Graphics.hpp>
+
+1380647266 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.cpp
+	"Chronact.hpp"
+
+1380647256 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.hpp
+	<SFML\Graphics.hpp>
+	"Logger\Logger.hpp"
+
+1380641041 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\logger\logger.hpp
+	<iostream>
+
+1380647069 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\graphics\imagemanager.cpp
+	"ImageManager.hpp"
+
+1380647194 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\graphics\imagemanager.hpp
+	<vector>
+	<SFML\Graphics.hpp>
+
+1380647233 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\main.cpp
+	"Chronact\Chronact.hpp"
 
