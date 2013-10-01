@@ -4,9 +4,9 @@
 #include <iostream>
 
 #ifdef DEBUG
-#define LogError(x) (std::cerr << "[ERROR]: " << (x))
-#define LogWarning(x) (std::cout << "[WARNING]: " << (x))
-#define LogInfo(x) (std::cout << "[INFO]: " << (x))
+#define LogError(x) (std::cerr << "[ERROR]: " << (x) << std::endl)
+#define LogWarning(x) (std::cout << "[WARNING]: " << (x) << std::endl)
+#define LogInfo(x) (std::cout << "[INFO]: " << (x) << std::endl)
 #else
 #define LogError(x)
 #define LogWarning(x)

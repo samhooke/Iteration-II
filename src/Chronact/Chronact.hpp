@@ -3,12 +3,17 @@
 
 #include <SFML\Graphics.hpp>
 #include "Logger\Logger.hpp"
+#include "Graphics\TextureManager.hpp"
+#include "Graphics\Tile.hpp"
 
 class Chronact
 {
 private:
     // SFML Render Window
     sf::RenderWindow* window;
+
+    // Texture manager
+    TextureManager* textureManager;
 
     // Initalize the engine
     bool Init();
@@ -24,6 +29,10 @@ private:
 
     // Update all engine internals
     void Update();
+
+    //NOTE: Temporary
+    void LoadTextures();
+    Tile* testTile;
 
 public:
     Chronact();

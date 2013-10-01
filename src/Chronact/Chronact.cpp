@@ -5,20 +5,34 @@ Chronact::Chronact() {
 }
 
 Chronact::~Chronact() {
-
+    //delete window;
+    //delete textureManager;
 }
 
 bool Chronact::Init() {
+    textureManager = new TextureManager();
     window = new sf::RenderWindow(sf::VideoMode(800, 600, 32), "Iteration II");
 
     if (!window)
         return false;
 
+    LoadTextures();
+
     return true;
 }
 
-void Chronact::RenderFrame() {
+void Chronact::LoadTextures() {
+    sf::Texture texture;
+    texture.loadFromFile("sprites.png");
 
+    textureManager->AddTexture(texture);
+    testTile = new Tile(textureManager->GetTexture(0));
+}
+
+void Chronact::RenderFrame() {
+    window->clear();
+    testTile->Draw(0, 0, window);
+    window->display();
 }
 
 void Chronact::ProcessInput() {
