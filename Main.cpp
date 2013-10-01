@@ -1,17 +1,13 @@
-//#include <Window.h>
-#include "Engine.h"
-#include <iostream>
+#include "Chronauto.hpp"
+#include "Logger.hpp"
 
-int main()
-{
-    Engine* engine = new Engine();
+int main() {
+    Chronauto* chronauto = new Chronauto();
 
-    try
-    {
-        engine->Go();
-    }
-    catch (char* e)
-    {
-        std::cout << e;
+    try {
+        LogInfo("Running Chronauto");
+        chronauto->Go();
+    } catch (char* e) {
+        LogError(e);
     }
 }

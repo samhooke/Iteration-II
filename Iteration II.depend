@@ -1,7 +1,7 @@
 # depslib dependency file v1.0
-1380628848 source:e:\projects\video games\ongoing\iteration ii\iteration ii\main.cpp
-	"Engine.h"
-	<iostream>
+1380641815 source:e:\projects\video games\ongoing\iteration ii\iteration ii\main.cpp
+	"Chronauto.hpp"
+	"Logger.hpp"
 
 1380570280 c:\sfml-2.1\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -337,10 +337,22 @@
 	<string>
 	<vector>
 
-1380628766 source:e:\projects\video games\ongoing\iteration ii\iteration ii\engine.cpp
+1380639889 source:e:\projects\video games\ongoing\iteration ii\iteration ii\engine.cpp
 	"Engine.h"
+	"Logger.hpp"
 	<SFML\Graphics.hpp>
 
 1380628728 e:\projects\video games\ongoing\iteration ii\iteration ii\engine.h
+	<SFML\Graphics.hpp>
+
+1380641041 e:\projects\video games\ongoing\iteration ii\iteration ii\logger.hpp
+	<iostream>
+
+1380641771 source:e:\projects\video games\ongoing\iteration ii\iteration ii\chronauto.cpp
+	"Chronauto.hpp"
+	"Logger.hpp"
+	<SFML\Graphics.hpp>
+
+1380641806 e:\projects\video games\ongoing\iteration ii\iteration ii\chronauto.hpp
 	<SFML\Graphics.hpp>
 

@@ -1,9 +1,9 @@
-#ifndef ENGINE_H_INCLUDED
-#define ENGINE_H_INCLUDED
+#ifndef CHRONAUTO_HPP_INCLUDED
+#define CHRONAUTO_HPP_INCLUDED
 
 #include <SFML\Graphics.hpp>
 
-class Engine
+class Chronauto
 {
 private:
     // SFML Render Window
@@ -25,11 +25,11 @@ private:
     void Update();
 
 public:
-    Engine();
-    ~Engine();
+    Chronauto();
+    ~Chronauto();
 
     // Starts the engine
     void Go();
 };
 
-#endif // ENGINE_H_INCLUDED
+#endif // CHRONAUTO_HPP_INCLUDED

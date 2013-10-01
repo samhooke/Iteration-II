@@ -1,18 +1,16 @@
-#include "Engine.h"
+#include "Chronauto.hpp"
+#include "Logger.hpp"
 #include <SFML\Graphics.hpp>
 
-Engine::Engine()
-{
+Chronauto::Chronauto() {
 
 }
 
-Engine::~Engine()
-{
+Chronauto::~Chronauto() {
 
 }
 
-bool Engine::Init()
-{
+bool Chronauto::Init() {
     window = new sf::RenderWindow(sf::VideoMode(800, 600, 32), "Iteration II");
 
     if (!window)
@@ -21,43 +19,35 @@ bool Engine::Init()
     return true;
 }
 
-void Engine::RenderFrame()
-{
+void Chronauto::RenderFrame() {
 
 }
 
-void Engine::ProcessInput()
-{
+void Chronauto::ProcessInput() {
     sf::Event event;
 
     // Loop through all window events
-    while (window->pollEvent(event))
-    {
-        if (event.type == sf::Event::Closed)
-        {
+    while (window->pollEvent(event)) {
+        if (event.type == sf::Event::Closed) {
             window->close();
         }
     }
 }
 
-void Engine::Update()
-{
+void Chronauto::Update() {
 
 }
 
-void Engine::MainLoop()
-{
+void Chronauto::MainLoop() {
     // Loop until our window is closed
-    while (window->isOpen())
-    {
+    while (window->isOpen()) {
         ProcessInput();
         Update();
         RenderFrame();
     }
 }
 
-void Engine::Go()
-{
+void Chronauto::Go() {
     if (!Init())
         throw "Could not initalize engine!";
 
