@@ -54,9 +54,6 @@ void Chronact::MainLoop() {
     }
 }
 
-//void Chronact::LoadRoom(Room* room) {
-//}
-
 void Chronact::Go() {
     printf("Running Chronact engine\n");
 

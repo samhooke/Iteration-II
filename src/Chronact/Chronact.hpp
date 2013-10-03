@@ -5,7 +5,6 @@
 
 #include "Display.hpp"
 #include "Exception.hpp"
-#include "Rooms.hpp"
 
 class Chronact {
 private:
@@ -15,8 +14,6 @@ private:
     // Time functions
     sf::Clock clock;
     sf::Time deltaTime; // Use .asSeconds() to convert to float
-
-    Room* currentRoom;
 
     Display* display;
 
