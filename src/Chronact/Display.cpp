@@ -7,6 +7,12 @@ Display::Display() {
     LoadGraphics();
     SetAll(TILE_BLANK);
     WriteText(1, 0, "Hello, world!", 4, 4);
+    WriteText(0, 4, "11111 11111 11111 11111"
+                    "  1   1     1       1  "
+                    "  1   11111 11111   1  "
+                    "  1   1         1   1  "
+                    "  1   11111 11111   1  "
+                    ,23, 5, TILE_DOT_SOLID_INVERT);
 }
 
 void Display::LoadGraphics() {
@@ -35,7 +41,7 @@ void Display::SetAll(char c) {
 }
 
 // Writes text to the display, starting at position x, y.
-void Display::WriteText(int x, int y, char* text, int maxCharsPerRow, int maxRows) {
+void Display::WriteText(int x, int y, char* text, int maxCharsPerRow, int maxRows, char mask) {
     int charsThisLine = 0, rowsDropped = 0;
     for (int i = 0;; i++) {
 
@@ -60,7 +66,14 @@ void Display::WriteText(int x, int y, char* text, int maxCharsPerRow, int maxRow
         }
 
         // Update the display
-        tile[x + charsThisLine][y + rowsDropped] = (int)text[i];
+        if (mask < 0) {
+            // If no mask is supplied, simply write the matching character from `text`
+            tile[x + charsThisLine][y + rowsDropped] = (int)text[i];
+        } else {
+            // If a mask is supplied, whenever there is a `1`, write the mask character
+            if (text[i] == '1')
+                tile[x + charsThisLine][y + rowsDropped] = mask;
+        }
         charsThisLine++;
     }
 }

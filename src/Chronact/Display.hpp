@@ -25,7 +25,7 @@ public:
 
     void SetAll(char c);
 
-    void WriteText(int x, int y, char* text, int maxCharsPerRow = -1, int maxRows = -1);
+    void WriteText(int x, int y, char* text, int maxCharsPerRow = -1, int maxRows = -1, char mask = -1);
 
     void Render(sf::RenderWindow* window);
 
