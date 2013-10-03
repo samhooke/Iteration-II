@@ -8,14 +8,7 @@ Display::Display(int w, int h) {
     width = w;
     height = h;
 
-    int x, y;
-
-    // Populate the tile arrays
-    for (y = 0; y < height; y++) {
-        for (x = 0; x < width; x++) {
-            tile[x][y] = TILE_BLANK;
-        }
-    }
+    SetAll(TILE_BLANK);
 
     WriteText(1, 0, "Hello, world!", 4, 4);
 
@@ -23,8 +16,8 @@ Display::Display(int w, int h) {
     tileSet.loadFromFile("tiles.png");
 
     // Load each tile sprite
-    for (y = 0; y < SPRITESHEET_ROWS; y++) {
-        for (x = 0; x < SPRITESHEET_COLS; x++) {
+    for (int y = 0; y < SPRITESHEET_ROWS; y++) {
+        for (int x = 0; x < SPRITESHEET_COLS; x++) {
             int index = x + y * SPRITESHEET_COLS;
             tileSprites[index].setTexture(tileSet, true);
             tileSprites[index].setTextureRect(sf::IntRect(x * SPRITESHEET_SPRITE_W, y * SPRITESHEET_SPRITE_H, SPRITESHEET_SPRITE_W, SPRITESHEET_SPRITE_H));
@@ -33,6 +26,14 @@ Display::Display(int w, int h) {
 }
 
 Display::~Display() {
+}
+
+void Display::SetAll(char c) {
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            tile[x][y] = c;
+        }
+    }
 }
 
 // Writes text to the display, starting at position x, y.
@@ -68,8 +69,8 @@ void Display::WriteText(int x, int y, char* text, int maxCharsPerRow, int maxRow
 
 void Display::Render(sf::RenderWindow* window) {
     int x, y;
-    for (y = 0; y < DISPLAY_HEIGHT_MAX; y++) {
-        for (x = 0; x < DISPLAY_WIDTH_MAX; x++) {
+    for (y = 0; y < height; y++) {
+        for (x = 0; x < width; x++) {
             int index = tile[x][y];
             tileSprites[index].setPosition(x * SPRITESHEET_SPRITE_W, y * SPRITESHEET_SPRITE_H);
             window->draw(tileSprites[index]);
