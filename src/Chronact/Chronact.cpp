@@ -6,36 +6,22 @@ Chronact::Chronact() {
 Chronact::~Chronact() {
     // Clear used resources
     delete window;
-    delete textureManager;
 }
 
 bool Chronact::Init() {
-    // Create managers
-    textureManager = new TextureManager();
     window = new sf::RenderWindow(sf::VideoMode(800, 600, 32), "Iteration II");
 
     // Verify the window was created
     if (!window)
         return false;
 
-    LoadTextures();
-
     return true;
 }
 
-void Chronact::LoadTextures() {
-    sf::Texture texture;
-    texture.loadFromFile("sprites.png");
-
-    textureManager->Add(texture);
-    testTile1 = new Tile(textureManager->Get(0));
-    testTile2 = new Tile(textureManager->Get(0));
-    testTile3 = new Tile(textureManager->Get(0));
-}
 
 void Chronact::RenderFrame() {
     window->clear();
-    testTile1->Draw(0, 0, window);
+    // Draw
     window->display();
 }
 
@@ -67,6 +53,6 @@ void Chronact::Go() {
     if (!Init())
         throw EngineInitError();
 
-    //LogInfo("Running Chronact engine");
+    LogInfo("Running Chronact engine");
     MainLoop();
 }

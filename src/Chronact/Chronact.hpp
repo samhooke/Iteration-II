@@ -3,8 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Graphics/TextureManager.hpp"
-#include "Graphics/Tile.hpp"
+#include "Level.hpp"
 #include "Exception.hpp"
 #include "Logger.hpp"
 
@@ -14,20 +13,14 @@ private:
     // SFML Render Window
     sf::RenderWindow* window;
 
-    // Texture manager
-    TextureManager* textureManager;
+    // Current level
+    Level* level;
 
     bool Init();
     void MainLoop();
     void RenderFrame();
     void ProcessInput();
     void Update();
-
-    //NOTE: Temporary
-    void LoadTextures();
-    Tile* testTile1;
-    Tile* testTile2;
-    Tile* testTile3;
 
 public:
     Chronact();

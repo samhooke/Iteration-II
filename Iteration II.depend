@@ -356,13 +356,12 @@
 1380641806 e:\projects\video games\ongoing\iteration ii\iteration ii\chronauto.hpp
 	<SFML\Graphics.hpp>
 
-1380730122 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.cpp
+1380807911 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.cpp
 	"Chronact.hpp"
 
-1380807269 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.hpp
+1380807845 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.hpp
 	<SFML/Graphics.hpp>
-	"Graphics/TextureManager.hpp"
-	"Graphics/Tile.hpp"
+	"Level.hpp"
 	"Exception.hpp"
 	"Logger.hpp"
 
@@ -420,4 +419,6 @@
 1380729901 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\logger.hpp
 	"Logger.hpp"
 	<iostream>
+
+1380807724 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\level.hpp
 
