@@ -22,14 +22,20 @@ private:
     void MainLoop();
     void RenderFrame();
     void ProcessInput();
+    void Pause();
     void Update();
 
     // Room definitions
     enum class Room {Title, Blank};
-    Room room = Room::Title;
+    enum class RoomEvent {Start, Update, End};
+    Room room;
 
-    void RoomTitle();
-    void RoomBlank();
+    void RoomStart();
+    void RoomUpdate();
+    void RoomEnd();
+
+    void RoomTitle(RoomEvent roomEvent);
+    void RoomBlank(RoomEvent roomEvent);
 public:
     Chronact();
     ~Chronact();

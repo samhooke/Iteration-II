@@ -13,7 +13,7 @@ Display::Display() {
 
 void Display::LoadGraphics() {
     // Load the texture
-    tileSet.loadFromFile("tiles.png");
+    tileSet.loadFromFile(SPRITESHEET_FILENAME);
 
     // Load each tile sprite
     for (int y = 0; y < SPRITESHEET_ROWS; y++) {
@@ -21,6 +21,8 @@ void Display::LoadGraphics() {
             int index = x + y * SPRITESHEET_COLS;
             tileSprites[index].setTexture(tileSet, true);
             tileSprites[index].setTextureRect(sf::IntRect(x * SPRITESHEET_SPRITE_W, y * SPRITESHEET_SPRITE_H, SPRITESHEET_SPRITE_W, SPRITESHEET_SPRITE_H));
+            tileSprites[index].setColor(sf::Color(0, 127, 0));
+            //tileSprites[index].setColor(sf::Color(0, badRand(0, 255), 0));
         }
     }
 }
@@ -39,8 +41,7 @@ void Display::DrawBackground() {
 
 void Display::DrawTitle() {
     int mask[] = {TILE_FADE_DARK, TILE_FADE_MIDDLE, TILE_FADE_LIGHT};
-    WriteText(4, 4, (char*)
-                    "1111111 1111111 1111111 111111   111111  1111111 1111111  11111  11   11"
+    char title[] =  "1111111 1111111 1111111 111111   111111  1111111 1111111  11111  11   11"
                     "1111111 1111111 1111111 1111111 11111111 1111111 1111111 1111111 11   11"
                     "  111     111   111     11   11 11    11   111     111   11   11 111  11"
                     "  111     111   111     11   11 11    11   111     111   11   11 1111 11"
@@ -49,8 +50,31 @@ void Display::DrawTitle() {
                     "  111     111   111     11   11 111  111   111     111   11   11 11 1111"
                     "  111     111   111     11   11 11    11   111     111   11   11 11  111"
                     "1111111   111   1111111 11   11 11    11   111   1111111 1111111 11   11"
-                    "1111111   111   1111111 11   11 11    11   111   1111111  11111  11   11"
-                    ,72, 10, mask);
+                    "1111111   111   1111111 11   11 11    11   111   1111111  11111  11   11";
+    bool darkLine = false;
+    for (int i = 0;; i++) {
+        if (title[i] == '\0')
+            break;
+        if (i % 72 == 0) {
+            if (badRand(0, 2) == 0)
+                darkLine = true;
+        }
+        if (darkLine) {
+            if (title[i] == '1')
+                title[i] = '2';
+        }
+        /*
+        if (title[i] == '1') {
+            if (badRand(0, 3) == 0) {
+                title[i] = '2';
+            }
+        }
+        */
+    }
+
+    WriteText(4, 4, (char*)title, 72, 10, mask);
+
+    WriteText(4, 4 + 10 + 2, "Awaiting command...");
 }
 
 Display::~Display() {

@@ -1,6 +1,21 @@
 #include "Chronact.hpp"
 
 #include "Logger.hpp"
+#include "Defs.hpp"
+
+#ifdef OS_WINDOWS
+#include <windows.h>
+void Chronact::Pause() {
+    Sleep(SLEEP_MILLISECONDS);
+}
+#endif // OS_WINDOWS
+
+#ifdef OS_UNIX
+#include <unistd.h>
+void Chronact::Pause() {
+    usleep(SLEEP_MILLISECONDS * 1000);
+}
+#endif // OS_UNIX
 
 Chronact::Chronact() {
 }
@@ -45,6 +60,7 @@ void Chronact::MainLoop() {
         deltaTime = clock.restart();
         ProcessInput();
         Update();
+        Pause();
         RenderFrame();
     }
 }
@@ -55,25 +71,55 @@ void Chronact::Go() {
     if (!Init())
         throw EngineInitError();
 
+    room = Room::Title;
+    RoomStart();
+
     MainLoop();
 }
 
 void Chronact::Update() {
+    RoomUpdate();
+}
+
+void Chronact::RoomStart() {
     switch (room) {
-    case Room::Title:
-        RoomTitle();
+    case Room::Title:       RoomTitle(RoomEvent::Start);        break;
+    case Room::Blank:       RoomBlank(RoomEvent::Start);        break;
+    }
+}
+
+void Chronact::RoomUpdate() {
+    switch (room) {
+    case Room::Title:       RoomTitle(RoomEvent::Update);        break;
+    case Room::Blank:       RoomBlank(RoomEvent::Update);        break;
+    }
+}
+
+void Chronact::RoomEnd() {
+    switch (room) {
+    case Room::Title:       RoomTitle(RoomEvent::End);        break;
+    case Room::Blank:       RoomBlank(RoomEvent::End);        break;
+    }
+}
+
+void Chronact::RoomTitle(RoomEvent roomEvent) {
+    static float timeSinceLastDraw = 0;
+    switch (roomEvent) {
+    case RoomEvent::Start:
         break;
-    case Room::Blank:
-        RoomBlank();
+    case RoomEvent::Update:
+        timeSinceLastDraw += deltaTime.asSeconds();
+        if (timeSinceLastDraw > (float)1/60) {
+            display->DrawBackground();
+            display->DrawTitle();
+            timeSinceLastDraw = 0;
+        }
+        break;
+    case RoomEvent::End:
         break;
     }
 }
 
-void Chronact::RoomTitle() {
-    display->DrawBackground();
-    display->DrawTitle();
-}
-
-void Chronact::RoomBlank() {
+void Chronact::RoomBlank(RoomEvent roomEvent) {
     display->DrawBackground();
 }
