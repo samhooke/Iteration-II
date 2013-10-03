@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Level.hpp"
+#include "Display.hpp"
 #include "Exception.hpp"
 #include "Logger.hpp"
 
@@ -13,8 +13,7 @@ private:
     // SFML Render Window
     sf::RenderWindow* window;
 
-    // Current level
-    Level* level;
+    Display* display;
 
     bool Init();
     void MainLoop();
