@@ -1,5 +1,7 @@
 #include "Display.hpp"
 
+#include "Tiles.hpp"
+
 Display::Display(int w, int h) {
     width = w;
     height = h;
@@ -9,9 +11,23 @@ Display::Display(int w, int h) {
     // Populate the tile array with 0s
     for (y = 0; y < DISPLAY_HEIGHT_MAX; y++) {
         for (x = 0; x < DISPLAY_WIDTH_MAX; x++) {
-            tile[x][y] = '0';
+            tile[x][y] = TILE_BLANK;
         }
     }
+
+    tile[1][1] = TILE_H_UPPER;
+    tile[2][1] = TILE_E_LOWER;
+    tile[3][1] = TILE_L_LOWER;
+    tile[4][1] = TILE_L_LOWER;
+    tile[5][1] = TILE_O_LOWER;
+    tile[6][1] = TILE_COMMA;
+
+    tile[8][1] = TILE_W_LOWER;
+    tile[9][1] = TILE_O_LOWER;
+    tile[10][1] = TILE_R_LOWER;
+    tile[11][1] = TILE_L_LOWER;
+    tile[12][1] = TILE_D_LOWER;
+    tile[13][1] = TILE_EXCLAMATION_DOUBLE;
 
     // Load the texture
     tileSet.loadFromFile("tiles.png");
@@ -33,7 +49,7 @@ void Display::Render(sf::RenderWindow* window) {
     int x, y;
     for (y = 0; y < height; y++) {
         for (x = 0; x < width; x++) {
-            int index = 2;
+            int index = tile[x][y];
             tileSprites[index].setPosition(x * SPRITESHEET_SPRITE_W, y * SPRITESHEET_SPRITE_H);
             window->draw(tileSprites[index]);
         }
