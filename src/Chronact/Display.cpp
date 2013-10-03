@@ -3,15 +3,13 @@
 #include "Tiles.hpp"
 #include "Logger.hpp"
 
-Display::Display(int w, int h) {
-
-    width = w;
-    height = h;
-
+Display::Display() {
+    LoadGraphics();
     SetAll(TILE_BLANK);
-
     WriteText(1, 0, "Hello, world!", 4, 4);
+}
 
+void Display::LoadGraphics() {
     // Load the texture
     tileSet.loadFromFile("tiles.png");
 
@@ -29,8 +27,8 @@ Display::~Display() {
 }
 
 void Display::SetAll(char c) {
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
+    for (int y = 0; y < DISPLAY_HEIGHT; y++) {
+        for (int x = 0; x < DISPLAY_WIDTH; x++) {
             tile[x][y] = c;
         }
     }
@@ -46,7 +44,7 @@ void Display::WriteText(int x, int y, char* text, int maxCharsPerRow, int maxRow
             break;
 
         // Error if outside display limits
-        if (i > DISPLAY_HEIGHT_MAX * DISPLAY_WIDTH_MAX)
+        if (i > DISPLAY_HEIGHT * DISPLAY_WIDTH)
             throw std::overflow_error("Tried to WriteText outside of the tile range.");
 
         // If maxCharsPerRow is 1 or greater, limit the chars per row
@@ -69,11 +67,19 @@ void Display::WriteText(int x, int y, char* text, int maxCharsPerRow, int maxRow
 
 void Display::Render(sf::RenderWindow* window) {
     int x, y;
-    for (y = 0; y < height; y++) {
-        for (x = 0; x < width; x++) {
+    for (y = 0; y < DISPLAY_HEIGHT; y++) {
+        for (x = 0; x < DISPLAY_WIDTH; x++) {
             int index = tile[x][y];
             tileSprites[index].setPosition(x * SPRITESHEET_SPRITE_W, y * SPRITESHEET_SPRITE_H);
             window->draw(tileSprites[index]);
         }
     }
+}
+
+int Display::GetPixelWidth() {
+    return DISPLAY_WIDTH * SPRITESHEET_SPRITE_W;
+}
+
+int Display::GetPixelHeight() {
+    return DISPLAY_HEIGHT * SPRITESHEET_SPRITE_H;
 }

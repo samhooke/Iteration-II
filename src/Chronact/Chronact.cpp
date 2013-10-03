@@ -9,9 +9,8 @@ Chronact::~Chronact() {
 }
 
 bool Chronact::Init() {
-    window = new sf::RenderWindow(sf::VideoMode(800, 600, 32), "Iteration II");
-
-    display = new Display(80, 35);
+    display = new Display();
+    window = new sf::RenderWindow(sf::VideoMode(display->GetPixelWidth(), display->GetPixelHeight(), 32), "Iteration II");
 
     // Verify the window was created
     if (!window)
