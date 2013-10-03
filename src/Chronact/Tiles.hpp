@@ -145,4 +145,11 @@
 #define TILE_TILDE 126
 #define TILE_DEL 127
 
+//...
+
+// 176
+#define TILE_FADE_LIGHT 176
+#define TILE_FADE_MIDDLE 177
+#define TILE_FADE_DARK 178
+
 #endif // TILES_HPP_INCLUDED

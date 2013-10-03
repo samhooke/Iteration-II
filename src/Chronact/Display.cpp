@@ -12,7 +12,7 @@ Display::Display() {
                     "  1   11111 11111   1  "
                     "  1   1         1   1  "
                     "  1   11111 11111   1  "
-                    ,23, 5, TILE_DOT_SOLID_INVERT);
+                    ,23, 5, TILE_FADE_DARK);
 }
 
 void Display::LoadGraphics() {
@@ -32,7 +32,7 @@ void Display::LoadGraphics() {
 Display::~Display() {
 }
 
-void Display::SetAll(char c) {
+void Display::SetAll(int c) {
     for (int y = 0; y < DISPLAY_HEIGHT; y++) {
         for (int x = 0; x < DISPLAY_WIDTH; x++) {
             tile[x][y] = c;
@@ -41,7 +41,7 @@ void Display::SetAll(char c) {
 }
 
 // Writes text to the display, starting at position x, y.
-void Display::WriteText(int x, int y, char* text, int maxCharsPerRow, int maxRows, char mask) {
+void Display::WriteText(int x, int y, char* text, int maxCharsPerRow, int maxRows, int mask) {
     int charsThisLine = 0, rowsDropped = 0;
     for (int i = 0;; i++) {
 

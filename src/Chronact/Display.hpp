@@ -15,7 +15,7 @@ class Display {
 private:
     int width;
     int height;
-    char tile[DISPLAY_WIDTH][DISPLAY_HEIGHT];
+    int tile[DISPLAY_WIDTH][DISPLAY_HEIGHT];
     sf::Texture tileSet;
     sf::Sprite tileSprites[SPRITESHEET_COLS * SPRITESHEET_ROWS];
     void LoadGraphics();
@@ -23,14 +23,19 @@ public:
     Display();
     ~Display();
 
-    void SetAll(char c);
+    void SetAll(int c);
 
-    void WriteText(int x, int y, char* text, int maxCharsPerRow = -1, int maxRows = -1, char mask = -1);
+    void WriteText(int x, int y, char* text, int maxCharsPerRow = -1, int maxRows = -1, int mask = -1);
 
     void Render(sf::RenderWindow* window);
 
     int GetPixelWidth();
     int GetPixelHeight();
+};
+
+class WriteMask {
+public:
+    int mask1;
 };
 
 #endif // DISPLAY_HPP_INCLUDED
