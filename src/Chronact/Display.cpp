@@ -29,6 +29,8 @@ Display::Display(int w, int h) {
     tile[12][1] = TILE_D_LOWER;
     tile[13][1] = TILE_EXCLAMATION_DOUBLE;
 
+    WriteText(1, 2, "Hello, world!");
+
     // Load the texture
     tileSet.loadFromFile("tiles.png");
 
@@ -43,6 +45,15 @@ Display::Display(int w, int h) {
 }
 
 Display::~Display() {
+}
+
+void Display::WriteText(int x, int y, char* text) {
+    int i;
+    for (i = 0;; i++) {
+        if (text[i] == '\0')
+            break;
+        tile[x + i][y] = (int)text[i];
+    }
 }
 
 void Display::Render(sf::RenderWindow* window) {

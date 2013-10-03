@@ -38,7 +38,7 @@
 #define TILE_SLOPE_DOWN 31
 
 // 32 -> 47
-#define TILE_BLANK2 32
+#define TILE_SPACE 32
 #define TILE_EXCLAMATION 33
 #define TILE_QUOTE 34
 #define TILE_HASH 35

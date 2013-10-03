@@ -422,9 +422,12 @@
 
 1380807724 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\level.hpp
 
-1380810512 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\display.hpp
+1380813066 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\display.hpp
 	<SFML/Graphics.hpp>
 
-1380810614 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\display.cpp
+1380813455 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\display.cpp
 	"Display.hpp"
+	"Tiles.hpp"
+
+1380813524 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\tiles.hpp
 

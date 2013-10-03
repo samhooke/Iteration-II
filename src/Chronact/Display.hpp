@@ -22,6 +22,8 @@ public:
     Display(int w, int h);
     ~Display();
 
+    void WriteText(int x, int y, char* text);
+
     void Render(sf::RenderWindow* window);
 };
 
