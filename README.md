@@ -1,0 +1,1 @@
+In this project, I am learning C++ and SFML by creating a time travelling video game with ASCII graphics.
