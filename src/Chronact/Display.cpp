@@ -15,6 +15,7 @@ Display::Display(int w, int h) {
     tileSet.loadFromFile("tiles.png");
 
     testSprite.setTexture(tileSet, true);
+    testSprite.setTextureRect(sf::IntRect(9, 0, 9, 16));
 }
 
 Display::~Display() {
