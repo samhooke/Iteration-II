@@ -67,13 +67,10 @@
 		</Linker>
 		<Unit filename="src/Chronact/Chronact.cpp" />
 		<Unit filename="src/Chronact/Chronact.hpp" />
-		<Unit filename="src/Chronact/Debug/Exception.hpp" />
-		<Unit filename="src/Chronact/Debug/Logger.hpp" />
-		<Unit filename="src/Chronact/Graphics/TextureManager.cpp" />
-		<Unit filename="src/Chronact/Graphics/TextureManager.hpp" />
-		<Unit filename="src/Chronact/Graphics/Tile.cpp" />
-		<Unit filename="src/Chronact/Graphics/Tile.hpp" />
-		<Unit filename="src/Chronact/Objects/GameObject.hpp" />
+		<Unit filename="src/Chronact/Display.cpp" />
+		<Unit filename="src/Chronact/Display.hpp" />
+		<Unit filename="src/Chronact/Exception.hpp" />
+		<Unit filename="src/Chronact/Logger.hpp" />
 		<Unit filename="src/Main.cpp" />
 		<Extensions>
 			<code_completion />
