@@ -356,7 +356,7 @@
 1380641806 e:\projects\video games\ongoing\iteration ii\iteration ii\chronauto.hpp
 	<SFML\Graphics.hpp>
 
-1380810529 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.cpp
+1380814247 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.cpp
 	"Chronact.hpp"
 
 1380808045 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.hpp
@@ -422,12 +422,14 @@
 
 1380807724 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\level.hpp
 
-1380813066 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\display.hpp
+1380816242 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\display.hpp
 	<SFML/Graphics.hpp>
+	<vector>
 
-1380813455 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\display.cpp
+1380815052 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\display.cpp
 	"Display.hpp"
 	"Tiles.hpp"
+	"Logger.hpp"
 
 1380813524 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\tiles.hpp
 

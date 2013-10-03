@@ -3,8 +3,10 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <vector>
+
 #define DISPLAY_WIDTH_MAX 80
-#define DISPLAY_HEIGHT_MAX 40
+#define DISPLAY_HEIGHT_MAX 35
 
 #define SPRITESHEET_COLS 16
 #define SPRITESHEET_ROWS 16
@@ -22,7 +24,7 @@ public:
     Display(int w, int h);
     ~Display();
 
-    void WriteText(int x, int y, char* text);
+    void WriteText(int x, int y, char* text, int maxCharsPerRow = -1, int maxRows = -1);
 
     void Render(sf::RenderWindow* window);
 };

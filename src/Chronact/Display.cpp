@@ -1,35 +1,23 @@
 #include "Display.hpp"
 
 #include "Tiles.hpp"
+#include "Logger.hpp"
 
 Display::Display(int w, int h) {
+
     width = w;
     height = h;
 
     int x, y;
 
-    // Populate the tile array with 0s
-    for (y = 0; y < DISPLAY_HEIGHT_MAX; y++) {
-        for (x = 0; x < DISPLAY_WIDTH_MAX; x++) {
+    // Populate the tile arrays
+    for (y = 0; y < height; y++) {
+        for (x = 0; x < width; x++) {
             tile[x][y] = TILE_BLANK;
         }
     }
 
-    tile[1][1] = TILE_H_UPPER;
-    tile[2][1] = TILE_E_LOWER;
-    tile[3][1] = TILE_L_LOWER;
-    tile[4][1] = TILE_L_LOWER;
-    tile[5][1] = TILE_O_LOWER;
-    tile[6][1] = TILE_COMMA;
-
-    tile[8][1] = TILE_W_LOWER;
-    tile[9][1] = TILE_O_LOWER;
-    tile[10][1] = TILE_R_LOWER;
-    tile[11][1] = TILE_L_LOWER;
-    tile[12][1] = TILE_D_LOWER;
-    tile[13][1] = TILE_EXCLAMATION_DOUBLE;
-
-    WriteText(1, 2, "Hello, world!");
+    WriteText(1, 0, "Hello, world!", 4, 4);
 
     // Load the texture
     tileSet.loadFromFile("tiles.png");
@@ -47,19 +35,41 @@ Display::Display(int w, int h) {
 Display::~Display() {
 }
 
-void Display::WriteText(int x, int y, char* text) {
-    int i;
-    for (i = 0;; i++) {
+// Writes text to the display, starting at position x, y.
+void Display::WriteText(int x, int y, char* text, int maxCharsPerRow, int maxRows) {
+    int charsThisLine = 0, rowsDropped = 0;
+    for (int i = 0;; i++) {
+
+        // Break if end of string
         if (text[i] == '\0')
             break;
-        tile[x + i][y] = (int)text[i];
+
+        // Error if outside display limits
+        if (i > DISPLAY_HEIGHT_MAX * DISPLAY_WIDTH_MAX)
+            throw std::overflow_error("Tried to WriteText outside of the tile range.");
+
+        // If maxCharsPerRow is 1 or greater, limit the chars per row
+        // When the limit is exceeded, the text drops down a row
+        if (maxCharsPerRow > 0 && charsThisLine >= maxCharsPerRow) {
+            rowsDropped++;
+            charsThisLine = 0;
+
+            // If maxRows is 1 or greater, limit the rows
+            // When the limit is exceeded, the text is truncated
+            if (maxRows > 0 && rowsDropped >= maxRows)
+                break;
+        }
+
+        // Update the display
+        tile[x + charsThisLine][y + rowsDropped] = (int)text[i];
+        charsThisLine++;
     }
 }
 
 void Display::Render(sf::RenderWindow* window) {
     int x, y;
-    for (y = 0; y < height; y++) {
-        for (x = 0; x < width; x++) {
+    for (y = 0; y < DISPLAY_HEIGHT_MAX; y++) {
+        for (x = 0; x < DISPLAY_WIDTH_MAX; x++) {
             int index = tile[x][y];
             tileSprites[index].setPosition(x * SPRITESHEET_SPRITE_W, y * SPRITESHEET_SPRITE_H);
             window->draw(tileSprites[index]);
