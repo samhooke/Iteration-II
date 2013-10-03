@@ -3,8 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <vector>
-
 #define DISPLAY_WIDTH 80
 #define DISPLAY_HEIGHT 35
 
