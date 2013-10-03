@@ -1,18 +1,20 @@
 #include "Chronact.hpp"
 
 Chronact::Chronact() {
-
 }
 
 Chronact::~Chronact() {
-    //delete window;
-    //delete textureManager;
+    // Clear used resources
+    delete window;
+    delete textureManager;
 }
 
 bool Chronact::Init() {
+    // Create managers
     textureManager = new TextureManager();
     window = new sf::RenderWindow(sf::VideoMode(800, 600, 32), "Iteration II");
 
+    // Verify the window was created
     if (!window)
         return false;
 
@@ -25,13 +27,15 @@ void Chronact::LoadTextures() {
     sf::Texture texture;
     texture.loadFromFile("sprites.png");
 
-    textureManager->AddTexture(texture);
-    testTile = new Tile(textureManager->GetTexture(0));
+    textureManager->Add(texture);
+    testTile1 = new Tile(textureManager->Get(0));
+    testTile2 = new Tile(textureManager->Get(0));
+    testTile3 = new Tile(textureManager->Get(0));
 }
 
 void Chronact::RenderFrame() {
     window->clear();
-    testTile->Draw(0, 0, window);
+    testTile1->Draw(0, 0, window);
     window->display();
 }
 
@@ -47,7 +51,6 @@ void Chronact::ProcessInput() {
 }
 
 void Chronact::Update() {
-
 }
 
 void Chronact::MainLoop() {
@@ -60,8 +63,10 @@ void Chronact::MainLoop() {
 }
 
 void Chronact::Go() {
-    if (!Init())
-        throw "Could not initalize engine!";
 
+    if (!Init())
+        throw EngineInitError();
+
+    //LogInfo("Running Chronact engine");
     MainLoop();
 }

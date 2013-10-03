@@ -2,7 +2,7 @@
 #define TEXTUREMANAGER_HPP_INCLUDED
 
 #include <vector>
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 class TextureManager {
 private:
@@ -12,8 +12,9 @@ public:
     TextureManager();
     ~TextureManager();
 
-    void AddTexture(sf::Texture& tex);
-    sf::Texture& GetTexture(int index);
+    void Add(sf::Texture& tex);
+    sf::Texture& Get(int index);
+    void Remove(int index);
 };
 
 #endif // TEXTUREMANAGER_HPP_INCLUDED

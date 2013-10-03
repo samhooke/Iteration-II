@@ -1,6 +1,8 @@
 #ifndef LOGGER_HPP_INCLUDED
 #define LOGGER_HPP_INCLUDED
 
+#include "Logger.hpp"
+
 #include <iostream>
 
 #ifdef DEBUG

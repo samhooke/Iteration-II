@@ -356,14 +356,15 @@
 1380641806 e:\projects\video games\ongoing\iteration ii\iteration ii\chronauto.hpp
 	<SFML\Graphics.hpp>
 
-1380649139 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.cpp
+1380730122 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.cpp
 	"Chronact.hpp"
 
-1380649064 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.hpp
-	<SFML\Graphics.hpp>
-	"Logger\Logger.hpp"
-	"Graphics\TextureManager.hpp"
-	"Graphics\Tile.hpp"
+1380807269 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.hpp
+	<SFML/Graphics.hpp>
+	"Graphics/TextureManager.hpp"
+	"Graphics/Tile.hpp"
+	"Exception.hpp"
+	"Logger.hpp"
 
 1380649210 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\logger\logger.hpp
 	<iostream>
@@ -375,8 +376,8 @@
 	<vector>
 	<SFML\Graphics.hpp>
 
-1380647233 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\main.cpp
-	"Chronact\Chronact.hpp"
+1380730095 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\main.cpp
+	"Chronact/Chronact.hpp"
 
 1380647982 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\graphics\tile.cpp
 	"Tile.hpp"
@@ -384,10 +385,39 @@
 1380647997 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\graphics\tile.hpp
 	<SFML\Graphics.hpp>
 
-1380648223 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\graphics\texturemanager.hpp
+1380730140 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\graphics\texturemanager.hpp
 	<vector>
-	<SFML\Graphics.hpp>
+	<SFML/Graphics.hpp>
 
-1380648184 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\graphics\texturemanager.cpp
+1380807250 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\graphics\texturemanager.cpp
 	"TextureManager.hpp"
+	"../Logger.hpp"
+
+1380724243 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\debug\exception.hpp
+	<stdexcept>
+
+1380729901 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\debug\logger.hpp
+	"Logger.hpp"
+	<iostream>
+
+1380722738 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\debug\exception.cpp
+	"Exception.hpp"
+
+1380724243 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\debug\cexception.hpp
+	<stdexcept>
+
+1380723495 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\debug\cexception.cpp
+	"CException.hpp"
+
+1380649210 e:\projects\video games\ongoing\iteration ii\iteration ii\/src\chronact\debug\logger.hpp
+	<iostream>
+
+1380729845 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\debug\logger.cpp
+
+1380724243 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\exception.hpp
+	<stdexcept>
+
+1380729901 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\logger.hpp
+	"Logger.hpp"
+	<iostream>
 

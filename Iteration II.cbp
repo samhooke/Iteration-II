@@ -14,6 +14,7 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-DSFML_STATIC" />
+					<Add option="-DDEBUG" />
 					<Add directory="C:/SFML-2.1/include" />
 				</Compiler>
 				<Linker>
@@ -49,6 +50,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add option="-DSFML_STATIC" />
@@ -63,14 +65,30 @@
 			<Add library="sfml-system-s" />
 			<Add directory="C:/SFML-2.1/lib" />
 		</Linker>
-		<Unit filename="Engine.cpp" />
-		<Unit filename="Engine.h" />
-		<Unit filename="Main.cpp" />
+		<Unit filename="src/Chronact/Chronact.cpp" />
+		<Unit filename="src/Chronact/Chronact.hpp" />
+		<Unit filename="src/Chronact/Debug/Exception.hpp" />
+		<Unit filename="src/Chronact/Debug/Logger.hpp" />
+		<Unit filename="src/Chronact/Graphics/TextureManager.cpp" />
+		<Unit filename="src/Chronact/Graphics/TextureManager.hpp" />
+		<Unit filename="src/Chronact/Graphics/Tile.cpp" />
+		<Unit filename="src/Chronact/Graphics/Tile.hpp" />
+		<Unit filename="src/Chronact/Objects/GameObject.hpp" />
+		<Unit filename="src/Main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
 			<debugger />
 			<lib_finder disable_auto="1" />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
