@@ -356,15 +356,14 @@
 1380641806 e:\projects\video games\ongoing\iteration ii\iteration ii\chronauto.hpp
 	<SFML\Graphics.hpp>
 
-1380826859 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.cpp
+1380829506 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.cpp
 	"Chronact.hpp"
+	"Logger.hpp"
 
-1380825984 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.hpp
+1380829570 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.hpp
 	<SFML/Graphics.hpp>
 	"Display.hpp"
 	"Exception.hpp"
-	"Logger.hpp"
-	"PRNG.hpp"
 
 1380649210 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\logger\logger.hpp
 	<iostream>
@@ -376,8 +375,9 @@
 	<vector>
 	<SFML\Graphics.hpp>
 
-1380730095 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\main.cpp
+1380828408 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\main.cpp
 	"Chronact/Chronact.hpp"
+	<iostream>
 
 1380647982 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\graphics\tile.cpp
 	"Tile.hpp"
@@ -423,10 +423,11 @@
 
 1380807724 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\level.hpp
 
-1380826843 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\display.hpp
+1380827455 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\display.hpp
 	<SFML/Graphics.hpp>
+	"Defs.hpp"
 
-1380826795 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\display.cpp
+1380827184 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\display.cpp
 	"Display.hpp"
 	"Tiles.hpp"
 	"Logger.hpp"
@@ -438,4 +439,6 @@
 
 1380825814 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\prng.cpp
 	"PRNG.hpp"
+
+1380829590 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\defs.hpp
 

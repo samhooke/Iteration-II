@@ -3,13 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#define DISPLAY_WIDTH 80
-#define DISPLAY_HEIGHT 35
-
-#define SPRITESHEET_COLS 16
-#define SPRITESHEET_ROWS 16
-#define SPRITESHEET_SPRITE_W 9
-#define SPRITESHEET_SPRITE_H 16
+#include "Defs.hpp"
 
 class Display {
 private:

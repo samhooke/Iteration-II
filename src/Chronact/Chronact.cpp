@@ -1,5 +1,7 @@
 #include "Chronact.hpp"
 
+#include "Logger.hpp"
+
 Chronact::Chronact() {
 }
 
@@ -45,6 +47,7 @@ void Chronact::Update() {
 void Chronact::MainLoop() {
     // Loop until our window is closed
     while (window->isOpen()) {
+        deltaTime = clock.restart();
         ProcessInput();
         Update();
         RenderFrame();
@@ -52,7 +55,7 @@ void Chronact::MainLoop() {
 }
 
 void Chronact::Go() {
-    LogInfo("Running Chronact engine");
+    printf("Running Chronact engine\n");
 
     if (!Init())
         throw EngineInitError();
