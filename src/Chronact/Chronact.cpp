@@ -39,11 +39,6 @@ void Chronact::ProcessInput() {
     }
 }
 
-void Chronact::Update() {
-    display->DrawBackground();
-    display->DrawTitle();
-}
-
 void Chronact::MainLoop() {
     // Loop until our window is closed
     while (window->isOpen()) {
@@ -61,4 +56,24 @@ void Chronact::Go() {
         throw EngineInitError();
 
     MainLoop();
+}
+
+void Chronact::Update() {
+    switch (room) {
+    case Room::Title:
+        RoomTitle();
+        break;
+    case Room::Blank:
+        RoomBlank();
+        break;
+    }
+}
+
+void Chronact::RoomTitle() {
+    display->DrawBackground();
+    display->DrawTitle();
+}
+
+void Chronact::RoomBlank() {
+    display->DrawBackground();
 }

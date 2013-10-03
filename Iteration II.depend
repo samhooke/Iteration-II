@@ -356,11 +356,11 @@
 1380641806 e:\projects\video games\ongoing\iteration ii\iteration ii\chronauto.hpp
 	<SFML\Graphics.hpp>
 
-1380835286 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.cpp
+1380840521 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.cpp
 	"Chronact.hpp"
 	"Logger.hpp"
 
-1380835501 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.hpp
+1380841195 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\chronact.hpp
 	<SFML/Graphics.hpp>
 	"Display.hpp"
 	"Exception.hpp"
@@ -442,16 +442,20 @@
 
 1380829590 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\defs.hpp
 
-1380834679 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\rooms.cpp
+1380839074 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\rooms.cpp
 	"Rooms.hpp"
+	<stdio.h>
 
-1380834634 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\rooms.hpp
+1380839065 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\rooms.hpp
 	"RoomsBase.hpp"
 
 1380833042 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\roommanager.hpp
 
-1380835442 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\roomsbase.hpp
+1380839618 e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\roomsbase.hpp
+	<vector>
 
-1380835373 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\roomsbase.cpp
+1380838820 source:e:\projects\video games\ongoing\iteration ii\iteration ii\src\chronact\roomsbase.cpp
 	"RoomsBase.hpp"
+	"Rooms.hpp"
+	<stdio.h>
 

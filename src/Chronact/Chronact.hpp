@@ -15,6 +15,7 @@ private:
     sf::Clock clock;
     sf::Time deltaTime; // Use .asSeconds() to convert to float
 
+    // ASCII display
     Display* display;
 
     bool Init();
@@ -23,6 +24,12 @@ private:
     void ProcessInput();
     void Update();
 
+    // Room definitions
+    enum class Room {Title, Blank};
+    Room room = Room::Title;
+
+    void RoomTitle();
+    void RoomBlank();
 public:
     Chronact();
     ~Chronact();
