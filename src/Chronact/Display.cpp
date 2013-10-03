@@ -7,12 +7,13 @@ Display::Display() {
     LoadGraphics();
     SetAll(TILE_BLANK);
     WriteText(1, 0, "Hello, world!", 4, 4);
-    WriteText(0, 4, "11111 11111 11111 11111"
-                    "  1   1     1       1  "
-                    "  1   11111 11111   1  "
-                    "  1   1         1   1  "
-                    "  1   11111 11111   1  "
-                    ,23, 5, TILE_FADE_DARK);
+    int mask[] = {TILE_FADE_DARK, TILE_FADE_MIDDLE, TILE_FADE_LIGHT};
+    WriteText(0, 4, "12112 11211 12111 11112"
+                    "  2   2     2       2  "
+                    "  2   12112 32123   3  "
+                    "  3   2         2   2  "
+                    "  3   32323 32333   3  "
+                    ,23, 5, mask);
 }
 
 void Display::LoadGraphics() {
@@ -41,7 +42,7 @@ void Display::SetAll(int c) {
 }
 
 // Writes text to the display, starting at position x, y.
-void Display::WriteText(int x, int y, char* text, int maxCharsPerRow, int maxRows, int mask) {
+void Display::WriteText(int x, int y, char* text, int maxCharsPerRow, int maxRows, int mask[]) {
     int charsThisLine = 0, rowsDropped = 0;
     for (int i = 0;; i++) {
 
@@ -66,13 +67,13 @@ void Display::WriteText(int x, int y, char* text, int maxCharsPerRow, int maxRow
         }
 
         // Update the display
-        if (mask < 0) {
+        if (!mask) {
             // If no mask is supplied, simply write the matching character from `text`
             tile[x + charsThisLine][y + rowsDropped] = (int)text[i];
         } else {
             // If a mask is supplied, whenever there is a `1`, write the mask character
-            if (text[i] == '1')
-                tile[x + charsThisLine][y + rowsDropped] = mask;
+            if (text[i] >= TILE_1 && text[1] <= TILE_9)
+                tile[x + charsThisLine][y + rowsDropped] = mask[text[i] - TILE_1];
         }
         charsThisLine++;
     }
