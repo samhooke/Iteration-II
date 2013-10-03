@@ -27,6 +27,9 @@ public:
 
     void WriteText(int x, int y, char* text, int maxCharsPerRow = -1, int maxRows = -1, int mask[] = NULL);
 
+    void DrawBackground();
+    void DrawTitle();
+
     void Render(sf::RenderWindow* window);
 
     int GetPixelWidth();

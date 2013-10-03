@@ -2,18 +2,13 @@
 
 #include "Tiles.hpp"
 #include "Logger.hpp"
+#include "PRNG.hpp"
 
 Display::Display() {
     LoadGraphics();
     SetAll(TILE_BLANK);
-    WriteText(1, 0, "Hello, world!", 4, 4);
-    int mask[] = {TILE_FADE_DARK, TILE_FADE_MIDDLE, TILE_FADE_LIGHT};
-    WriteText(0, 4, "12112 11211 12111 11112"
-                    "  2   2     2       2  "
-                    "  2   12112 32123   3  "
-                    "  3   2         2   2  "
-                    "  3   32323 32333   3  "
-                    ,23, 5, mask);
+    DrawBackground();
+    DrawTitle();
 }
 
 void Display::LoadGraphics() {
@@ -28,6 +23,33 @@ void Display::LoadGraphics() {
             tileSprites[index].setTextureRect(sf::IntRect(x * SPRITESHEET_SPRITE_W, y * SPRITESHEET_SPRITE_H, SPRITESHEET_SPRITE_W, SPRITESHEET_SPRITE_H));
         }
     }
+}
+
+void Display::DrawBackground() {
+    char background[DISPLAY_WIDTH * DISPLAY_HEIGHT];
+    for (int i = 0; i < DISPLAY_WIDTH * DISPLAY_HEIGHT; i++) {
+        if (badRand(0, 300) == 0)
+            background[i] = TILE_0 + badRand(1, 9);
+        else
+            background[i] = ' ';
+    }
+    int mask[] = {TILE_BLANK, TILE_FULLSTOP, TILE_DIAMOND, TILE_CARET, TILE_COMMA, TILE_DOT_SOLID, TILE_DOT_OUTLINE, TILE_APOSTROPHE, TILE_ASTERISK};
+    WriteText(0, 0, background, DISPLAY_WIDTH, DISPLAY_HEIGHT, mask);
+}
+
+void Display::DrawTitle() {
+    int mask[] = {TILE_FADE_DARK, TILE_FADE_MIDDLE, TILE_FADE_LIGHT};
+    WriteText(4, 4, "1111111 1111111 1111111 111111   111111  1111111 1111111  11111  11   11"
+                    "1111111 1111111 1111111 1111111 11111111 1111111 1111111 1111111 11   11"
+                    "  111     111   111     11   11 11    11   111     111   11   11 111  11"
+                    "  111     111   111     11   11 11    11   111     111   11   11 1111 11"
+                    "  111     111   1111111 111111  11111111   111     111   11   11 1111111"
+                    "  111     111   1111111 111111  11111111   111     111   11   11 1111111"
+                    "  111     111   111     11   11 111  111   111     111   11   11 11 1111"
+                    "  111     111   111     11   11 11    11   111     111   11   11 11  111"
+                    "1111111   111   1111111 11   11 11    11   111   1111111 1111111 11   11"
+                    "1111111   111   1111111 11   11 11    11   111   1111111  11111  11   11"
+                    ,72, 10, mask);
 }
 
 Display::~Display() {

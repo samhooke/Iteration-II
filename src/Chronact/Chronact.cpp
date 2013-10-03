@@ -38,6 +38,8 @@ void Chronact::ProcessInput() {
 }
 
 void Chronact::Update() {
+    display->DrawBackground();
+    display->DrawTitle();
 }
 
 void Chronact::MainLoop() {

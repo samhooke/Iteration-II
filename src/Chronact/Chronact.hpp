@@ -6,6 +6,7 @@
 #include "Display.hpp"
 #include "Exception.hpp"
 #include "Logger.hpp"
+#include "PRNG.hpp"
 
 class Chronact
 {
