@@ -5,9 +5,9 @@
 
 #include "Display.hpp"
 #include "Exception.hpp"
+#include "Rooms.hpp"
 
-class Chronact
-{
+class Chronact {
 private:
     // SFML Render Window
     sf::RenderWindow* window;
@@ -15,6 +15,8 @@ private:
     // Time functions
     sf::Clock clock;
     sf::Time deltaTime; // Use .asSeconds() to convert to float
+
+    Room* currentRoom;
 
     Display* display;
 
