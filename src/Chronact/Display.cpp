@@ -66,9 +66,8 @@ void Display::WriteText(int x, int y, char* text, int maxCharsPerRow, int maxRow
 }
 
 void Display::Render(sf::RenderWindow* window) {
-    int x, y;
-    for (y = 0; y < DISPLAY_HEIGHT; y++) {
-        for (x = 0; x < DISPLAY_WIDTH; x++) {
+    for (int y = 0; y < DISPLAY_HEIGHT; y++) {
+        for (int x = 0; x < DISPLAY_WIDTH; x++) {
             int index = tile[x][y];
             tileSprites[index].setPosition(x * SPRITESHEET_SPRITE_W, y * SPRITESHEET_SPRITE_H);
             window->draw(tileSprites[index]);

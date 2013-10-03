@@ -5,6 +5,7 @@ Chronact::Chronact() {
 
 Chronact::~Chronact() {
     // Clear used resources
+    delete display;
     delete window;
 }
 
@@ -18,7 +19,6 @@ bool Chronact::Init() {
 
     return true;
 }
-
 
 void Chronact::RenderFrame() {
     window->clear();
@@ -50,10 +50,10 @@ void Chronact::MainLoop() {
 }
 
 void Chronact::Go() {
+    LogInfo("Running Chronact engine");
 
     if (!Init())
         throw EngineInitError();
 
-    LogInfo("Running Chronact engine");
     MainLoop();
 }
