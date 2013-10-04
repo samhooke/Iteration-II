@@ -21,8 +21,8 @@ void Display::LoadGraphics() {
             int index = x + y * SPRITESHEET_COLS;
             tileSprites[index].setTexture(tileSet, true);
             tileSprites[index].setTextureRect(sf::IntRect(x * SPRITESHEET_SPRITE_W, y * SPRITESHEET_SPRITE_H, SPRITESHEET_SPRITE_W, SPRITESHEET_SPRITE_H));
-            tileSprites[index].setColor(sf::Color(0, 127, 0));
-            //tileSprites[index].setColor(sf::Color(0, badRand(0, 255), 0));
+            //tileSprites[index].setColor(sf::Color(0, 127, 0));
+            tileSprites[index].setColor(sf::Color(0, badRand(0, 255), 0));
         }
     }
 }
@@ -56,8 +56,7 @@ void Display::DrawTitle() {
         if (title[i] == '\0')
             break;
         if (i % 72 == 0) {
-            if (badRand(0, 2) == 0)
-                darkLine = true;
+            darkLine = (badRand(0, 2) == 0);
         }
         if (darkLine) {
             if (title[i] == '1')
@@ -74,7 +73,7 @@ void Display::DrawTitle() {
 
     WriteText(4, 4, (char*)title, 72, 10, mask);
 
-    WriteText(4, 4 + 10 + 2, "Awaiting command...");
+    //WriteText(4, 4 + 10 + 2, "Awaiting command...");
 }
 
 Display::~Display() {

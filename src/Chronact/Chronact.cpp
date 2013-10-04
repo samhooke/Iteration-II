@@ -28,7 +28,7 @@ Chronact::~Chronact() {
 
 bool Chronact::Init() {
     display = new Display();
-    window = new sf::RenderWindow(sf::VideoMode(display->GetPixelWidth(), display->GetPixelHeight(), 32), "Iteration II");
+    window = new sf::RenderWindow(sf::VideoMode(display->GetPixelWidth(), display->GetPixelHeight(), 32), "Iteration II", sf::Style::Default); // ::Close to disable resizing
 
     // Verify the window was created
     if (!window)
