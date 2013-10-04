@@ -10,11 +10,15 @@ private:
     int width;
     int height;
     int tile[DISPLAY_WIDTH][DISPLAY_HEIGHT];
+    sf::RenderTexture surface;
     sf::Texture tileSet;
     sf::Sprite tileSprites[SPRITESHEET_COLS * SPRITESHEET_ROWS];
     void LoadGraphics();
 
     sf::Shader shader;
+
+    void RenderTilesToSurface();
+    void RenderSurfaceToWindow(sf::RenderWindow* window);
 public:
     Display();
     ~Display();

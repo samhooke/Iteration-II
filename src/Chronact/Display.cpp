@@ -32,6 +32,11 @@ Display::Display() {
 }
 
 void Display::LoadGraphics() {
+    // Create rendering surface
+    if (!surface.create(GetPixelWidth(), GetPixelHeight())) {
+        throw std::runtime_error("Could not create drawing surface");
+    }
+
     // Load the texture
     tileSet.loadFromFile(SPRITESHEET_FILENAME);
 
@@ -50,7 +55,7 @@ void Display::LoadGraphics() {
     if (!shader.loadFromMemory(shaderFragBlur, sf::Shader::Fragment)) {
         throw std::runtime_error("Could not load shader from memory: shaderFragBlur");
     }
-    float blurRadius = 0.01f;
+    float blurRadius = 0.003f;
     shader.setParameter("blur_radius", blurRadius);
 }
 
@@ -171,13 +176,27 @@ void Display::WriteText(int x, int y, char* text, int maxCharsPerRow, int maxRow
 }
 
 void Display::Render(sf::RenderWindow* window) {
+    RenderTilesToSurface();
+    RenderSurfaceToWindow(window);
+}
+
+void Display::RenderTilesToSurface() {
     for (int y = 0; y < DISPLAY_HEIGHT; y++) {
         for (int x = 0; x < DISPLAY_WIDTH; x++) {
             int index = tile[x][y];
             tileSprites[index].setPosition(x * SPRITESHEET_SPRITE_W, y * SPRITESHEET_SPRITE_H);
-            window->draw(tileSprites[index], &shader);
+            surface.draw(tileSprites[index]);
         }
     }
+}
+
+void Display::RenderSurfaceToWindow(sf::RenderWindow* window) {
+    // Render the surface to the window
+    sf::Sprite surfaceSprite(surface.getTexture());
+    surfaceSprite.setOrigin(GetPixelWidth()/2, GetPixelHeight()/2);
+    surfaceSprite.setPosition(GetPixelWidth()/2, GetPixelHeight()/2);
+    surfaceSprite.setScale(1.0f, -1.0f);
+    window->draw(surfaceSprite, &shader);
 }
 
 int Display::GetPixelWidth() {
