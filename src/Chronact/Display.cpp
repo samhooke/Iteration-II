@@ -4,6 +4,28 @@
 #include "Logger.hpp"
 #include "PRNG.hpp"
 
+const std::string shaderFragBlur = \
+"uniform sampler2D texture;"\
+"uniform float blur_radius;"\
+""\
+"void main()"\
+"{"\
+" 	vec2 offx = vec2(blur_radius, 0.0);"\
+"	vec2 offy = vec2(0.0, blur_radius);"\
+""\
+"	vec4 pixel = texture2D(texture, gl_TexCoord[0].xy)               * 4.0 +"\
+"                 texture2D(texture, gl_TexCoord[0].xy - offx)        * 2.0 +"\
+"                 texture2D(texture, gl_TexCoord[0].xy + offx)        * 2.0 +"\
+"                 texture2D(texture, gl_TexCoord[0].xy - offy)        * 2.0 +"\
+"                 texture2D(texture, gl_TexCoord[0].xy + offy)        * 2.0 +"\
+"                 texture2D(texture, gl_TexCoord[0].xy - offx - offy) * 1.0 +"\
+"                 texture2D(texture, gl_TexCoord[0].xy - offx + offy) * 1.0 +"\
+"                 texture2D(texture, gl_TexCoord[0].xy + offx - offy) * 1.0 +"\
+"                 texture2D(texture, gl_TexCoord[0].xy + offx + offy) * 1.0;"\
+""\
+"	gl_FragColor =  gl_Color * (pixel / 16.0);"\
+"}";
+
 Display::Display() {
     LoadGraphics();
     SetAll(TILE_BLANK);
@@ -23,6 +45,13 @@ void Display::LoadGraphics() {
             tileSprites[index].setColor(sf::Color(0, badRand(0, 255), 0));
         }
     }
+
+    // Load shader
+    if (!shader.loadFromMemory(shaderFragBlur, sf::Shader::Fragment)) {
+        throw std::runtime_error("Could not load shader from memory: shaderFragBlur");
+    }
+    float blurRadius = 0.01f;
+    shader.setParameter("blur_radius", blurRadius);
 }
 
 void Display::DrawBackground() {
@@ -146,7 +175,7 @@ void Display::Render(sf::RenderWindow* window) {
         for (int x = 0; x < DISPLAY_WIDTH; x++) {
             int index = tile[x][y];
             tileSprites[index].setPosition(x * SPRITESHEET_SPRITE_W, y * SPRITESHEET_SPRITE_H);
-            window->draw(tileSprites[index]);
+            window->draw(tileSprites[index], &shader);
         }
     }
 }

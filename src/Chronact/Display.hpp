@@ -13,6 +13,8 @@ private:
     sf::Texture tileSet;
     sf::Sprite tileSprites[SPRITESHEET_COLS * SPRITESHEET_ROWS];
     void LoadGraphics();
+
+    sf::Shader shader;
 public:
     Display();
     ~Display();
