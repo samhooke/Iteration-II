@@ -67,10 +67,14 @@
 		</Linker>
 		<Unit filename="src/Chronact/Chronact.cpp" />
 		<Unit filename="src/Chronact/Chronact.hpp" />
+		<Unit filename="src/Chronact/Defs.hpp" />
 		<Unit filename="src/Chronact/Display.cpp" />
 		<Unit filename="src/Chronact/Display.hpp" />
 		<Unit filename="src/Chronact/Exception.hpp" />
 		<Unit filename="src/Chronact/Logger.hpp" />
+		<Unit filename="src/Chronact/PRNG.cpp" />
+		<Unit filename="src/Chronact/PRNG.hpp" />
+		<Unit filename="src/Chronact/Tiles.hpp" />
 		<Unit filename="src/Main.cpp" />
 		<Extensions>
 			<code_completion />

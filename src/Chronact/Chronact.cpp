@@ -110,7 +110,7 @@ void Chronact::RoomTitle(RoomEvent roomEvent) {
     case RoomEvent::Update:
         timeSinceLastDraw += deltaTime.asSeconds();
         if (timeSinceLastDraw > (float)1/60) {
-            display->DrawBackground();
+            //display->DrawBackground();
             display->DrawTitle();
             timeSinceLastDraw = 0;
         }
