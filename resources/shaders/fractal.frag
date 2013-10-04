@@ -9,7 +9,8 @@ varying vec2 surfacePosition;
 
 void main( void ) {
 
-	vec2 position = surfacePosition;//-1.0+2.0*( gl_FragCoord.xy / resolution.xy );
+	//vec2 position = surfacePosition;
+	vec2 position = -1.0+2.0*( gl_FragCoord.xy / resolution.xy );
 
 	vec4 c = vec4(1);
 	vec2 p = position;

@@ -21,7 +21,7 @@
 #define SHADER_VERT_STORM    SHADER_DIR "storm.vert"
 #define SHADER_VERT_WAVE     SHADER_DIR "wave.vert"
 
-#define SHADER_FRAG_FRACTAL  SHADER_DIR "fractal.frag" // Just outputs black. Perhaps not found right parameters?
+#define SHADER_FRAG_FRACTAL  SHADER_DIR "fractal.frag"
 #define SHADER_FRAG_COLOURS  SHADER_DIR "colours.frag"
 #define SHADER_FRAG_VLAD     SHADER_DIR "vlad.frag"
 

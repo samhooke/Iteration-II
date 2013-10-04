@@ -30,8 +30,8 @@ void Display::LoadGraphics() {
     }
 
     // Load shader
-    if (!shader.loadFromFile(SHADER_FRAG_VLAD, sf::Shader::Fragment)) {
-        throw std::runtime_error("Could not load shader from file: SHADER_FRAG_VLAD");
+    if (!shader.loadFromFile(SHADER_FRAG_FRACTAL, sf::Shader::Fragment)) {
+        throw std::runtime_error("Could not load shader from file: SHADER_FRAG_FRACTAL");
     }
     //float blurRadius = 0.003f;
     //shader.setParameter("blur_radius", blurRadius);
