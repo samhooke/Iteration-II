@@ -27,6 +27,10 @@ Chronact::~Chronact() {
 }
 
 bool Chronact::Init() {
+    // Start the game clock
+    gameClock.restart();
+
+    // Create graphical interfaces
     display = new Display();
     window = new sf::RenderWindow(sf::VideoMode(display->GetPixelWidth(), display->GetPixelHeight(), 32), "Iteration II", sf::Style::Default); // ::Close to disable resizing
 
@@ -39,7 +43,7 @@ bool Chronact::Init() {
 
 void Chronact::RenderFrame() {
     window->clear();
-    display->Render(window);
+    display->Render(window, &gameClock);
     window->display();
 }
 
@@ -57,7 +61,7 @@ void Chronact::ProcessInput() {
 void Chronact::MainLoop() {
     // Loop until our window is closed
     while (window->isOpen()) {
-        deltaTime = clock.restart();
+        deltaTime = deltaClock.restart();
         ProcessInput();
         Update();
         Pause();

@@ -30,11 +30,17 @@ void Display::LoadGraphics() {
     }
 
     // Load shader
-    if (!shader.loadFromFile(SHADER_FRAG_BLUR, sf::Shader::Fragment)) {
-        throw std::runtime_error("Could not load shader from file: SHADER_FRAG_BLUR");
+    if (!shader.loadFromFile(SHADER_FRAG_VLAD, sf::Shader::Fragment)) {
+        throw std::runtime_error("Could not load shader from file: SHADER_FRAG_VLAD");
     }
-    float blurRadius = 0.003f;
-    shader.setParameter("blur_radius", blurRadius);
+    //float blurRadius = 0.003f;
+    //shader.setParameter("blur_radius", blurRadius);
+    //shader.setParameter("wave_phase", 0);
+    //shader.setParameter("wave_amplitude", 40, 40);
+    shader.setParameter("mouse", 1, 100);
+    //shader.setParameter("time", 100.0f);
+    //shader.setParameter("surfacePosition", 0, 0);
+    //shader.setParameter("resolution", GetPixelWidth(), GetPixelHeight());
 }
 
 void Display::DrawBackground() {
@@ -153,9 +159,9 @@ void Display::WriteText(int x, int y, char* text, int maxCharsPerRow, int maxRow
     }
 }
 
-void Display::Render(sf::RenderWindow* window) {
+void Display::Render(sf::RenderWindow* window, sf::Clock* gameClock) {
     RenderTilesToSurface();
-    RenderSurfaceToWindow(window);
+    RenderSurfaceToWindow(window, gameClock);
 }
 
 void Display::RenderTilesToSurface() {
@@ -168,13 +174,20 @@ void Display::RenderTilesToSurface() {
     }
 }
 
-void Display::RenderSurfaceToWindow(sf::RenderWindow* window) {
+void Display::RenderSurfaceToWindow(sf::RenderWindow* window, sf::Clock* gameClock) {
     // Render the surface to the window
     sf::Sprite surfaceSprite(surface.getTexture());
     surfaceSprite.setOrigin(GetPixelWidth()/2, GetPixelHeight()/2);
     surfaceSprite.setPosition(GetPixelWidth()/2, GetPixelHeight()/2);
     surfaceSprite.setScale(1.0f, -1.0f);
     window->draw(surfaceSprite, &shader);
+
+    sf::Vector2i mousePos = sf::Mouse::getPosition();
+
+    float t = (gameClock->getElapsedTime()).asSeconds();
+    shader.setParameter("time", t);
+    shader.setParameter("mouse", mousePos.x/(float)GetPixelWidth(), mousePos.y/(float)GetPixelHeight());
+    shader.setParameter("resolution", GetPixelWidth(), GetPixelHeight());
 }
 
 int Display::GetPixelWidth() {

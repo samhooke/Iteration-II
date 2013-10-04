@@ -12,7 +12,8 @@ private:
     sf::RenderWindow* window;
 
     // Time functions
-    sf::Clock clock;
+    sf::Clock gameClock;
+    sf::Clock deltaClock;
     sf::Time deltaTime; // Use .asSeconds() to convert to float
 
     // ASCII display

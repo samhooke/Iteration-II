@@ -18,7 +18,7 @@ private:
     sf::Shader shader;
 
     void RenderTilesToSurface();
-    void RenderSurfaceToWindow(sf::RenderWindow* window);
+    void RenderSurfaceToWindow(sf::RenderWindow* window, sf::Clock* gameClock);
 public:
     Display();
     ~Display();
@@ -30,7 +30,7 @@ public:
     void DrawBackground();
     void DrawTitle();
 
-    void Render(sf::RenderWindow* window);
+    void Render(sf::RenderWindow* window, sf::Clock* gameClock);
 
     int GetPixelWidth();
     int GetPixelHeight();
