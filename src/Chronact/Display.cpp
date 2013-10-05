@@ -12,7 +12,10 @@ Display::Display() {
 void Display::LoadGraphics() {
     // Create rendering surface
     if (!surface.create(GetPixelWidth(), GetPixelHeight())) {
-        throw std::runtime_error("Could not create drawing surface");
+        throw std::runtime_error("Could not create surface.");
+    }
+    if (!effects.create(GetPixelWidth(), GetPixelHeight())) {
+        throw std::runtime_error("Could not create effects.");
     }
 
     // Load the texture
@@ -30,8 +33,8 @@ void Display::LoadGraphics() {
     }
 
     // Load shader
-    if (!shader.loadFromFile(SHADER_FRAG_FRACTAL, sf::Shader::Fragment)) {
-        throw std::runtime_error("Could not load shader from file: SHADER_FRAG_FRACTAL");
+    if (!shader.loadFromFile(SHADER_FRAG_REAKTOR2, sf::Shader::Fragment)) {
+        throw std::runtime_error("Could not load shader from file: SHADER_FRAG_REAKTOR2");
     }
     //float blurRadius = 0.003f;
     //shader.setParameter("blur_radius", blurRadius);
@@ -180,14 +183,18 @@ void Display::RenderSurfaceToWindow(sf::RenderWindow* window, sf::Clock* gameClo
     surfaceSprite.setOrigin(GetPixelWidth()/2, GetPixelHeight()/2);
     surfaceSprite.setPosition(GetPixelWidth()/2, GetPixelHeight()/2);
     surfaceSprite.setScale(1.0f, -1.0f);
-    window->draw(surfaceSprite, &shader);
+    window->draw(surfaceSprite);
 
+    // Render the effects on top
     sf::Vector2i mousePos = sf::Mouse::getPosition();
-
     float t = (gameClock->getElapsedTime()).asSeconds();
     shader.setParameter("time", t);
-    shader.setParameter("mouse", mousePos.x/(float)GetPixelWidth(), mousePos.y/(float)GetPixelHeight());
+    shader.setParameter("mouse", mousePos.x/(float)GetPixelWidth(), mousePos.y/(float)GetPixelHeight() * 4);
     shader.setParameter("resolution", GetPixelWidth(), GetPixelHeight());
+    shader.setParameter("alpha", 0.8f);
+
+    sf::Sprite effectsSprite(effects.getTexture());
+    window->draw(effectsSprite, &shader);
 }
 
 int Display::GetPixelWidth() {

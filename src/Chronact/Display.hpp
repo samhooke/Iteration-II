@@ -11,6 +11,7 @@ private:
     int height;
     int tile[DISPLAY_WIDTH][DISPLAY_HEIGHT];
     sf::RenderTexture surface;
+    sf::RenderTexture effects;
     sf::Texture tileSet;
     sf::Sprite tileSprites[SPRITESHEET_COLS * SPRITESHEET_ROWS];
     void LoadGraphics();
