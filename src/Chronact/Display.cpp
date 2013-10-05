@@ -10,12 +10,15 @@ Display::Display() {
 }
 
 void Display::LoadGraphics() {
-    // Create rendering surface
+    // Create rendering surfaces
     if (!surface.create(GetPixelWidth(), GetPixelHeight())) {
         throw std::runtime_error("Could not create surface.");
     }
     if (!effects.create(GetPixelWidth(), GetPixelHeight())) {
         throw std::runtime_error("Could not create effects.");
+    }
+    if (!effects2.create(GetPixelWidth(), GetPixelHeight())) {
+        throw std::runtime_error("Could not create effects2.");
     }
 
     // Load the texture
@@ -36,11 +39,16 @@ void Display::LoadGraphics() {
     if (!shader.loadFromFile(SHADER_FRAG_REAKTOR2, sf::Shader::Fragment)) {
         throw std::runtime_error("Could not load shader from file: SHADER_FRAG_REAKTOR2");
     }
+
+    if (!shader2.loadFromFile(SHADER_FRAG_MONITOR, sf::Shader::Fragment)) {
+        throw std::runtime_error("Could not load shader from file: SHADER_FRAG_MONITOR");
+    }
+
     //float blurRadius = 0.003f;
     //shader.setParameter("blur_radius", blurRadius);
     //shader.setParameter("wave_phase", 0);
     //shader.setParameter("wave_amplitude", 40, 40);
-    shader.setParameter("mouse", 1, 100);
+    //shader.setParameter("mouse", 1, 100);
     //shader.setParameter("time", 100.0f);
     //shader.setParameter("surfacePosition", 0, 0);
     //shader.setParameter("resolution", GetPixelWidth(), GetPixelHeight());
@@ -185,13 +193,22 @@ void Display::RenderSurfaceToWindow(sf::RenderWindow* window, sf::Clock* gameClo
     surfaceSprite.setScale(1.0f, -1.0f);
     window->draw(surfaceSprite);
 
-    // Render the effects on top
+    // Shader time
     sf::Vector2i mousePos = sf::Mouse::getPosition();
     float t = (gameClock->getElapsedTime()).asSeconds();
+
+    // Render the monitor effects on top
+    shader2.setParameter("time", t);
+    shader2.setParameter("alpha", 0.4f);
+
+    sf::Sprite monitorSprite(effects2.getTexture());
+    window->draw(monitorSprite, &shader2);
+
+    // Render the title effects on top of that
     shader.setParameter("time", t);
-    shader.setParameter("mouse", mousePos.x/(float)GetPixelWidth(), mousePos.y/(float)GetPixelHeight() * 4);
+    //shader.setParameter("mouse", mousePos.x/(float)GetPixelWidth(), mousePos.y/(float)GetPixelHeight() * 4);
     shader.setParameter("resolution", GetPixelWidth(), GetPixelHeight());
-    shader.setParameter("alpha", 0.8f);
+    //shader.setParameter("alpha", 0.8f);
 
     sf::Sprite effectsSprite(effects.getTexture());
     window->draw(effectsSprite, &shader);
