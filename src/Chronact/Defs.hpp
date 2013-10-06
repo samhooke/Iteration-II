@@ -30,6 +30,7 @@
 #define SHADER_FRAG_REAKTOR2 SHADER_DIR "reaktor2.frag" // wavy retro blue text "Iteration II" w/o background
 #define SHADER_FRAG_MONITOR  SHADER_DIR "monitor.frag" // horizontal green lines background
 #define SHADER_FRAG_MONITOR2 SHADER_DIR "monitor2.frag" // green glow and scanlines (written by me!)
+#define SHADER_FRAG_MONITOR3 SHADER_DIR "monitor3.frag" // combination of monitor2.frag and fractal2.frag, edited to work well
 
 // Spritesheet info
 #define SPRITESHEET_FILENAME "resources/tiles.png"

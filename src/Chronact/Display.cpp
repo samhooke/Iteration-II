@@ -31,7 +31,8 @@ void Display::LoadGraphics() {
             tileSprites[index].setTexture(tileSet, true);
             tileSprites[index].setTextureRect(sf::IntRect(x * SPRITESHEET_SPRITE_W, y * SPRITESHEET_SPRITE_H, SPRITESHEET_SPRITE_W, SPRITESHEET_SPRITE_H));
             //tileSprites[index].setColor(sf::Color(0, 127, 0));
-            tileSprites[index].setColor(sf::Color(0, badRand(0, 255), 0));
+            //tileSprites[index].setColor(sf::Color(0, badRand(0, 255), 0));
+            tileSprites[index].setColor(sf::Color(0, badRand(224, 255), 0));
         }
     }
 
@@ -40,8 +41,8 @@ void Display::LoadGraphics() {
         throw std::runtime_error("Could not load shader from file: SHADER_FRAG_REAKTOR2");
     }
 
-    if (!shader2.loadFromFile(SHADER_FRAG_FRACTAL2, sf::Shader::Fragment)) {
-        throw std::runtime_error("Could not load shader from file: SHADER_FRAG_FRACTAL2");
+    if (!shader2.loadFromFile(SHADER_FRAG_MONITOR3, sf::Shader::Fragment)) {
+        throw std::runtime_error("Could not load shader from file: SHADER_FRAG_MONITOR3");
     }
 
     //float blurRadius = 0.003f;
@@ -57,13 +58,18 @@ void Display::LoadGraphics() {
 void Display::DrawBackground() {
     char background[DISPLAY_WIDTH * DISPLAY_HEIGHT];
     for (int i = 0; i < DISPLAY_WIDTH * DISPLAY_HEIGHT; i++) {
-        if (badRand(0, 300) == 0)
+        if (badRand(0, 200) == 0)
             background[i] = TILE_0 + badRand(1, 9);
+        else if (badRand(0, 100) < 3)
+            background[i] = TILE_1;
         else
             background[i] = ' ';
+        background[i] = ' ';
     }
     int mask[] = {TILE_BLANK, TILE_FULLSTOP, TILE_DIAMOND, TILE_CARET, TILE_COMMA, TILE_DOT_SOLID, TILE_DOT_OUTLINE, TILE_APOSTROPHE, TILE_ASTERISK};
     WriteText(0, 0, background, DISPLAY_WIDTH, DISPLAY_HEIGHT, mask);
+
+    WriteText(2, 2, "Begin launch sequence");
 }
 
 void Display::DrawTitle() {
@@ -203,7 +209,8 @@ void Display::RenderSurfaceToWindow(sf::RenderWindow* window, sf::Clock* gameClo
     //shader2.setParameter("alpha", 0.4f);
     shader2.setParameter("resolution", windowSize.x, windowSize.y);
     shader2.setParameter("mouse", mousePos.x/(float)GetPixelWidth(), mousePos.y/(float)GetPixelHeight());
-    shader2.setParameter("alpha", 0.3);
+    shader2.setParameter("alpha", 0.2);
+    shader2.setParameter("time", t);
 
     sf::Sprite monitorSprite(effects2.getTexture());
     window->draw(monitorSprite, &shader2);
