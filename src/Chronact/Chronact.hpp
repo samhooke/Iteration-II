@@ -19,6 +19,10 @@ private:
     // ASCII display
     Display* display;
 
+    void ReadConfig();
+
+    bool useShaders;
+
     bool Init();
     void MainLoop();
     void RenderFrame();

@@ -1,5 +1,7 @@
 #include "Chronact.hpp"
 
+#include <string>
+#include <fstream>
 #include "Logger.hpp"
 #include "Defs.hpp"
 
@@ -31,7 +33,7 @@ bool Chronact::Init() {
     gameClock.restart();
 
     // Create graphical interfaces
-    display = new Display();
+    display = new Display(useShaders);
     window = new sf::RenderWindow(sf::VideoMode(display->GetPixelWidth(), display->GetPixelHeight(), 32), "Iteration II", sf::Style::Default); // ::Close to disable resizing
 
     // Verify the window was created
@@ -70,6 +72,10 @@ void Chronact::MainLoop() {
 }
 
 void Chronact::Go() {
+    printf("Reading config.txt file\n");
+
+    ReadConfig();
+
     printf("Running Chronact engine\n");
 
     if (!Init())
@@ -79,6 +85,31 @@ void Chronact::Go() {
     RoomStart();
 
     MainLoop();
+}
+
+void Chronact::ReadConfig() {
+
+    // Set defaults
+    useShaders = true;
+
+    // Attempt to read file
+    std::string line;
+    std::ifstream myfile(CONFIG_FILENAME);
+    if (myfile.is_open()) {
+        while (getline(myfile, line)) {
+            if (line == "shaders=no")
+                useShaders = false;
+        }
+        myfile.close();
+    } else {
+        printf("Cannot open config.txt: reverting to defaults\n");
+    }
+
+    // Print out chosen configuration settings
+    if (useShaders)
+        printf("Shaders enabled\n");
+    else
+        printf("Shaders disabled\n");
 }
 
 void Chronact::Update() {

@@ -4,19 +4,18 @@
 #include "Logger.hpp"
 #include "PRNG.hpp"
 
-Display::Display() {
+Display::Display(bool useShaders) {
+    shadersEnabled = useShaders;
     LoadGraphics();
     SetAll(TILE_BLANK);
 }
 
 void Display::LoadGraphics() {
-    // Create rendering surfaces
+    // Create rendering surface
     if (!surface.create(GetPixelWidth(), GetPixelHeight())) {
         throw std::runtime_error("Could not create surface.");
     }
-    if (!effects.create(GetPixelWidth(), GetPixelHeight())) {
-        throw std::runtime_error("Could not create effects.");
-    }
+
 
     // Load the texture
     tileSet.loadFromFile(SPRITESHEET_FILENAME);
@@ -31,9 +30,16 @@ void Display::LoadGraphics() {
         }
     }
 
-    // Load shader
-    if (!shader.loadFromFile(SHADER_FRAG_MONITOR3, sf::Shader::Fragment)) {
-        throw std::runtime_error("Could not load shader from file: SHADER_FRAG_MONITOR3");
+    if (shadersEnabled) {
+        // Create surface for shader
+        if (!effects.create(GetPixelWidth(), GetPixelHeight())) {
+            throw std::runtime_error("Could not create effects.");
+        }
+
+        // Load shader
+        if (!shader.loadFromFile(SHADER_FRAG_MONITOR3, sf::Shader::Fragment)) {
+            throw std::runtime_error("Could not load shader from file: SHADER_FRAG_MONITOR3");
+        }
     }
 }
 
@@ -153,22 +159,23 @@ void Display::RenderSurfaceToWindow(sf::RenderWindow* window, sf::Clock* gameClo
     surfaceSprite.setScale(1.0f, -1.0f);
     window->draw(surfaceSprite);
 
-    // Shader time
-    sf::Vector2i mousePos = sf::Mouse::getPosition();
-    sf::Vector2u windowSize = window->getSize();
-    float t = (gameClock->getElapsedTime()).asSeconds();
+    if (shadersEnabled) {
+        // Shader time
+        sf::Vector2i mousePos = sf::Mouse::getPosition();
+        sf::Vector2u windowSize = window->getSize();
+        float t = (gameClock->getElapsedTime()).asSeconds();
 
-    // Render the monitor effects on top
-    shader.setParameter("resolution", windowSize.x, windowSize.y);
-    float mSpeed = 0.05;
-    float mDis = 2.0 + std::sin(t * 0.013) * 1.2;
-    shader.setParameter("mouse", std::cos(t * mSpeed) * mDis, std::sin(t * mSpeed) * mDis);
-    shader.setParameter("alpha", 0.2);
-    shader.setParameter("time", t);
+        // Render the monitor effects on top
+        shader.setParameter("resolution", windowSize.x, windowSize.y);
+        float mSpeed = 0.05;
+        float mDis = 2.0 + std::sin(t * 0.013) * 1.2;
+        shader.setParameter("mouse", std::cos(t * mSpeed) * mDis, std::sin(t * mSpeed) * mDis);
+        shader.setParameter("alpha", 0.2);
+        shader.setParameter("time", t);
 
-    sf::Sprite monitorSprite(effects.getTexture());
-    window->draw(monitorSprite, &shader);
-
+        sf::Sprite monitorSprite(effects.getTexture());
+        window->draw(monitorSprite, &shader);
+    }
 }
 
 int Display::GetPixelWidth() {

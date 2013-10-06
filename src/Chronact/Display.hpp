@@ -9,6 +9,7 @@ class Display {
 private:
     int width;
     int height;
+    bool shadersEnabled;
     int tile[DISPLAY_WIDTH][DISPLAY_HEIGHT];
     sf::RenderTexture surface;
     sf::RenderTexture effects;
@@ -19,7 +20,7 @@ private:
     void RenderTilesToSurface();
     void RenderSurfaceToWindow(sf::RenderWindow* window, sf::Clock* gameClock);
 public:
-    Display();
+    Display(bool useShaders);
     ~Display();
 
     void SetAll(int c);
