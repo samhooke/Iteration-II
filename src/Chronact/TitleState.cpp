@@ -23,6 +23,9 @@ void TitleState::Update(GameEngine* game) {
 
 void TitleState::RenderFrame(GameEngine* game) {
     game->window->clear();
-    game->display->Render(game->window, game->gameClock);
+
+    game->display->DrawTitle();
+
+    game->display->Render(game);
     game->window->display();
 }

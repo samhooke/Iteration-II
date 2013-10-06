@@ -2,8 +2,9 @@
 #define DISPLAY_HPP_INCLUDED
 
 #include <SFML/Graphics.hpp>
-
 #include "Defs.hpp"
+
+#include "GameEngine.hpp"
 
 class Display {
 private:
@@ -18,7 +19,7 @@ private:
     void LoadGraphics();
     sf::Shader shader;
     void RenderTilesToSurface();
-    void RenderSurfaceToWindow(sf::RenderWindow* window, sf::Clock* gameClock);
+    void RenderSurfaceToWindow(GameEngine* game);
 public:
     Display(bool useShaders);
     ~Display();
@@ -29,7 +30,8 @@ public:
 
     void DrawTitle();
 
-    void Render(sf::RenderWindow* window, sf::Clock* gameClock);
+    //void Render(sf::RenderWindow* window, sf::Clock* gameClock);
+    void Render(GameEngine* game);
 
     int GetPixelWidth();
     int GetPixelHeight();

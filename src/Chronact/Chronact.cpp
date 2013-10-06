@@ -23,7 +23,7 @@ void Chronact::Go() {
 void Chronact::MainLoop() {
     // Create game engine
     GameEngine game;
-    game.Init(useShaders);
+    game.Init("Iteration II", useShaders);
 
     // Change game state to the title screen
     game.ChangeState(TitleState::Instance());

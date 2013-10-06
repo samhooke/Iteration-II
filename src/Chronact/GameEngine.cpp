@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "GameEngine.hpp"
 #include "GameState.hpp"
+#include "Display.hpp"
 
 #ifdef OS_WINDOWS
 #include <windows.h>
@@ -17,14 +18,14 @@ void GameEngine::Pause() {
 }
 #endif // OS_UNIX
 
-void GameEngine::Init(bool useShaders) {
+void GameEngine::Init(const char* title, bool useShaders) {
     m_running = true;
 
     gameClock->restart();
 
     // Create graphical interfaces
     display = new Display(useShaders);
-    window = new sf::RenderWindow(sf::VideoMode(display->GetPixelWidth(), display->GetPixelHeight(), 32), "Iteration II", sf::Style::Default); // ::Close to disable resizing
+    window = new sf::RenderWindow(sf::VideoMode(display->GetPixelWidth(), display->GetPixelHeight(), 32), title, sf::Style::Default); // ::Close to disable resizing
 
     // Verify the window was created
     if (!window) {

@@ -121,9 +121,10 @@ void Display::WriteText(int x, int y, char* text, int maxCharsPerRow, int maxRow
     }
 }
 
-void Display::Render(sf::RenderWindow* window, sf::Clock* gameClock) {
+//void Display::Render(sf::RenderWindow* window, sf::Clock* gameClock) {
+void Display::Render(GameEngine* game) {
     RenderTilesToSurface();
-    RenderSurfaceToWindow(window, gameClock);
+    RenderSurfaceToWindow(game);
 }
 
 void Display::RenderTilesToSurface() {
@@ -136,19 +137,19 @@ void Display::RenderTilesToSurface() {
     }
 }
 
-void Display::RenderSurfaceToWindow(sf::RenderWindow* window, sf::Clock* gameClock) {
+void Display::RenderSurfaceToWindow(GameEngine* game) {
     // Render the surface to the window
     sf::Sprite surfaceSprite(surface.getTexture());
     surfaceSprite.setOrigin(GetPixelWidth()/2, GetPixelHeight()/2);
     surfaceSprite.setPosition(GetPixelWidth()/2, GetPixelHeight()/2);
     surfaceSprite.setScale(1.0f, -1.0f);
-    window->draw(surfaceSprite);
+    game->window->draw(surfaceSprite);
 
     if (shadersEnabled) {
         // Shader time
         sf::Vector2i mousePos = sf::Mouse::getPosition();
-        sf::Vector2u windowSize = window->getSize();
-        float t = (gameClock->getElapsedTime()).asSeconds();
+        sf::Vector2u windowSize = game->window->getSize();
+        float t = (game->gameClock->getElapsedTime()).asSeconds();
 
         // Render the monitor effects on top
         shader.setParameter("resolution", windowSize.x, windowSize.y);
@@ -159,7 +160,7 @@ void Display::RenderSurfaceToWindow(sf::RenderWindow* window, sf::Clock* gameClo
         shader.setParameter("time", t);
 
         sf::Sprite monitorSprite(effects.getTexture());
-        window->draw(monitorSprite, &shader);
+        game->window->draw(monitorSprite, &shader);
     }
 }
 

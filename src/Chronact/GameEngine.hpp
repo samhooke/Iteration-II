@@ -2,14 +2,15 @@
 #define GAMEENGINE_HPP_INCLUDED
 
 #include <SFML/Graphics.hpp>
-#include "Display.hpp"
 #include <vector>
+
+class Display;
 
 class GameState;
 
 class GameEngine {
 public:
-    void Init(bool useShaders);
+    void Init(const char* title, bool useShaders);
     void CleanUp();
 
     void ChangeState(GameState* state);
