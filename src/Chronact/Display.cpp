@@ -30,8 +30,6 @@ void Display::LoadGraphics() {
             int index = x + y * SPRITESHEET_COLS;
             tileSprites[index].setTexture(tileSet, true);
             tileSprites[index].setTextureRect(sf::IntRect(x * SPRITESHEET_SPRITE_W, y * SPRITESHEET_SPRITE_H, SPRITESHEET_SPRITE_W, SPRITESHEET_SPRITE_H));
-            //tileSprites[index].setColor(sf::Color(0, 127, 0));
-            //tileSprites[index].setColor(sf::Color(0, badRand(0, 255), 0));
             tileSprites[index].setColor(sf::Color(0, badRand(224, 255), 0));
         }
     }
@@ -69,7 +67,6 @@ void Display::DrawBackground() {
 }
 
 void Display::DrawTitle() {
-    //int mask[] = {TILE_FADE_DARK, TILE_FADE_MIDDLE, TILE_FADE_LIGHT};
     int mask[] = {TILE_HASH, TILE_SLASH_FORWARD, TILE_SLASH_BACKWARD};
     // 78 x 12
     char title[] =  "   222                                                                  333   "
@@ -84,44 +81,7 @@ void Display::DrawTitle() {
                     "  33   11111   1   111111 111 111 111   111  1   11111 11111  111   111   22  "
                     "  3333 11111   1   111111 111 111 111   111  1   11111  111   111   111 2222  "
                     "   333                                                                  222   ";
-    /*
-    //72 x 10
-    char title[] =  "1111111 1111111 1111111 111111   111111  1111111 1111111  11111  11   11"
-                    "1111111 1111111 1111111 1111111 11111111 1111111 1111111 1111111 11   11"
-                    "  111     111   111     11   11 11    11   111     111   11   11 111  11"
-                    "  111     111   111     11   11 11    11   111     111   11   11 1111 11"
-                    "  111     111   1111111 111111  11111111   111     111   11   11 1111111"
-                    "  111     111   1111111 111111  11111111   111     111   11   11 1111111"
-                    "  111     111   111     11   11 111  111   111     111   11   11 11 1111"
-                    "  111     111   111     11   11 11    11   111     111   11   11 11  111"
-                    "1111111   111   1111111 11   11 11    11   111   1111111 1111111 11   11"
-                    "1111111   111   1111111 11   11 11    11   111   1111111  11111  11   11";
-    */
-    bool darkLine = false;
-    for (int i = 0;; i++) {
-        if (title[i] == '\0')
-            break;
-        /*
-        if (i % 80 == 0) {
-            darkLine = (badRand(0, 2) == 0);
-        }
-        if (darkLine) {
-            if (title[i] == '1')
-                title[i] = '2';
-        }
-        */
-        /*
-        if (title[i] == '1') {
-            if (badRand(0, 3) == 0) {
-                title[i] = '2';
-            }
-        }
-        */
-    }
-
     WriteText(1, 1, (char*)title, 78, 12, mask);
-
-    //WriteText(4, 4 + 10 + 2, "Awaiting command...");
 }
 
 Display::~Display() {
