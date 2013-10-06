@@ -69,24 +69,34 @@ void Display::DrawBackground() {
     int mask[] = {TILE_BLANK, TILE_FULLSTOP, TILE_DIAMOND, TILE_CARET, TILE_COMMA, TILE_DOT_SOLID, TILE_DOT_OUTLINE, TILE_APOSTROPHE, TILE_ASTERISK};
     WriteText(0, 0, background, DISPLAY_WIDTH, DISPLAY_HEIGHT, mask);
 
-    WriteText(2, 2, "Begin launch sequence");
+    WriteText(2, 14, ">.eng_disn -a -F");
+    WriteText(2, 15, ">.aut_proc 23");
+    WriteText(2, 16, "Connecting:");
+    WriteText(2, 17, "timeout (err:-4)");
+    WriteText(2, 18, "timeout (err:-4)");
+    WriteText(2, 19, "timeout (err:-4)");
+    WriteText(2, 20, "timeout (err:7)");
+    WriteText(2, 21, "qubytes=47 time=181e7");
+    WriteText(2, 22, "Verifying... Success");
+    WriteText(2, 23, "Decoding... Success");
 }
 
 void Display::DrawTitle() {
-    int mask[] = {TILE_FADE_DARK, TILE_FADE_MIDDLE, TILE_FADE_LIGHT};
-    // 80 x 12
-    char title[] =  "   111                                                                    111   "
-                    "  1111 11111 11111 111111 11111       111    11111 11111  111   111   111 1111  "
-                    "  11   11111 11111 111111 111111      111    11111 11111 11111  111   111   11  "
-                    "  1      1   1 1 1  1   1  1   11    1   1   1 1 1   1   1   1   11    1     1  "
-                    "  1      1     1    1 1    1   11    1   1     1     1  1     1  111   1     1  "
-                    " 11      1     1    111    11111    1111111    1     1  1     1  1 11  1     11 "
-                    " 11      1     1    111    1111     1111111    1     1  1     1  1  11 1     11 "
-                    "  1      1     1    1 1    1  11    1     1    1     1  1     1  1   111     1  "
-                    "  1      1     1    1   1  1   1    1     1    1     1   1   1   1    11     1  "
-                    "  11   11111   1   111111 111 111  111   111   1   11111 11111  111   111   11  "
-                    "  1111 11111   1   111111 111 111  111   111   1   11111  111   111   111 1111  "
-                    "   111                                                                    111   ";
+    //int mask[] = {TILE_FADE_DARK, TILE_FADE_MIDDLE, TILE_FADE_LIGHT};
+    int mask[] = {TILE_HASH, TILE_SLASH_FORWARD, TILE_SLASH_BACKWARD};
+    // 78 x 12
+    char title[] =  "   222                                                                  333   "
+                    "  2222 11111 11111 111111 11111      111   11111 11111  111   111   111 3333  "
+                    "  22   11111 11111 111111 111111     111   11111 11111 11111  111   111   33  "
+                    "  2      1   1 1 1  1   1  1   11   1   1  1 1 1   1   1   1   11    1     3  "
+                    "  2      1     1    1 1    1   11   1   1    1     1  1     1  111   1     3  "
+                    " 22      1     1    111    11111   1111111   1     1  1     1  1 11  1     33 "
+                    " 33      1     1    111    1111    1111111   1     1  1     1  1  11 1     22 "
+                    "  3      1     1    1 1    1  11   1     1   1     1  1     1  1   111     2  "
+                    "  3      1     1    1   1  1   1   1     1   1     1   1   1   1    11     2  "
+                    "  33   11111   1   111111 111 111 111   111  1   11111 11111  111   111   22  "
+                    "  3333 11111   1   111111 111 111 111   111  1   11111  111   111   111 2222  "
+                    "   333                                                                  222   ";
     /*
     //72 x 10
     char title[] =  "1111111 1111111 1111111 111111   111111  1111111 1111111  11111  11   11"
@@ -122,7 +132,7 @@ void Display::DrawTitle() {
         */
     }
 
-    WriteText(0, 1, (char*)title, 80, 12, mask);
+    WriteText(1, 1, (char*)title, 78, 12, mask);
 
     //WriteText(4, 4 + 10 + 2, "Awaiting command...");
 }
@@ -208,7 +218,10 @@ void Display::RenderSurfaceToWindow(sf::RenderWindow* window, sf::Clock* gameClo
     //shader2.setParameter("time", t);
     //shader2.setParameter("alpha", 0.4f);
     shader2.setParameter("resolution", windowSize.x, windowSize.y);
-    shader2.setParameter("mouse", mousePos.x/(float)GetPixelWidth(), mousePos.y/(float)GetPixelHeight());
+    float mSpeed = 0.05;
+    float mDis = 2.0 + std::sin(t * 0.013) * 1.2;
+    shader2.setParameter("mouse", std::cos(t * mSpeed) * mDis, std::sin(t * mSpeed) * mDis);
+    //shader2.setParameter("mouse", mousePos.x/(float)GetPixelWidth(), mousePos.y/(float)GetPixelHeight());
     shader2.setParameter("alpha", 0.2);
     shader2.setParameter("time", t);
 

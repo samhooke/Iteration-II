@@ -15,7 +15,7 @@ uniform float alpha;
  * public domain
  */
 
-#define N 15
+#define N 5
 void main( void ) {
 	//// Green glow and scanlines
 	vec2 position = ( gl_FragCoord.xy / resolution.xy ) - vec2(0.5, 0.5);

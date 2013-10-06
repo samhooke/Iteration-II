@@ -115,7 +115,7 @@ void Chronact::RoomTitle(RoomEvent roomEvent) {
         timeSinceLastDraw += deltaTime.asSeconds();
         if (timeSinceLastDraw > (float)1/60) {
             display->DrawBackground();
-            //display->DrawTitle();
+            display->DrawTitle();
             timeSinceLastDraw = 0;
         }
         break;
