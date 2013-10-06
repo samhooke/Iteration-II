@@ -16,10 +16,7 @@ private:
     sf::Texture tileSet;
     sf::Sprite tileSprites[SPRITESHEET_COLS * SPRITESHEET_ROWS];
     void LoadGraphics();
-
     sf::Shader shader;
-    sf::Shader shader2;
-
     void RenderTilesToSurface();
     void RenderSurfaceToWindow(sf::RenderWindow* window, sf::Clock* gameClock);
 public:
