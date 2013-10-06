@@ -40,8 +40,8 @@ void Display::LoadGraphics() {
         throw std::runtime_error("Could not load shader from file: SHADER_FRAG_REAKTOR2");
     }
 
-    if (!shader2.loadFromFile(SHADER_FRAG_MONITOR, sf::Shader::Fragment)) {
-        throw std::runtime_error("Could not load shader from file: SHADER_FRAG_MONITOR");
+    if (!shader2.loadFromFile(SHADER_FRAG_FRACTAL2, sf::Shader::Fragment)) {
+        throw std::runtime_error("Could not load shader from file: SHADER_FRAG_FRACTAL2");
     }
 
     //float blurRadius = 0.003f;
@@ -195,11 +195,15 @@ void Display::RenderSurfaceToWindow(sf::RenderWindow* window, sf::Clock* gameClo
 
     // Shader time
     sf::Vector2i mousePos = sf::Mouse::getPosition();
+    sf::Vector2u windowSize = window->getSize();
     float t = (gameClock->getElapsedTime()).asSeconds();
 
     // Render the monitor effects on top
-    shader2.setParameter("time", t);
-    shader2.setParameter("alpha", 0.4f);
+    //shader2.setParameter("time", t);
+    //shader2.setParameter("alpha", 0.4f);
+    shader2.setParameter("resolution", windowSize.x, windowSize.y);
+    shader2.setParameter("mouse", mousePos.x/(float)GetPixelWidth(), mousePos.y/(float)GetPixelHeight());
+    shader2.setParameter("alpha", 0.3);
 
     sf::Sprite monitorSprite(effects2.getTexture());
     window->draw(monitorSprite, &shader2);
@@ -207,8 +211,9 @@ void Display::RenderSurfaceToWindow(sf::RenderWindow* window, sf::Clock* gameClo
     // Render the title effects on top of that
     shader.setParameter("time", t);
     //shader.setParameter("mouse", mousePos.x/(float)GetPixelWidth(), mousePos.y/(float)GetPixelHeight() * 4);
-    sf::Vector2u windowSize = window->getSize();
+
     shader.setParameter("resolution", windowSize.x, windowSize.y);
+    //printf("%d\n", windowSize.y);
     //shader.setParameter("resolution", GetPixelWidth(), GetPixelHeight());
     //shader.setParameter("alpha", 0.8f);
 

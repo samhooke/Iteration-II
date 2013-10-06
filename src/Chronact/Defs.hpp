@@ -22,12 +22,14 @@
 #define SHADER_VERT_WAVE     SHADER_DIR "wave.vert"
 
 #define SHADER_FRAG_FRACTAL  SHADER_DIR "fractal.frag"
+#define SHADER_FRAG_FRACTAL2 SHADER_DIR "fractal2.frag" // Green fractal
 #define SHADER_FRAG_COLOURS  SHADER_DIR "colours.frag"
 #define SHADER_FRAG_VLAD     SHADER_DIR "vlad.frag"
 #define SHADER_FRAG_VLAD2    SHADER_DIR "vlad2.frag"
 #define SHADER_FRAG_REAKTOR  SHADER_DIR "reaktor.frag" // wavy retro blue text "iteration ii" w/ horizontal green lines background
 #define SHADER_FRAG_REAKTOR2 SHADER_DIR "reaktor2.frag" // wavy retro blue text "Iteration II" w/o background
 #define SHADER_FRAG_MONITOR  SHADER_DIR "monitor.frag" // horizontal green lines background
+#define SHADER_FRAG_MONITOR2 SHADER_DIR "monitor2.frag" // green glow and scanlines (written by me!)
 
 // Spritesheet info
 #define SPRITESHEET_FILENAME "resources/tiles.png"

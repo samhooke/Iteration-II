@@ -9,8 +9,13 @@ uniform vec2 mouse;
 uniform vec2 resolution;
 uniform float alpha;
 
-void main(void)
-{
-	vec3 col = vec3(0.1,0.3*(.7+sin(gl_FragCoord.y*3.1456+time*1.2)), 0.1);
-	gl_FragColor = vec4(col, alpha);
+void main(void) {
+	// 3.1456
+	//float w = (sin(gl_FragCoord.y*1.0+time*5));
+	//vec3 col = vec3(0.1,0.3*(0.7+w), 0.1);
+	//gl_FragColor = vec4(col, w);
+	
+	float w = sin(gl_FragCoord.y/resolution.y * 3.1456) * 0.5;
+	vec3 col = vec3(0.2, 0.5 + w, 0.2);
+	gl_FragColor = vec4(col, w);
 }
