@@ -17,9 +17,6 @@ void Display::LoadGraphics() {
     if (!effects.create(GetPixelWidth(), GetPixelHeight())) {
         throw std::runtime_error("Could not create effects.");
     }
-    if (!effects2.create(GetPixelWidth(), GetPixelHeight())) {
-        throw std::runtime_error("Could not create effects2.");
-    }
 
     // Load the texture
     tileSet.loadFromFile(SPRITESHEET_FILENAME);
@@ -166,11 +163,10 @@ void Display::RenderSurfaceToWindow(sf::RenderWindow* window, sf::Clock* gameClo
     float mSpeed = 0.05;
     float mDis = 2.0 + std::sin(t * 0.013) * 1.2;
     shader.setParameter("mouse", std::cos(t * mSpeed) * mDis, std::sin(t * mSpeed) * mDis);
-    //shader.setParameter("mouse", mousePos.x/(float)GetPixelWidth(), mousePos.y/(float)GetPixelHeight());
     shader.setParameter("alpha", 0.2);
     shader.setParameter("time", t);
 
-    sf::Sprite monitorSprite(effects2.getTexture());
+    sf::Sprite monitorSprite(effects.getTexture());
     window->draw(monitorSprite, &shader);
 
 }
