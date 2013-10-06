@@ -1,7 +1,7 @@
 #ifndef PLAYSTATE_HPP_INCLUDED
 #define PLAYSTATE_HPP_INCLUDED
 
-#include "Chronact.hpp"
+#include "GameState.hpp"
 
 class PlayState : public GameState {
 public:
@@ -12,7 +12,7 @@ public:
     void Resume();
 
     void ProcessInput(GameEngine* game);
-    void Udpate(GameEngine* game);
+    void Update(GameEngine* game);
     void RenderFrame(GameEngine* game);
 
     static PlayState* Instance() {

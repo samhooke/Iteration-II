@@ -29,13 +29,13 @@ void GameEngine::Init(const char* title, bool useShaders) {
 
     // Verify the window was created
     if (!window) {
-        printf("Could not create window");
+        printf("Could not create window\n");
         //TODO: Fix this really terrible long pause
         for (int i = 0; i < 100; i++) {Pause();}
         Quit();
     }
 
-    printf("GameEngine Init");
+    printf("GameEngine Init\n");
 }
 
 void GameEngine::CleanUp() {
@@ -46,9 +46,10 @@ void GameEngine::CleanUp() {
 
     printf("GameEngine CleanUp");
 
-    //// Clear used resources
-    //delete display;
-    //delete window;
+    // Clear used resources
+    window->close();
+    delete display;
+    delete window;
 }
 
 void GameEngine::ChangeState(GameState* state) {

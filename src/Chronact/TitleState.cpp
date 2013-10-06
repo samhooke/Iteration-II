@@ -1,5 +1,6 @@
 #include "Chronact.hpp"
 #include "TitleState.hpp"
+#include "PlayState.hpp"
 
 TitleState TitleState::m_TitleState;
 
@@ -12,8 +13,14 @@ void TitleState::ProcessInput(GameEngine* game) {
 
     // Loop through all window events
     while (game->window->pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
-            game->window->close();
+        switch (event.type) {
+        case sf::Event::Closed:
+            game->Quit();
+            break;
+        case sf::Event::KeyPressed:
+            if (event.key.code == sf::Keyboard::Return)
+                game->ChangeState(PlayState::Instance());
+            break;
         }
     }
 }

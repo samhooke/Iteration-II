@@ -70,6 +70,7 @@ void Display::DrawTitle() {
     WriteText(2, 21, "qubytes=47 time=181e7");
     WriteText(2, 22, "Verifying... Success");
     WriteText(2, 23, "Decoding... Success");
+    WriteText(2, 25, "Press <return> to analyze data");
 }
 
 Display::~Display() {
