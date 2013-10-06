@@ -81,9 +81,6 @@ void Chronact::Go() {
     if (!Init())
         throw EngineInitError();
 
-    room = Room::Title;
-    RoomStart();
-
     MainLoop();
 }
 
@@ -113,48 +110,11 @@ void Chronact::ReadConfig() {
 }
 
 void Chronact::Update() {
-    RoomUpdate();
-}
-
-void Chronact::RoomStart() {
-    switch (room) {
-    case Room::Title:       RoomTitle(RoomEvent::Start);        break;
-    case Room::Blank:       RoomBlank(RoomEvent::Start);        break;
-    }
-}
-
-void Chronact::RoomUpdate() {
-    switch (room) {
-    case Room::Title:       RoomTitle(RoomEvent::Update);        break;
-    case Room::Blank:       RoomBlank(RoomEvent::Update);        break;
-    }
-}
-
-void Chronact::RoomEnd() {
-    switch (room) {
-    case Room::Title:       RoomTitle(RoomEvent::End);        break;
-    case Room::Blank:       RoomBlank(RoomEvent::End);        break;
-    }
-}
-
-void Chronact::RoomTitle(RoomEvent roomEvent) {
     static float timeSinceLastDraw = 0;
-    switch (roomEvent) {
-    case RoomEvent::Start:
-        break;
-    case RoomEvent::Update:
-        timeSinceLastDraw += deltaTime.asSeconds();
-        if (timeSinceLastDraw > (float)1/60) {
-            display->DrawBackground();
-            display->DrawTitle();
-            timeSinceLastDraw = 0;
-        }
-        break;
-    case RoomEvent::End:
-        break;
-    }
-}
 
-void Chronact::RoomBlank(RoomEvent roomEvent) {
-    display->DrawBackground();
+    timeSinceLastDraw += deltaTime.asSeconds();
+    if (timeSinceLastDraw > (float)1/60) {
+        display->DrawTitle();
+        timeSinceLastDraw = 0;
+    }
 }

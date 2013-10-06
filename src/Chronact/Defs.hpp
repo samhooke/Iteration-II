@@ -9,7 +9,7 @@
 #define CONFIG_FILENAME "config.txt"
 
 // How many milliseconds to sleep for each update, to avoid ravaging the CPU
-#define SLEEP_MILLISECONDS 10
+#define SLEEP_MILLISECONDS 20
 
 // Width and height of the screen
 #define DISPLAY_WIDTH 80

@@ -43,32 +43,6 @@ void Display::LoadGraphics() {
     }
 }
 
-void Display::DrawBackground() {
-    char background[DISPLAY_WIDTH * DISPLAY_HEIGHT];
-    for (int i = 0; i < DISPLAY_WIDTH * DISPLAY_HEIGHT; i++) {
-        if (badRand(0, 200) == 0)
-            background[i] = TILE_0 + badRand(1, 9);
-        else if (badRand(0, 100) < 3)
-            background[i] = TILE_1;
-        else
-            background[i] = ' ';
-        background[i] = ' ';
-    }
-    int mask[] = {TILE_BLANK, TILE_FULLSTOP, TILE_DIAMOND, TILE_CARET, TILE_COMMA, TILE_DOT_SOLID, TILE_DOT_OUTLINE, TILE_APOSTROPHE, TILE_ASTERISK};
-    WriteText(0, 0, background, DISPLAY_WIDTH, DISPLAY_HEIGHT, mask);
-
-    WriteText(2, 14, ">.eng_disn -a -F");
-    WriteText(2, 15, ">.aut_proc 23");
-    WriteText(2, 16, "Connecting:");
-    WriteText(2, 17, "timeout (err:-4)");
-    WriteText(2, 18, "timeout (err:-4)");
-    WriteText(2, 19, "timeout (err:-4)");
-    WriteText(2, 20, "timeout (err:7)");
-    WriteText(2, 21, "qubytes=47 time=181e7");
-    WriteText(2, 22, "Verifying... Success");
-    WriteText(2, 23, "Decoding... Success");
-}
-
 void Display::DrawTitle() {
     int mask[] = {TILE_HASH, TILE_SLASH_FORWARD, TILE_SLASH_BACKWARD};
     // 78 x 12
@@ -85,6 +59,17 @@ void Display::DrawTitle() {
                     "  3333 11111   1   111111 111 111 111   111  1   11111  111   111   111 2222  "
                     "   333                                                                  222   ";
     WriteText(1, 1, (char*)title, 78, 12, mask);
+
+    WriteText(2, 14, ">.eng_disn -a -F");
+    WriteText(2, 15, ">.aut_proc 23");
+    WriteText(2, 16, "Connecting:");
+    WriteText(2, 17, "timeout (err:-4)");
+    WriteText(2, 18, "timeout (err:-4)");
+    WriteText(2, 19, "timeout (err:-4)");
+    WriteText(2, 20, "timeout (err:7)");
+    WriteText(2, 21, "qubytes=47 time=181e7");
+    WriteText(2, 22, "Verifying... Success");
+    WriteText(2, 23, "Decoding... Success");
 }
 
 Display::~Display() {

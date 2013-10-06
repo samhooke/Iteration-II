@@ -29,18 +29,6 @@ private:
     void ProcessInput();
     void Pause();
     void Update();
-
-    // Room definitions
-    enum class Room {Title, Blank};
-    enum class RoomEvent {Start, Update, End};
-    Room room;
-
-    void RoomStart();
-    void RoomUpdate();
-    void RoomEnd();
-
-    void RoomTitle(RoomEvent roomEvent);
-    void RoomBlank(RoomEvent roomEvent);
 public:
     Chronact();
     ~Chronact();
