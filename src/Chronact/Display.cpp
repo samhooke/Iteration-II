@@ -207,11 +207,13 @@ void Display::RenderSurfaceToWindow(sf::RenderWindow* window, sf::Clock* gameClo
     // Render the title effects on top of that
     shader.setParameter("time", t);
     //shader.setParameter("mouse", mousePos.x/(float)GetPixelWidth(), mousePos.y/(float)GetPixelHeight() * 4);
-    shader.setParameter("resolution", GetPixelWidth(), GetPixelHeight());
+    sf::Vector2u windowSize = window->getSize();
+    shader.setParameter("resolution", windowSize.x, windowSize.y);
+    //shader.setParameter("resolution", GetPixelWidth(), GetPixelHeight());
     //shader.setParameter("alpha", 0.8f);
 
     sf::Sprite effectsSprite(effects.getTexture());
-    window->draw(effectsSprite, &shader);
+    //window->draw(effectsSprite, &shader);
 }
 
 int Display::GetPixelWidth() {
