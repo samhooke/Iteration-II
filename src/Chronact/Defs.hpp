@@ -25,4 +25,8 @@
 #define SPRITESHEET_SPRITE_W 9
 #define SPRITESHEET_SPRITE_H 16
 
+// Levels
+#define LEVEL_DIR "levels/"
+#define LEVEL_000 "000.txt"
+
 #endif // DEFS_HPP_INCLUDED
