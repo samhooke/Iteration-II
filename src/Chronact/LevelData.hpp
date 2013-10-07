@@ -7,11 +7,11 @@
 
 class LevelData {
 private:
-    unsigned int width;
-    unsigned int height;
+    unsigned int width = DISPLAY_WIDTH;
+    unsigned int height = DISPLAY_HEIGHT;
     std::vector<LevelTile> levelTiles;
 public:
-    LevelData(unsigned int width = 0, unsigned int height = 0);
+    LevelData();
 
     void SetTileType(unsigned int x, unsigned int y, TileType type);
     int GetTileDisplayCharacter(unsigned int x, unsigned int y);

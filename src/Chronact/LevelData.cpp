@@ -2,10 +2,11 @@
 #include "Tiles.hpp"
 #include <iostream>
 
-LevelData::LevelData(unsigned int width, unsigned int height) {
+#include <stdio.h>
+
+LevelData::LevelData() {
     //std::cout << "Created LevelData with dimensions " << width << "x" << height << std::endl;
-    this->width = width;
-    this->height = height;
+    std::cout << "Created LevelData() with dimensions " << width << "x" << height << std::endl;
     for (unsigned int i = 0; i < width * height; i++) {
         levelTiles.push_back(LevelTile(TileType::Floor));
     }
@@ -17,6 +18,8 @@ void LevelData::SetTileType(unsigned int x, unsigned int y, TileType type) {
 }
 
 int LevelData::GetTileDisplayCharacter(unsigned int x, unsigned int y) {
+    //printf("\nw:%d\nh:%d\n", width, height);
+    //std::cout << "Getting tile for " << x << "," << y << " with dimensions " << width << "x" << height << std::endl;
     unsigned int index = x + y * width;
     return levelTiles[index].displayCharacter;
 }
@@ -24,7 +27,6 @@ int LevelData::GetTileDisplayCharacter(unsigned int x, unsigned int y) {
 void LevelData::CalculateDisplayCharacters() {
     bool wall_n, wall_e, wall_s, wall_w;
     int index_n, index_e, index_s, index_w;
-    int indexLimit = width * height;
     for (unsigned int y = 0; y < height; y++) {
         for (unsigned int x = 0; x < width; x++) {
             int index = x + y * width;

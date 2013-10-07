@@ -1,12 +1,13 @@
 #include "Display.hpp"
-
 #include "Tiles.hpp"
 #include "Logger.hpp"
 #include "PRNG.hpp"
 
 Display::Display(bool useShaders) {
     shadersEnabled = useShaders;
+    std::cout << "LoadGraphics()" << std::endl;
     LoadGraphics();
+    std::cout << "SetAll" << std::endl;
     SetAll(TILE_BLANK);
 }
 
@@ -15,7 +16,6 @@ void Display::LoadGraphics() {
     if (!surface.create(GetPixelWidth(), GetPixelHeight())) {
         throw std::runtime_error("Could not create surface.");
     }
-
 
     // Load the texture
     tileSet.loadFromFile(SPRITESHEET_FILENAME);
@@ -29,17 +29,19 @@ void Display::LoadGraphics() {
             tileSprites[index].setColor(sf::Color(0, badRand(224, 255), 0));
         }
     }
-
+    std::cout << "if (shadersEnabled)" << std::endl;
     if (shadersEnabled) {
+        std::cout << "effects.create" << std::endl;
         // Create surface for shader
         if (!effects.create(GetPixelWidth(), GetPixelHeight())) {
             throw std::runtime_error("Could not create effects.");
         }
-
+        std::cout << "shader.loadFromFile" << std::endl;
         // Load shader
         if (!shader.loadFromFile(SHADER_FRAG_MONITOR3, sf::Shader::Fragment)) {
             throw std::runtime_error("Could not load shader from file: SHADER_FRAG_MONITOR3");
         }
+    std::cout << "boom" << std::endl;
     }
 }
 
@@ -89,7 +91,7 @@ void Display::SetAll(int c) {
 }
 
 // Writes text to the display, starting at position x, y.
-void Display::WriteText(int x, int y, char* text, int maxCharsPerRow, int maxRows, int mask[]) {
+void Display::WriteText(int x, int y, const char* text, int maxCharsPerRow, int maxRows, int mask[]) {
     int charsThisLine = 0, rowsDropped = 0;
     for (int i = 0;; i++) {
 
@@ -152,7 +154,7 @@ void Display::RenderSurfaceToWindow(GameEngine* game) {
 
     if (shadersEnabled) {
         // Shader time
-        sf::Vector2i mousePos = sf::Mouse::getPosition();
+        //sf::Vector2i mousePos = sf::Mouse::getPosition(); // Not used
         sf::Vector2u windowSize = game->window->getSize();
         float t = (game->gameClock->getElapsedTime()).asSeconds();
 

@@ -4,10 +4,15 @@
 int main() {
 
     Chronact* chronact = new Chronact();
+    chronact->Go();
 
+    /*
     try {
         chronact->Go();
     } catch (std::exception& e) {
-        printf(e.what());
+        std::cout << e.what();
     }
+    */
+
+    delete chronact;
 }

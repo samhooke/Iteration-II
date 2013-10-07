@@ -6,7 +6,7 @@
 
 class LevelManager {
 private:
-    LevelData levelData;
+    LevelData* levelData;
 public:
     LevelManager();
     ~LevelManager();
