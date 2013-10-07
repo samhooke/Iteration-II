@@ -12,11 +12,9 @@ Chronact::~Chronact() {}
 
 void Chronact::Go() {
     // Load configs
-    printf("Reading config.txt file\n");
     ReadConfig();
 
     // Enter main loop
-    printf("Running Chronact engine\n");
     MainLoop();
 }
 
@@ -39,6 +37,7 @@ void Chronact::MainLoop() {
 }
 
 void Chronact::ReadConfig() {
+    std::cout << "Reading config.txt" << std::endl;
 
     // Set defaults
     useShaders = true;
@@ -53,12 +52,12 @@ void Chronact::ReadConfig() {
         }
         myfile.close();
     } else {
-        printf("Cannot open config.txt: reverting to defaults\n");
+        std::cout << "Cannot open config.txt: reverting to defaults" << std::endl;
     }
 
     // Print out chosen configuration settings
     if (useShaders)
-        printf("Shaders enabled\n");
+        std::cout << "Shaders enabled" << std::endl;
     else
-        printf("Shaders disabled\n");
+        std::cout << "Shaders disabled" << std::endl;
 }

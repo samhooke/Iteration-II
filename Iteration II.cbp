@@ -73,8 +73,12 @@
 		<Unit filename="src/Chronact/GameEngine.cpp" />
 		<Unit filename="src/Chronact/GameEngine.hpp" />
 		<Unit filename="src/Chronact/GameState.hpp" />
-		<Unit filename="src/Chronact/Levels.cpp" />
-		<Unit filename="src/Chronact/Levels.hpp" />
+		<Unit filename="src/Chronact/LevelData.cpp" />
+		<Unit filename="src/Chronact/LevelData.hpp" />
+		<Unit filename="src/Chronact/LevelManager.cpp" />
+		<Unit filename="src/Chronact/LevelManager.hpp" />
+		<Unit filename="src/Chronact/LevelTile.cpp" />
+		<Unit filename="src/Chronact/LevelTile.hpp" />
 		<Unit filename="src/Chronact/Logger.hpp" />
 		<Unit filename="src/Chronact/PRNG.cpp" />
 		<Unit filename="src/Chronact/PRNG.hpp" />

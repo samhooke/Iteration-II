@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include <stdio.h>
+#include <iostream>
 #include "GameEngine.hpp"
 #include "GameState.hpp"
 #include "Display.hpp"
@@ -29,13 +29,13 @@ void GameEngine::Init(const char* title, bool useShaders) {
 
     // Verify the window was created
     if (!window) {
-        printf("Could not create window\n");
+        std::cout << "Could not create window" << std::endl;
         //TODO: Fix this really terrible long pause
         for (int i = 0; i < 100; i++) {Pause();}
         Quit();
     }
 
-    printf("GameEngine Init\n");
+    std::cout << "Running Chronact engine" << std::endl;
 }
 
 void GameEngine::CleanUp() {
@@ -44,7 +44,7 @@ void GameEngine::CleanUp() {
         states.pop_back();
     }
 
-    printf("GameEngine CleanUp");
+    std::cout << "Terminating Chronact engine" << std::endl;
 
     // Clear used resources
     window->close();
