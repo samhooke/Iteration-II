@@ -5,8 +5,13 @@
 
 PlayState PlayState::m_PlayState;
 
-void PlayState::Init() {}
-void PlayState::CleanUp() {}
+void PlayState::Init() {
+    levelManager = new LevelManager();
+    levelManager->Load(LEVEL_000);
+}
+void PlayState::CleanUp() {
+    delete levelManager;
+}
 void PlayState::Pause() {}
 void PlayState::Resume() {}
 void PlayState::ProcessInput(GameEngine* game) {
@@ -22,19 +27,18 @@ void PlayState::ProcessInput(GameEngine* game) {
             if (event.key.code == sf::Keyboard::Escape)
                 game->ChangeState(TitleState::Instance());
             break;
+        default:
+            break;
         }
     }
 }
 
 void PlayState::Update(GameEngine* game) {
+    levelManager->UpdateDisplay(game->display);
 }
 
 void PlayState::RenderFrame(GameEngine* game) {
     game->window->clear();
-
-    game->display->SetAll(TILE_BLANK);
-    //game->display->DrawTitle();
-
     game->display->Render(game);
     game->window->display();
 }

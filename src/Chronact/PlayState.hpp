@@ -2,6 +2,7 @@
 #define PLAYSTATE_HPP_INCLUDED
 
 #include "GameState.hpp"
+#include "LevelManager.hpp"
 
 class PlayState : public GameState {
 public:
@@ -18,12 +19,13 @@ public:
     static PlayState* Instance() {
         return &m_PlayState;
     }
-
 protected:
     PlayState() {}
 
 private:
     static PlayState m_PlayState;
-    };
+
+    LevelManager* levelManager;
+};
 
 #endif // PLAYSTATE_HPP_INCLUDED

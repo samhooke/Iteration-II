@@ -23,6 +23,8 @@ void TitleState::ProcessInput(GameEngine* game) {
             if (event.key.code == sf::Keyboard::Escape)
                 game->Quit();
             break;
+        default:
+            break;
         }
     }
 }

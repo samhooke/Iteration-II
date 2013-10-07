@@ -27,6 +27,6 @@
 
 // Levels
 #define LEVEL_DIR "levels/"
-#define LEVEL_000 "000.txt"
+#define LEVEL_000 LEVEL_DIR "000.txt"
 
 #endif // DEFS_HPP_INCLUDED
