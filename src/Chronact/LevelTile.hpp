@@ -9,8 +9,6 @@ public:
 
     TileType type;
     int displayCharacter;
-
-    void CalculateDisplayCharacter();
 };
 
 #endif // LEVELTILE_HPP_INCLUDED

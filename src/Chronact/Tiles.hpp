@@ -152,4 +152,23 @@
 #define TILE_FADE_MIDDLE 177
 #define TILE_FADE_DARK 178
 
+// Wall double
+#define TILE_WD_NSW 185
+#define TILE_WD_NS 186
+#define TILE_WD_SW 187
+#define TILE_WD_NW 188
+#define TILE_WD_NE 200
+#define TILE_WD_ES 201
+#define TILE_WD_NEW 202
+#define TILE_WD_ESW 203
+#define TILE_WD_NES 204
+#define TILE_WD_EW 205
+#define TILE_WD_NESW 206
+// There are no wall double tiles for single connections, so use an O for a pillar instead
+#define TILE_WD_PILLAR TILE_O_UPPER
+#define TILE_WD_N TILE_WD_PILLAR
+#define TILE_WD_S TILE_WD_PILLAR
+#define TILE_WD_E TILE_WD_PILLAR
+#define TILE_WD_W TILE_WD_PILLAR
+
 #endif // TILES_HPP_INCLUDED
