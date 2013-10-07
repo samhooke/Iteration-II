@@ -20,6 +20,8 @@ void TitleState::ProcessInput(GameEngine* game) {
         case sf::Event::KeyPressed:
             if (event.key.code == sf::Keyboard::Return)
                 game->ChangeState(PlayState::Instance());
+            if (event.key.code == sf::Keyboard::Escape)
+                game->Quit();
             break;
         }
     }
