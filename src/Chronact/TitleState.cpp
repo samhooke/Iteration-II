@@ -1,6 +1,7 @@
 #include "Chronact.hpp"
 #include "TitleState.hpp"
 #include "PlayState.hpp"
+#include "Tiles.hpp"
 
 TitleState TitleState::m_TitleState;
 
@@ -35,6 +36,7 @@ void TitleState::Update(GameEngine* game) {
 void TitleState::RenderFrame(GameEngine* game) {
     game->window->clear();
 
+    game->display->SetAll(TILE_BLANK);
     game->display->DrawTitle();
 
     game->display->Render(game);
