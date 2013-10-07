@@ -11,7 +11,6 @@ void TitleState::CleanUp() {}
 void TitleState::Pause() {}
 void TitleState::Resume() {}
 void TitleState::ProcessInput(GameEngine* game) {
-    std::cout << "YUEAH" << std::endl;
     sf::Event event;
 
     // Loop through all window events
@@ -30,7 +29,6 @@ void TitleState::ProcessInput(GameEngine* game) {
             break;
         }
     }
-    std::cout << "ASDF" << std::endl;
 }
 
 void TitleState::Update(GameEngine* game) {

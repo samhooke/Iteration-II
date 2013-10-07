@@ -5,8 +5,6 @@
 #include <stdio.h>
 
 LevelData::LevelData() {
-    //std::cout << "Created LevelData with dimensions " << width << "x" << height << std::endl;
-    std::cout << "Created LevelData() with dimensions " << width << "x" << height << std::endl;
     for (unsigned int i = 0; i < width * height; i++) {
         levelTiles.push_back(LevelTile(TileType::Floor));
     }
@@ -18,8 +16,6 @@ void LevelData::SetTileType(unsigned int x, unsigned int y, TileType type) {
 }
 
 int LevelData::GetTileDisplayCharacter(unsigned int x, unsigned int y) {
-    //printf("\nw:%d\nh:%d\n", width, height);
-    //std::cout << "Getting tile for " << x << "," << y << " with dimensions " << width << "x" << height << std::endl;
     unsigned int index = x + y * width;
     return levelTiles[index].displayCharacter;
 }

@@ -8,22 +8,14 @@ LevelManager::LevelManager() {}
 LevelManager::~LevelManager() {}
 
 void LevelManager::Load(const char* levelName) {
-    std::cout << "Load...";
     std::string line;
-    //std::ifstream f(levelName);
-    std::cout << "ifstream";
-    std::ifstream f;
-    std::cout << "f.open()";
-    f.open(levelName);
-    std::cout << "!?!...";
+    std::ifstream f(levelName);
     unsigned int x, y;
     unsigned int expectedWidth, expectedHeight;
-    std::cout << "Asdf...";
     expectedWidth = DISPLAY_WIDTH;
     expectedHeight = DISPLAY_HEIGHT;
 
     levelData = new LevelData();
-    std::cout << "Opening file...";
     bool invalidMap = false;
     if (f.is_open()) {
         x = y = 0;
@@ -69,17 +61,11 @@ void LevelManager::Load(const char* levelName) {
 }
 
 void LevelManager::UpdateDisplay(Display* display) {
-    std::cout << "display->SetAll()" << std::endl;
     display->SetAll(TILE_BLANK);
-    std::cout << "Going into loop" << std::endl;
     for (unsigned int y = 0; y < DISPLAY_HEIGHT; y++) {
         for (unsigned int x = 0; x < DISPLAY_WIDTH; x++) {
-            //std::cout << "Setting characters" << std::endl;
-            //display->SetDisplayCharacter(x, y, 1);
             int c = levelData->GetTileDisplayCharacter(x, y);
-            // std::cout << "got character" << std::endl;
             display->SetDisplayCharacter(x, y, c);
-            //std::cout << "They are set" << std::endl;
         }
     }
 }

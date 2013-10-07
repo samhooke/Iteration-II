@@ -5,9 +5,7 @@
 
 Display::Display(bool useShaders) {
     shadersEnabled = useShaders;
-    std::cout << "LoadGraphics()" << std::endl;
     LoadGraphics();
-    std::cout << "SetAll" << std::endl;
     SetAll(TILE_BLANK);
 }
 
@@ -29,19 +27,17 @@ void Display::LoadGraphics() {
             tileSprites[index].setColor(sf::Color(0, badRand(224, 255), 0));
         }
     }
-    std::cout << "if (shadersEnabled)" << std::endl;
+
     if (shadersEnabled) {
-        std::cout << "effects.create" << std::endl;
         // Create surface for shader
         if (!effects.create(GetPixelWidth(), GetPixelHeight())) {
             throw std::runtime_error("Could not create effects.");
         }
-        std::cout << "shader.loadFromFile" << std::endl;
+
         // Load shader
         if (!shader.loadFromFile(SHADER_FRAG_MONITOR3, sf::Shader::Fragment)) {
             throw std::runtime_error("Could not load shader from file: SHADER_FRAG_MONITOR3");
         }
-    std::cout << "boom" << std::endl;
     }
 }
 

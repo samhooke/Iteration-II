@@ -19,15 +19,15 @@ void GameEngine::Pause() {
 #endif // OS_UNIX
 
 void GameEngine::Init(const char* title, bool useShaders) {
-    std::cout << "gameClock->restart()" << std::endl;
+
+    // Start clock
     gameClock = new sf::Clock();
     gameClock->restart();
-    std::cout << "m_running = true" << std::endl;
+
     m_running = true;
-    std::cout << "new Display()" << std::endl;
+
     // Create graphical interfaces
     display = new Display(useShaders);
-    std::cout << "new sf::RenderWindow" << std::endl;
     window = new sf::RenderWindow(sf::VideoMode(display->GetPixelWidth(), display->GetPixelHeight(), 32), title, sf::Style::Default); // ::Close to disable resizing
 
     // Verify the window was created
@@ -56,16 +56,13 @@ void GameEngine::CleanUp() {
 }
 
 void GameEngine::ChangeState(GameState* state) {
-    std::cout << "Changing state..";
     if (!states.empty()) {
         states.back()->CleanUp();
-        std::cout << "Ran cleanup...";
         states.pop_back();
     }
 
     states.push_back(state);
     states.back()->Init();
-    std::cout << "Ran init...";
 }
 
 void GameEngine::PushState(GameState* state) {

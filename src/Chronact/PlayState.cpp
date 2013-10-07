@@ -7,11 +7,8 @@
 PlayState PlayState::m_PlayState;
 
 void PlayState::Init() {
-    std::cout << "PlayState::Init()...";
     levelManager = new LevelManager();
-    std::cout << "2...";
     levelManager->Load(LEVEL_000);
-    std::cout << "3...";
 }
 void PlayState::CleanUp() {
     delete levelManager;

@@ -12,31 +12,26 @@ Chronact::~Chronact() {}
 
 void Chronact::Go() {
     // Load configs
-    //ReadConfig();
+    ReadConfig();
 
     // Enter main loop
     MainLoop();
 }
 
 void Chronact::MainLoop() {
+
     // Create game engine
-    std::cout << "GameEngine* game = new GameEngine();" << std::endl;
     GameEngine* game = new GameEngine();
-    std::cout << "game->Init()" << std::endl;
-    game->Init("Asdf", useShaders);
-    std::cout << "game.ChangeState()" << std::endl;
+    game->Init("Iteration II", useShaders);
+
     // Change game state to the title screen
     game->ChangeState(TitleState::Instance());
-    std::cout << "while(game.Running())" << std::endl;
+
     // Actually enter the main loop
     while(game->Running()) {
-        std::cout << "game.ProcessInput()" << std::endl;
         game->ProcessInput();
-        std::cout << "game.Update()" << std::endl;
         game->Update();
-        std::cout << "game.RenderFrame()" << std::endl;
         game->RenderFrame();
-        std::cout << "game.Pause()" << std::endl;
         game->Pause();
     }
 
