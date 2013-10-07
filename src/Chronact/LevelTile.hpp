@@ -1,13 +1,16 @@
 #ifndef LEVELTILE_HPP_INCLUDED
 #define LEVELTILE_HPP_INCLUDED
 
-class LevelTile {
-private:
-    char tileRender;
-public:
-    LevelTile(char tileRender);
+enum class TileType {Wall, Floor};
 
-    char GetTileRender();
+class LevelTile {
+public:
+    LevelTile(TileType type);
+
+    TileType type;
+    int displayCharacter;
+
+    void CalculateDisplayCharacter();
 };
 
 #endif // LEVELTILE_HPP_INCLUDED

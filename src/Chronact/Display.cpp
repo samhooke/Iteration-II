@@ -76,6 +76,10 @@ void Display::DrawTitle() {
 Display::~Display() {
 }
 
+void Display::SetDisplayCharacter(unsigned int x, unsigned int y, int c) {
+    tile[x][y] = c;
+}
+
 void Display::SetAll(int c) {
     for (int y = 0; y < DISPLAY_HEIGHT; y++) {
         for (int x = 0; x < DISPLAY_WIDTH; x++) {

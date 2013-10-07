@@ -24,6 +24,7 @@ public:
     Display(bool useShaders);
     ~Display();
 
+    void SetDisplayCharacter(unsigned int x, unsigned int y, int c);
     void SetAll(int c);
 
     void WriteText(int x, int y, char* text, int maxCharsPerRow = -1, int maxRows = -1, int mask[] = NULL);

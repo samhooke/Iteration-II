@@ -11,7 +11,10 @@ private:
 public:
     LevelData();
 
-    LevelTile GetTile(unsigned int x, unsigned int y);
+    void SetTileType(unsigned int x, unsigned int y, TileType type);
+    int GetTileDisplayCharacter(unsigned int x, unsigned int y);
+
+    void CalculateDisplayCharacters();
 };
 
 #endif // LEVELDATA_HPP_INCLUDED
