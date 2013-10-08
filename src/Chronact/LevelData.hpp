@@ -13,7 +13,7 @@ private:
 public:
     LevelData();
 
-    void SetTileType(unsigned int x, unsigned int y, TileType type);
+    void SetTileDetails(unsigned int x, unsigned int y, TileType type);
     int GetTileDisplayCharacter(unsigned int x, unsigned int y);
 
     unsigned int GetWidth();

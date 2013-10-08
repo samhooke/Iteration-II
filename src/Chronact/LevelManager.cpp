@@ -24,9 +24,11 @@ void LevelManager::Load(const char* levelName) {
                 for (x = 0; x < expectedWidth; x++) {
                     // Convert the read symbol into a TileType
                     if (line[x] == '#')
-                        levelData->SetTileType(x, y, TileType::Wall);
+                        levelData->SetTileDetails(x, y, TileType::Wall);
+                    else if (line[x] == 'D')
+                        levelData->SetTileDetails(x, y, TileType::Door);
                     else
-                        levelData->SetTileType(x, y, TileType::Floor);
+                        levelData->SetTileDetails(x, y, TileType::Floor);
                 }
             } else {
                 invalidMap = true;
@@ -51,7 +53,7 @@ void LevelManager::Load(const char* levelName) {
         // Map was invalid, so just populated the levelData with walls
         for (y = 0; y < expectedHeight; y++) {
             for (x = 0; x < expectedWidth; x++) {
-                levelData->SetTileType(x, y, TileType::Wall);
+                levelData->SetTileDetails(x, y, TileType::Wall);
             }
         }
     } else {

@@ -10,9 +10,12 @@ LevelData::LevelData() {
     }
 }
 
-void LevelData::SetTileType(unsigned int x, unsigned int y, TileType type) {
+void LevelData::SetTileDetails(unsigned int x, unsigned int y, TileType type) {
     unsigned int index = x + y * width;
     levelTiles[index].type = type;
+
+    // Also set other details
+    levelTiles[index].connectsWithWall = (type == TileType::Wall || type == TileType::Door);
 }
 
 int LevelData::GetTileDisplayCharacter(unsigned int x, unsigned int y) {
@@ -34,10 +37,10 @@ void LevelData::CalculateDisplayCharacters() {
 
             wall_n = wall_e = wall_s = wall_w = false;
 
-            if (y >= 1)         {wall_n = (levelTiles[index_n].type == TileType::Wall);} else {wall_n = false;}
-            if (x < width - 1)  {wall_e = (levelTiles[index_e].type == TileType::Wall);} else {wall_e = false;}
-            if (y < height - 1) {wall_s = (levelTiles[index_s].type == TileType::Wall);} else {wall_s = false;}
-            if (x >= 1)         {wall_w = (levelTiles[index_w].type == TileType::Wall);} else {wall_w = false;}
+            if (y >= 1)         {wall_n = (levelTiles[index_n].connectsWithWall);} else {wall_n = false;}
+            if (x < width - 1)  {wall_e = (levelTiles[index_e].connectsWithWall);} else {wall_e = false;}
+            if (y < height - 1) {wall_s = (levelTiles[index_s].connectsWithWall);} else {wall_s = false;}
+            if (x >= 1)         {wall_w = (levelTiles[index_w].connectsWithWall);} else {wall_w = false;}
 
             int c = TILE_QUESTION; // Default is question mark
 
@@ -64,6 +67,8 @@ void LevelData::CalculateDisplayCharacters() {
                 case 0b1111:    c = TILE_WD_NESW;   break;
                 default:        c = TILE_QUESTION;  break; // Error
                 }
+            } else if (levelTiles[index].type == TileType::Door) {
+                c = TILE_DOOR;
             } else if (levelTiles[index].type == TileType::Floor) {
                 c = TILE_BLANK;
             }
