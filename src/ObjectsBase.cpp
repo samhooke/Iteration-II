@@ -13,7 +13,6 @@ namespace GameObject {
             }
         }
         return false;
-
     }
 
     bool Dynamic::SetPosRelative(unsigned int x, unsigned int y) {

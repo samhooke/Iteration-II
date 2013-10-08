@@ -11,6 +11,9 @@
 // How many milliseconds to sleep for each update, to avoid ravaging the CPU
 #define SLEEP_MILLISECONDS 20
 
+// How many seconds to wait before allowing to move again
+#define MOVEMENT_DELAY 0.1
+
 // Width and height of the screen
 #define DISPLAY_WIDTH 80
 #define DISPLAY_HEIGHT 35

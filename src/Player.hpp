@@ -12,6 +12,8 @@ namespace GameObject {
 
         Player(unsigned int x, unsigned int y, GameEngine* game, LevelData* levelData);
         ~Player();
+    private:
+        float lastMovedTime;
     };
 }
 
