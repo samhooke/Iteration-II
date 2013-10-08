@@ -3,13 +3,14 @@
 
 #include "ObjectsBase.hpp"
 #include "GameEngine.hpp"
+#include "LevelData.hpp"
 
 namespace GameObject {
     class Door : public GameObject::Static {
     public:
         void Update();
 
-        Door(unsigned int x, unsigned int y, GameEngine* game);
+        Door(unsigned int x, unsigned int y, GameEngine* game, LevelData* levelData);
         ~Door();
     };
 }

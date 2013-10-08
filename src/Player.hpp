@@ -3,13 +3,14 @@
 
 #include "ObjectsBase.hpp"
 #include "GameEngine.hpp"
+#include "LevelData.hpp"
 
 namespace GameObject {
     class Player : public Dynamic {
     public:
         void Update();
 
-        Player(unsigned int x, unsigned int y, GameEngine* game);
+        Player(unsigned int x, unsigned int y, GameEngine* game, LevelData* levelData);
         ~Player();
     };
 }

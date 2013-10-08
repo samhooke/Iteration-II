@@ -4,12 +4,15 @@
 #include "Tiles.hpp"
 #include "GameEngine.hpp"
 
+class LevelData; // To avoid #include loop between ObjectsBase.hpp and LevelData.hpp
+
 namespace GameObject {
     class Base {
     public:
         virtual void Update() = 0;
 
         GameEngine* game;
+        LevelData* levelData;
 
         unsigned int x;
         unsigned int y;

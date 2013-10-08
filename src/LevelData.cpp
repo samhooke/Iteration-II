@@ -115,10 +115,10 @@ void LevelData::CallObjectUpdate(int index) {
 
 void LevelData::CreatePlayer(unsigned int x, unsigned int y) {
     std::cout << "CreatePlayer(" << x << "," << y << ")" << std::endl;
-    levelObjects.push_back(new GameObject::Player(x, y, game));
+    levelObjects.push_back(new GameObject::Player(x, y, game, this));
 }
 
 void LevelData::CreateDoor(unsigned int x, unsigned int y) {
     std::cout << "CreateDoor(" << x << "," << y << ")" << std::endl;
-    levelObjects.push_back(new GameObject::Door(x, y, game));
+    levelObjects.push_back(new GameObject::Door(x, y, game, this));
 }

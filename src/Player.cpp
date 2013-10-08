@@ -1,10 +1,11 @@
 #include "Player.hpp"
 
 namespace GameObject {
-    Player::Player(unsigned int x, unsigned int y, GameEngine* game) {
+    Player::Player(unsigned int x, unsigned int y, GameEngine* game, LevelData* levelData) {
         this->x = x;
         this->y = y;
         this->game = game;
+        this->levelData = levelData;
         displayCharacter = TILE_FACE_OUTLINE;
     }
 

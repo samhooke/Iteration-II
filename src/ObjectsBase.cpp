@@ -1,10 +1,11 @@
+#include <iostream>
 #include "ObjectsBase.hpp"
 #include "Display.hpp"
-#include <iostream>
+#include "LevelData.hpp"
 
 namespace GameObject {
     bool Dynamic::SetPos(unsigned int x, unsigned int y) {
-        if (x >= 0 && x < game->display->GetWidth() && y >= 0 && y < game->display->GetHeight()) {
+        if (x >= 0 && x < levelData->GetWidth() && y >= 0 && y < levelData->GetHeight()) {
             this->x = x;
             this->y = y;
             return true;
