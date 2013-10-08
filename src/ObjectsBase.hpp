@@ -7,22 +7,20 @@ namespace GameObject {
         unsigned int x;
         unsigned int y;
         int displayCharacter;
-
-        virtual Base() = 0;
+    protected:
+        virtual ~Base() = 0;
     };
 
     // Objects that remain fixed
     class Static : public Base {
-    public:
-
-        virtual Static() = 0;
+    protected:
+        virtual ~Static() = 0;
     };
 
     // Objects that can move
     class Dynamic : public Base {
-    public:
-
-        virtual Dynamic() = 0;
+    protected:
+        virtual ~Dynamic() = 0;
     };
 }
 #endif // OBJECTSBASE_HPP_INCLUDED
