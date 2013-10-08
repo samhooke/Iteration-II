@@ -69,6 +69,8 @@
 		<Unit filename="src/Defs.hpp" />
 		<Unit filename="src/Display.cpp" />
 		<Unit filename="src/Display.hpp" />
+		<Unit filename="src/Door.cpp" />
+		<Unit filename="src/Door.hpp" />
 		<Unit filename="src/Exception.hpp" />
 		<Unit filename="src/GameEngine.cpp" />
 		<Unit filename="src/GameEngine.hpp" />
@@ -80,6 +82,9 @@
 		<Unit filename="src/LevelTile.cpp" />
 		<Unit filename="src/LevelTile.hpp" />
 		<Unit filename="src/Logger.hpp" />
+		<Unit filename="src/Main.cpp" />
+		<Unit filename="src/ObjectsBase.cpp" />
+		<Unit filename="src/ObjectsBase.hpp" />
 		<Unit filename="src/PRNG.cpp" />
 		<Unit filename="src/PRNG.hpp" />
 		<Unit filename="src/PlayState.cpp" />
@@ -88,7 +93,7 @@
 		<Unit filename="src/Player.hpp" />
 		<Unit filename="src/Tiles.hpp" />
 		<Unit filename="src/TitleState.cpp" />
-		<Unit filename="src/Main.cpp" />
+		<Unit filename="src/TitleState.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
