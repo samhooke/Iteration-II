@@ -1,12 +1,20 @@
+#include <iostream>
 #include "LevelData.hpp"
 #include "Tiles.hpp"
-#include <iostream>
 
-#include <stdio.h>
+#include "Player.hpp"
+#include "Door.hpp"
 
 LevelData::LevelData() {
     for (unsigned int i = 0; i < width * height; i++) {
         levelTiles.push_back(LevelTile(TileType::Floor));
+    }
+}
+
+LevelData::~LevelData() {
+    // Destroy all generated GameObjects
+    for (unsigned int i = 0; i < levelObjects.size(); i++) {
+        delete levelObjects[i];
     }
 }
 
@@ -80,4 +88,30 @@ unsigned int LevelData::GetWidth() {
 
 unsigned int LevelData::GetHeight() {
     return height;
+}
+
+int LevelData::GetNumObjects() {
+    return levelObjects.size();
+}
+
+int LevelData::GetObjectDisplayCharacter(int index) {
+    return levelObjects[index]->displayCharacter;
+}
+
+unsigned int LevelData::GetObjectX(int index) {
+    return levelObjects[index]->x;
+}
+
+unsigned int LevelData::GetObjectY(int index) {
+    return levelObjects[index]->y;
+}
+
+void LevelData::CreatePlayer(unsigned int x, unsigned int y) {
+    std::cout << "CreatePlayer(" << x << "," << y << ")" << std::endl;
+    levelObjects.push_back(new GameObject::Player(x, y));
+}
+
+void LevelData::CreateDoor(unsigned int x, unsigned int y) {
+    std::cout << "CreateDoor(" << x << "," << y << ")" << std::endl;
+    levelObjects.push_back(new GameObject::Door(x, y));
 }

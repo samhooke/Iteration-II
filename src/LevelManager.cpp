@@ -4,8 +4,12 @@
 #include <string>
 #include <fstream>
 
-LevelManager::LevelManager() {}
-LevelManager::~LevelManager() {}
+LevelManager::LevelManager() {
+    levelData = new LevelData();
+}
+LevelManager::~LevelManager() {
+    delete levelData;
+}
 
 void LevelManager::Load(const char* levelName) {
     std::string line;
@@ -15,7 +19,6 @@ void LevelManager::Load(const char* levelName) {
     expectedWidth = DISPLAY_WIDTH;
     expectedHeight = DISPLAY_HEIGHT;
 
-    levelData = new LevelData();
     bool invalidMap = false;
     if (f.is_open()) {
         x = y = 0;
@@ -29,9 +32,11 @@ void LevelManager::Load(const char* levelName) {
                         break;
                     case 'D':
                         levelData->SetTileDetails(x, y, TileType::Floor, true);
+                        levelData->CreateDoor(x, y);
                         break;
                     case 'P':
                         levelData->SetTileDetails(x, y, TileType::Floor, false);
+                        levelData->CreatePlayer(x, y);
                         break;
                     case ' ':
                     default:
@@ -72,11 +77,23 @@ void LevelManager::Load(const char* levelName) {
 }
 
 void LevelManager::UpdateDisplay(Display* display) {
+
+    // Reset all tiles to blank
     display->SetAll(TILE_BLANK);
+
+    // Draw all the walls and floors
     for (unsigned int y = 0; y < DISPLAY_HEIGHT; y++) {
         for (unsigned int x = 0; x < DISPLAY_WIDTH; x++) {
             int c = levelData->GetTileDisplayCharacter(x, y);
             display->SetDisplayCharacter(x, y, c);
         }
+    }
+
+    // Draw all the objects
+    for (unsigned int index = 0; index < levelData->GetNumObjects(); index++) {
+        int c = levelData->GetObjectDisplayCharacter(index);
+        unsigned int x = levelData->GetObjectX(index);
+        unsigned int y = levelData->GetObjectY(index);
+        display->SetDisplayCharacter(x, y, c);
     }
 }
