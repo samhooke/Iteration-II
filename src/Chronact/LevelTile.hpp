@@ -1,7 +1,7 @@
 #ifndef LEVELTILE_HPP_INCLUDED
 #define LEVELTILE_HPP_INCLUDED
 
-enum class TileType {Wall, Floor, Door};
+enum class TileType {Wall, Floor};
 
 class LevelTile {
 public:

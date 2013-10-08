@@ -10,12 +10,10 @@ LevelData::LevelData() {
     }
 }
 
-void LevelData::SetTileDetails(unsigned int x, unsigned int y, TileType type) {
+void LevelData::SetTileDetails(unsigned int x, unsigned int y, TileType type, bool connectsWithWall) {
     unsigned int index = x + y * width;
     levelTiles[index].type = type;
-
-    // Also set other details
-    levelTiles[index].connectsWithWall = (type == TileType::Wall || type == TileType::Door);
+    levelTiles[index].connectsWithWall = connectsWithWall;
 }
 
 int LevelData::GetTileDisplayCharacter(unsigned int x, unsigned int y) {
@@ -67,8 +65,6 @@ void LevelData::CalculateDisplayCharacters() {
                 case 0b1111:    c = TILE_WD_NESW;   break;
                 default:        c = TILE_QUESTION;  break; // Error
                 }
-            } else if (levelTiles[index].type == TileType::Door) {
-                c = TILE_DOOR;
             } else if (levelTiles[index].type == TileType::Floor) {
                 c = TILE_BLANK;
             }
