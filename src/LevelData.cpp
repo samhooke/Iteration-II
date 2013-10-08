@@ -32,6 +32,11 @@ int LevelData::GetTileDisplayCharacter(unsigned int x, unsigned int y) {
     return levelTiles[index].displayCharacter;
 }
 
+TileType LevelData::GetTileType(unsigned int x, unsigned int y) {
+    unsigned int index = x + y * width;
+    return levelTiles[index].type;
+}
+
 void LevelData::CalculateDisplayCharacters() {
     bool wall_n, wall_e, wall_s, wall_w;
     int index_n, index_e, index_s, index_w;
