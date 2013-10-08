@@ -3,15 +3,17 @@
 
 #include "Display.hpp"
 #include "LevelData.hpp"
+#include "GameEngine.hpp"
 
 class LevelManager {
 private:
     LevelData* levelData;
 public:
-    LevelManager();
+    LevelManager(GameEngine* game);
     ~LevelManager();
 
     void Load(const char* levelName);
+    void Update(GameEngine* game);
     void UpdateDisplay(Display* display);
 };
 

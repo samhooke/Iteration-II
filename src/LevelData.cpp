@@ -5,7 +5,10 @@
 #include "Player.hpp"
 #include "Door.hpp"
 
-LevelData::LevelData() {
+LevelData::LevelData(GameEngine* game) {
+    // Requires a reference to GameEngine which it passes on to created objects
+    this->game = game;
+
     for (unsigned int i = 0; i < width * height; i++) {
         levelTiles.push_back(LevelTile(TileType::Floor));
     }
@@ -106,12 +109,16 @@ unsigned int LevelData::GetObjectY(int index) {
     return levelObjects[index]->y;
 }
 
+void LevelData::CallObjectUpdate(int index) {
+    levelObjects[index]->Update();
+}
+
 void LevelData::CreatePlayer(unsigned int x, unsigned int y) {
     std::cout << "CreatePlayer(" << x << "," << y << ")" << std::endl;
-    levelObjects.push_back(new GameObject::Player(x, y));
+    levelObjects.push_back(new GameObject::Player(x, y, game));
 }
 
 void LevelData::CreateDoor(unsigned int x, unsigned int y) {
     std::cout << "CreateDoor(" << x << "," << y << ")" << std::endl;
-    levelObjects.push_back(new GameObject::Door(x, y));
+    levelObjects.push_back(new GameObject::Door(x, y, game));
 }

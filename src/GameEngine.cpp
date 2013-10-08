@@ -62,7 +62,7 @@ void GameEngine::ChangeState(GameState* state) {
     }
 
     states.push_back(state);
-    states.back()->Init();
+    states.back()->Init(this);
 }
 
 void GameEngine::PushState(GameState* state) {
@@ -71,7 +71,7 @@ void GameEngine::PushState(GameState* state) {
     }
 
     states.push_back(state);
-    states.back()->Init();
+    states.back()->Init(this);
 }
 
 void GameEngine::PopState(GameState* state) {

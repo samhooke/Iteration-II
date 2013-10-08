@@ -4,8 +4,8 @@
 #include <string>
 #include <fstream>
 
-LevelManager::LevelManager() {
-    levelData = new LevelData();
+LevelManager::LevelManager(GameEngine* game) {
+    levelData = new LevelData(game);
 }
 LevelManager::~LevelManager() {
     delete levelData;
@@ -73,6 +73,13 @@ void LevelManager::Load(const char* levelName) {
     } else {
         // Map was valid, so work out what characters should be displayed
         levelData->CalculateDisplayCharacters();
+    }
+}
+
+void LevelManager::Update(GameEngine* game) {
+    // Call Update() in all GameObjects
+    for (unsigned int index = 0; index < levelData->GetNumObjects(); index++) {
+        levelData->CallObjectUpdate(index);
     }
 }
 

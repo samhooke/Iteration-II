@@ -5,7 +5,7 @@
 
 class GameState {
 public:
-    virtual void Init() = 0;
+    virtual void Init(GameEngine* game) = 0;
     virtual void CleanUp() = 0;
 
     virtual void Pause() = 0;

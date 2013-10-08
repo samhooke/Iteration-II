@@ -167,6 +167,14 @@ void Display::RenderSurfaceToWindow(GameEngine* game) {
     }
 }
 
+int Display::GetWidth() {
+    return DISPLAY_WIDTH;
+}
+
+int Display::GetHeight() {
+    return DISPLAY_HEIGHT;
+}
+
 int Display::GetPixelWidth() {
     return DISPLAY_WIDTH * SPRITESHEET_SPRITE_W;
 }

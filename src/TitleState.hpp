@@ -5,7 +5,7 @@
 
 class TitleState : public GameState {
 public:
-    void Init();
+    void Init(GameEngine* game);
     void CleanUp();
 
     void Pause();

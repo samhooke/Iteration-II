@@ -5,6 +5,7 @@
 #include "Defs.hpp"
 #include "LevelTile.hpp"
 #include "ObjectsBase.hpp"
+#include "GameEngine.hpp"
 
 class LevelData {
 private:
@@ -12,8 +13,9 @@ private:
     unsigned int height = DISPLAY_HEIGHT;
     std::vector<LevelTile> levelTiles;
     std::vector<GameObject::Base*> levelObjects;
+    GameEngine* game;
 public:
-    LevelData();
+    LevelData(GameEngine* game);
     ~LevelData();
 
     void SetTileDetails(unsigned int x, unsigned int y, TileType type, bool connectsWithWall);
@@ -28,6 +30,7 @@ public:
     int GetObjectDisplayCharacter(int index);
     unsigned int GetObjectX(int index);
     unsigned int GetObjectY(int index);
+    void CallObjectUpdate(int index);
 
     void CreatePlayer(unsigned int x, unsigned int y);
     void CreateDoor(unsigned int x, unsigned int y);

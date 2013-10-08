@@ -6,8 +6,8 @@
 
 PlayState PlayState::m_PlayState;
 
-void PlayState::Init() {
-    levelManager = new LevelManager();
+void PlayState::Init(GameEngine* game) {
+    levelManager = new LevelManager(game);
     levelManager->Load(LEVEL_000);
 }
 void PlayState::CleanUp() {
@@ -35,11 +35,15 @@ void PlayState::ProcessInput(GameEngine* game) {
 }
 
 void PlayState::Update(GameEngine* game) {
-    levelManager->UpdateDisplay(game->display);
+    levelManager->Update(game);
 }
 
 void PlayState::RenderFrame(GameEngine* game) {
     game->window->clear();
+
+    // Update the tiles in Display
+    levelManager->UpdateDisplay(game->display);
+
     game->display->Render(game);
     game->window->display();
 }

@@ -3,10 +3,11 @@
 
 #include "GameState.hpp"
 #include "LevelManager.hpp"
+#include "GameEngine.hpp"
 
 class PlayState : public GameState {
 public:
-    void Init();
+    void Init(GameEngine* game);
     void CleanUp();
 
     void Pause();

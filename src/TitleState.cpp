@@ -6,7 +6,7 @@
 
 TitleState TitleState::m_TitleState;
 
-void TitleState::Init() {}
+void TitleState::Init(GameEngine* game) {}
 void TitleState::CleanUp() {}
 void TitleState::Pause() {}
 void TitleState::Resume() {}

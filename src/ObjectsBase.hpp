@@ -2,19 +2,18 @@
 #define OBJECTSBASE_HPP_INCLUDED
 
 #include "Tiles.hpp"
-
-//unsigned int x = 0;
-//unsigned int y = 0;
-//int displayCharacter = TILE_QUESTION;
+#include "GameEngine.hpp"
 
 namespace GameObject {
     class Base {
     public:
         virtual void Update() = 0;
-        int displayCharacter;
+
+        GameEngine* game;
 
         unsigned int x;
         unsigned int y;
+        int displayCharacter;
     };
 
     // Objects that remain fixed
@@ -23,6 +22,9 @@ namespace GameObject {
 
     // Objects that can move
     class Dynamic : public Base {
+    public:
+        bool SetPos(unsigned int x, unsigned int y);
+        bool SetPosRelative(unsigned int x, unsigned int y);
     };
 }
 #endif // OBJECTSBASE_HPP_INCLUDED

@@ -31,9 +31,10 @@ public:
 
     void DrawTitle();
 
-    //void Render(sf::RenderWindow* window, sf::Clock* gameClock);
     void Render(GameEngine* game);
 
+    int GetWidth();
+    int GetHeight();
     int GetPixelWidth();
     int GetPixelHeight();
 };
