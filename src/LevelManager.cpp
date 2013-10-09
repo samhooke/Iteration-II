@@ -16,8 +16,10 @@ void LevelManager::Load(const char* levelName) {
     std::ifstream f(levelName);
     unsigned int x, y;
     unsigned int expectedWidth, expectedHeight;
-    expectedWidth = DISPLAY_WIDTH;
-    expectedHeight = DISPLAY_HEIGHT;
+    expectedWidth = 80;
+    expectedHeight = 30;
+
+    levelData->CreateBlankLevel(expectedWidth, expectedHeight);
 
     bool invalidMap = false;
     if (f.is_open()) {
@@ -42,7 +44,7 @@ void LevelManager::Load(const char* levelName) {
                         levelData->SetTileDetails(x, y, TileType::Floor, false);
                         levelData->CreatePlayer(x, y);
                         break;
-                    case ' ':
+                    case '.':
                     default:
                         levelData->SetTileDetails(x, y, TileType::Floor, false);
                         break;
@@ -93,8 +95,8 @@ void LevelManager::UpdateDisplay(Display* display) {
     display->SetAll(TILE_BLANK);
 
     // Draw all the walls and floors
-    for (unsigned int y = 0; y < DISPLAY_HEIGHT; y++) {
-        for (unsigned int x = 0; x < DISPLAY_WIDTH; x++) {
+    for (unsigned int y = 0; y < levelData->GetHeight(); y++) {
+        for (unsigned int x = 0; x < levelData->GetWidth(); x++) {
             int c = levelData->GetTileDisplayCharacter(x, y);
             display->SetDisplayCharacter(x, y, c);
         }

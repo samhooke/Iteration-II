@@ -18,6 +18,8 @@ public:
     LevelData(GameEngine* game);
     ~LevelData();
 
+    void CreateBlankLevel(unsigned int width, unsigned int height);
+
     void SetTileDetails(unsigned int x, unsigned int y, TileType type, bool connectsWithWall);
     int GetTileDisplayCharacter(unsigned int x, unsigned int y);
     TileType GetTileType(unsigned int x, unsigned int y);

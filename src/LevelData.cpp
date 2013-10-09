@@ -9,16 +9,21 @@
 LevelData::LevelData(GameEngine* game) {
     // Requires a reference to GameEngine which it passes on to created objects
     this->game = game;
-
-    for (unsigned int i = 0; i < width * height; i++) {
-        levelTiles.push_back(LevelTile(TileType::Floor));
-    }
 }
 
 LevelData::~LevelData() {
     // Destroy all generated GameObjects
     for (unsigned int i = 0; i < levelObjects.size(); i++) {
         delete levelObjects[i];
+    }
+}
+
+void LevelData::CreateBlankLevel(unsigned int width, unsigned int height) {
+    this->width = width;
+    this->height = height;
+
+    for (unsigned int i = 0; i < width * height; i++) {
+        levelTiles.push_back(LevelTile(TileType::Floor));
     }
 }
 
@@ -83,7 +88,7 @@ void LevelData::CalculateDisplayCharacters() {
                 default:        c = TILE_QUESTION;  break; // Error
                 }
             } else if (levelTiles[index].type == TileType::Floor) {
-                c = TILE_BLANK;
+                c = TILE_FULLSTOP;
             }
 
             levelTiles[index].displayCharacter = c;
