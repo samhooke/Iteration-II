@@ -32,7 +32,9 @@ void LevelManager::Load(const char* levelName) {
             if (lineNumber == 0) {
                 // Read expectedWidth
                 if (StringToInt(line, expectedWidth)) {
+#ifdef DEBUG_VERBOSE
                     std::cout << "expectedWidth: " << expectedWidth << std::endl;
+#endif
                     if (expectedWidth < LEVEL_WIDTH_MIN || expectedWidth > LEVEL_WIDTH_MAX) {
                         invalidMap = true;
                         std::cout << "ERROR: Level width must fall between " << LEVEL_WIDTH_MIN << " and " << LEVEL_WIDTH_MAX << std::endl;
@@ -44,7 +46,9 @@ void LevelManager::Load(const char* levelName) {
             } else if (lineNumber == 1) {
                 // Read expectedHeight
                 if (StringToInt(line, expectedHeight)) {
+#ifdef DEBUG_VERBOSE
                     std::cout << "expectedHeight: " << expectedHeight << std::endl;
+#endif
                     if (expectedHeight < LEVEL_HEIGHT_MIN || expectedHeight > LEVEL_HEIGHT_MAX) {
                         invalidMap = true;
                         std::cout << "ERROR: Level height must fall between " << LEVEL_HEIGHT_MIN << " and " << LEVEL_HEIGHT_MAX << std::endl;

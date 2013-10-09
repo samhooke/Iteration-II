@@ -132,16 +132,22 @@ void LevelData::CallObjectUpdate(int index) {
 }
 
 void LevelData::CreatePlayer(int x, int y) {
+#ifdef DEBUG_VERBOSE
     std::cout << "CreatePlayer(" << x << "," << y << ")" << std::endl;
+#endif
     levelObjects.push_back(new GameObject::Player(x, y, game, this));
 }
 
 void LevelData::CreateDoor(int x, int y) {
+#ifdef DEBUG_VERBOSE
     std::cout << "CreateDoor(" << x << "," << y << ")" << std::endl;
+#endif
     levelObjects.push_back(new GameObject::Door(x, y, game, this));
 }
 
 void LevelData::CreateRadiation(int x, int y) {
+#ifdef DEBUG_VERBOSE
     std::cout << "CreateRadiation(" << x << "," << y << ")" << std::endl;
+#endif
     levelObjects.push_back(new GameObject::Radiation(x, y, game, this));
 }
