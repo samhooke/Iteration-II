@@ -45,7 +45,14 @@ void LevelManager::Load(const char* levelName) {
                         levelData->CreatePlayer(x, y);
                         break;
                     case '.':
+                        levelData->SetTileDetails(x, y, TileType::Floor, false);
+                    break;
+                    case ' ':
+                        levelData->SetTileDetails(x, y, TileType::Restricted, false);
+                        break;
                     default:
+                        invalidMap = true;
+                        std::cout << "ERROR: Unknown symbol '" << line[x] << "' at position (" << x << "," << y << ")" << std::endl;
                         levelData->SetTileDetails(x, y, TileType::Floor, false);
                         break;
                     }

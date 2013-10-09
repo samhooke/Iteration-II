@@ -89,6 +89,8 @@ void LevelData::CalculateDisplayCharacters() {
                 }
             } else if (levelTiles[index].type == TileType::Floor) {
                 c = TILE_FULLSTOP;
+            } else if (levelTiles[index].type == TileType::Restricted) {
+                c = TILE_BLANK;
             }
 
             levelTiles[index].displayCharacter = c;
