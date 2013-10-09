@@ -74,9 +74,17 @@ void LevelManager::Load(const char* levelName) {
                             levelData->SetTileDetails(x, y, TileType::Floor, true);
                             levelData->CreateDoor(x, y);
                             break;
+                        case 'W':
+                            levelData->SetTileDetails(x, y, TileType::Wall, true);
+                            levelData->CreateWindow(x, y);
+                            break;
                         case 'r':
                             levelData->SetTileDetails(x, y, TileType::Floor, false);
-                            levelData->CreateRadiation(x, y);
+                            levelData->CreateRadiation(x, y, 0);
+                            break;
+                        case 'R':
+                            levelData->SetTileDetails(x, y, TileType::Floor, false);
+                            levelData->CreateRadiation(x, y, 1);
                             break;
                         case 'P':
                             levelData->SetTileDetails(x, y, TileType::Floor, false);

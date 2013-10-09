@@ -69,8 +69,6 @@
 		<Unit filename="src/Defs.hpp" />
 		<Unit filename="src/Display.cpp" />
 		<Unit filename="src/Display.hpp" />
-		<Unit filename="src/Door.cpp" />
-		<Unit filename="src/Door.hpp" />
 		<Unit filename="src/Exception.hpp" />
 		<Unit filename="src/GameEngine.cpp" />
 		<Unit filename="src/GameEngine.hpp" />
@@ -85,6 +83,8 @@
 		<Unit filename="src/Main.cpp" />
 		<Unit filename="src/ObjectsBase.cpp" />
 		<Unit filename="src/ObjectsBase.hpp" />
+		<Unit filename="src/ObjectsGeneral.cpp" />
+		<Unit filename="src/ObjectsGeneral.hpp" />
 		<Unit filename="src/PRNG.cpp" />
 		<Unit filename="src/PRNG.hpp" />
 		<Unit filename="src/PlayState.cpp" />

@@ -3,7 +3,7 @@
 #include "Tiles.hpp"
 
 #include "Player.hpp"
-#include "Door.hpp"
+#include "ObjectsGeneral.hpp"
 #include "Radiation.hpp"
 
 LevelData::LevelData(GameEngine* game) {
@@ -145,9 +145,21 @@ void LevelData::CreateDoor(int x, int y) {
     levelObjects.push_back(new GameObject::Door(x, y, game, this));
 }
 
-void LevelData::CreateRadiation(int x, int y) {
+void LevelData::CreateWindow(int x, int y) {
+#ifdef DEBUG_VERBOSE
+    std::cout << "CreateWindow(" << x << "," << y << ")" << std::endl;
+#endif
+    levelObjects.push_back(new GameObject::Window(x, y, game, this));
+}
+
+void LevelData::CreateRadiation(int x, int y, int intensity) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreateRadiation(" << x << "," << y << ")" << std::endl;
 #endif
-    levelObjects.push_back(new GameObject::Radiation(x, y, game, this));
+    if (intensity == 0)
+        levelObjects.push_back(new GameObject::RadiationWeak(x, y, game, this));
+    else if (intensity == 1)
+        levelObjects.push_back(new GameObject::RadiationStrong(x, y, game, this));
+    else
+        std::cout << "WARNING: Tried to create radiation with an invalid intensity" << std::endl;
 }
