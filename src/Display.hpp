@@ -10,7 +10,8 @@ class Display {
 private:
     int width;
     int height;
-    bool shadersEnabled;
+    sf::Vector2f scale;
+    bool useShaders;
     int tile[DISPLAY_WIDTH][DISPLAY_HEIGHT];
     sf::RenderTexture surface;
     sf::RenderTexture effects;
@@ -21,7 +22,7 @@ private:
     void RenderTilesToSurface();
     void RenderSurfaceToWindow(GameEngine* game);
 public:
-    Display(bool useShaders);
+    Display(sf::Vector2f scale, bool useShaders);
     ~Display();
 
     void SetDisplayCharacter(int x, int y, int c);
@@ -33,8 +34,11 @@ public:
 
     void Render(GameEngine* game);
 
+    // Numbers of rows and columns for characters (e.g. 80x35)
     int GetWidth();
     int GetHeight();
+
+    // The size being rendered at (i.e. num rows * tile width X num cols * tile height)
     int GetPixelWidth();
     int GetPixelHeight();
 };

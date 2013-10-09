@@ -10,7 +10,7 @@ class GameState;
 
 class GameEngine {
 public:
-    void Init(const char* title, bool useShaders);
+    void Init(const char* title, bool fullscreen, sf::Vector2f scale, bool useShaders);
     void CleanUp();
 
     void ChangeState(GameState* state);

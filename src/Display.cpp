@@ -3,8 +3,9 @@
 #include "Logger.hpp"
 #include "PRNG.hpp"
 
-Display::Display(bool useShaders) {
-    shadersEnabled = useShaders;
+Display::Display(sf::Vector2f scale, bool useShaders) {
+    this->scale = scale;
+    this->useShaders = useShaders;
     LoadGraphics();
     SetAll(TILE_BLANK);
 }
@@ -28,7 +29,7 @@ void Display::LoadGraphics() {
         }
     }
 
-    if (shadersEnabled) {
+    if (useShaders) {
         // Create surface for shader
         if (!effects.create(GetPixelWidth(), GetPixelHeight())) {
             throw std::runtime_error("Could not create effects.");
@@ -143,15 +144,22 @@ void Display::RenderTilesToSurface() {
 void Display::RenderSurfaceToWindow(GameEngine* game) {
     // Render the surface to the window
     sf::Sprite surfaceSprite(surface.getTexture());
+
+    // Calculate window size
+    sf::Vector2u windowSize = game->window->getSize();
+
+    // Place it in the center of the window, even when fullscreen
     surfaceSprite.setOrigin(GetPixelWidth()/2, GetPixelHeight()/2);
-    surfaceSprite.setPosition(GetPixelWidth()/2, GetPixelHeight()/2);
-    surfaceSprite.setScale(1.0f, -1.0f);
+    surfaceSprite.setPosition(windowSize.x/2, windowSize.y/2);
+
+    surfaceSprite.setScale(scale.x, -scale.y); // y must be negative. Not sure why
+
     game->window->draw(surfaceSprite);
 
-    if (shadersEnabled) {
+    if (useShaders) {
         // Shader time
         //sf::Vector2i mousePos = sf::Mouse::getPosition(); // Not used
-        sf::Vector2u windowSize = game->window->getSize();
+
         float t = (game->gameClock->getElapsedTime()).asSeconds();
 
         // Render the monitor effects on top
@@ -163,6 +171,13 @@ void Display::RenderSurfaceToWindow(GameEngine* game) {
         shader.setParameter("time", t);
 
         sf::Sprite monitorSprite(effects.getTexture());
+
+        // Place it in the center of the window, even when fullscreen
+        monitorSprite.setOrigin(GetPixelWidth()/2, GetPixelHeight()/2);
+        monitorSprite.setPosition(windowSize.x/2, windowSize.y/2);
+
+        monitorSprite.setScale(scale.x, scale.y);
+
         game->window->draw(monitorSprite, &shader);
     }
 }
