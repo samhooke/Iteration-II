@@ -136,11 +136,14 @@ void LevelManager::UpdateDisplay(Display* display) {
     // Reset all tiles to blank
     display->SetAll(TILE_BLANK);
 
+    int offsetX = 3;
+    int offsetY = 2;
+
     // Draw all the walls and floors
     for (int y = 0; y < levelData->GetHeight(); y++) {
         for (int x = 0; x < levelData->GetWidth(); x++) {
             int c = levelData->GetTileDisplayCharacter(x, y);
-            display->SetDisplayCharacter(x, y, c);
+            display->SetDisplayCharacter(x + offsetX, y + offsetY, c);
         }
     }
 
@@ -149,6 +152,6 @@ void LevelManager::UpdateDisplay(Display* display) {
         int c = levelData->GetObjectDisplayCharacter(index);
         int x = levelData->GetObjectX(index);
         int y = levelData->GetObjectY(index);
-        display->SetDisplayCharacter(x, y, c);
+        display->SetDisplayCharacter(x + offsetX, y + offsetY, c);
     }
 }
