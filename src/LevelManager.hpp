@@ -1,6 +1,8 @@
 #ifndef LEVELMANAGER_HPP_INCLUDED
 #define LEVELMANAGER_HPP_INCLUDED
 
+#include <sstream>
+#include <string>
 #include "Display.hpp"
 #include "LevelData.hpp"
 #include "GameEngine.hpp"
@@ -8,6 +10,7 @@
 class LevelManager {
 private:
     LevelData* levelData;
+    bool StringToInt(std::string &s, unsigned int &i);
 public:
     LevelManager(GameEngine* game);
     ~LevelManager();

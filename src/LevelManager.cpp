@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <sstream>
 
 LevelManager::LevelManager(GameEngine* game) {
     levelData = new LevelData(game);
@@ -11,11 +12,16 @@ LevelManager::~LevelManager() {
     delete levelData;
 }
 
+bool LevelManager::StringToInt(std::string &s, unsigned int &i) {
+    std::istringstream myStream(s);
+    return (myStream>>i);
+}
+
 void LevelManager::Load(const char* levelName) {
     std::string line;
     std::ifstream f(levelName);
-    unsigned int x, y;
-    unsigned int expectedWidth, expectedHeight;
+    unsigned int x, y, lineNumber;
+    unsigned int expectedWidth = 80, expectedHeight = 30;
     expectedWidth = 80;
     expectedHeight = 30;
 
@@ -23,46 +29,64 @@ void LevelManager::Load(const char* levelName) {
 
     bool invalidMap = false;
     if (f.is_open()) {
-        x = y = 0;
+        x = y = lineNumber = 0;
         while (getline(f, line) && !invalidMap && y < expectedHeight) {
-            if (line.length() == expectedWidth) {
-                for (x = 0; x < expectedWidth; x++) {
-                    // Convert the read symbol into a TileType
-                    switch (line[x]) {
-                    case '#':
-                        levelData->SetTileDetails(x, y, TileType::Wall, true);
-                        break;
-                    case 'D':
-                        levelData->SetTileDetails(x, y, TileType::Floor, true);
-                        levelData->CreateDoor(x, y);
-                        break;
-                    case 'r':
-                        levelData->SetTileDetails(x, y, TileType::Floor, false);
-                        levelData->CreateRadiation(x, y);
-                        break;
-                    case 'P':
-                        levelData->SetTileDetails(x, y, TileType::Floor, false);
-                        levelData->CreatePlayer(x, y);
-                        break;
-                    case '.':
-                        levelData->SetTileDetails(x, y, TileType::Floor, false);
-                    break;
-                    case ' ':
-                        levelData->SetTileDetails(x, y, TileType::Restricted, false);
-                        break;
-                    default:
-                        invalidMap = true;
-                        std::cout << "ERROR: Unknown symbol '" << line[x] << "' at position (" << x << "," << y << ")" << std::endl;
-                        levelData->SetTileDetails(x, y, TileType::Floor, false);
-                        break;
-                    }
+            if (lineNumber == 0) {
+                // Read expectedWidth
+                if (StringToInt(line, expectedWidth)) {
+                    std::cout << "expectedWidth: " << expectedWidth << std::endl;
+                } else {
+                    std::cout << "Error reading expectedWidth on line " << lineNumber << std::endl;
                 }
-            } else {
-                invalidMap = true;
-                std::cout << "ERROR: Invalid map. Incorrect width on row " << y << std::endl;
-                std::cout << "(Should have been width " << expectedWidth << ". Actual width was " << line.length() << ")" << std::endl;
+            } else if (lineNumber == 1) {
+                // Read expectedHeight
+                if (StringToInt(line, expectedHeight)) {
+                    std::cout << "expectedHeight: " << expectedHeight << std::endl;
+                } else {
+                    std::cout << "Error reading expectedHeight on line " << lineNumber << std::endl;
+                }
+            } else if (lineNumber >= 2 && lineNumber < 2 + expectedHeight) {
+                // Read levelData
+                if (line.length() == expectedWidth) {
+                    for (x = 0; x < expectedWidth; x++) {
+                        // Convert the read symbol into a TileType
+                        switch (line[x]) {
+                        case '#':
+                            levelData->SetTileDetails(x, y, TileType::Wall, true);
+                            break;
+                        case 'D':
+                            levelData->SetTileDetails(x, y, TileType::Floor, true);
+                            levelData->CreateDoor(x, y);
+                            break;
+                        case 'r':
+                            levelData->SetTileDetails(x, y, TileType::Floor, false);
+                            levelData->CreateRadiation(x, y);
+                            break;
+                        case 'P':
+                            levelData->SetTileDetails(x, y, TileType::Floor, false);
+                            levelData->CreatePlayer(x, y);
+                            break;
+                        case '.':
+                            levelData->SetTileDetails(x, y, TileType::Floor, false);
+                        break;
+                        case ' ':
+                            levelData->SetTileDetails(x, y, TileType::Restricted, false);
+                            break;
+                        default:
+                            invalidMap = true;
+                            std::cout << "ERROR: Unknown symbol '" << line[x] << "' at position (" << x << "," << y << ")" << std::endl;
+                            levelData->SetTileDetails(x, y, TileType::Floor, false);
+                            break;
+                        }
+                    }
+                } else {
+                    invalidMap = true;
+                    std::cout << "ERROR: Invalid map. Incorrect width on row " << y << std::endl;
+                    std::cout << "(Should have been width " << expectedWidth << ". Actual width was " << line.length() << ")" << std::endl;
+                }
+                y++;
             }
-            y++;
+            lineNumber++;
         }
         f.close();
 
