@@ -41,7 +41,7 @@ void GameEngine::Init(const char* title, bool fullscreen, sf::Vector2f scale, bo
         Quit();
     }
 
-    std::cout << "Running Chronact engine" << std::endl;
+    std::cout << "Running..." << std::endl;
 }
 
 void GameEngine::CleanUp() {
@@ -50,7 +50,7 @@ void GameEngine::CleanUp() {
         states.pop_back();
     }
 
-    std::cout << "Terminating Chronact engine" << std::endl;
+    std::cout << "Terminated!" << std::endl;
 
     // Clear used resources
     window->close();
