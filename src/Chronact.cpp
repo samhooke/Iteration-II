@@ -1,6 +1,7 @@
 #include "Chronact.hpp"
 
 #include <string>
+#include <sstream>
 #include <fstream>
 #include "GameEngine.hpp"
 #include "TitleState.hpp"
@@ -90,8 +91,8 @@ void Chronact::ReadConfig() {
     std::cout << "                Shaders = " << (useShaders ? "yes" : "no") << std::endl;
     std::cout << "  Maintain aspect ratio = " << (maintainAspectRatio ? "yes" : "no") << std::endl;
     std::cout << "             Fullscreen = " << (fullscreen ? "yes" : "no") << std::endl;
-    std::cout << "        Display scale x = " << scale.x << std::endl;
-    std::cout << "        Display scale y = " << scale.y << std::endl;
+    std::cout << "     Fullscreen scale x = " << (fullscreen ? FloatToString(scale.x) : "N/A") << std::endl;
+    std::cout << "     Fullscreen scale y = " << (fullscreen ? FloatToString(scale.y) : "N/A") << std::endl;
     std::cout << std::endl;
 }
 
@@ -112,4 +113,10 @@ bool Chronact::DecodeValueYesNo(std::string s) {
 
 float Chronact::DecodeValueFloat(std::string s) {
     return std::atof(s.c_str());
+}
+
+std::string Chronact::FloatToString(float f) {
+    std::ostringstream os;
+    os << f;
+    return os.str();
 }

@@ -14,6 +14,7 @@ private:
     sf::Vector2f scale;
     bool DecodeValueYesNo(std::string s);
     float DecodeValueFloat(std::string s);
+    std::string FloatToString(float f);
 
     void MainLoop();
 public:
