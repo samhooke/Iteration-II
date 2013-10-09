@@ -9,6 +9,8 @@ class LevelData; // To avoid #include loop between ObjectsBase.hpp and LevelData
 namespace GameObject {
     class Base {
     public:
+        virtual ~Base();
+
         virtual void Update() = 0;
 
         GameEngine* game;

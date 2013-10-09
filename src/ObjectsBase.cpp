@@ -4,6 +4,9 @@
 #include "LevelData.hpp"
 
 namespace GameObject {
+
+    Base::~Base() {}
+
     bool Dynamic::SetPos(unsigned int x, unsigned int y) {
         if (x >= 0 && x < levelData->GetWidth() && y >= 0 && y < levelData->GetHeight()) {
             if (!useCollisionDetection || (useCollisionDetection && IsPosFree(x, y))) {
@@ -20,6 +23,6 @@ namespace GameObject {
     }
 
     bool Dynamic::IsPosFree(unsigned int x, unsigned int y) {
-        levelData->GetTileType(x, y) == TileType::Floor;
+        return levelData->GetTileType(x, y) == TileType::Floor;
     }
 }

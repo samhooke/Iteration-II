@@ -78,7 +78,7 @@ void LevelManager::Load(const char* levelName) {
 
 void LevelManager::Update(GameEngine* game) {
     // Call Update() in all GameObjects
-    for (unsigned int index = 0; index < levelData->GetNumObjects(); index++) {
+    for (int index = 0; index < levelData->GetNumObjects(); index++) {
         levelData->CallObjectUpdate(index);
     }
 }
@@ -97,7 +97,7 @@ void LevelManager::UpdateDisplay(Display* display) {
     }
 
     // Draw all the objects
-    for (unsigned int index = 0; index < levelData->GetNumObjects(); index++) {
+    for (int index = 0; index < levelData->GetNumObjects(); index++) {
         int c = levelData->GetObjectDisplayCharacter(index);
         unsigned int x = levelData->GetObjectX(index);
         unsigned int y = levelData->GetObjectY(index);
