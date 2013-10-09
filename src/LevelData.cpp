@@ -152,6 +152,13 @@ void LevelData::CreateWindow(int x, int y) {
     levelObjects.push_back(new GameObject::Window(x, y, game, this));
 }
 
+void LevelData::CreateTerminal(int x, int y) {
+#ifdef DEBUG_VERBOSE
+    std::cout << "CreateTerminal(" << x << "," << y << ")" << std::endl;
+#endif
+    levelObjects.push_back(new GameObject::Terminal(x, y, game, this));
+}
+
 void LevelData::CreateRadiation(int x, int y, int intensity) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreateRadiation(" << x << "," << y << ")" << std::endl;

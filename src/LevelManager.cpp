@@ -67,33 +67,41 @@ void LevelManager::Load(const char* levelName) {
                     for (x = 0; x < expectedWidth; x++) {
                         // Convert the read symbol into a TileType
                         switch (line[x]) {
-                        case '#':
+                        /// Structure
+                        case '#': // Wall
                             levelData->SetTileDetails(x, y, TileType::Wall, true);
                             break;
-                        case 'D':
+                        case 'D': // Door
                             levelData->SetTileDetails(x, y, TileType::Floor, true);
                             levelData->CreateDoor(x, y);
                             break;
-                        case 'W':
+                        case 'W': // Window
                             levelData->SetTileDetails(x, y, TileType::Wall, true);
                             levelData->CreateWindow(x, y);
                             break;
-                        case 'r':
+                        /// Radiation
+                        case 'r': // Radiation (weak)
                             levelData->SetTileDetails(x, y, TileType::Floor, false);
                             levelData->CreateRadiation(x, y, 0);
                             break;
-                        case 'R':
+                        case 'R': // Radiation (strong)
                             levelData->SetTileDetails(x, y, TileType::Floor, false);
                             levelData->CreateRadiation(x, y, 1);
                             break;
-                        case 'P':
+                        /// Main
+                        case 'P': // Player
                             levelData->SetTileDetails(x, y, TileType::Floor, false);
                             levelData->CreatePlayer(x, y);
                             break;
-                        case '.':
+                        case 'T': // Terminal
+                            levelData->SetTileDetails(x, y, TileType::Floor, false);
+                            levelData->CreateTerminal(x, y);
+                            break;
+                        /// Other
+                        case '.': // Floor
                             levelData->SetTileDetails(x, y, TileType::Floor, false);
                         break;
-                        case ' ':
+                        case ' ': // Restricted (non-walkable space that should never be accessible)
                             levelData->SetTileDetails(x, y, TileType::Restricted, false);
                             break;
                         default:

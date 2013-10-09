@@ -21,6 +21,14 @@ namespace GameObject {
         Window(int x, int y, GameEngine* game, LevelData* levelData);
         ~Window();
     };
+
+    class Terminal : public GameObject::Static {
+    public:
+        void Update();
+
+        Terminal(int x, int y, GameEngine* game, LevelData* levelData);
+        ~Terminal();
+    };
 }
 
 #endif // OBJECTSGENERAL_HPP_INCLUDED
