@@ -1,4 +1,5 @@
 shaders=yes
+maintain_aspect_ratio=yes
 fullscreen=no
 fullscreen_scale_x=1.0
 fullscreen_scale_y=1.0

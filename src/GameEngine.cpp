@@ -18,7 +18,7 @@ void GameEngine::Pause() {
 }
 #endif // OS_UNIX
 
-void GameEngine::Init(const char* title, bool fullscreen, sf::Vector2f scale, bool useShaders) {
+void GameEngine::Init(const char* title, bool fullscreen, bool maintainAspectRatio, sf::Vector2f scale, bool useShaders) {
 
     // Start clock
     gameClock = new sf::Clock();
@@ -27,7 +27,7 @@ void GameEngine::Init(const char* title, bool fullscreen, sf::Vector2f scale, bo
     m_running = true;
 
     // Create graphical interfaces
-    display = new Display(scale, useShaders);
+    display = new Display(fullscreen, maintainAspectRatio, scale, useShaders);
     if (fullscreen)
         window = new sf::RenderWindow(sf::VideoMode(display->GetPixelWidth(), display->GetPixelHeight(), 32), title, sf::Style::Fullscreen);
     else

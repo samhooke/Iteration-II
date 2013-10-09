@@ -12,6 +12,8 @@ private:
     int height;
     sf::Vector2f scale;
     bool useShaders;
+    bool fullscreen;
+    bool maintainAspectRatio;
     int tile[DISPLAY_WIDTH][DISPLAY_HEIGHT];
     sf::RenderTexture surface;
     sf::RenderTexture effects;
@@ -22,7 +24,7 @@ private:
     void RenderTilesToSurface();
     void RenderSurfaceToWindow(GameEngine* game);
 public:
-    Display(sf::Vector2f scale, bool useShaders);
+    Display(bool fullscreen, bool maintainAspectRatio, sf::Vector2f scale, bool useShaders);
     ~Display();
 
     void SetDisplayCharacter(int x, int y, int c);

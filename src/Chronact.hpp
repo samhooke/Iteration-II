@@ -10,6 +10,7 @@ private:
     void ReadConfig();
     bool useShaders;
     bool fullscreen;
+    bool maintainAspectRatio;
     sf::Vector2f scale;
     bool DecodeValueYesNo(std::string s);
     float DecodeValueFloat(std::string s);

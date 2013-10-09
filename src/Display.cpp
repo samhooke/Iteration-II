@@ -3,7 +3,9 @@
 #include "Logger.hpp"
 #include "PRNG.hpp"
 
-Display::Display(sf::Vector2f scale, bool useShaders) {
+Display::Display(bool fullscreen, bool maintainAspectRatio, sf::Vector2f scale, bool useShaders) {
+    this->fullscreen = fullscreen;
+    this->maintainAspectRatio = maintainAspectRatio;
     this->scale = scale;
     this->useShaders = useShaders;
     LoadGraphics();
@@ -148,11 +150,44 @@ void Display::RenderSurfaceToWindow(GameEngine* game) {
     // Calculate window size
     sf::Vector2u windowSize = game->window->getSize();
 
+    // Calculate position and scale
+    sf::Vector2i pos;
+    sf::Vector2f scaleAdjusted;
+    if (fullscreen) {
+        pos.x = windowSize.x/2;
+        pos.y = windowSize.y/2;
+
+        // When fullscreen, scale is set manually from config.txt
+        scaleAdjusted.x = scale.x;
+        scaleAdjusted.y = scale.y;
+    } else {
+        pos.x = GetPixelWidth()/2;
+        pos.y = GetPixelHeight()/2;
+
+        scaleAdjusted.x = scaleAdjusted.y = 1;
+
+        if (maintainAspectRatio) {
+            // Maintain aspect ratio
+            scaleAdjusted.x = (float)GetPixelWidth()/windowSize.x;
+            scaleAdjusted.y = (float)GetPixelHeight()/windowSize.y;
+
+            // Resize to fit the window
+            float scaleResize;
+            if (windowSize.x > windowSize.y)
+                scaleResize = (float)windowSize.y / (float)GetPixelHeight();
+            else
+                scaleResize = (float)windowSize.x / (float)GetPixelWidth();
+
+            scaleAdjusted.x *= scaleResize;
+            scaleAdjusted.y *= scaleResize;
+        }
+    }
+
     // Place it in the center of the window, even when fullscreen
     surfaceSprite.setOrigin(GetPixelWidth()/2, GetPixelHeight()/2);
-    surfaceSprite.setPosition(windowSize.x/2, windowSize.y/2);
+    surfaceSprite.setPosition(pos.x, pos.y);
 
-    surfaceSprite.setScale(scale.x, -scale.y); // y must be negative. Not sure why
+    surfaceSprite.setScale(scaleAdjusted.x, -scaleAdjusted.y); // y must be negative. Not sure why
 
     game->window->draw(surfaceSprite);
 
@@ -174,9 +209,10 @@ void Display::RenderSurfaceToWindow(GameEngine* game) {
 
         // Place it in the center of the window, even when fullscreen
         monitorSprite.setOrigin(GetPixelWidth()/2, GetPixelHeight()/2);
-        monitorSprite.setPosition(windowSize.x/2, windowSize.y/2);
+        monitorSprite.setPosition(pos.x, pos.y);
 
-        monitorSprite.setScale(scale.x, scale.y);
+
+        monitorSprite.setScale(scaleAdjusted.x, scaleAdjusted.y);
 
         game->window->draw(monitorSprite, &shader);
     }

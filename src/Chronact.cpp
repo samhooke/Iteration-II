@@ -22,7 +22,7 @@ void Chronact::MainLoop() {
 
     // Create game engine
     GameEngine* game = new GameEngine();
-    game->Init("Iteration II", fullscreen, scale, useShaders);
+    game->Init("Iteration II", fullscreen, maintainAspectRatio, scale, useShaders);
 
     // Change game state to the title screen
     game->ChangeState(TitleState::Instance());
@@ -44,6 +44,7 @@ void Chronact::ReadConfig() {
     // Set defaults
     useShaders = true;
     fullscreen = false;
+    maintainAspectRatio = true;
     scale.x = 1.0f;
     scale.y = 1.0f;
 
@@ -67,6 +68,7 @@ void Chronact::ReadConfig() {
                 std::string settingValue = line.substr(equalsAt + 1);
 
                 if (settingName == "shaders")               useShaders = DecodeValueYesNo(settingValue);
+                if (settingName == "maintain_aspect_ratio") maintainAspectRatio = DecodeValueYesNo(settingValue);
                 if (settingName == "fullscreen")            fullscreen = DecodeValueYesNo(settingValue);
                 if (settingName == "fullscreen_scale_x")    scale.x = DecodeValueFloat(settingValue);
                 if (settingName == "fullscreen_scale_y")    scale.y = DecodeValueFloat(settingValue);
@@ -84,11 +86,12 @@ void Chronact::ReadConfig() {
     }
 
     // Print out chosen configuration settings
-    std::cout << std::endl << "Launching with the following settings:" << std::endl;
-    std::cout << "        Shaders = " << (useShaders ? "yes" : "no") << std::endl;
-    std::cout << "     Fullscreen = " << (fullscreen ? "yes" : "no") << std::endl;
-    std::cout << "Display scale x = " << scale.x << std::endl;
-    std::cout << "Display scale y = " << scale.y << std::endl;
+    std::cout << std::endl << "Launching with the following settings:" << std::endl << std::endl;
+    std::cout << "                Shaders = " << (useShaders ? "yes" : "no") << std::endl;
+    std::cout << "  Maintain aspect ratio = " << (maintainAspectRatio ? "yes" : "no") << std::endl;
+    std::cout << "             Fullscreen = " << (fullscreen ? "yes" : "no") << std::endl;
+    std::cout << "        Display scale x = " << scale.x << std::endl;
+    std::cout << "        Display scale y = " << scale.y << std::endl;
     std::cout << std::endl;
 }
 
