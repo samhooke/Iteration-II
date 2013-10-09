@@ -42,7 +42,7 @@ void PlayState::RenderFrame(GameEngine* game) {
     game->window->clear();
 
     // Update the tiles in Display
-    levelManager->UpdateDisplay(game->display);
+    levelManager->UpdateDisplay(game);
 
     game->display->Render(game);
     game->window->display();

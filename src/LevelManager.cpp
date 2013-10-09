@@ -1,9 +1,10 @@
-#include "LevelManager.hpp"
-#include "Tiles.hpp"
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <sstream>
+#include "LevelManager.hpp"
+#include "Tiles.hpp"
+#include "Display.hpp"
 
 LevelManager::LevelManager(GameEngine* game) {
     levelData = new LevelData(game);
@@ -135,28 +136,44 @@ void LevelManager::Update(GameEngine* game) {
     }
 }
 
-void LevelManager::UpdateDisplay(Display* display) {
+void LevelManager::UpdateDisplay(GameEngine* game) {
 
     // Reset all tiles to blank
-    display->SetAll(TILE_BLANK);
+    game->display->SetAll(TILE_BLANK);
 
     // Draw the level in the center
-    int offsetX = (display->GetWidth() - levelData->GetWidth())/2;
-    int offsetY = (display->GetHeight() - levelData->GetHeight())/2;
+    int offsetX = (game->display->GetWidth() - levelData->GetWidth())/2;
+    int offsetY = (game->display->GetHeight() - levelData->GetHeight())/2;
 
     // Draw all the walls and floors
     for (int y = 0; y < levelData->GetHeight(); y++) {
         for (int x = 0; x < levelData->GetWidth(); x++) {
             int c = levelData->GetTileDisplayCharacter(x, y);
-            display->SetDisplayCharacter(x + offsetX, y + offsetY, c);
+            game->display->SetDisplayCharacter(x + offsetX, y + offsetY, c);
         }
     }
 
-    // Draw all the objects
+    // 2D array of int vectors
+    std::vector<int> objectQueue[levelData->GetWidth()][levelData->GetHeight()];
+
+    // Queue all the objects to be drawn in the 2D array of int vectors
     for (int index = 0; index < levelData->GetNumObjects(); index++) {
         int c = levelData->GetObjectDisplayCharacter(index);
         int x = levelData->GetObjectX(index);
         int y = levelData->GetObjectY(index);
-        display->SetDisplayCharacter(x + offsetX, y + offsetY, c);
+        objectQueue[x][y].push_back(c);
+    }
+
+    // Loop through the 2D array of int vectors
+    for (int y = 0; y < levelData->GetHeight(); y++) {
+        for (int x = 0; x < levelData->GetWidth(); x++) {
+            // Check whether there is at least one object queued to be drawn at this position
+            if (objectQueue[x][y].size() >= 1) {
+                // Choose one of the objects to draw based upon the gameClock
+                int objectToDraw = ((int)(game->gameClock->getElapsedTime().asSeconds() / SECONDS_PER_OBJECT)) % objectQueue[x][y].size();
+                int c = (objectQueue[x][y]).at(objectToDraw);
+                game->display->SetDisplayCharacter(x + offsetX, y + offsetY, c);
+            }
+        }
     }
 }

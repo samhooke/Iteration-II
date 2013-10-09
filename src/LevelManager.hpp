@@ -3,7 +3,6 @@
 
 #include <sstream>
 #include <string>
-#include "Display.hpp"
 #include "LevelData.hpp"
 #include "GameEngine.hpp"
 
@@ -17,7 +16,7 @@ public:
 
     void Load(const char* levelName);
     void Update(GameEngine* game);
-    void UpdateDisplay(Display* display);
+    void UpdateDisplay(GameEngine* game);
 };
 
 #endif // LEVELMANAGER_HPP_INCLUDED
