@@ -136,8 +136,9 @@ void LevelManager::UpdateDisplay(Display* display) {
     // Reset all tiles to blank
     display->SetAll(TILE_BLANK);
 
-    int offsetX = 3;
-    int offsetY = 2;
+    // Draw the level in the center
+    int offsetX = (display->GetWidth() - levelData->GetWidth())/2;
+    int offsetY = (display->GetHeight() - levelData->GetHeight())/2;
 
     // Draw all the walls and floors
     for (int y = 0; y < levelData->GetHeight(); y++) {
