@@ -14,6 +14,12 @@
 // How many seconds to wait before allowing to move again
 #define MOVEMENT_DELAY 0.15
 
+// Range of the level
+#define LEVEL_WIDTH_MIN 1
+#define LEVEL_WIDTH_MAX 80
+#define LEVEL_HEIGHT_MIN 1
+#define LEVEL_HEIGHT_MAX 30
+
 // Width and height of the screen
 #define DISPLAY_WIDTH 80
 #define DISPLAY_HEIGHT 35

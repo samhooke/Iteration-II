@@ -25,8 +25,6 @@ void LevelManager::Load(const char* levelName) {
     expectedWidth = 80;
     expectedHeight = 30;
 
-    levelData->CreateBlankLevel(expectedWidth, expectedHeight);
-
     bool invalidMap = false;
     if (f.is_open()) {
         x = y = lineNumber = 0;
@@ -35,16 +33,29 @@ void LevelManager::Load(const char* levelName) {
                 // Read expectedWidth
                 if (StringToInt(line, expectedWidth)) {
                     std::cout << "expectedWidth: " << expectedWidth << std::endl;
+                    if (expectedWidth < LEVEL_WIDTH_MIN || expectedWidth > LEVEL_WIDTH_MAX) {
+                        invalidMap = true;
+                        std::cout << "ERROR: Level width must fall between " << LEVEL_WIDTH_MIN << " and " << LEVEL_WIDTH_MAX << std::endl;
+                    }
                 } else {
-                    std::cout << "Error reading expectedWidth on line " << lineNumber << std::endl;
+                    invalidMap = true;
+                    std::cout << "ERROR: Expected level width on line " << lineNumber << std::endl;
                 }
             } else if (lineNumber == 1) {
                 // Read expectedHeight
                 if (StringToInt(line, expectedHeight)) {
                     std::cout << "expectedHeight: " << expectedHeight << std::endl;
+                    if (expectedHeight < LEVEL_HEIGHT_MIN || expectedHeight > LEVEL_HEIGHT_MAX) {
+                        invalidMap = true;
+                        std::cout << "ERROR: Level height must fall between " << LEVEL_HEIGHT_MIN << " and " << LEVEL_HEIGHT_MAX << std::endl;
+                    }
                 } else {
-                    std::cout << "Error reading expectedHeight on line " << lineNumber << std::endl;
+                    invalidMap = true;
+                    std::cout << "ERROR: Expected level height on line " << lineNumber << std::endl;
                 }
+
+                // Create the blank level
+                levelData->CreateBlankLevel(expectedWidth, expectedHeight);
             } else if (lineNumber >= 2 && lineNumber < 2 + expectedHeight) {
                 // Read levelData
                 if ((int)line.length() == expectedWidth) {
