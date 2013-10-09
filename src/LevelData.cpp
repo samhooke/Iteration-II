@@ -88,7 +88,12 @@ void LevelData::CalculateDisplayCharacters() {
                 default:        c = TILE_QUESTION;  break; // Error
                 }
             } else if (levelTiles[index].type == TileType::Floor) {
-                c = TILE_FULLSTOP;
+                if (index % 17 == 0 || index % 23 == 0 || index % 7 == 0 || index % 13 == 0)
+                    c = TILE_COMMA;
+                else if (index % 19 == 0 || index % 29 == 0 || index % 11 == 0 || index % 31 == 0)
+                    c = TILE_GRAVEACCENT;
+                else
+                    c = TILE_FULLSTOP;
             } else if (levelTiles[index].type == TileType::Restricted) {
                 c = TILE_BLANK;
             }
