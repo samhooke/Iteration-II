@@ -13,41 +13,41 @@ LevelData::LevelData(GameEngine* game) {
 
 LevelData::~LevelData() {
     // Destroy all generated GameObjects
-    for (unsigned int i = 0; i < levelObjects.size(); i++) {
+    for (int i = 0; i < (int)levelObjects.size(); i++) {
         delete levelObjects[i];
     }
 }
 
-void LevelData::CreateBlankLevel(unsigned int width, unsigned int height) {
+void LevelData::CreateBlankLevel(int width, int height) {
     this->width = width;
     this->height = height;
 
-    for (unsigned int i = 0; i < width * height; i++) {
+    for (int i = 0; i < width * height; i++) {
         levelTiles.push_back(LevelTile(TileType::Floor));
     }
 }
 
-void LevelData::SetTileDetails(unsigned int x, unsigned int y, TileType type, bool connectsWithWall) {
-    unsigned int index = x + y * width;
+void LevelData::SetTileDetails(int x, int y, TileType type, bool connectsWithWall) {
+    int index = x + y * width;
     levelTiles[index].type = type;
     levelTiles[index].connectsWithWall = connectsWithWall;
 }
 
-int LevelData::GetTileDisplayCharacter(unsigned int x, unsigned int y) {
-    unsigned int index = x + y * width;
+int LevelData::GetTileDisplayCharacter(int x, int y) {
+    int index = x + y * width;
     return levelTiles[index].displayCharacter;
 }
 
-TileType LevelData::GetTileType(unsigned int x, unsigned int y) {
-    unsigned int index = x + y * width;
+TileType LevelData::GetTileType(int x, int y) {
+    int index = x + y * width;
     return levelTiles[index].type;
 }
 
 void LevelData::CalculateDisplayCharacters() {
     bool wall_n, wall_e, wall_s, wall_w;
     int index_n, index_e, index_s, index_w;
-    for (unsigned int y = 0; y < height; y++) {
-        for (unsigned int x = 0; x < width; x++) {
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
             int index = x + y * width;
 
             index_n = x + (y - 1) * width;
@@ -103,27 +103,27 @@ void LevelData::CalculateDisplayCharacters() {
     }
 }
 
-unsigned int LevelData::GetWidth() {
+int LevelData::GetWidth() {
     return width;
 }
 
-unsigned int LevelData::GetHeight() {
+int LevelData::GetHeight() {
     return height;
 }
 
 int LevelData::GetNumObjects() {
-    return levelObjects.size();
+    return (int)levelObjects.size();
 }
 
 int LevelData::GetObjectDisplayCharacter(int index) {
     return levelObjects[index]->displayCharacter;
 }
 
-unsigned int LevelData::GetObjectX(int index) {
+int LevelData::GetObjectX(int index) {
     return levelObjects[index]->x;
 }
 
-unsigned int LevelData::GetObjectY(int index) {
+int LevelData::GetObjectY(int index) {
     return levelObjects[index]->y;
 }
 
@@ -131,17 +131,17 @@ void LevelData::CallObjectUpdate(int index) {
     levelObjects[index]->Update();
 }
 
-void LevelData::CreatePlayer(unsigned int x, unsigned int y) {
+void LevelData::CreatePlayer(int x, int y) {
     std::cout << "CreatePlayer(" << x << "," << y << ")" << std::endl;
     levelObjects.push_back(new GameObject::Player(x, y, game, this));
 }
 
-void LevelData::CreateDoor(unsigned int x, unsigned int y) {
+void LevelData::CreateDoor(int x, int y) {
     std::cout << "CreateDoor(" << x << "," << y << ")" << std::endl;
     levelObjects.push_back(new GameObject::Door(x, y, game, this));
 }
 
-void LevelData::CreateRadiation(unsigned int x, unsigned int y) {
+void LevelData::CreateRadiation(int x, int y) {
     std::cout << "CreateRadiation(" << x << "," << y << ")" << std::endl;
     levelObjects.push_back(new GameObject::Radiation(x, y, game, this));
 }

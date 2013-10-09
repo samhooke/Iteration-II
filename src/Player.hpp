@@ -10,7 +10,7 @@ namespace GameObject {
     public:
         void Update();
 
-        Player(unsigned int x, unsigned int y, GameEngine* game, LevelData* levelData);
+        Player(int x, int y, GameEngine* game, LevelData* levelData);
         ~Player();
     private:
         float lastMovedTime;

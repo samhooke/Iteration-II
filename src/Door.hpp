@@ -10,7 +10,7 @@ namespace GameObject {
     public:
         void Update();
 
-        Door(unsigned int x, unsigned int y, GameEngine* game, LevelData* levelData);
+        Door(int x, int y, GameEngine* game, LevelData* levelData);
         ~Door();
     };
 }

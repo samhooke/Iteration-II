@@ -16,8 +16,8 @@ namespace GameObject {
         GameEngine* game;
         LevelData* levelData;
 
-        unsigned int x;
-        unsigned int y;
+        int x;
+        int y;
         int displayCharacter;
     };
 
@@ -30,9 +30,9 @@ namespace GameObject {
     public:
         bool useCollisionDetection = true;
 
-        bool SetPos(unsigned int x, unsigned int y);
-        bool SetPosRelative(unsigned int x, unsigned int y);
-        bool IsPosFree(unsigned int x, unsigned int y);
+        bool SetPos(int x, int y);
+        bool SetPosRelative(int x, int y);
+        bool IsPosFree(int x, int y);
     };
 }
 #endif // OBJECTSBASE_HPP_INCLUDED

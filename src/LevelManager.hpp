@@ -10,7 +10,7 @@
 class LevelManager {
 private:
     LevelData* levelData;
-    bool StringToInt(std::string &s, unsigned int &i);
+    bool StringToInt(std::string &s, int &i);
 public:
     LevelManager(GameEngine* game);
     ~LevelManager();

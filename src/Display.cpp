@@ -74,7 +74,7 @@ void Display::DrawTitle() {
 Display::~Display() {
 }
 
-void Display::SetDisplayCharacter(unsigned int x, unsigned int y, int c) {
+void Display::SetDisplayCharacter(int x, int y, int c) {
     tile[x][y] = c;
 }
 

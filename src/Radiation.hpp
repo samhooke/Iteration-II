@@ -10,7 +10,7 @@ namespace GameObject {
     public:
         void Update();
 
-        Radiation(unsigned int x, unsigned int y, GameEngine* game, LevelData* levelData);
+        Radiation(int x, int y, GameEngine* game, LevelData* levelData);
         ~Radiation();
     };
 }

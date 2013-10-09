@@ -1,7 +1,7 @@
 #include "Door.hpp"
 
 namespace GameObject {
-    Door::Door(unsigned int x, unsigned int y, GameEngine* game, LevelData* levelData) {
+    Door::Door(int x, int y, GameEngine* game, LevelData* levelData) {
         this->x = x;
         this->y = y;
         this->game = game;

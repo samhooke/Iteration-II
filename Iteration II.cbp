@@ -91,6 +91,8 @@
 		<Unit filename="src/PlayState.hpp" />
 		<Unit filename="src/Player.cpp" />
 		<Unit filename="src/Player.hpp" />
+		<Unit filename="src/Radiation.cpp" />
+		<Unit filename="src/Radiation.hpp" />
 		<Unit filename="src/Tiles.hpp" />
 		<Unit filename="src/TitleState.cpp" />
 		<Unit filename="src/TitleState.hpp" />

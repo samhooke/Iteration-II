@@ -7,7 +7,7 @@ namespace GameObject {
 
     Base::~Base() {}
 
-    bool Dynamic::SetPos(unsigned int x, unsigned int y) {
+    bool Dynamic::SetPos(int x, int y) {
         if (x >= 0 && x < levelData->GetWidth() && y >= 0 && y < levelData->GetHeight()) {
             if (!useCollisionDetection || (useCollisionDetection && IsPosFree(x, y))) {
                 this->x = x;
@@ -18,11 +18,11 @@ namespace GameObject {
         return false;
     }
 
-    bool Dynamic::SetPosRelative(unsigned int x, unsigned int y) {
+    bool Dynamic::SetPosRelative(int x, int y) {
         return SetPos(this->x + x, this->y + y);
     }
 
-    bool Dynamic::IsPosFree(unsigned int x, unsigned int y) {
+    bool Dynamic::IsPosFree(int x, int y) {
         return levelData->GetTileType(x, y) == TileType::Floor;
     }
 }

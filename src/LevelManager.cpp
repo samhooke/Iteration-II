@@ -12,7 +12,7 @@ LevelManager::~LevelManager() {
     delete levelData;
 }
 
-bool LevelManager::StringToInt(std::string &s, unsigned int &i) {
+bool LevelManager::StringToInt(std::string &s, int &i) {
     std::istringstream myStream(s);
     return (myStream>>i);
 }
@@ -20,8 +20,8 @@ bool LevelManager::StringToInt(std::string &s, unsigned int &i) {
 void LevelManager::Load(const char* levelName) {
     std::string line;
     std::ifstream f(levelName);
-    unsigned int x, y, lineNumber;
-    unsigned int expectedWidth = 80, expectedHeight = 30;
+    int x, y, lineNumber;
+    int expectedWidth = 80, expectedHeight = 30;
     expectedWidth = 80;
     expectedHeight = 30;
 
@@ -47,7 +47,7 @@ void LevelManager::Load(const char* levelName) {
                 }
             } else if (lineNumber >= 2 && lineNumber < 2 + expectedHeight) {
                 // Read levelData
-                if (line.length() == expectedWidth) {
+                if ((int)line.length() == expectedWidth) {
                     for (x = 0; x < expectedWidth; x++) {
                         // Convert the read symbol into a TileType
                         switch (line[x]) {
@@ -126,8 +126,8 @@ void LevelManager::UpdateDisplay(Display* display) {
     display->SetAll(TILE_BLANK);
 
     // Draw all the walls and floors
-    for (unsigned int y = 0; y < levelData->GetHeight(); y++) {
-        for (unsigned int x = 0; x < levelData->GetWidth(); x++) {
+    for (int y = 0; y < levelData->GetHeight(); y++) {
+        for (int x = 0; x < levelData->GetWidth(); x++) {
             int c = levelData->GetTileDisplayCharacter(x, y);
             display->SetDisplayCharacter(x, y, c);
         }
@@ -136,8 +136,8 @@ void LevelManager::UpdateDisplay(Display* display) {
     // Draw all the objects
     for (int index = 0; index < levelData->GetNumObjects(); index++) {
         int c = levelData->GetObjectDisplayCharacter(index);
-        unsigned int x = levelData->GetObjectX(index);
-        unsigned int y = levelData->GetObjectY(index);
+        int x = levelData->GetObjectX(index);
+        int y = levelData->GetObjectY(index);
         display->SetDisplayCharacter(x, y, c);
     }
 }
