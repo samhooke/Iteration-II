@@ -94,6 +94,8 @@
 		<Unit filename="src/Radiation.cpp" />
 		<Unit filename="src/Radiation.hpp" />
 		<Unit filename="src/Tiles.hpp" />
+		<Unit filename="src/Timeline.cpp" />
+		<Unit filename="src/Timeline.hpp" />
 		<Unit filename="src/TitleState.cpp" />
 		<Unit filename="src/TitleState.hpp" />
 		<Extensions>

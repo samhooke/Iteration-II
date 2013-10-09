@@ -49,7 +49,7 @@
 #define LEVEL_WIDTH_MIN 1
 #define LEVEL_WIDTH_MAX 80
 #define LEVEL_HEIGHT_MIN 1
-#define LEVEL_HEIGHT_MAX 30
+#define LEVEL_HEIGHT_MAX 24
 
 // Level files
 #define LEVEL_DIR "levels/"

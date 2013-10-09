@@ -159,7 +159,7 @@ void LevelManager::UpdateDisplay(GameEngine* game) {
 
     // Draw the level in the center
     int offsetX = (game->display->GetWidth() - levelData->GetWidth())/2;
-    int offsetY = (game->display->GetHeight() - levelData->GetHeight())/2;
+    int offsetY = (LEVEL_HEIGHT_MAX - levelData->GetHeight())/2;//(game->display->GetHeight() - levelData->GetHeight())/2;
 
     // Draw all the walls and floors
     for (int y = 0; y < levelData->GetHeight(); y++) {

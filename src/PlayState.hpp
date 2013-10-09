@@ -4,6 +4,7 @@
 #include "GameState.hpp"
 #include "LevelManager.hpp"
 #include "GameEngine.hpp"
+#include "Timeline.hpp"
 
 class PlayState : public GameState {
 public:
@@ -27,6 +28,7 @@ private:
     static PlayState m_PlayState;
 
     LevelManager* levelManager;
+    Timeline* timeline;
 };
 
 #endif // PLAYSTATE_HPP_INCLUDED

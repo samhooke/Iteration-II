@@ -7,10 +7,12 @@
 PlayState PlayState::m_PlayState;
 
 void PlayState::Init(GameEngine* game) {
+    timeline = new Timeline();
     levelManager = new LevelManager(game);
     levelManager->Load(LEVEL_000);
 }
 void PlayState::CleanUp() {
+    delete timeline;
     delete levelManager;
 }
 void PlayState::Pause() {}
@@ -43,6 +45,9 @@ void PlayState::RenderFrame(GameEngine* game) {
 
     // Update the tiles in Display
     levelManager->UpdateDisplay(game);
+
+    // Update the timeline in Display
+    timeline->UpdateDisplay(game);
 
     game->display->Render(game);
     game->window->display();
