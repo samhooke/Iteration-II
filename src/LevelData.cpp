@@ -4,6 +4,7 @@
 
 #include "Player.hpp"
 #include "Door.hpp"
+#include "Radiation.hpp"
 
 LevelData::LevelData(GameEngine* game) {
     // Requires a reference to GameEngine which it passes on to created objects
@@ -126,4 +127,9 @@ void LevelData::CreatePlayer(unsigned int x, unsigned int y) {
 void LevelData::CreateDoor(unsigned int x, unsigned int y) {
     std::cout << "CreateDoor(" << x << "," << y << ")" << std::endl;
     levelObjects.push_back(new GameObject::Door(x, y, game, this));
+}
+
+void LevelData::CreateRadiation(unsigned int x, unsigned int y) {
+    std::cout << "CreateRadiation(" << x << "," << y << ")" << std::endl;
+    levelObjects.push_back(new GameObject::Radiation(x, y, game, this));
 }

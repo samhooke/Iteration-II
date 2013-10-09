@@ -35,6 +35,7 @@ public:
 
     void CreatePlayer(unsigned int x, unsigned int y);
     void CreateDoor(unsigned int x, unsigned int y);
+    void CreateRadiation(unsigned int x, unsigned int y);
 };
 
 #endif // LEVELDATA_HPP_INCLUDED
