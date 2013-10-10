@@ -77,7 +77,7 @@ namespace GameObject {
     // If there are multiple objects that match, the first one is returned
     // If there are none that match, -1 is returned
     int Dynamic::GetObjectIndexAtPosWithTag(int x, int y, std::string tag) {
-        for (unsigned int index = 0; index < levelManager->levelData->GetNumObjects(); index++) {
+        for (int index = 0; index < levelManager->levelData->GetNumObjects(); index++) {
             int objX = levelManager->levelData->GetObjectX(index);
             int objY = levelManager->levelData->GetObjectY(index);
 
