@@ -14,6 +14,7 @@ namespace GameObject {
         ~TimeMachine();
     private:
         float lastActionTime;
+        void UpdateDisplayCharacter();
     };
 }
 

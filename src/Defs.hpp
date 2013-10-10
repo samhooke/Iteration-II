@@ -27,6 +27,9 @@
 // seconds each object is draw before switching to the next
 #define SECONDS_PER_OBJECT 0.35
 
+// When the time machine is active, how many seconds to draw each animation frame for
+#define TIMEMACHINE_SECONDS_PER_DISPLAYCHARACTER 0.2
+
 // Width and height of the screen
 #define DISPLAY_WIDTH 80
 #define DISPLAY_HEIGHT 35
