@@ -1,5 +1,5 @@
 #include "Player.hpp"
-#include "Defs.hpp"
+#include "../Defs.hpp"
 
 namespace GameObject {
     Player::Player(int x, int y, GameEngine* game, LevelManager* levelManager) : Dynamic(x, y, game, levelManager) {

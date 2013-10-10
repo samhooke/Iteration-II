@@ -1,9 +1,9 @@
 #ifndef PLAYER_HPP_INCLUDED
 #define PLAYER_HPP_INCLUDED
 
-#include "ObjectsBase.hpp"
-#include "GameEngine.hpp"
-#include "LevelManager.hpp"
+#include "../ObjectsBase.hpp"
+#include "../GameEngine.hpp"
+#include "../LevelManager.hpp"
 
 namespace GameObject {
     class Player : public Dynamic {

@@ -1,9 +1,9 @@
 #ifndef OBJECTSGENERAL_HPP_INCLUDED
 #define OBJECTSGENERAL_HPP_INCLUDED
 
-#include "ObjectsBase.hpp"
-#include "GameEngine.hpp"
-#include "LevelManager.hpp"
+#include "../ObjectsBase.hpp"
+#include "../GameEngine.hpp"
+#include "../LevelManager.hpp"
 
 namespace GameObject {
     class Door : public GameObject::Static {

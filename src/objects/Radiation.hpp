@@ -1,9 +1,9 @@
 #ifndef RADIATION_HPP_INCLUDED
 #define RADIATION_HPP_INCLUDED
 
-#include "ObjectsBase.hpp"
-#include "GameEngine.hpp"
-#include "LevelManager.hpp"
+#include "../ObjectsBase.hpp"
+#include "../GameEngine.hpp"
+#include "../LevelManager.hpp"
 
 namespace GameObject {
     class RadiationWeak : public GameObject::Static {

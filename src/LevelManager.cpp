@@ -98,6 +98,10 @@ void LevelManager::Load(const char* levelName) {
                             levelData->SetTileDetails(x, y, TileType::Floor, false);
                             levelData->CreateTerminal(x, y);
                             break;
+                        case 'Y': // Time Machine
+                            levelData->SetTileDetails(x, y, TileType::Floor, false);
+                            levelData->CreateTimeMachine(x, y);
+                            break;
                         /// Other
                         case '.': // Floor
                             levelData->SetTileDetails(x, y, TileType::Floor, false);

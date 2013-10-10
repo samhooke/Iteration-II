@@ -42,6 +42,7 @@ public:
     void CreateDoor(int x, int y);
     void CreateWindow(int x, int y);
     void CreateTerminal(int x, int y);
+    void CreateTimeMachine(int x, int y);
     void CreateRadiation(int x, int y, int intensity);
 };
 

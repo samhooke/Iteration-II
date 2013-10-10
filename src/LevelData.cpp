@@ -2,9 +2,10 @@
 #include "LevelData.hpp"
 #include "Tiles.hpp"
 
-#include "Player.hpp"
-#include "ObjectsGeneral.hpp"
-#include "Radiation.hpp"
+#include "objects/Player.hpp"
+#include "objects/TimeMachine.hpp"
+#include "objects/ObjectsGeneral.hpp"
+#include "objects/Radiation.hpp"
 
 LevelData::LevelData(GameEngine* game, LevelManager* levelManager) {
     // Requires a reference to GameEngine & LevelManager which it passes on to created objects
@@ -158,6 +159,13 @@ void LevelData::CreateTerminal(int x, int y) {
     std::cout << "CreateTerminal(" << x << "," << y << ")" << std::endl;
 #endif
     levelObjects.push_back(new GameObject::Terminal(x, y, game, levelManager));
+}
+
+void LevelData::CreateTimeMachine(int x, int y) {
+#ifdef DEBUG_VERBOSE
+    std::cout << "CreateTimeMachine(" << x << "," << y << ")" << std::endl;
+#endif
+    levelObjects.push_back(new GameObject::TimeMachine(x, y, game, levelManager));
 }
 
 void LevelData::CreateRadiation(int x, int y, int intensity) {
