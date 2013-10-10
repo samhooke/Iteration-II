@@ -42,4 +42,18 @@ namespace GameObject {
     bool Dynamic::IsPosFree(int x, int y) {
         return levelManager->levelData->GetTileType(x, y) == TileType::Floor;
     }
+
+    bool Dynamic::ObjectAtPosWithTag(int x, int y, std::string tag) {
+        for (unsigned int index = 0; index < levelManager->levelData->GetNumObjects(); index++) {
+            int objX = levelManager->levelData->GetObjectX(index);
+            int objY = levelManager->levelData->GetObjectY(index);
+
+            if (objX == x && objY == y) {
+                if (levelManager->levelData->CompareObjectTag(index, tag)) {
+                    return true;
+                }
+            }
+        }
+    return false;
+    }
 }

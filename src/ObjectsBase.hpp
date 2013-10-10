@@ -1,6 +1,7 @@
 #ifndef OBJECTSBASE_HPP_INCLUDED
 #define OBJECTSBASE_HPP_INCLUDED
 
+#include <string>
 #include "Tiles.hpp"
 #include "GameEngine.hpp"
 
@@ -16,6 +17,7 @@ namespace GameObject {
         GameEngine* game;
         LevelManager* levelManager;
 
+        std::string tag = "Undefined";
         int x;
         int y;
         int displayCharacter;
@@ -34,9 +36,11 @@ namespace GameObject {
 
         bool useCollisionDetection = true;
 
-        bool SetPos(int x, int y);
-        bool SetPosRelative(int x, int y);
-        bool IsPosFree(int x, int y);
+        bool SetPos(int x, int y);          // Jumps to position x,y if IsPosFree
+        bool SetPosRelative(int x, int y);  // Moves relative to current position by x,y if IsPosFree
+        bool IsPosFree(int x, int y);       // Checks only against tiles (wall, floor, restricted)
+
+        bool ObjectAtPosWithTag(int x, int y, std::string tag);
     };
 }
 #endif // OBJECTSBASE_HPP_INCLUDED

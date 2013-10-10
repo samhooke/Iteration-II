@@ -2,6 +2,7 @@
 #include "LevelData.hpp"
 #include "Tiles.hpp"
 
+#include "objects/Tags.hpp"
 #include "objects/Player.hpp"
 #include "objects/TimeMachine.hpp"
 #include "objects/ObjectsGeneral.hpp"
@@ -129,6 +130,10 @@ int LevelData::GetObjectY(int index) {
     return levelObjects[index]->y;
 }
 
+bool LevelData::CompareObjectTag(int index, std::string tag) {
+    return levelObjects[index]->tag == tag;
+}
+
 void LevelData::CallObjectUpdate(int index) {
     levelObjects[index]->Update();
 }
@@ -165,7 +170,9 @@ void LevelData::CreateTimeMachine(int x, int y) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreateTimeMachine(" << x << "," << y << ")" << std::endl;
 #endif
-    levelObjects.push_back(new GameObject::TimeMachine(x, y, game, levelManager));
+    GameObject::Base* obj = new GameObject::TimeMachine(x, y, game, levelManager);
+    obj->tag = TAG_TIMEMACHINE;
+    levelObjects.push_back(obj);
 }
 
 void LevelData::CreateRadiation(int x, int y, int intensity) {

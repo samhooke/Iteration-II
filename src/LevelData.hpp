@@ -2,6 +2,7 @@
 #define LEVELDATA_HPP_INCLUDED
 
 #include <vector>
+#include <string>
 #include "Defs.hpp"
 #include "LevelTile.hpp"
 #include "ObjectsBase.hpp"
@@ -36,6 +37,7 @@ public:
     int GetObjectDisplayCharacter(int index);
     int GetObjectX(int index);
     int GetObjectY(int index);
+    bool CompareObjectTag(int index, std::string tag);
     void CallObjectUpdate(int index);
 
     void CreatePlayer(int x, int y);
