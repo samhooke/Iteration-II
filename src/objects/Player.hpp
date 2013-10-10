@@ -13,7 +13,7 @@ namespace GameObject {
         Player(int x, int y, GameEngine* game, LevelManager* levelManager);
         ~Player();
     private:
-        float lastMovedTime;
+        float lastActionTime;
     };
 }
 

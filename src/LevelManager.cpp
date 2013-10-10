@@ -92,7 +92,7 @@ void LevelManager::Load(const char* levelName) {
                         /// Main
                         case 'P': // Player
                             levelData->SetTileDetails(x, y, TileType::Floor, false);
-                            levelData->CreatePlayer(x, y);
+                            levelData->CreatePlayer(x, y, true); //TODO: Only allow creation of one player (with control)
                             break;
                         case 'T': // Terminal
                             levelData->SetTileDetails(x, y, TileType::Floor, false);

@@ -37,10 +37,11 @@ public:
     int GetObjectDisplayCharacter(int index);
     int GetObjectX(int index);
     int GetObjectY(int index);
+    void SetObjectHasControl(int index, bool hasControl);
     bool CompareObjectTag(int index, std::string tag);
     void CallObjectUpdate(int index);
 
-    void CreatePlayer(int x, int y);
+    void CreatePlayer(int x, int y, bool hasControl);
     void CreateDoor(int x, int y);
     void CreateWindow(int x, int y);
     void CreateTerminal(int x, int y);

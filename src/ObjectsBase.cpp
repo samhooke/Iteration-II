@@ -8,6 +8,20 @@ namespace GameObject {
     // Base
     Base::~Base() {}
 
+    bool Base::Controlling() {
+        if (hasControl) {
+            if (canHaveControl) {
+                return true;
+            } else {
+#if DEBUG_VERBOSE
+                // This would print out once per frame, which is a lot
+                std::cout << "ERROR: An object has control which cannot assume control" << std::endl;
+#endif
+            }
+        }
+        return false;
+    }
+
     // Static
     Static::Static(int x, int y, GameEngine* game, LevelManager* levelManager) {
         this->x = x;
@@ -43,17 +57,20 @@ namespace GameObject {
         return levelManager->levelData->GetTileType(x, y) == TileType::Floor;
     }
 
-    bool Dynamic::ObjectAtPosWithTag(int x, int y, std::string tag) {
+    // If there is an object at position x,y with tag `tag`, its index is returned
+    // If there are multiple objects that match, the first one is returned
+    // If there are none that match, -1 is returned
+    int Dynamic::GetObjectIndexAtPosWithTag(int x, int y, std::string tag) {
         for (unsigned int index = 0; index < levelManager->levelData->GetNumObjects(); index++) {
             int objX = levelManager->levelData->GetObjectX(index);
             int objY = levelManager->levelData->GetObjectY(index);
 
             if (objX == x && objY == y) {
                 if (levelManager->levelData->CompareObjectTag(index, tag)) {
-                    return true;
+                    return index;
                 }
             }
         }
-    return false;
+    return -1;
     }
 }

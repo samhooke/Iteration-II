@@ -12,6 +12,8 @@ namespace GameObject {
 
         TimeMachine(int x, int y, GameEngine* game, LevelManager* levelManager);
         ~TimeMachine();
+    private:
+        float lastActionTime;
     };
 }
 

@@ -130,6 +130,14 @@ int LevelData::GetObjectY(int index) {
     return levelObjects[index]->y;
 }
 
+void LevelData::SetObjectHasControl(int index, bool hasControl) {
+    if (levelObjects[index]->canHaveControl)
+        levelObjects[index]->hasControl = hasControl;
+    else {
+        std::cout << "ERROR: Tried to pass control to an object that cannot assume control" << std::endl;
+    }
+}
+
 bool LevelData::CompareObjectTag(int index, std::string tag) {
     return levelObjects[index]->tag == tag;
 }
@@ -138,11 +146,15 @@ void LevelData::CallObjectUpdate(int index) {
     levelObjects[index]->Update();
 }
 
-void LevelData::CreatePlayer(int x, int y) {
+void LevelData::CreatePlayer(int x, int y, bool hasControl) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreatePlayer(" << x << "," << y << ")" << std::endl;
 #endif
-    levelObjects.push_back(new GameObject::Player(x, y, game, levelManager));
+    GameObject::Base* obj = new GameObject::Player(x, y, game, levelManager);
+    obj->tag = TAG_PLAYER;
+    obj->canHaveControl = true;
+    obj->hasControl = hasControl;
+    levelObjects.push_back(obj);
 }
 
 void LevelData::CreateDoor(int x, int y) {
@@ -172,6 +184,7 @@ void LevelData::CreateTimeMachine(int x, int y) {
 #endif
     GameObject::Base* obj = new GameObject::TimeMachine(x, y, game, levelManager);
     obj->tag = TAG_TIMEMACHINE;
+    obj->canHaveControl = true;
     levelObjects.push_back(obj);
 }
 

@@ -21,6 +21,10 @@ namespace GameObject {
         int x;
         int y;
         int displayCharacter;
+        bool canHaveControl = false;
+        bool hasControl = false;
+
+        bool Controlling();
     };
 
     // Objects that remain fixed
@@ -40,7 +44,7 @@ namespace GameObject {
         bool SetPosRelative(int x, int y);  // Moves relative to current position by x,y if IsPosFree
         bool IsPosFree(int x, int y);       // Checks only against tiles (wall, floor, restricted)
 
-        bool ObjectAtPosWithTag(int x, int y, std::string tag);
+        int GetObjectIndexAtPosWithTag(int x, int y, std::string tag);
     };
 }
 #endif // OBJECTSBASE_HPP_INCLUDED
