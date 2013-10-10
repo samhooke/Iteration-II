@@ -196,11 +196,28 @@ void LevelManager::UpdateDisplay(GameEngine* game) {
     // Loop through the 2D array of int vectors
     for (int y = 0; y < levelData->GetHeight(); y++) {
         for (int x = 0; x < levelData->GetWidth(); x++) {
+            int s = objectQueue[x][y].size();
             // Check whether there is at least one object queued to be drawn at this position
-            if (objectQueue[x][y].size() >= 1) {
+            if (s == 1) {
+                game->display->SetDisplayCharacter(x + offsetX, y + offsetY, (objectQueue[x][y]).at(0));
+            } else if (s > 1) {
                 // Choose one of the objects to draw based upon the gameClock
-                int objectToDraw = ((int)(game->gameClock->getElapsedTime().asSeconds() / SECONDS_PER_OBJECT)) % objectQueue[x][y].size();
-                int c = (objectQueue[x][y]).at(objectToDraw);
+
+                // Scale the time in order to determine how long each object's display character is shown for
+                int t = ((int)(game->gameClock->getElapsedTime().asSeconds() / SECONDS_PER_OBJECT));
+
+                // This is the display character shown between every other tile
+                int c = TILE_PLUS;
+
+                // Multiply by 2 because every other character will be TILE_PLUS by default
+                int objectToDraw = t % (objectQueue[x][y].size() * 2);
+
+                // Set every other tile to the display character of the relevant object
+                // Divide by two because objectToDraw was multiplied by two earlier
+                if (objectToDraw % 2 == 0)
+                    c = (objectQueue[x][y]).at(objectToDraw/2);
+
+                // Actually update display
                 game->display->SetDisplayCharacter(x + offsetX, y + offsetY, c);
             }
         }
