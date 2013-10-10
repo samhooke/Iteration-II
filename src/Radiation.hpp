@@ -3,14 +3,14 @@
 
 #include "ObjectsBase.hpp"
 #include "GameEngine.hpp"
-#include "LevelData.hpp"
+#include "LevelManager.hpp"
 
 namespace GameObject {
     class RadiationWeak : public GameObject::Static {
     public:
         void Update();
 
-        RadiationWeak(int x, int y, GameEngine* game, LevelData* levelData);
+        RadiationWeak(int x, int y, GameEngine* game, LevelManager* levelManager);
         ~RadiationWeak();
     };
 
@@ -18,7 +18,7 @@ namespace GameObject {
     public:
         void Update();
 
-        RadiationStrong(int x, int y, GameEngine* game, LevelData* levelData);
+        RadiationStrong(int x, int y, GameEngine* game, LevelManager* levelManager);
         ~RadiationStrong();
     };
 }

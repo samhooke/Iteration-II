@@ -2,11 +2,7 @@
 
 namespace GameObject {
     // Door
-    Door::Door(int x, int y, GameEngine* game, LevelData* levelData) {
-        this->x = x;
-        this->y = y;
-        this->game = game;
-        this->levelData = levelData;
+    Door::Door(int x, int y, GameEngine* game, LevelManager* levelManager) : Static(x, y, game, levelManager) {
         displayCharacter = TILE_DOOR;
     }
 
@@ -15,11 +11,7 @@ namespace GameObject {
     void Door::Update() {}
 
     // Window
-    Window::Window(int x, int y, GameEngine* game, LevelData* levelData) {
-        this->x = x;
-        this->y = y;
-        this->game = game;
-        this->levelData = levelData;
+    Window::Window(int x, int y, GameEngine* game, LevelManager* levelManager) : Static(x, y, game, levelManager) {
         displayCharacter = TILE_WINDOW;
     }
 
@@ -28,11 +20,7 @@ namespace GameObject {
     void Window::Update() {}
 
     // Terminal
-    Terminal::Terminal(int x, int y, GameEngine* game, LevelData* levelData) {
-        this->x = x;
-        this->y = y;
-        this->game = game;
-        this->levelData = levelData;
+    Terminal::Terminal(int x, int y, GameEngine* game, LevelManager* levelManager) : Static(x, y, game, levelManager) {
         displayCharacter = TILE_TERMINAL;
     }
 

@@ -3,14 +3,14 @@
 
 #include "ObjectsBase.hpp"
 #include "GameEngine.hpp"
-#include "LevelData.hpp"
+#include "LevelManager.hpp"
 
 namespace GameObject {
     class Door : public GameObject::Static {
     public:
         void Update();
 
-        Door(int x, int y, GameEngine* game, LevelData* levelData);
+        Door(int x, int y, GameEngine* game, LevelManager* levelManager);
         ~Door();
     };
 
@@ -18,7 +18,7 @@ namespace GameObject {
     public:
         void Update();
 
-        Window(int x, int y, GameEngine* game, LevelData* levelData);
+        Window(int x, int y, GameEngine* game, LevelManager* levelManager);
         ~Window();
     };
 
@@ -26,7 +26,7 @@ namespace GameObject {
     public:
         void Update();
 
-        Terminal(int x, int y, GameEngine* game, LevelData* levelData);
+        Terminal(int x, int y, GameEngine* game, LevelManager* levelManager);
         ~Terminal();
     };
 }

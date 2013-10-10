@@ -46,6 +46,9 @@ void PlayState::RenderFrame(GameEngine* game) {
     // Update the tiles in Display
     levelManager->UpdateDisplay(game);
 
+    // Get Iteration to update the timeline's information
+    levelManager->iterationData->UpdateTimeline(timeline);
+
     // Update the timeline in Display
     timeline->UpdateDisplay(game);
 

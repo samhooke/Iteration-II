@@ -5,14 +5,17 @@
 #include <string>
 #include "LevelData.hpp"
 #include "GameEngine.hpp"
+#include "IterationData.hpp"
 
 class LevelManager {
 private:
-    LevelData* levelData;
     bool StringToInt(std::string &s, int &i);
 public:
     LevelManager(GameEngine* game);
     ~LevelManager();
+
+    LevelData* levelData;
+    IterationData* iterationData;
 
     void Load(const char* levelName);
     void Update(GameEngine* game);

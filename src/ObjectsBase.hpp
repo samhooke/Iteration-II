@@ -4,7 +4,7 @@
 #include "Tiles.hpp"
 #include "GameEngine.hpp"
 
-class LevelData; // To avoid #include loop between ObjectsBase.hpp and LevelData.hpp
+class LevelManager; // To avoid #include loop between ObjectsBase.hpp and LevelManager.hpp
 
 namespace GameObject {
     class Base {
@@ -14,7 +14,7 @@ namespace GameObject {
         virtual void Update() = 0;
 
         GameEngine* game;
-        LevelData* levelData;
+        LevelManager* levelManager;
 
         int x;
         int y;
@@ -23,11 +23,15 @@ namespace GameObject {
 
     // Objects that remain fixed
     class Static : public Base {
+    public:
+        Static(int x, int y, GameEngine* game, LevelManager* levelManager);
     };
 
     // Objects that can move
     class Dynamic : public Base {
     public:
+        Dynamic(int x, int y, GameEngine* game, LevelManager* levelManager);
+
         bool useCollisionDetection = true;
 
         bool SetPos(int x, int y);

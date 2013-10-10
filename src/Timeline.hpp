@@ -1,6 +1,7 @@
 #ifndef TIMELINE_HPP_INCLUDED
 #define TIMELINE_HPP_INCLUDED
 
+#include <string>
 #include "GameEngine.hpp"
 
 class Timeline {
@@ -9,10 +10,13 @@ private:
     int y = 25;
     int width = 78;
     int height = 9;
-    int iteration = 0;
+
+    std::string tMinus;
 public:
     Timeline();
     ~Timeline();
+
+    void SetTMinus(std::string tMinus);
 
     void UpdateDisplay(GameEngine* game);
 };

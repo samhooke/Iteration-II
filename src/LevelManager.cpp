@@ -7,7 +7,8 @@
 #include "Display.hpp"
 
 LevelManager::LevelManager(GameEngine* game) {
-    levelData = new LevelData(game);
+    levelData = new LevelData(game, this);
+    iterationData = new IterationData();
 }
 LevelManager::~LevelManager() {
     delete levelData;

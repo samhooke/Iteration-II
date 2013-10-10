@@ -2,11 +2,7 @@
 
 namespace GameObject {
     // RadiationWeak
-    RadiationWeak::RadiationWeak(int x, int y, GameEngine* game, LevelData* levelData) {
-        this->x = x;
-        this->y = y;
-        this->game = game;
-        this->levelData = levelData;
+    RadiationWeak::RadiationWeak(int x, int y, GameEngine* game, LevelManager* levelManager) : Static(x, y, game, levelManager) {
         displayCharacter = TILE_RADIATION_WEAK;
     }
 
@@ -15,11 +11,7 @@ namespace GameObject {
     void RadiationWeak::Update() {}
 
     // RadiationStrong
-    RadiationStrong::RadiationStrong(int x, int y, GameEngine* game, LevelData* levelData) {
-        this->x = x;
-        this->y = y;
-        this->game = game;
-        this->levelData = levelData;
+    RadiationStrong::RadiationStrong(int x, int y, GameEngine* game, LevelManager* levelManager) : Static(x, y, game, levelManager) {
         displayCharacter = TILE_RADIATION_STRONG;
     }
 

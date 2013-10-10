@@ -2,11 +2,7 @@
 #include "Defs.hpp"
 
 namespace GameObject {
-    Player::Player(int x, int y, GameEngine* game, LevelData* levelData) {
-        this->x = x;
-        this->y = y;
-        this->game = game;
-        this->levelData = levelData;
+    Player::Player(int x, int y, GameEngine* game, LevelManager* levelManager) : Dynamic(x, y, game, levelManager) {
         displayCharacter = TILE_FACE_OUTLINE;
 
         lastMovedTime = game->gameClock->getElapsedTime().asSeconds();
@@ -35,7 +31,9 @@ namespace GameObject {
             }
         }
 
-        if (moved)
+        if (moved) {
             lastMovedTime = game->gameClock->getElapsedTime().asSeconds();
+            levelManager->iterationData->Forward();
+        }
     }
 }

@@ -1,3 +1,4 @@
+#include <sstream>
 #include "Timeline.hpp"
 #include "Display.hpp"
 #include "Tiles.hpp"
@@ -5,6 +6,10 @@
 Timeline::Timeline() {}
 
 Timeline::~Timeline() {}
+
+void Timeline::SetTMinus(std::string tMinus) {
+    this->tMinus = tMinus;
+}
 
 void Timeline::UpdateDisplay(GameEngine* game) {
     // Draw the box outline
@@ -17,6 +22,9 @@ void Timeline::UpdateDisplay(GameEngine* game) {
         }
     }
 
-    game->display->WriteText(x + 13, y + height - 2, "Meltdown: T-17");
-    game->display->WriteText(x + 53, y + height - 2, "Iteration: 4");
+    std::ostringstream os;
+    os << "Meltdown: " << tMinus;
+
+    game->display->WriteText(x + 13, y + height - 2, os.str().c_str());
+    game->display->WriteText(x + 53, y + height - 2, "Iteration: b/d");
 }

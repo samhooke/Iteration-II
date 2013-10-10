@@ -1,14 +1,31 @@
 #include <iostream>
 #include "ObjectsBase.hpp"
 #include "Display.hpp"
-#include "LevelData.hpp"
+#include "LevelManager.hpp"
 
 namespace GameObject {
 
+    // Base
     Base::~Base() {}
 
+    // Static
+    Static::Static(int x, int y, GameEngine* game, LevelManager* levelManager) {
+        this->x = x;
+        this->y = y;
+        this->game = game;
+        this->levelManager = levelManager;
+    }
+
+    // Dynamic
+    Dynamic::Dynamic(int x, int y, GameEngine* game, LevelManager* levelManager) {
+        this->x = x;
+        this->y = y;
+        this->game = game;
+        this->levelManager = levelManager;
+    }
+
     bool Dynamic::SetPos(int x, int y) {
-        if (x >= 0 && x < levelData->GetWidth() && y >= 0 && y < levelData->GetHeight()) {
+        if (x >= 0 && x < levelManager->levelData->GetWidth() && y >= 0 && y < levelManager->levelData->GetHeight()) {
             if (!useCollisionDetection || (useCollisionDetection && IsPosFree(x, y))) {
                 this->x = x;
                 this->y = y;
@@ -23,6 +40,6 @@ namespace GameObject {
     }
 
     bool Dynamic::IsPosFree(int x, int y) {
-        return levelData->GetTileType(x, y) == TileType::Floor;
+        return levelManager->levelData->GetTileType(x, y) == TileType::Floor;
     }
 }

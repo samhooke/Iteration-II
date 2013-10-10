@@ -3,14 +3,14 @@
 
 #include "ObjectsBase.hpp"
 #include "GameEngine.hpp"
-#include "LevelData.hpp"
+#include "LevelManager.hpp"
 
 namespace GameObject {
     class Player : public Dynamic {
     public:
         void Update();
 
-        Player(int x, int y, GameEngine* game, LevelData* levelData);
+        Player(int x, int y, GameEngine* game, LevelManager* levelManager);
         ~Player();
     private:
         float lastMovedTime;

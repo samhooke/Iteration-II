@@ -6,9 +6,10 @@
 #include "ObjectsGeneral.hpp"
 #include "Radiation.hpp"
 
-LevelData::LevelData(GameEngine* game) {
-    // Requires a reference to GameEngine which it passes on to created objects
+LevelData::LevelData(GameEngine* game, LevelManager* levelManager) {
+    // Requires a reference to GameEngine & LevelManager which it passes on to created objects
     this->game = game;
+    this->levelManager = levelManager;
 }
 
 LevelData::~LevelData() {
@@ -135,28 +136,28 @@ void LevelData::CreatePlayer(int x, int y) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreatePlayer(" << x << "," << y << ")" << std::endl;
 #endif
-    levelObjects.push_back(new GameObject::Player(x, y, game, this));
+    levelObjects.push_back(new GameObject::Player(x, y, game, levelManager));
 }
 
 void LevelData::CreateDoor(int x, int y) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreateDoor(" << x << "," << y << ")" << std::endl;
 #endif
-    levelObjects.push_back(new GameObject::Door(x, y, game, this));
+    levelObjects.push_back(new GameObject::Door(x, y, game, levelManager));
 }
 
 void LevelData::CreateWindow(int x, int y) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreateWindow(" << x << "," << y << ")" << std::endl;
 #endif
-    levelObjects.push_back(new GameObject::Window(x, y, game, this));
+    levelObjects.push_back(new GameObject::Window(x, y, game, levelManager));
 }
 
 void LevelData::CreateTerminal(int x, int y) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreateTerminal(" << x << "," << y << ")" << std::endl;
 #endif
-    levelObjects.push_back(new GameObject::Terminal(x, y, game, this));
+    levelObjects.push_back(new GameObject::Terminal(x, y, game, levelManager));
 }
 
 void LevelData::CreateRadiation(int x, int y, int intensity) {
@@ -164,9 +165,9 @@ void LevelData::CreateRadiation(int x, int y, int intensity) {
     std::cout << "CreateRadiation(" << x << "," << y << ")" << std::endl;
 #endif
     if (intensity == 0)
-        levelObjects.push_back(new GameObject::RadiationWeak(x, y, game, this));
+        levelObjects.push_back(new GameObject::RadiationWeak(x, y, game, levelManager));
     else if (intensity == 1)
-        levelObjects.push_back(new GameObject::RadiationStrong(x, y, game, this));
+        levelObjects.push_back(new GameObject::RadiationStrong(x, y, game, levelManager));
     else
         std::cout << "WARNING: Tried to create radiation with an invalid intensity" << std::endl;
 }

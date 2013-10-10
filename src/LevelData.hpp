@@ -7,6 +7,8 @@
 #include "ObjectsBase.hpp"
 #include "GameEngine.hpp"
 
+class LevelManager;
+
 class LevelData {
 private:
     int width = DISPLAY_WIDTH;
@@ -14,8 +16,9 @@ private:
     std::vector<LevelTile> levelTiles;
     std::vector<GameObject::Base*> levelObjects;
     GameEngine* game;
+    LevelManager* levelManager;
 public:
-    LevelData(GameEngine* game);
+    LevelData(GameEngine* game, LevelManager* levelManager);
     ~LevelData();
 
     void CreateBlankLevel(int width, int height);
