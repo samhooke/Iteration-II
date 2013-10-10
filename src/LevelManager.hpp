@@ -5,7 +5,8 @@
 #include <string>
 #include "LevelData.hpp"
 #include "GameEngine.hpp"
-#include "IterationData.hpp"
+
+class IterationData;
 
 class LevelManager {
 private:
@@ -20,6 +21,7 @@ public:
     void Load(const char* levelName);
     void Update(GameEngine* game);
     void UpdateDisplay(GameEngine* game);
+    void UpdateTimeChanged();
 };
 
 #endif // LEVELMANAGER_HPP_INCLUDED

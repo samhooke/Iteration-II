@@ -39,7 +39,9 @@ public:
     int GetObjectY(int index);
     void SetObjectHasControl(int index, bool hasControl);
     bool CompareObjectTag(int index, std::string tag);
+
     void CallObjectUpdate(int index);
+    void CallObjectUpdateTimeChanged(int index);
 
     void CreatePlayer(int x, int y, bool hasControl);
     void CreateDoor(int x, int y);

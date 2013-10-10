@@ -1,5 +1,6 @@
 #include "Player.hpp"
 #include "Tags.hpp"
+#include "../IterationData.hpp"
 #include "../Defs.hpp"
 #include <iostream> // Temporary
 
@@ -8,6 +9,8 @@ namespace GameObject {
         displayCharacter = TILE_FACE_OUTLINE;
 
         lastActionTime = game->gameClock->getElapsedTime().asSeconds();
+
+        TimeDataWrite();
     }
 
     Player::~Player() {}
@@ -50,7 +53,16 @@ namespace GameObject {
             if (moved) {
                 lastActionTime = game->gameClock->getElapsedTime().asSeconds();
                 levelManager->iterationData->Forward();
+                TimeDataWrite();
             }
+        }
+    }
+
+    void Player::UpdateTimeChanged() {
+        if (!Controlling()) {
+            TimeData currentTimeData = TimeDataRead();
+            x = currentTimeData.x;
+            y = currentTimeData.y;
         }
     }
 }

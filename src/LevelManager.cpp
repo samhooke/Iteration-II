@@ -5,10 +5,11 @@
 #include "LevelManager.hpp"
 #include "Tiles.hpp"
 #include "Display.hpp"
+#include "IterationData.hpp"
 
 LevelManager::LevelManager(GameEngine* game) {
     levelData = new LevelData(game, this);
-    iterationData = new IterationData();
+    iterationData = new IterationData(this);
 }
 LevelManager::~LevelManager() {
     delete levelData;
@@ -154,6 +155,13 @@ void LevelManager::Update(GameEngine* game) {
     // Call Update() in all GameObjects
     for (int index = 0; index < levelData->GetNumObjects(); index++) {
         levelData->CallObjectUpdate(index);
+    }
+}
+
+void LevelManager::UpdateTimeChanged() {
+    // Call UpdateTimeChanged() in all GameObjects
+    for (int index = 0; index < levelData->GetNumObjects(); index++) {
+        levelData->CallObjectUpdateTimeChanged(index);
     }
 }
 

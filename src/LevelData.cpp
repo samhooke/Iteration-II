@@ -146,6 +146,10 @@ void LevelData::CallObjectUpdate(int index) {
     levelObjects[index]->Update();
 }
 
+void LevelData::CallObjectUpdateTimeChanged(int index) {
+    levelObjects[index]->UpdateTimeChanged();
+}
+
 void LevelData::CreatePlayer(int x, int y, bool hasControl) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreatePlayer(" << x << "," << y << ")" << std::endl;

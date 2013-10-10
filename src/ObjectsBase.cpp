@@ -2,6 +2,7 @@
 #include "ObjectsBase.hpp"
 #include "Display.hpp"
 #include "LevelManager.hpp"
+#include "IterationData.hpp"
 
 namespace GameObject {
 
@@ -22,6 +23,10 @@ namespace GameObject {
         return false;
     }
 
+    void Base::UpdateTimeChanged() {
+        //std::cout << "Time changed!" << std::endl;
+    }
+
     // Static
     Static::Static(int x, int y, GameEngine* game, LevelManager* levelManager) {
         this->x = x;
@@ -36,6 +41,17 @@ namespace GameObject {
         this->y = y;
         this->game = game;
         this->levelManager = levelManager;
+    }
+
+    void Dynamic::TimeDataWrite() {
+        TimeData newTimeData;
+        newTimeData.x = x;
+        newTimeData.y = y;
+        timeData[levelManager->iterationData->GetCurrentIteration()] = newTimeData;
+    }
+
+    TimeData Dynamic::TimeDataRead() {
+        return timeData[levelManager->iterationData->GetCurrentIteration()];
     }
 
     bool Dynamic::SetPos(int x, int y) {

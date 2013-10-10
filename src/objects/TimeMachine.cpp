@@ -1,4 +1,5 @@
 #include "TimeMachine.hpp"
+#include "../IterationData.hpp"
 
 namespace GameObject {
     TimeMachine::TimeMachine(int x, int y, GameEngine* game, LevelManager* levelManager) : Static(x, y, game, levelManager) {

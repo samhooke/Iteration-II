@@ -2,17 +2,25 @@
 #define OBJECTSBASE_HPP_INCLUDED
 
 #include <string>
+#include <map>
 #include "Tiles.hpp"
 #include "GameEngine.hpp"
 
 class LevelManager; // To avoid #include loop between ObjectsBase.hpp and LevelManager.hpp
 
 namespace GameObject {
+
+    struct TimeData {
+        int x;
+        int y;
+    };
+
     class Base {
     public:
         virtual ~Base();
 
         virtual void Update() = 0;
+        virtual void UpdateTimeChanged();
 
         GameEngine* game;
         LevelManager* levelManager;
@@ -37,6 +45,10 @@ namespace GameObject {
     class Dynamic : public Base {
     public:
         Dynamic(int x, int y, GameEngine* game, LevelManager* levelManager);
+
+        std::map<int, TimeData> timeData;   // Key/value pairs for storing time data
+        void TimeDataWrite();               // Update the timeData for our current time
+        TimeData TimeDataRead();            // Read the timeData for our current time
 
         bool useCollisionDetection = true;
 

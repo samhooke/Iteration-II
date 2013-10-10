@@ -2,6 +2,10 @@
 #include <complex>
 #include "IterationData.hpp"
 
+IterationData::IterationData(LevelManager* levelManager) {
+    this->levelManager = levelManager;
+}
+
 int IterationData::GetCurrentIteration() {
     return iteration;
 }
@@ -22,8 +26,14 @@ void IterationData::UpdateTimeline(Timeline* timeline) {
 
 void IterationData::Forward() {
     iteration++;
+    TimeChanged();
 }
 
 void IterationData::Backward() {
     iteration--;
+    TimeChanged();
+}
+
+void IterationData::TimeChanged() {
+    levelManager->UpdateTimeChanged();
 }

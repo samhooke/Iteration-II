@@ -9,6 +9,7 @@ namespace GameObject {
     class Player : public Dynamic {
     public:
         void Update();
+        void UpdateTimeChanged();
 
         Player(int x, int y, GameEngine* game, LevelManager* levelManager);
         ~Player();
