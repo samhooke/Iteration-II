@@ -6,7 +6,7 @@
 
 namespace GameObject {
     Player::Player(int x, int y, GameEngine* game, LevelManager* levelManager) : Dynamic(x, y, game, levelManager) {
-        displayCharacter = TILE_FACE_OUTLINE;
+        UpdateDisplayCharacter();
 
         lastActionTime = game->gameClock->getElapsedTime().asSeconds();
 
@@ -16,6 +16,7 @@ namespace GameObject {
     Player::~Player() {}
 
     void Player::Update() {
+        UpdateDisplayCharacter();
         if (Controlling()) {
             bool moved = false;
 
@@ -42,7 +43,6 @@ namespace GameObject {
                     if (key_action) {
                         int index = GetObjectIndexAtPosWithTag(x, y, TAG_TIMEMACHINE);
                         if (index >= 0) {
-                            std::cout << "Passing control to time machine" << std::endl;
                             hasControl = false;
                             levelManager->levelData->SetObjectHasControl(index, true);
                         }
@@ -64,5 +64,12 @@ namespace GameObject {
             x = currentTimeData.x;
             y = currentTimeData.y;
         }
+    }
+
+    void Player::UpdateDisplayCharacter() {
+        if (Controlling())
+            displayCharacter = TILE_PLAYER_CONTROLLING;
+        else
+            displayCharacter = TILE_PLAYER_NOTCONTROLLING;
     }
 }

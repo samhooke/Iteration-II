@@ -15,6 +15,7 @@ namespace GameObject {
         ~Player();
     private:
         float lastActionTime;
+        void UpdateDisplayCharacter();
     };
 }
 
