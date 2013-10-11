@@ -48,6 +48,7 @@ namespace GameObject {
 
         std::map<int, TimeData> timeData;   // Key/value pairs for storing time data
         void TimeDataWrite();               // Update the timeData for our current time
+        bool TimeDataExists();              // Returns true if timeData exists for currentTime. Must be called before TimeDataRead()
         TimeData TimeDataRead();            // Read the timeData for our current time
 
         bool useCollisionDetection = true;

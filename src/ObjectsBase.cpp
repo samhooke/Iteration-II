@@ -50,6 +50,10 @@ namespace GameObject {
         timeData[levelManager->iterationData->GetCurrentIteration()] = newTimeData;
     }
 
+    bool Dynamic::TimeDataExists() {
+        return (timeData.find(levelManager->iterationData->GetCurrentIteration()) != timeData.end());
+    }
+
     TimeData Dynamic::TimeDataRead() {
         return timeData[levelManager->iterationData->GetCurrentIteration()];
     }

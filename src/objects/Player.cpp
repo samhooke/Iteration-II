@@ -69,9 +69,15 @@ namespace GameObject {
 
     void Player::UpdateTimeChanged() {
         if (!Controlling()) {
-            TimeData currentTimeData = TimeDataRead();
-            x = currentTimeData.x;
-            y = currentTimeData.y;
+            if (TimeDataExists()) {
+                TimeData currentTimeData = TimeDataRead();
+                x = currentTimeData.x;
+                y = currentTimeData.y;
+            } else {
+                // If we do not exist, simply move ourselves out of the display so we are not rendered
+                x = -1;
+                y = -1;
+            }
         }
     }
 
