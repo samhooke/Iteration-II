@@ -7,8 +7,9 @@ Timeline::Timeline() {}
 
 Timeline::~Timeline() {}
 
-void Timeline::SetTMinus(std::string tMinus) {
-    this->tMinus = tMinus;
+void Timeline::SetTMinus(std::string meltdownTMinus, std::string catastropheTMinus) {
+    this->meltdownTMinus = meltdownTMinus;
+    this->catastropheTMinus = catastropheTMinus;
 }
 
 void Timeline::UpdateDisplay(GameEngine* game) {
@@ -22,9 +23,12 @@ void Timeline::UpdateDisplay(GameEngine* game) {
         }
     }
 
-    std::ostringstream os;
-    os << "Meltdown: " << tMinus;
+    std::ostringstream meltdown;
+    std::ostringstream catastrophe;
+    meltdown << "Meltdown: " << meltdownTMinus;
+    catastrophe << "Catastrophe: " << catastropheTMinus;
 
-    game->display->WriteText(x + 13, y + height - 2, os.str().c_str());
+    game->display->WriteText(x + 3, y + height - 2, meltdown.str().c_str());
+    game->display->WriteText(x + 20, y + height - 2, catastrophe.str().c_str());
     game->display->WriteText(x + 53, y + height - 2, "Iteration: b/d");
 }

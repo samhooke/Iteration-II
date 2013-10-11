@@ -17,7 +17,8 @@ public:
     void UpdateTimeline(Timeline* timeline);
 
     int GetCurrentIteration();
-    std::string GetTMinus();
+    std::string GetMeltdownTMinus();
+    std::string GetCatastropheTMinus();
 
     bool CanGoForward();
     void GoForward();

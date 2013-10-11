@@ -11,12 +11,13 @@ private:
     int width = 78;
     int height = 9;
 
-    std::string tMinus;
+    std::string meltdownTMinus;
+    std::string catastropheTMinus;
 public:
     Timeline();
     ~Timeline();
 
-    void SetTMinus(std::string tMinus);
+    void SetTMinus(std::string meltdownTMinus, std::string catastropheTMinus);
 
     void UpdateDisplay(GameEngine* game);
 };
