@@ -15,14 +15,16 @@ class LevelData {
 private:
     int width = DISPLAY_WIDTH;
     int height = DISPLAY_HEIGHT;
+
     std::vector<LevelTile> levelTiles;
+    std::vector<GameObject::Base*> levelObjects;
 
     GameEngine* game;
     LevelManager* levelManager;
 public:
     LevelData(GameEngine* game, LevelManager* levelManager);
     ~LevelData();
-    std::vector<GameObject::Base*> levelObjects; //TODO: MOVE THIS BACK INTO PRIVATE
+
     char nextCloneDesignation = 'A';
 
     void CreateBlankLevel(int width, int height);

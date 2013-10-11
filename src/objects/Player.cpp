@@ -20,7 +20,9 @@ namespace GameObject {
     Player::~Player() {}
 
     void Player::Update() {
-        //std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' about to update" << std::endl;
+#ifdef DEBUG_TIMETRAVEL_VERBOSE
+        std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' about to update" << std::endl;
+#endif // DEBUG_TIMETRAVEL_VERBOSE
         UpdateDisplayCharacter();
         if (Controlling()) {
             if (game->controls->GetKeyDelaySufficient()) {
@@ -79,11 +81,15 @@ namespace GameObject {
                 }
             }
         }
-        //std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' updated without incident" << std::endl;
+#ifdef DEBUG_TIMETRAVEL_VERBOSE
+        std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' updated without incident" << std::endl;
+#endif // DEBUG_TIMETRAVEL_VERBOSE
     }
 
     void Player::UpdateTimeChanged() {
-        //std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' reporting that time has changed" << std::endl;
+#ifdef DEBUG_TIMETRAVEL_VERBOSE
+        std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' reporting that time has changed" << std::endl;
+#endif // DEBUG_TIMETRAVEL_VERBOSE
         if (Controlling()) {
             if (expiryTime == levelManager->iterationData->GetTime()) {
                 if (original) {
@@ -112,7 +118,9 @@ namespace GameObject {
                 y = 0;
             }
         }
-        //std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' reporting that time changed without incident" << std::endl;
+#ifdef DEBUG_TIMETRAVEL_VERBOSE
+        std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' reporting that time changed without incident" << std::endl;
+#endif // DEBUG_TIMETRAVEL_VERBOSE
     }
 
     void Player::UpdateDisplayCharacter() {
