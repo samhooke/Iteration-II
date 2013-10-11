@@ -62,6 +62,8 @@ void IterationData::GoBackward() {
 }
 
 void IterationData::TimeChanged() {
+    // Set a flag instead of directly calling levelManager->UpdateTimeChanged()
+    // This ensures that the correct order of execution is maintained
+    // Since we want it to be determinate in which order events are called
     levelManager->timeChangedFlag = true;
-    //levelManager->UpdateTimeChanged();
 }

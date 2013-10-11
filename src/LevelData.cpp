@@ -148,9 +148,13 @@ bool LevelData::CompareObjectTag(int index, std::string tag) {
 }
 
 void LevelData::CallObjectUpdate(int index) {
-    //std::cout << Timestamp() << "About to call Update() on an object" << std::endl;
+#ifdef DEBUG_TIMETRAVEL_VERBOSE
+    std::cout << Timestamp() << "About to call Update() on an object" << std::endl;
+#endif // DEBUG_TIMETRAVEL_VERBOSE
     levelObjects[index]->Update();
-    //std::cout << Timestamp() << "Called Update() successfully" << std::endl;
+#ifdef DEBUG_TIMETRAVEL_VERBOSE
+    std::cout << Timestamp() << "Called Update() successfully" << std::endl;
+#endif // DEBUG_TIMETRAVEL_VERBOSE
 }
 
 void LevelData::CallObjectUpdateTimeChanged(int index) {

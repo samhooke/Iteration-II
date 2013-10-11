@@ -11,7 +11,6 @@ class IterationData;
 class LevelManager {
 private:
     bool StringToInt(std::string &s, int &i);
-    int debugRemoveThis[1000];
 public:
     LevelManager(GameEngine* game);
     ~LevelManager();
