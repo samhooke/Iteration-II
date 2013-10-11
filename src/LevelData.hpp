@@ -23,6 +23,8 @@ public:
     LevelData(GameEngine* game, LevelManager* levelManager);
     ~LevelData();
 
+    char nextCloneDesignation = 'A';
+
     void CreateBlankLevel(int width, int height);
 
     void SetTileDetails(int x, int y, TileType type, bool connectsWithWall);
@@ -52,6 +54,8 @@ public:
     void CreateTerminal(int x, int y);
     void CreateTimeMachine(int x, int y);
     void CreateRadiation(int x, int y, int intensity);
+
+    std::string Timestamp();
 };
 
 #endif // LEVELDATA_HPP_INCLUDED

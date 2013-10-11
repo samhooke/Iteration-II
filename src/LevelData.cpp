@@ -7,6 +7,7 @@
 #include "objects/TimeMachine.hpp"
 #include "objects/ObjectsGeneral.hpp"
 #include "objects/Radiation.hpp"
+#include "IterationData.hpp"
 
 LevelData::LevelData(GameEngine* game, LevelManager* levelManager) {
     // Requires a reference to GameEngine & LevelManager which it passes on to created objects
@@ -162,6 +163,11 @@ void LevelData::CreatePlayerOriginal(int x, int y) {
     obj->tag = TAG_PLAYER;
     obj->canHaveControl = true;
     obj->hasControl = true;
+#ifdef DEBUG_TIMETRAVEL
+    std::cout << Timestamp() << "Created player (original) with designation '" << nextCloneDesignation << "'" << std::endl;
+#endif
+    ((GameObject::Player*)obj)->cloneDesignation = nextCloneDesignation;
+    nextCloneDesignation++;
     levelObjects.push_back(obj);
 }
 
@@ -173,6 +179,11 @@ void LevelData::CreatePlayer(int x, int y, bool hasControl, GameObject::Player* 
     obj->tag = TAG_PLAYER;
     obj->canHaveControl = true;
     obj->hasControl = hasControl;
+#ifdef DEBUG_TIMETRAVEL
+    std::cout << Timestamp() << "Created player with designation '" << nextCloneDesignation << "', whose parent is '" << parent->cloneDesignation << "'" << std::endl;
+#endif
+    ((GameObject::Player*)obj)->cloneDesignation = nextCloneDesignation;
+    nextCloneDesignation++;
     levelObjects.push_back(obj);
 }
 
@@ -217,4 +228,13 @@ void LevelData::CreateRadiation(int x, int y, int intensity) {
         levelObjects.push_back(new GameObject::RadiationStrong(x, y, game, levelManager));
     else
         std::cout << "WARNING: Tried to create radiation with an invalid intensity" << std::endl;
+}
+
+std::string LevelData::Timestamp() {
+    std::ostringstream os;
+    os << " [";
+    os.width(3);
+    os << levelManager->iterationData->GetTime();
+    os << "] ";
+    return os.str();
 }

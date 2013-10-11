@@ -58,6 +58,9 @@ namespace GameObject {
                         // Perform action with objects we are on
                         int index = GetObjectIndexAtPosWithTag(x, y, TAG_TIMEMACHINE);
                         if (index >= 0) {
+#ifdef DEBUG_TIMETRAVEL
+                            std::cout << Timestamp() << "Clone '" << cloneDesignation << "' has entered a time machine" << std::endl;
+#endif // DEBUG_TIMETRAVEL
                             // Pass control to time machine
                             hasControl = false;
                             levelManager->levelData->SetObjectHasControl(index, true);
@@ -80,6 +83,22 @@ namespace GameObject {
     }
 
     void Player::UpdateTimeChanged() {
+        if (Controlling()) {
+            if (expiryTime == levelManager->iterationData->GetTime()) {
+                if (original) {
+                    std::cout << "ERROR: Tried to pass control back when we are the original" << std::endl;
+                }
+#ifdef DEBUG_TIMETRAVEL
+                std::cout << Timestamp() << "Transferring control from clone '" << cloneDesignation << "' to clone '" << parent->cloneDesignation << "'" << std::endl;
+#endif // DEBUG_TIMETRAVEL
+                // This object has expired, so transfer control back to our parent
+                hasControl = false;
+                parent->hasControl = true;
+                x = -1;
+                y = -1;
+            }
+        }
+
         if (!Controlling()) {
             if (TimeDataExists()) {
                 TimeData currentTimeData = TimeDataRead();

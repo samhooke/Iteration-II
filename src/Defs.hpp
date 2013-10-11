@@ -9,6 +9,7 @@
 
 // Whether to print out detailed debugging information
 //#define DEBUG_VERBOSE
+#define DEBUG_TIMETRAVEL
 
 /// General
 
