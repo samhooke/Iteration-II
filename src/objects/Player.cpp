@@ -16,30 +16,34 @@ namespace GameObject {
     void Player::Update() {
         UpdateDisplayCharacter();
         if (Controlling()) {
-            bool goForwardOne = false;
-
             if (game->controls->GetKeyDelaySufficient()) {
-
-                bool keyL = game->controls->GetKey(InputKey::Left);
-                bool keyR = game->controls->GetKey(InputKey::Right);
-                bool keyU = game->controls->GetKey(InputKey::Up);
-                bool keyD = game->controls->GetKey(InputKey::Down);
-
-                int keyMask = (int)keyL | ((int)keyR << 1) | ((int) keyU << 2) | ((int) keyD << 3);
-
                 bool moved = false;
-                switch (keyMask) {
-                    case 0b0001:    moved = SetPosRelative(-1, 0);  break;
-                    case 0b0010:    moved = SetPosRelative(+1, 0);  break;
-                    case 0b0100:    moved = SetPosRelative(0, -1);  break;
-                    case 0b1000:    moved = SetPosRelative(0, +1);  break;
+
+                // Only try to move if it is possible to go forward in time!
+                if (levelManager->iterationData->CanGoForward()) {
+                    bool keyL = game->controls->GetKey(InputKey::Left);
+                    bool keyR = game->controls->GetKey(InputKey::Right);
+                    bool keyU = game->controls->GetKey(InputKey::Up);
+                    bool keyD = game->controls->GetKey(InputKey::Down);
+
+                    int keyMask = (int)keyL | ((int)keyR << 1) | ((int) keyU << 2) | ((int) keyD << 3);
+
+
+                    switch (keyMask) {
+                        case 0b0001:    moved = SetPosRelative(-1, 0);  break;
+                        case 0b0010:    moved = SetPosRelative(+1, 0);  break;
+                        case 0b0100:    moved = SetPosRelative(0, -1);  break;
+                        case 0b1000:    moved = SetPosRelative(0, +1);  break;
+                    }
                 }
 
-                if (moved)
-                    goForwardOne = true;
-
-                // Only perform an action if a movement has not occured, to avoid two events happening in one frame
-                if (!moved) {
+                // `moved` will never be true if it was not possible to go forward in time
+                if (moved) {
+                    // Moved, so go forward in time and save our position
+                    game->controls->ResetKeyDelay();
+                    levelManager->iterationData->GoForward();
+                    TimeDataWrite();
+                } else {
                     bool keyAction1 = game->controls->GetKey(InputKey::Action1);
                     bool keyAction2 = game->controls->GetKey(InputKey::Action2);
                     if (keyAction1) {
@@ -51,18 +55,13 @@ namespace GameObject {
                             levelManager->levelData->SetObjectHasControl(index, true);
                             game->controls->ResetKeyDelay();
                         }
-                    } else if (keyAction2) {
+                    } else if (keyAction2 && levelManager->iterationData->CanGoForward()) {
                         // Move forward in time without moving
-                        goForwardOne = true;
                         game->controls->ResetKeyDelay();
+                        levelManager->iterationData->GoForward();
+                        TimeDataWrite();
                     }
                 }
-            }
-
-            if (goForwardOne) {
-                game->controls->ResetKeyDelay();
-                levelManager->iterationData->GoForward();
-                TimeDataWrite();
             }
         }
     }

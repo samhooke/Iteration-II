@@ -66,6 +66,8 @@
 		</Linker>
 		<Unit filename="src/Chronact.cpp" />
 		<Unit filename="src/Chronact.hpp" />
+		<Unit filename="src/Controls.cpp" />
+		<Unit filename="src/Controls.hpp" />
 		<Unit filename="src/Defs.hpp" />
 		<Unit filename="src/Display.cpp" />
 		<Unit filename="src/Display.hpp" />
