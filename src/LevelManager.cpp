@@ -200,7 +200,11 @@ void LevelManager::UpdateDisplay(GameEngine* game) {
         int c = levelData->GetObjectDisplayCharacter(index);
         int x = levelData->GetObjectX(index);
         int y = levelData->GetObjectY(index);
-        objectQueue[x + y * levelData->GetWidth()].push_back(c);
+
+        // Check the object lies within the level boundaries, else objectQueue will not be accessed correctly
+        // Objects are sometimes given coordinates outside the boundaries (e.g. -1,-1) in order to make them "invisible"
+        if (x >= 0 && x < levelData->GetWidth() && y >= 0 && y < levelData->GetHeight())
+            objectQueue[x + y * levelData->GetWidth()].push_back(c);
     }
 
     // Loop through the 2D array of int vectors

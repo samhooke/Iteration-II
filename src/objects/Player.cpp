@@ -114,8 +114,8 @@ namespace GameObject {
                 y = currentTimeData.y;
             } else {
                 // If we do not exist, simply move ourselves out of the display so we are not rendered
-                x = 0;
-                y = 0;
+                x = -1;
+                y = -1;
             }
         }
 #ifdef DEBUG_TIMETRAVEL_VERBOSE
