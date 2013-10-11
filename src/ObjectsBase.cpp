@@ -47,15 +47,15 @@ namespace GameObject {
         TimeData newTimeData;
         newTimeData.x = x;
         newTimeData.y = y;
-        timeData[levelManager->iterationData->GetCurrentIteration()] = newTimeData;
+        timeData[levelManager->iterationData->GetTime()] = newTimeData;
     }
 
     bool Dynamic::TimeDataExists() {
-        return (timeData.find(levelManager->iterationData->GetCurrentIteration()) != timeData.end());
+        return (timeData.find(levelManager->iterationData->GetTime()) != timeData.end());
     }
 
     TimeData Dynamic::TimeDataRead() {
-        return timeData[levelManager->iterationData->GetCurrentIteration()];
+        return timeData[levelManager->iterationData->GetTime()];
     }
 
     bool Dynamic::SetPos(int x, int y) {

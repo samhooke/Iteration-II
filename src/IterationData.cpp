@@ -7,12 +7,12 @@ IterationData::IterationData(LevelManager* levelManager) {
     this->levelManager = levelManager;
 }
 
-int IterationData::GetCurrentIteration() {
-    return iteration;
+int IterationData::GetTime() {
+    return time;
 }
 
 std::string IterationData::GetMeltdownTMinus() {
-    int t = iteration - meltdown;
+    int t = time - meltdown;
     std::ostringstream os;
     if (t <= 0)
         os << "T-" << std::abs(t);
@@ -22,7 +22,7 @@ std::string IterationData::GetMeltdownTMinus() {
 }
 
 std::string IterationData::GetCatastropheTMinus() {
-    int t = iteration - catastrophe;
+    int t = time - catastrophe;
     std::ostringstream os;
     if (t <= 0)
         os << "T-" << std::abs(t);
@@ -36,12 +36,12 @@ void IterationData::UpdateTimeline(Timeline* timeline) {
 }
 
 bool IterationData::CanGoForward() {
-    return iteration < catastrophe;
+    return time < catastrophe;
 }
 
 void IterationData::GoForward() {
     if (CanGoForward()) {
-        iteration++;
+        time++;
         TimeChanged();
     } else {
         std::cout << "WARNING: Tried to go forwards in time when there is no more time to go forwards to" << std::endl;
@@ -49,12 +49,12 @@ void IterationData::GoForward() {
 }
 
 bool IterationData::CanGoBackward() {
-    return iteration >= 1; // Cannot go backward if we are on iteration 0
+    return time >= 1; // Cannot go backward if we are on time 0
 }
 
 void IterationData::GoBackward() {
     if (CanGoBackward()) {
-        iteration--;
+        time--;
         TimeChanged();
     } else {
         std::cout << "WARNING: Tried to go backwards in time when there is no more time to go backwards to" << std::endl;
