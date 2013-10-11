@@ -26,6 +26,7 @@ namespace GameObject {
         GameEngine* game;
         LevelManager* levelManager;
 
+        std::string debugName = "No debug name";
         std::string tag = "Undefined";
         int x;
         int y;
