@@ -49,11 +49,9 @@ bool Controls::GetKeyUp(InputKey key) {
 }
 
 bool Controls::GetKeyDelaySufficient() {
-    //return (delayClock.getElapsedTime().asSeconds() > delayTime + MOVEMENT_DELAY);
     return (delayClock.getElapsedTime().asSeconds() > MOVEMENT_DELAY);
 }
 
 void Controls::ResetKeyDelay() {
     delayClock.restart();
-    //delayTime = delayClock.getElapsedTime().asSeconds();
 }
