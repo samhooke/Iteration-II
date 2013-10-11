@@ -62,5 +62,6 @@ void IterationData::GoBackward() {
 }
 
 void IterationData::TimeChanged() {
-    levelManager->UpdateTimeChanged();
+    levelManager->timeChangedFlag = true;
+    //levelManager->UpdateTimeChanged();
 }

@@ -153,28 +153,36 @@ void LevelManager::Load(const char* levelName) {
 }
 
 void LevelManager::Update(GameEngine* game) {
+
+    if (timeChangedFlag) {
+        timeChangedFlag = false;
+        UpdateTimeChanged();
+    }
+
     // Call Update() in all GameObjects
-    for (int index = 0; index < levelData->GetNumObjects(); index++) {
+    int num = levelData->GetNumObjects();
+    for (int index = 0; index < num; index++) {
         levelData->CallObjectUpdate(index);
     }
 }
 
 void LevelManager::UpdateTimeChanged() {
     // Call UpdateTimeChanged() in all GameObjects
-    for (int index = 0; index < levelData->GetNumObjects(); index++) {
+    int num = levelData->GetNumObjects();
+    for (int index = 0; index < num; index++) {
         levelData->CallObjectUpdateTimeChanged(index);
     }
 }
 
 void LevelManager::UpdateDisplay(GameEngine* game) {
-
+    //std::cout << "game->display->SetAll(TILE_BLANK)" << std::endl;
     // Reset all tiles to blank
     game->display->SetAll(TILE_BLANK);
-
+    //std::cout << "int offsetX; int offsetY;" << std::endl;
     // Draw the level in the center
     int offsetX = (game->display->GetWidth() - levelData->GetWidth())/2;
     int offsetY = (LEVEL_HEIGHT_MAX - levelData->GetHeight())/2;//(game->display->GetHeight() - levelData->GetHeight())/2;
-
+    //std::cout << "Draw the walls and floors" << std::endl;
     // Draw all the walls and floors
     for (int y = 0; y < levelData->GetHeight(); y++) {
         for (int x = 0; x < levelData->GetWidth(); x++) {
@@ -182,25 +190,40 @@ void LevelManager::UpdateDisplay(GameEngine* game) {
             game->display->SetDisplayCharacter(x + offsetX, y + offsetY, c);
         }
     }
-
+    //std::cout << "2D array of int vectors" << std::endl;
     // 2D array of int vectors
-    std::vector<int> objectQueue[levelData->GetWidth()][levelData->GetHeight()];
-
+    //std::vector<int> objectQueue[levelData->GetWidth()][levelData->GetHeight()];
+    std::vector<int> objectQueue[levelData->GetWidth() * levelData->GetHeight()];
+    std::cout << "Create objectQueue of width " << levelData->GetWidth() << " and height " << levelData->GetHeight() << std::endl;
+    std::cout << "About to add " << levelData->GetNumObjects() << " objects to objectQueue" << std::endl;
     // Queue all the objects to be drawn in the 2D array of int vectors
     for (int index = 0; index < levelData->GetNumObjects(); index++) {
+        std::cout << "Getting object " << index << " (" << levelData->levelObjects[index]->debugName << ")...";
+        std::cout << "DC...";
         int c = levelData->GetObjectDisplayCharacter(index);
+        std::cout << "X...";
         int x = levelData->GetObjectX(index);
+        std::cout << "Y...";
         int y = levelData->GetObjectY(index);
-        objectQueue[x][y].push_back(c);
+        std::cout << "push_back(" << c << ")...";
+        try {
+            //objectQueue[x][y].push_back(c); // <- crash here
+            objectQueue[x + y * levelData->GetWidth()].push_back(c);
+        }  catch (std::exception& e) {
+            std::cout << e.what();
+        }
+        std::cout << "success!" << std::endl;
     }
-
+    std::cout << "Loop through the 2D array of int vectors" << std::endl;
     // Loop through the 2D array of int vectors
     for (int y = 0; y < levelData->GetHeight(); y++) {
         for (int x = 0; x < levelData->GetWidth(); x++) {
-            int s = objectQueue[x][y].size();
+            //int s = objectQueue[x][y].size();
+            int s = objectQueue[x + y * levelData->GetWidth()].size();
             // Check whether there is at least one object queued to be drawn at this position
             if (s == 1) {
-                game->display->SetDisplayCharacter(x + offsetX, y + offsetY, (objectQueue[x][y]).at(0));
+                //game->display->SetDisplayCharacter(x + offsetX, y + offsetY, (objectQueue[x][y]).at(0));
+                game->display->SetDisplayCharacter(x + offsetX, y + offsetY, (objectQueue[x + y * levelData->GetWidth()]).at(0));
             } else if (s > 1) {
                 // Choose one of the objects to draw based upon the gameClock
 
@@ -211,16 +234,19 @@ void LevelManager::UpdateDisplay(GameEngine* game) {
                 int c = TILE_PLUS;
 
                 // Multiply by 2 because every other character will be TILE_PLUS by default
-                int objectToDraw = t % (objectQueue[x][y].size() * 2);
+                //int objectToDraw = t % (objectQueue[x][y].size() * 2);
+                int objectToDraw = t % (objectQueue[x + y * levelData->GetWidth()].size() * 2);
 
                 // Set every other tile to the display character of the relevant object
                 // Divide by two because objectToDraw was multiplied by two earlier
                 if (objectToDraw % 2 == 0)
-                    c = (objectQueue[x][y]).at(objectToDraw/2);
+                    c = (objectQueue[x + y * levelData->GetWidth()]).at(objectToDraw/2);
+                    //c = (objectQueue[x][y]).at(objectToDraw/2);
 
                 // Actually update display
                 game->display->SetDisplayCharacter(x + offsetX, y + offsetY, c);
             }
         }
     }
+    std::cout << "Finished UpdateDiplay()" << std::endl;
 }

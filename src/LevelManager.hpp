@@ -11,6 +11,7 @@ class IterationData;
 class LevelManager {
 private:
     bool StringToInt(std::string &s, int &i);
+    int debugRemoveThis[1000];
 public:
     LevelManager(GameEngine* game);
     ~LevelManager();
@@ -22,6 +23,8 @@ public:
     void Update(GameEngine* game);
     void UpdateDisplay(GameEngine* game);
     void UpdateTimeChanged();
+
+    bool timeChangedFlag = false;   // Set to true by IterationData when time changes
 };
 
 #endif // LEVELMANAGER_HPP_INCLUDED

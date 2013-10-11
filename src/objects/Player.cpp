@@ -9,7 +9,7 @@
 namespace GameObject {
     Player::Player(int x, int y, GameEngine* game, LevelManager* levelManager, bool original, GameObject::Player* parent, int expiryTime) : Dynamic(x, y, game, levelManager) {
         UpdateDisplayCharacter();
-
+        debugName = "Player";
         TimeDataWrite();
 
         this->original = original;
@@ -22,6 +22,7 @@ namespace GameObject {
     Player::~Player() {}
 
     void Player::Update() {
+        //std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' about to update" << std::endl;
         UpdateDisplayCharacter();
         if (Controlling()) {
             if (game->controls->GetKeyDelaySufficient()) {
@@ -80,9 +81,11 @@ namespace GameObject {
                 }
             }
         }
+        //std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' updated without incident" << std::endl;
     }
 
     void Player::UpdateTimeChanged() {
+        //std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' reporting that time has changed" << std::endl;
         if (Controlling()) {
             if (expiryTime == levelManager->iterationData->GetTime()) {
                 if (original) {
@@ -110,6 +113,7 @@ namespace GameObject {
                 y = -1;
             }
         }
+        //std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' reporting that time changed without incident" << std::endl;
     }
 
     void Player::UpdateDisplayCharacter() {
