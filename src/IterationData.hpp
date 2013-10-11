@@ -9,6 +9,7 @@ class IterationData {
 private:
     int iteration = 0;
     int meltdown = 20;
+    int catastrophe = 40;
     LevelManager* levelManager;
 public:
     IterationData(LevelManager* levelManager);

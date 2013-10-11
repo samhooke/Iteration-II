@@ -26,7 +26,7 @@ void IterationData::UpdateTimeline(Timeline* timeline) {
 }
 
 bool IterationData::CanGoForward() {
-    return iteration < 20;//return true; // TODO: Set a forward limit
+    return iteration < catastrophe;
 }
 
 void IterationData::GoForward() {
