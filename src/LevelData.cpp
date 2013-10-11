@@ -150,11 +150,22 @@ void LevelData::CallObjectUpdateTimeChanged(int index) {
     levelObjects[index]->UpdateTimeChanged();
 }
 
-void LevelData::CreatePlayer(int x, int y, bool hasControl) {
+void LevelData::CreatePlayerOriginal(int x, int y) {
+#ifdef DEBUG_VERBOSE
+    std::cout << "CreatePlayerOriginal(" << x << "," << y << ")" << std::endl;
+#endif
+    GameObject::Base* obj = new GameObject::Player(x, y, game, levelManager, true, NULL, -1);
+    obj->tag = TAG_PLAYER;
+    obj->canHaveControl = true;
+    obj->hasControl = true;
+    levelObjects.push_back(obj);
+}
+
+void LevelData::CreatePlayer(int x, int y, bool hasControl, GameObject::Player* parent, int expiryTime) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreatePlayer(" << x << "," << y << ")" << std::endl;
 #endif
-    GameObject::Base* obj = new GameObject::Player(x, y, game, levelManager);
+    GameObject::Base* obj = new GameObject::Player(x, y, game, levelManager, false, parent, expiryTime);
     obj->tag = TAG_PLAYER;
     obj->canHaveControl = true;
     obj->hasControl = hasControl;

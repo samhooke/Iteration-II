@@ -3,6 +3,7 @@
 #include "Display.hpp"
 #include "LevelManager.hpp"
 #include "IterationData.hpp"
+#include "LevelData.hpp"
 
 namespace GameObject {
 

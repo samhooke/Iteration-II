@@ -7,6 +7,7 @@
 #include "LevelTile.hpp"
 #include "ObjectsBase.hpp"
 #include "GameEngine.hpp"
+#include "objects/Player.hpp"
 
 class LevelManager;
 
@@ -43,7 +44,8 @@ public:
     void CallObjectUpdate(int index);
     void CallObjectUpdateTimeChanged(int index);
 
-    void CreatePlayer(int x, int y, bool hasControl);
+    void CreatePlayerOriginal(int x, int y);
+    void CreatePlayer(int x, int y, bool hasControl, GameObject::Player* parent, int expiryTime);
     void CreateDoor(int x, int y);
     void CreateWindow(int x, int y);
     void CreateTerminal(int x, int y);

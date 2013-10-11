@@ -3,9 +3,9 @@
 
 #include <sstream>
 #include <string>
-#include "LevelData.hpp"
 #include "GameEngine.hpp"
 
+class LevelData;
 class IterationData;
 
 class LevelManager {

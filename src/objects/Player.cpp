@@ -1,14 +1,21 @@
 #include "Player.hpp"
 #include "Tags.hpp"
+#include "../LevelData.hpp"
 #include "../IterationData.hpp"
 #include "../Defs.hpp"
 #include <iostream> // Temporary
 
 namespace GameObject {
-    Player::Player(int x, int y, GameEngine* game, LevelManager* levelManager) : Dynamic(x, y, game, levelManager) {
+    Player::Player(int x, int y, GameEngine* game, LevelManager* levelManager, bool original, GameObject::Player* parent, int expiryTime) : Dynamic(x, y, game, levelManager) {
         UpdateDisplayCharacter();
 
         TimeDataWrite();
+
+        this->original = original;
+        if (!original) {
+            this->parent = parent;
+            this->expiryTime = expiryTime;
+        }
     }
 
     Player::~Player() {}

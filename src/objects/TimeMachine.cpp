@@ -1,4 +1,5 @@
 #include "TimeMachine.hpp"
+#include "../LevelData.hpp"
 #include "../Tiles.hpp"
 #include "../IterationData.hpp"
 #include "../Defs.hpp"
@@ -22,7 +23,7 @@ namespace GameObject {
                     game->controls->ResetKeyDelay();
                 } else if (keyAction2) {
                     // Exit time machine (create new player and pass control to them)
-                    levelManager->levelData->CreatePlayer(x, y, true);
+                    levelManager->levelData->CreatePlayer(x, y, true, NULL, -1); //TODO: Fill in parent and expiryTime
                     hasControl = false;
                     game->controls->ResetKeyDelay();
                 }
