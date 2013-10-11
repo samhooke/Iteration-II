@@ -22,15 +22,15 @@ namespace GameObject {
 
             if (game->gameClock->getElapsedTime().asSeconds() > lastActionTime + MOVEMENT_DELAY) {
 
-                bool key_l = sf::Keyboard::isKeyPressed(INPUT_LEFT);
-                bool key_r = sf::Keyboard::isKeyPressed(INPUT_RIGHT);
-                bool key_u = sf::Keyboard::isKeyPressed(INPUT_UP);
-                bool key_d = sf::Keyboard::isKeyPressed(INPUT_DOWN);
+                bool keyL = game->controls->GetKeyDown(InputKey::Left);
+                bool keyR = game->controls->GetKeyDown(InputKey::Right);
+                bool keyU = game->controls->GetKeyDown(InputKey::Up);
+                bool keyD = game->controls->GetKeyDown(InputKey::Down);
 
-                int key_mask = (int)key_l | ((int)key_r << 1) | ((int) key_u << 2) | ((int) key_d << 3);
+                int keyMask = (int)keyL | ((int)keyR << 1) | ((int) keyU << 2) | ((int) keyD << 3);
 
                 bool moved = false;
-                switch (key_mask) {
+                switch (keyMask) {
                     case 0b0001:    moved = SetPosRelative(-1, 0);  break;
                     case 0b0010:    moved = SetPosRelative(+1, 0);  break;
                     case 0b0100:    moved = SetPosRelative(0, -1);  break;
@@ -42,9 +42,9 @@ namespace GameObject {
 
                 // Only perform an action if a movement has not occured, to avoid two events happening in one frame
                 if (!moved) {
-                    bool key_action_1 = sf::Keyboard::isKeyPressed(INPUT_ACTION_1);
-                    bool key_action_2 = sf::Keyboard::isKeyPressed(INPUT_ACTION_2);
-                    if (key_action_1) {
+                    bool keyAction1 = game->controls->GetKeyDown(InputKey::Action1);
+                    bool keyAction2 = game->controls->GetKeyDown(InputKey::Action2);
+                    if (keyAction1) {
                         // Perform action with objects we are on
                         int index = GetObjectIndexAtPosWithTag(x, y, TAG_TIMEMACHINE);
                         if (index >= 0) {
@@ -52,7 +52,7 @@ namespace GameObject {
                             hasControl = false;
                             levelManager->levelData->SetObjectHasControl(index, true);
                         }
-                    } else if (key_action_2) {
+                    } else if (keyAction2) {
                         // Move forward in time without moving
                         goForwardOne = true;
                     }

@@ -16,17 +16,17 @@ namespace GameObject {
         UpdateDisplayCharacter();
         if (Controlling()) {
             if (game->gameClock->getElapsedTime().asSeconds() > lastActionTime + MOVEMENT_DELAY) {
-                bool key_action_1 = sf::Keyboard::isKeyPressed(INPUT_ACTION_1);
-                bool key_action_2 = sf::Keyboard::isKeyPressed(INPUT_ACTION_2);
-                if (key_action_1) {
-                    // IMPORTANT: This code almost always runs immediately when the player gets into the time machine
-                    // This is only because the INPUT_ACTION_1 key is still pressed, which triggers this event
-                    // This is not a safe, reliable way to handle this and should be changed!
+                bool keyAction1 = game->controls->GetKeyDown(InputKey::Action1);
+                bool keyAction2 = game->controls->GetKeyDown(InputKey::Action2);
+                if (keyAction1) {
+                    // IMPORTANT: This always runs immediately when the player gets into the time machine
+                    // This is because the GetKeyDown(InputKey::Action1) function, which triggers this event
+                    // is true for both the Player and for the TimeMachine
 
                     // Go back in time
                     lastActionTime = game->gameClock->getElapsedTime().asSeconds();
                     levelManager->iterationData->Backward();
-                } else if (key_action_2) {
+                } else if (keyAction2) {
                     // Exit time machine (create new player and pass control to them)
                     levelManager->levelData->CreatePlayer(x, y, true);
                     hasControl = false;
