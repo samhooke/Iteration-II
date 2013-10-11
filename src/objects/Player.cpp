@@ -61,7 +61,7 @@ namespace GameObject {
 
             if (goForwardOne) {
                 game->controls->ResetKeyDelay();
-                levelManager->iterationData->Forward();
+                levelManager->iterationData->GoForward();
                 TimeDataWrite();
             }
         }

@@ -16,9 +16,9 @@ namespace GameObject {
             if (game->controls->GetKeyDelaySufficient()) {
                 bool keyAction1 = game->controls->GetKey(InputKey::Action1);
                 bool keyAction2 = game->controls->GetKey(InputKey::Action2);
-                if (keyAction1) {
+                if (keyAction1 && levelManager->iterationData->CanGoBackward()) {
                     // Go back in time
-                    levelManager->iterationData->Backward();
+                    levelManager->iterationData->GoBackward();
                     game->controls->ResetKeyDelay();
                 } else if (keyAction2) {
                     // Exit time machine (create new player and pass control to them)

@@ -1,3 +1,4 @@
+#include <iostream>
 #include <sstream>
 #include <complex>
 #include "IterationData.hpp"
@@ -24,14 +25,30 @@ void IterationData::UpdateTimeline(Timeline* timeline) {
     timeline->SetTMinus(GetTMinus());
 }
 
-void IterationData::Forward() {
-    iteration++;
-    TimeChanged();
+bool IterationData::CanGoForward() {
+    return true; // TODO: Set a forward limit
 }
 
-void IterationData::Backward() {
-    iteration--;
-    TimeChanged();
+void IterationData::GoForward() {
+    if (CanGoForward()) {
+        iteration++;
+        TimeChanged();
+    } else {
+        std::cout << "WARNING: Tried to go forwards in time when there is no more time to go forwards to" << std::endl;
+    }
+}
+
+bool IterationData::CanGoBackward() {
+    return iteration >= 1; // Cannot go backward if we are on iteration 0
+}
+
+void IterationData::GoBackward() {
+    if (CanGoBackward()) {
+        iteration--;
+        TimeChanged();
+    } else {
+        std::cout << "WARNING: Tried to go backwards in time when there is no more time to go backwards to" << std::endl;
+    }
 }
 
 void IterationData::TimeChanged() {

@@ -18,8 +18,10 @@ public:
     int GetCurrentIteration();
     std::string GetTMinus();
 
-    void Forward();
-    void Backward();
+    bool CanGoForward();
+    void GoForward();
+    bool CanGoBackward();
+    void GoBackward();
     void TimeChanged();
 };
 
