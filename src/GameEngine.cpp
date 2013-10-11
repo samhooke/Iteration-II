@@ -41,6 +41,9 @@ void GameEngine::Init(const char* title, bool fullscreen, bool maintainAspectRat
         Quit();
     }
 
+    // Create object to handle controls
+    controls = new Controls();
+
     std::cout << "Running..." << std::endl;
 }
 
@@ -54,6 +57,7 @@ void GameEngine::CleanUp() {
 
     // Clear used resources
     window->close();
+    delete controls;
     delete display;
     delete window;
 }
@@ -89,6 +93,7 @@ void GameEngine::PopState(GameState* state) {
 }
 
 void GameEngine::ProcessInput() {
+    controls->UpdateKeyStates();
     states.back()->ProcessInput(this);
 }
 

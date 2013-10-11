@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include "Controls.hpp"
 
 class Display;
 
@@ -35,6 +36,9 @@ public:
 
     // ASCII display
     Display* display;
+
+    // Controls
+    Controls* controls;
 
 private:
     std::vector<GameState*> states;
