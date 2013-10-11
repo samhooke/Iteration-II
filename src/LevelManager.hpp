@@ -22,6 +22,8 @@ public:
     void Update(GameEngine* game);
     void UpdateDisplay(GameEngine* game);
     void UpdateTimeChanged();
+
+    bool timeChangedFlag = false;   // Set to true by IterationData when time changes
 };
 
 #endif // LEVELMANAGER_HPP_INCLUDED

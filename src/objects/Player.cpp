@@ -9,19 +9,20 @@
 namespace GameObject {
     Player::Player(int x, int y, GameEngine* game, LevelManager* levelManager, bool original, GameObject::Player* parent, int expiryTime) : Dynamic(x, y, game, levelManager) {
         UpdateDisplayCharacter();
-
+        debugName = "Player";
         TimeDataWrite();
 
         this->original = original;
-        if (!original) {
-            this->parent = parent;
-            this->expiryTime = expiryTime;
-        }
+        this->parent = parent;
+        this->expiryTime = expiryTime;
     }
 
     Player::~Player() {}
 
     void Player::Update() {
+#ifdef DEBUG_TIMETRAVEL_VERBOSE
+        std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' about to update" << std::endl;
+#endif // DEBUG_TIMETRAVEL_VERBOSE
         UpdateDisplayCharacter();
         if (Controlling()) {
             if (game->controls->GetKeyDelaySufficient()) {
@@ -80,13 +81,20 @@ namespace GameObject {
                 }
             }
         }
+#ifdef DEBUG_TIMETRAVEL_VERBOSE
+        std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' updated without incident" << std::endl;
+#endif // DEBUG_TIMETRAVEL_VERBOSE
     }
 
     void Player::UpdateTimeChanged() {
+#ifdef DEBUG_TIMETRAVEL_VERBOSE
+        std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' reporting that time has changed" << std::endl;
+#endif // DEBUG_TIMETRAVEL_VERBOSE
         if (Controlling()) {
             if (expiryTime == levelManager->iterationData->GetTime()) {
                 if (original) {
                     std::cout << "ERROR: Tried to pass control back when we are the original" << std::endl;
+                    std::cout << "(my expiryTime is: " << expiryTime << " and my designation is '" << cloneDesignation << "'" << std::endl;
                 }
 #ifdef DEBUG_TIMETRAVEL
                 std::cout << Timestamp() << "Transferring control from clone '" << cloneDesignation << "' to clone '" << parent->cloneDesignation << "'" << std::endl;
@@ -106,10 +114,13 @@ namespace GameObject {
                 y = currentTimeData.y;
             } else {
                 // If we do not exist, simply move ourselves out of the display so we are not rendered
-                x = -1;
-                y = -1;
+                x = 0;
+                y = 0;
             }
         }
+#ifdef DEBUG_TIMETRAVEL_VERBOSE
+        std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' reporting that time changed without incident" << std::endl;
+#endif // DEBUG_TIMETRAVEL_VERBOSE
     }
 
     void Player::UpdateDisplayCharacter() {

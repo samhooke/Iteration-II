@@ -153,15 +153,23 @@ void LevelManager::Load(const char* levelName) {
 }
 
 void LevelManager::Update(GameEngine* game) {
+
+    if (timeChangedFlag) {
+        timeChangedFlag = false;
+        UpdateTimeChanged();
+    }
+
     // Call Update() in all GameObjects
-    for (int index = 0; index < levelData->GetNumObjects(); index++) {
+    int num = levelData->GetNumObjects();
+    for (int index = 0; index < num; index++) {
         levelData->CallObjectUpdate(index);
     }
 }
 
 void LevelManager::UpdateTimeChanged() {
     // Call UpdateTimeChanged() in all GameObjects
-    for (int index = 0; index < levelData->GetNumObjects(); index++) {
+    int num = levelData->GetNumObjects();
+    for (int index = 0; index < num; index++) {
         levelData->CallObjectUpdateTimeChanged(index);
     }
 }
@@ -184,23 +192,26 @@ void LevelManager::UpdateDisplay(GameEngine* game) {
     }
 
     // 2D array of int vectors
-    std::vector<int> objectQueue[levelData->GetWidth()][levelData->GetHeight()];
+    //2D//std::vector<int> objectQueue[levelData->GetWidth()][levelData->GetHeight()];
+    std::vector<int> objectQueue[levelData->GetWidth() * levelData->GetHeight()];
 
     // Queue all the objects to be drawn in the 2D array of int vectors
     for (int index = 0; index < levelData->GetNumObjects(); index++) {
         int c = levelData->GetObjectDisplayCharacter(index);
         int x = levelData->GetObjectX(index);
         int y = levelData->GetObjectY(index);
-        objectQueue[x][y].push_back(c);
+        objectQueue[x + y * levelData->GetWidth()].push_back(c);
     }
 
     // Loop through the 2D array of int vectors
     for (int y = 0; y < levelData->GetHeight(); y++) {
         for (int x = 0; x < levelData->GetWidth(); x++) {
-            int s = objectQueue[x][y].size();
+            //2D//int s = objectQueue[x][y].size();
+            int s = objectQueue[x + y * levelData->GetWidth()].size();
             // Check whether there is at least one object queued to be drawn at this position
             if (s == 1) {
-                game->display->SetDisplayCharacter(x + offsetX, y + offsetY, (objectQueue[x][y]).at(0));
+                //2D//game->display->SetDisplayCharacter(x + offsetX, y + offsetY, (objectQueue[x][y]).at(0));
+                game->display->SetDisplayCharacter(x + offsetX, y + offsetY, (objectQueue[x + y * levelData->GetWidth()]).at(0));
             } else if (s > 1) {
                 // Choose one of the objects to draw based upon the gameClock
 
@@ -211,12 +222,14 @@ void LevelManager::UpdateDisplay(GameEngine* game) {
                 int c = TILE_PLUS;
 
                 // Multiply by 2 because every other character will be TILE_PLUS by default
-                int objectToDraw = t % (objectQueue[x][y].size() * 2);
+                //2D//int objectToDraw = t % (objectQueue[x][y].size() * 2);
+                int objectToDraw = t % (objectQueue[x + y * levelData->GetWidth()].size() * 2);
 
                 // Set every other tile to the display character of the relevant object
                 // Divide by two because objectToDraw was multiplied by two earlier
                 if (objectToDraw % 2 == 0)
-                    c = (objectQueue[x][y]).at(objectToDraw/2);
+                    c = (objectQueue[x + y * levelData->GetWidth()]).at(objectToDraw/2);
+                    //2D//c = (objectQueue[x][y]).at(objectToDraw/2);
 
                 // Actually update display
                 game->display->SetDisplayCharacter(x + offsetX, y + offsetY, c);

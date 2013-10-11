@@ -15,8 +15,10 @@ class LevelData {
 private:
     int width = DISPLAY_WIDTH;
     int height = DISPLAY_HEIGHT;
+
     std::vector<LevelTile> levelTiles;
     std::vector<GameObject::Base*> levelObjects;
+
     GameEngine* game;
     LevelManager* levelManager;
 public:
