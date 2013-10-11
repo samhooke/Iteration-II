@@ -1,8 +1,10 @@
 #include "Controls.hpp"
-#include <SFML/Graphics.hpp>
 #include "Defs.hpp"
 
 Controls::Controls() {
+    // Start clock
+    delayClock.restart();
+
     // Set all key states to false
     for (int i = 0; i < (int)InputKey::__COUNT; i++) {
         keyStatePrev[(InputKey)i] = false;
@@ -44,4 +46,14 @@ bool Controls::GetKey(InputKey key) {
 
 bool Controls::GetKeyUp(InputKey key) {
     return (keyStatePrev[key] && !keyStateNow[key]);
+}
+
+bool Controls::GetKeyDelaySufficient() {
+    //return (delayClock.getElapsedTime().asSeconds() > delayTime + MOVEMENT_DELAY);
+    return (delayClock.getElapsedTime().asSeconds() > MOVEMENT_DELAY);
+}
+
+void Controls::ResetKeyDelay() {
+    delayClock.restart();
+    //delayTime = delayClock.getElapsedTime().asSeconds();
 }

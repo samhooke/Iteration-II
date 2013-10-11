@@ -8,8 +8,6 @@ namespace GameObject {
     Player::Player(int x, int y, GameEngine* game, LevelManager* levelManager) : Dynamic(x, y, game, levelManager) {
         UpdateDisplayCharacter();
 
-        lastActionTime = game->gameClock->getElapsedTime().asSeconds();
-
         TimeDataWrite();
     }
 
@@ -20,12 +18,12 @@ namespace GameObject {
         if (Controlling()) {
             bool goForwardOne = false;
 
-            if (game->gameClock->getElapsedTime().asSeconds() > lastActionTime + MOVEMENT_DELAY) {
+            if (game->controls->GetKeyDelaySufficient()) {
 
-                bool keyL = game->controls->GetKeyDown(InputKey::Left);
-                bool keyR = game->controls->GetKeyDown(InputKey::Right);
-                bool keyU = game->controls->GetKeyDown(InputKey::Up);
-                bool keyD = game->controls->GetKeyDown(InputKey::Down);
+                bool keyL = game->controls->GetKey(InputKey::Left);
+                bool keyR = game->controls->GetKey(InputKey::Right);
+                bool keyU = game->controls->GetKey(InputKey::Up);
+                bool keyD = game->controls->GetKey(InputKey::Down);
 
                 int keyMask = (int)keyL | ((int)keyR << 1) | ((int) keyU << 2) | ((int) keyD << 3);
 
@@ -42,8 +40,8 @@ namespace GameObject {
 
                 // Only perform an action if a movement has not occured, to avoid two events happening in one frame
                 if (!moved) {
-                    bool keyAction1 = game->controls->GetKeyDown(InputKey::Action1);
-                    bool keyAction2 = game->controls->GetKeyDown(InputKey::Action2);
+                    bool keyAction1 = game->controls->GetKey(InputKey::Action1);
+                    bool keyAction2 = game->controls->GetKey(InputKey::Action2);
                     if (keyAction1) {
                         // Perform action with objects we are on
                         int index = GetObjectIndexAtPosWithTag(x, y, TAG_TIMEMACHINE);
@@ -51,16 +49,18 @@ namespace GameObject {
                             // Pass control to time machine
                             hasControl = false;
                             levelManager->levelData->SetObjectHasControl(index, true);
+                            game->controls->ResetKeyDelay();
                         }
                     } else if (keyAction2) {
                         // Move forward in time without moving
                         goForwardOne = true;
+                        game->controls->ResetKeyDelay();
                     }
                 }
             }
 
             if (goForwardOne) {
-                lastActionTime = game->gameClock->getElapsedTime().asSeconds();
+                game->controls->ResetKeyDelay();
                 levelManager->iterationData->Forward();
                 TimeDataWrite();
             }
