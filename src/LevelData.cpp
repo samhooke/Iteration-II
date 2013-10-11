@@ -130,6 +130,10 @@ int LevelData::GetObjectY(int index) {
     return levelObjects[index]->y;
 }
 
+GameObject::Base* LevelData::GetObjectPointer(int index) {
+    return levelObjects[index];
+}
+
 void LevelData::SetObjectHasControl(int index, bool hasControl) {
     if (levelObjects[index]->canHaveControl)
         levelObjects[index]->hasControl = hasControl;

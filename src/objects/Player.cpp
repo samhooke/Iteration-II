@@ -1,5 +1,6 @@
 #include "Player.hpp"
 #include "Tags.hpp"
+#include "TimeMachine.hpp"
 #include "../LevelData.hpp"
 #include "../IterationData.hpp"
 #include "../Defs.hpp"
@@ -60,6 +61,11 @@ namespace GameObject {
                             // Pass control to time machine
                             hasControl = false;
                             levelManager->levelData->SetObjectHasControl(index, true);
+
+                            // Tell the time machine information about ourselves so it can pass it on to the clone in the future (past)
+                            TimeMachine* timeMachine = (TimeMachine*)levelManager->levelData->GetObjectPointer(index);
+                            timeMachine->SetNextCloneDetails(this, levelManager->iterationData->GetTime());
+
                             game->controls->ResetKeyDelay();
                         }
                     } else if (keyAction2 && levelManager->iterationData->CanGoForward()) {

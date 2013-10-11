@@ -23,7 +23,7 @@ namespace GameObject {
                     game->controls->ResetKeyDelay();
                 } else if (keyAction2) {
                     // Exit time machine (create new player and pass control to them)
-                    levelManager->levelData->CreatePlayer(x, y, true, NULL, -1); //TODO: Fill in parent and expiryTime
+                    levelManager->levelData->CreatePlayer(x, y, true, parent, expiryTime); //TODO: Fill in parent and expiryTime
                     hasControl = false;
                     game->controls->ResetKeyDelay();
                 }
@@ -41,5 +41,10 @@ namespace GameObject {
         } else {
             displayCharacter = TILE_TIMEMACHINE;
         }
+    }
+
+    void TimeMachine::SetNextCloneDetails(GameObject::Player* parent, int expiryTime) {
+        this->parent = parent;
+        this->expiryTime = expiryTime;
     }
 }
