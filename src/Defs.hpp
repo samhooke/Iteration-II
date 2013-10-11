@@ -21,6 +21,15 @@
 // How many seconds to wait before allowing to move again
 #define MOVEMENT_DELAY 0.15
 
+/// Controls
+
+#define INPUT_UP sf::Keyboard::Up
+#define INPUT_DOWN sf::Keyboard::Down
+#define INPUT_LEFT sf::Keyboard::Left
+#define INPUT_RIGHT sf::Keyboard::Right
+#define INPUT_ACTION_1 sf::Keyboard::Z
+#define INPUT_ACTION_2 sf::Keyboard::X
+
 /// Drawing
 
 // When multiple objects are in the same location, this controls how many

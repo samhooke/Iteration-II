@@ -73,6 +73,8 @@
 		<Unit filename="src/GameEngine.cpp" />
 		<Unit filename="src/GameEngine.hpp" />
 		<Unit filename="src/GameState.hpp" />
+		<Unit filename="src/IterationData.cpp" />
+		<Unit filename="src/IterationData.hpp" />
 		<Unit filename="src/LevelData.cpp" />
 		<Unit filename="src/LevelData.hpp" />
 		<Unit filename="src/LevelManager.cpp" />
@@ -83,21 +85,24 @@
 		<Unit filename="src/Main.cpp" />
 		<Unit filename="src/ObjectsBase.cpp" />
 		<Unit filename="src/ObjectsBase.hpp" />
-		<Unit filename="src/ObjectsGeneral.cpp" />
-		<Unit filename="src/ObjectsGeneral.hpp" />
 		<Unit filename="src/PRNG.cpp" />
 		<Unit filename="src/PRNG.hpp" />
 		<Unit filename="src/PlayState.cpp" />
 		<Unit filename="src/PlayState.hpp" />
-		<Unit filename="src/Player.cpp" />
-		<Unit filename="src/Player.hpp" />
-		<Unit filename="src/Radiation.cpp" />
-		<Unit filename="src/Radiation.hpp" />
 		<Unit filename="src/Tiles.hpp" />
 		<Unit filename="src/Timeline.cpp" />
 		<Unit filename="src/Timeline.hpp" />
 		<Unit filename="src/TitleState.cpp" />
 		<Unit filename="src/TitleState.hpp" />
+		<Unit filename="src/objects/ObjectsGeneral.cpp" />
+		<Unit filename="src/objects/ObjectsGeneral.hpp" />
+		<Unit filename="src/objects/Player.cpp" />
+		<Unit filename="src/objects/Player.hpp" />
+		<Unit filename="src/objects/Radiation.cpp" />
+		<Unit filename="src/objects/Radiation.hpp" />
+		<Unit filename="src/objects/Tags.hpp" />
+		<Unit filename="src/objects/TimeMachine.cpp" />
+		<Unit filename="src/objects/TimeMachine.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
