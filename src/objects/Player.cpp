@@ -13,10 +13,8 @@ namespace GameObject {
         TimeDataWrite();
 
         this->original = original;
-        if (!original) {
-            this->parent = parent;
-            this->expiryTime = expiryTime;
-        }
+        this->parent = parent;
+        this->expiryTime = expiryTime;
     }
 
     Player::~Player() {}
@@ -90,6 +88,7 @@ namespace GameObject {
             if (expiryTime == levelManager->iterationData->GetTime()) {
                 if (original) {
                     std::cout << "ERROR: Tried to pass control back when we are the original" << std::endl;
+                    std::cout << "(my expiryTime is: " << expiryTime << " and my designation is '" << cloneDesignation << "'" << std::endl;
                 }
 #ifdef DEBUG_TIMETRAVEL
                 std::cout << Timestamp() << "Transferring control from clone '" << cloneDesignation << "' to clone '" << parent->cloneDesignation << "'" << std::endl;

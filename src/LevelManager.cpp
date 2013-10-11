@@ -248,5 +248,5 @@ void LevelManager::UpdateDisplay(GameEngine* game) {
             }
         }
     }
-    std::cout << "Finished UpdateDiplay()" << std::endl;
+    //std::cout << "Finished UpdateDiplay()" << std::endl;
 }
