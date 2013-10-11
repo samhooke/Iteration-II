@@ -194,27 +194,27 @@ void LevelManager::UpdateDisplay(GameEngine* game) {
     // 2D array of int vectors
     //std::vector<int> objectQueue[levelData->GetWidth()][levelData->GetHeight()];
     std::vector<int> objectQueue[levelData->GetWidth() * levelData->GetHeight()];
-    std::cout << "Create objectQueue of width " << levelData->GetWidth() << " and height " << levelData->GetHeight() << std::endl;
-    std::cout << "About to add " << levelData->GetNumObjects() << " objects to objectQueue" << std::endl;
+    //std::cout << "Create objectQueue of width " << levelData->GetWidth() << " and height " << levelData->GetHeight() << std::endl;
+    //std::cout << "About to add " << levelData->GetNumObjects() << " objects to objectQueue" << std::endl;
     // Queue all the objects to be drawn in the 2D array of int vectors
     for (int index = 0; index < levelData->GetNumObjects(); index++) {
-        std::cout << "Getting object " << index << " (" << levelData->levelObjects[index]->debugName << ")...";
-        std::cout << "DC...";
+        //std::cout << "Getting object " << index << " (" << levelData->levelObjects[index]->debugName << ")...";
+        //std::cout << "DC...";
         int c = levelData->GetObjectDisplayCharacter(index);
-        std::cout << "X...";
+        //std::cout << "X...";
         int x = levelData->GetObjectX(index);
-        std::cout << "Y...";
+        //std::cout << "Y...";
         int y = levelData->GetObjectY(index);
-        std::cout << "push_back(" << c << ")...";
+        //std::cout << "push_back(" << c << ")...";
         try {
             //objectQueue[x][y].push_back(c); // <- crash here
             objectQueue[x + y * levelData->GetWidth()].push_back(c);
         }  catch (std::exception& e) {
             std::cout << e.what();
         }
-        std::cout << "success!" << std::endl;
+        //std::cout << "success!" << std::endl;
     }
-    std::cout << "Loop through the 2D array of int vectors" << std::endl;
+    //std::cout << "Loop through the 2D array of int vectors" << std::endl;
     // Loop through the 2D array of int vectors
     for (int y = 0; y < levelData->GetHeight(); y++) {
         for (int x = 0; x < levelData->GetWidth(); x++) {

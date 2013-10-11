@@ -65,6 +65,11 @@ namespace GameObject {
     }
 
     TimeData Dynamic::TimeDataRead() {
+        //TimeData t;
+        //t.x = 10;
+        //t.y = 1;
+        //return t;
+
         return timeData[levelManager->iterationData->GetTime()];
     }
 

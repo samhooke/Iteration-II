@@ -109,8 +109,8 @@ namespace GameObject {
                 y = currentTimeData.y;
             } else {
                 // If we do not exist, simply move ourselves out of the display so we are not rendered
-                x = -1;
-                y = -1;
+                x = 0;
+                y = 0;
             }
         }
         //std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' reporting that time changed without incident" << std::endl;
