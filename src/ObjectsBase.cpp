@@ -53,14 +53,15 @@ namespace GameObject {
         this->levelManager = levelManager;
     }
 
-    void Dynamic::TimeDataWrite() {
+    void Dynamic::TimeDataWrite(bool exists) {
         TimeData newTimeData;
         newTimeData.x = x;
         newTimeData.y = y;
+        newTimeData.exists = exists;
         timeData[levelManager->iterationData->GetTime()] = newTimeData;
     }
 
-    bool Dynamic::TimeDataExists() {
+    bool Dynamic::TimeDataAvailable() {
         return (timeData.find(levelManager->iterationData->GetTime()) != timeData.end());
     }
 

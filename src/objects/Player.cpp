@@ -10,7 +10,7 @@ namespace GameObject {
     Player::Player(int x, int y, GameEngine* game, LevelManager* levelManager, bool original, GameObject::Player* parent, int expiryTime) : Dynamic(x, y, game, levelManager) {
         UpdateDisplayCharacter();
         debugName = "Player";
-        TimeDataWrite();
+        TimeDataWrite(true);
 
         this->original = original;
         this->parent = parent;
@@ -51,7 +51,7 @@ namespace GameObject {
                     // Moved, so go forward in time and save our position
                     game->controls->ResetKeyDelay();
                     levelManager->iterationData->GoForward();
-                    TimeDataWrite();
+                    TimeDataWrite(true);
                 } else {
                     bool keyAction1 = game->controls->GetKey(InputKey::Action1);
                     bool keyAction2 = game->controls->GetKey(InputKey::Action2);
@@ -76,7 +76,7 @@ namespace GameObject {
                         // Move forward in time without moving
                         game->controls->ResetKeyDelay();
                         levelManager->iterationData->GoForward();
-                        TimeDataWrite();
+                        TimeDataWrite(true);
                     }
                 }
             }
@@ -104,15 +104,24 @@ namespace GameObject {
                 parent->hasControl = true;
                 x = -1;
                 y = -1;
+                TimeDataWrite(false); // 'false' because we do not exist in this time
             }
         }
 
         if (!Controlling()) {
-            if (TimeDataExists()) {
+            bool exists = false;
+
+            // Time data being available does not mean the object necessarily exists at this point in time
+            // So first check if data is available, and if true, also check whether the data says we exist!
+            if (TimeDataAvailable()) {
                 TimeData currentTimeData = TimeDataRead();
-                x = currentTimeData.x;
-                y = currentTimeData.y;
-            } else {
+                if (currentTimeData.exists) {
+                    exists = true;
+                    x = currentTimeData.x;
+                    y = currentTimeData.y;
+                }
+            }
+            if (!exists) {
                 // If we do not exist, simply move ourselves out of the display so we are not rendered
                 x = -1;
                 y = -1;

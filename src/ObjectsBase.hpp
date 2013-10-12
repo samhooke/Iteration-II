@@ -11,8 +11,9 @@ class LevelManager; // To avoid #include loop between ObjectsBase.hpp and LevelM
 namespace GameObject {
 
     struct TimeData {
-        int x;
-        int y;
+        int x = -1;
+        int y = -1;
+        bool exists = false;
     };
 
     class Base {
@@ -49,8 +50,8 @@ namespace GameObject {
         Dynamic(int x, int y, GameEngine* game, LevelManager* levelManager);
 
         std::map<int, TimeData> timeData;   // Key/value pairs for storing time data
-        void TimeDataWrite();               // Update the timeData for our current time
-        bool TimeDataExists();              // Returns true if timeData exists for currentTime. Must be called before TimeDataRead()
+        void TimeDataWrite(bool exists);    // Update the timeData for our current time
+        bool TimeDataAvailable();           // Returns true if timeData is available for currentTime. Must be called before TimeDataRead()
         TimeData TimeDataRead();            // Read the timeData for our current time
 
         bool useCollisionDetection = true;
