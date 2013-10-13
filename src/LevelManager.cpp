@@ -15,10 +15,6 @@ LevelManager::LevelManager(GameEngine* game) {
     levelData = new LevelData(game, this);
     iterationData = new IterationData(this);
     eventData = new EventData();
-
-    // Remove this test:
-    Event::Base* ev = new Event::Test(5);
-    eventData->AddEvent(ev);
 }
 LevelManager::~LevelManager() {
     delete levelData;
