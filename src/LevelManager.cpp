@@ -186,7 +186,7 @@ void LevelManager::Update(GameEngine* game) {
         UpdateTimeChanged();
 
         // Execute all events for the current time
-        eventData->ExecuteForwardEvents(iterationData->GetTime());
+        eventData->ExecuteForwardEvents(iterationData->GetTime() - 1);
     }
 
     // If time has changed backward
@@ -196,9 +196,8 @@ void LevelManager::Update(GameEngine* game) {
         // Call UpdateTimeChanged() in all GameObjects
         UpdateTimeChanged();
 
-        // Execute all events for the current time+1
-        // This +1 is because backward events must occur after forward events
-        eventData->ExecuteBackwardEvents(iterationData->GetTime() + 1);
+        // Execute all events for the current time
+        eventData->ExecuteBackwardEvents(iterationData->GetTime());
     }
 }
 

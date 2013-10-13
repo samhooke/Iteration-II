@@ -7,12 +7,12 @@ namespace Event {
     Test::Test(int time) : Base(time) {}
 
     bool Test::ForwardEvent() {
-        std::cout << "This ForwardEvent should occur at: " << time << std::endl;
+        std::cout << "This ForwardEvent should occur just after time " << time << std::endl;
         return true;
     }
 
     bool Test::BackwardEvent() {
-        std::cout << "This BackwardEvent should occur at: " << time << std::endl;
+        std::cout << "This BackwardEvent should occur just before time " << time << std::endl;
         return true;
     }
 
@@ -27,5 +27,33 @@ namespace Event {
 
     bool PlayerMove::BackwardEvent() {
         return true;
+    }
+
+    /// DoorOpen
+    DoorOpen::DoorOpen(int time, GameObject::Door* door, GameObject::Player* player, int xPlayer, int yPlayer) : Base(time) {
+        this->door = door;
+        this->player = player;
+        this->xPlayer = xPlayer;
+        this->yPlayer = yPlayer;
+    }
+
+    bool DoorOpen::ForwardEvent() {
+        bool eventSuccess = true;
+
+        if (player->x == xPlayer && player->y == yPlayer) {
+            door->open = true;
+        } else {
+            eventSuccess = false;
+        }
+
+        return eventSuccess;
+    }
+
+    bool DoorOpen::BackwardEvent() {
+        bool eventSuccess = true;
+
+        door->open = false;
+
+        return eventSuccess;
     }
 }

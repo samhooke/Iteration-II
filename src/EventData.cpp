@@ -12,13 +12,15 @@ void EventData::AddEvent(Event::Base* event) {
 }
 
 void EventData::ExecuteForwardEvents(int time) {
+    // Execute events in forwards order
     for (int i = 0; i < (int)events[time].size(); i++) {
         events[time].at(i)->ForwardEvent();
     }
 }
 
 void EventData::ExecuteBackwardEvents(int time) {
-    for (int i = 0; i < (int)events[time].size(); i++) {
+    // Execute events in backwards order
+    for (int i = (int)events[time].size() - 1; i >= 0 ; i--) {
         events[time].at(i)->BackwardEvent();
     }
 }

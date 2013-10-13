@@ -5,6 +5,8 @@
 #include "../LevelData.hpp"
 #include "../IterationData.hpp"
 #include "../Defs.hpp"
+#include "../EventData.hpp"
+#include "../Events.hpp"
 #include <iostream> // Temporary
 
 namespace GameObject {
@@ -60,7 +62,12 @@ namespace GameObject {
                             // See if we can open the door
                             if (door->requiresKey == false) {
                                 // No key is required, so open the door
-                                door->open = true;
+                                Event::Base* eventDoorOpen = new Event::DoorOpen(levelManager->iterationData->GetTime(),
+                                                                                   door,
+                                                                                   this,
+                                                                                   x,
+                                                                                   y);
+                                levelManager->eventData->AddEvent(eventDoorOpen);
                             } else {
                                 // A key is required, so we cannot open the door
                                 // We did not move, nor did we open the door
