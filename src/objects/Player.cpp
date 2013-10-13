@@ -84,24 +84,33 @@ namespace GameObject {
 
                 // `moved` will never be true if it was not possible to go forward in time
                 if (moved) {
-                    // It was possible to move to that location, however, we must move only using events
-                    // So undo the movent (but remember where we had moved to in xTo,yTo)
-                    int xTo = x;
-                    int yTo = y;
-                    x = preMoveX;
-                    y = preMoveY;
+                    if (ExpiresNextFrame()) {
+                        // It is our expiry time, so do not allow any movement
+                        // This is because if we create an Event::PlayerMove, it will cause a paradox
+                        // because it will not be able to be fulfilled because in the next timeframe we no longer exist!!
+                        x = preMoveX;
+                        y = preMoveY;
+                        levelManager->iterationData->GoForward();
+                    } else {
+                        // It was possible to move to that location, however, we must move only using events
+                        // So undo the movent (but remember where we had moved to in xTo,yTo)
+                        int xTo = x;
+                        int yTo = y;
+                        x = preMoveX;
+                        y = preMoveY;
 
-                    // Now create an event to do this movement
-                    Event::Base* eventPlayerMove = new Event::PlayerMove(levelManager->iterationData->GetTime(),
-                                                                         this,
-                                                                         x,
-                                                                         y,
-                                                                         xTo,
-                                                                         yTo);
-                    levelManager->eventData->AddEvent(eventPlayerMove);
+                        // Now create an event to do this movement
+                        Event::Base* eventPlayerMove = new Event::PlayerMove(levelManager->iterationData->GetTime(),
+                                                                             this,
+                                                                             x,
+                                                                             y,
+                                                                             xTo,
+                                                                             yTo);
+                        levelManager->eventData->AddEvent(eventPlayerMove);
 
-                    game->controls->ResetKeyDelay();
-                    levelManager->iterationData->GoForward();
+                        game->controls->ResetKeyDelay();
+                        levelManager->iterationData->GoForward();
+                    }
                 } else {
                     bool keyAction1 = game->controls->GetKey(InputKey::Action1);
                     bool keyAction2 = game->controls->GetKey(InputKey::Action2);
@@ -140,7 +149,7 @@ namespace GameObject {
         std::cout << ::Timestamp(levelManager->iterationData->GetTime()) << "This is clone '" << cloneDesignation << "' reporting that time has changed" << std::endl;
 #endif // DEBUG_TIMETRAVEL_VERBOSE
         if (Controlling()) {
-            if (expiryTime == levelManager->iterationData->GetTime()) {
+            if (ExpiresThisFrame()) {
                 if (original) {
                     std::cout << "ERROR: Tried to pass control back when we are the original" << std::endl;
                     std::cout << "(my expiryTime is: " << expiryTime << " and my designation is '" << cloneDesignation << "'" << std::endl;
@@ -158,6 +167,14 @@ namespace GameObject {
 #ifdef DEBUG_TIMETRAVEL_VERBOSE
         std::cout << ::Timestamp(levelManager->iterationData->GetTime()) << "This is clone '" << cloneDesignation << "' reporting that time changed without incident" << std::endl;
 #endif // DEBUG_TIMETRAVEL_VERBOSE
+    }
+
+    bool Player::ExpiresThisFrame() {
+        return (expiryTime == levelManager->iterationData->GetTime());
+    }
+
+    bool Player::ExpiresNextFrame() {
+        return (expiryTime - 1 == levelManager->iterationData->GetTime());
     }
 
     void Player::UpdateDisplayCharacter() {

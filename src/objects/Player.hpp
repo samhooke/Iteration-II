@@ -21,6 +21,9 @@ namespace GameObject {
     private:
         float lastActionTime;
         void UpdateDisplayCharacter();
+
+        bool ExpiresThisFrame(); // True if it is our expiryTime this (time)
+        bool ExpiresNextFrame(); // True if it is our expiryTime this (time + 1)
     };
 }
 

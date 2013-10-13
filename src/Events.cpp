@@ -1,5 +1,6 @@
 #include "Events.hpp"
-#include <iostream> // Temporary
+#include <iostream>
+#include <sstream>
 
 namespace Event {
 
@@ -49,7 +50,9 @@ namespace Event {
             player->y = yTo;
         } else {
             result.success = false;
-            result.msg = "Player was not at (xFrom,yFrom)";
+            std::ostringstream msg;
+            msg << "Player (" << player->cloneDesignation << ") was not at (xFrom:" << xFrom << ",yFrom:" << yFrom << ")";
+            result.msg = msg.str();
         }
 
         return result;
@@ -66,7 +69,9 @@ namespace Event {
             player->y = yFrom;
         } else {
             result.success = false;
-            result.msg = "Player was not at (xTo,yTo)";
+            std::ostringstream msg;
+            msg << "Player (" << player->cloneDesignation << ") was not at (xTo:" << xTo << ",yTo:" << yTo << ")";
+            result.msg = msg.str();
         }
 
         return result;
@@ -90,7 +95,9 @@ namespace Event {
             door->open = true;
         } else {
             result.success = false;
-            result.msg = "Player was not at (xPlayer,yPlayer)";
+            std::ostringstream msg;
+            msg << "Player (" << player->cloneDesignation << ") was not at (xPlayer:" << xPlayer << ",yPlayer:" << yPlayer << ")";
+            result.msg = msg.str();
         }
 
         return result;
