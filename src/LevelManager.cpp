@@ -7,13 +7,23 @@
 #include "Display.hpp"
 #include "IterationData.hpp"
 #include "LevelData.hpp"
+#include "EventData.hpp"
+
+#include "Events.hpp"
 
 LevelManager::LevelManager(GameEngine* game) {
     levelData = new LevelData(game, this);
     iterationData = new IterationData(this);
+    eventData = new EventData();
+
+    // Remove this test:
+    Event::Base* ev = new Event::Test(5);
+    eventData->AddEvent(ev);
 }
 LevelManager::~LevelManager() {
     delete levelData;
+    delete iterationData;
+    delete eventData;
 }
 
 bool LevelManager::StringToInt(std::string &s, int &i) {
@@ -158,15 +168,21 @@ void LevelManager::Load(const char* levelName) {
 
 void LevelManager::Update(GameEngine* game) {
 
-    if (timeChangedFlag) {
-        timeChangedFlag = false;
-        UpdateTimeChanged();
-    }
-
     // Call Update() in all GameObjects
     int num = levelData->GetNumObjects();
     for (int index = 0; index < num; index++) {
         levelData->CallObjectUpdate(index);
+    }
+
+    // If time has changed...
+    if (timeChangedFlag) {
+        timeChangedFlag = false;
+
+        // Call UpdateTimeChanged() in all GameObjects
+        UpdateTimeChanged();
+
+        // Execute all events for the current time
+        eventData->ExecuteEvents(iterationData->GetTime());
     }
 }
 
