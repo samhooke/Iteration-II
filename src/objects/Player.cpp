@@ -1,6 +1,7 @@
 #include "Player.hpp"
 #include "Tags.hpp"
 #include "TimeMachine.hpp"
+#include "ObjectsGeneral.hpp"
 #include "../LevelData.hpp"
 #include "../IterationData.hpp"
 #include "../Defs.hpp"
@@ -37,12 +38,36 @@ namespace GameObject {
 
                     int keyMask = (int)keyL | ((int)keyR << 1) | ((int) keyU << 2) | ((int) keyD << 3);
 
+                    int preMoveX = x;
+                    int preMoveY = y;
 
                     switch (keyMask) {
                         case 0b0001:    moved = SetPosRelative(-1, 0);  break;
                         case 0b0010:    moved = SetPosRelative(+1, 0);  break;
                         case 0b0100:    moved = SetPosRelative(0, -1);  break;
                         case 0b1000:    moved = SetPosRelative(0, +1);  break;
+                    }
+
+                    // If we moved on top of a door that is shut, open it and move back
+                    int index = GetObjectIndexAtPosWithTag(x, y, TAG_DOOR);
+                    if (index >= 0) {
+                        GameObject::Door* door = (GameObject::Door*)levelManager->levelData->GetObjectPointer(index);
+                        if (door->open == false) {
+                            // Door is shut, so move back to where we were
+                            x = preMoveX;
+                            y = preMoveY;
+
+                            // See if we can open the door
+                            if (door->requiresKey == false) {
+                                // No key is required, so open the door
+                                door->open = true;
+                            } else {
+                                // A key is required, so we cannot open the door
+                                // We did not move, nor did we open the door
+                                // So set move to false to show nothing happened
+                                moved = false;
+                            }
+                        }
                     }
                 }
 

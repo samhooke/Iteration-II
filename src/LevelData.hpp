@@ -51,7 +51,7 @@ public:
 
     void CreatePlayerOriginal(int x, int y);
     void CreatePlayer(int x, int y, bool hasControl, GameObject::Player* parent, int expiryTime);
-    void CreateDoor(int x, int y);
+    void CreateDoor(int x, int y, bool requiresKey);
     void CreateWindow(int x, int y);
     void CreateTerminal(int x, int y);
     void CreateTimeMachine(int x, int y);

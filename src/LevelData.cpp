@@ -193,11 +193,13 @@ void LevelData::CreatePlayer(int x, int y, bool hasControl, GameObject::Player* 
     levelObjects.push_back(obj);
 }
 
-void LevelData::CreateDoor(int x, int y) {
+void LevelData::CreateDoor(int x, int y, bool requiresKey) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreateDoor(" << x << "," << y << ")" << std::endl;
 #endif
-    levelObjects.push_back(new GameObject::Door(x, y, game, levelManager));
+    GameObject::Base* obj = new GameObject::Door(x, y, game, levelManager, requiresKey);
+    obj->tag = TAG_DOOR;
+    levelObjects.push_back(obj);
 }
 
 void LevelData::CreateWindow(int x, int y) {

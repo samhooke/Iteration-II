@@ -74,9 +74,13 @@ void LevelManager::Load(const char* levelName) {
                         case '#': // Wall
                             levelData->SetTileDetails(x, y, TileType::Wall, true);
                             break;
-                        case 'D': // Door
+                        case 'd': // Door
                             levelData->SetTileDetails(x, y, TileType::Floor, true);
-                            levelData->CreateDoor(x, y);
+                            levelData->CreateDoor(x, y, false);
+                            break;
+                        case 'D': // Door (requires key)
+                            levelData->SetTileDetails(x, y, TileType::Floor, true);
+                            levelData->CreateDoor(x, y, true);
                             break;
                         case 'W': // Window
                             levelData->SetTileDetails(x, y, TileType::Wall, true);

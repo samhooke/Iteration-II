@@ -10,8 +10,13 @@ namespace GameObject {
     public:
         void Update();
 
-        Door(int x, int y, GameEngine* game, LevelManager* levelManager);
+        Door(int x, int y, GameEngine* game, LevelManager* levelManager, bool requiresKey);
         ~Door();
+
+        bool requiresKey = false;
+        bool open = false;
+
+        void UpdateSprite();
     };
 
     class Window : public GameObject::Static {
