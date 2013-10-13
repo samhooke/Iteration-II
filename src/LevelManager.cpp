@@ -174,15 +174,31 @@ void LevelManager::Update(GameEngine* game) {
         levelData->CallObjectUpdate(index);
     }
 
-    // If time has changed...
-    if (timeChangedFlag) {
-        timeChangedFlag = false;
+    if (timeChangedForwardFlag && timeChangedBackwardFlag) {
+        std::cout << "WARNING: Time changed forward and backward in the same instant" << std::endl;
+    }
+
+    // If time has changed forward
+    if (timeChangedForwardFlag) {
+        timeChangedForwardFlag = false;
 
         // Call UpdateTimeChanged() in all GameObjects
         UpdateTimeChanged();
 
         // Execute all events for the current time
-        eventData->ExecuteEvents(iterationData->GetTime());
+        eventData->ExecuteForwardEvents(iterationData->GetTime());
+    }
+
+    // If time has changed backward
+    if (timeChangedBackwardFlag) {
+        timeChangedBackwardFlag = false;
+
+        // Call UpdateTimeChanged() in all GameObjects
+        UpdateTimeChanged();
+
+        // Execute all events for the current time+1
+        // This +1 is because backward events must occur after forward events
+        eventData->ExecuteBackwardEvents(iterationData->GetTime() + 1);
     }
 }
 

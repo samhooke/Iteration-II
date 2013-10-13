@@ -42,7 +42,7 @@ bool IterationData::CanGoForward() {
 void IterationData::GoForward() {
     if (CanGoForward()) {
         time++;
-        TimeChanged();
+        TimeChangedForward();
     } else {
         std::cout << "WARNING: Tried to go forwards in time when there is no more time to go forwards to" << std::endl;
     }
@@ -55,15 +55,16 @@ bool IterationData::CanGoBackward() {
 void IterationData::GoBackward() {
     if (CanGoBackward()) {
         time--;
-        TimeChanged();
+        TimeChangedBackward();
     } else {
         std::cout << "WARNING: Tried to go backwards in time when there is no more time to go backwards to" << std::endl;
     }
 }
 
-void IterationData::TimeChanged() {
-    // Set a flag instead of directly calling levelManager->UpdateTimeChanged()
-    // This ensures that the correct order of execution is maintained
-    // Since we want it to be determinate in which order events are called
-    levelManager->timeChangedFlag = true;
+void IterationData::TimeChangedForward() {
+    levelManager->timeChangedForwardFlag = true;
+}
+
+void IterationData::TimeChangedBackward() {
+    levelManager->timeChangedBackwardFlag = true;
 }

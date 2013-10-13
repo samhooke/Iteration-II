@@ -11,9 +11,14 @@ void EventData::AddEvent(Event::Base* event) {
     events[event->time].push_back(event);
 }
 
-void EventData::ExecuteEvents(int time) {
+void EventData::ExecuteForwardEvents(int time) {
     for (int i = 0; i < (int)events[time].size(); i++) {
-        bool eventSuccess = events[time].at(i)->Event();
-        //TODO: Detect paradox on !eventSuccess?
+        events[time].at(i)->ForwardEvent();
+    }
+}
+
+void EventData::ExecuteBackwardEvents(int time) {
+    for (int i = 0; i < (int)events[time].size(); i++) {
+        events[time].at(i)->BackwardEvent();
     }
 }

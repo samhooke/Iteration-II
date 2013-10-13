@@ -18,7 +18,8 @@ public:
     void AddEvent(Event::Base* event);
 
     // Execute all events that occur at a specific time
-    void ExecuteEvents(int time);
+    void ExecuteForwardEvents(int time);
+    void ExecuteBackwardEvents(int time);
 };
 
 #endif // EVENTDATA_HPP_INCLUDED

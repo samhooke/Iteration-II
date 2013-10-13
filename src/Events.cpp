@@ -6,8 +6,13 @@ namespace Event {
     /// Test
     Test::Test(int time) : Base(time) {}
 
-    bool Test::Event() {
-        std::cout << "This test event should occur at: " << time << std::endl;
+    bool Test::ForwardEvent() {
+        std::cout << "This ForwardEvent should occur at: " << time << std::endl;
+        return true;
+    }
+
+    bool Test::BackwardEvent() {
+        std::cout << "This BackwardEvent should occur at: " << time << std::endl;
         return true;
     }
 
@@ -16,7 +21,11 @@ namespace Event {
 
     }
 
-    bool PlayerMove::Event() {
+    bool PlayerMove::ForwardEvent() {
+        return true;
+    }
+
+    bool PlayerMove::BackwardEvent() {
         return true;
     }
 }

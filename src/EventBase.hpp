@@ -8,7 +8,8 @@ namespace Event {
 
         int time;
 
-        virtual bool Event() = 0;
+        virtual bool ForwardEvent() = 0;
+        virtual bool BackwardEvent() = 0;
     };
 }
 

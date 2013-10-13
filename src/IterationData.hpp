@@ -24,7 +24,8 @@ public:
     void GoForward();
     bool CanGoBackward();
     void GoBackward();
-    void TimeChanged();
+    void TimeChangedForward();
+    void TimeChangedBackward();
 };
 
 #endif // ITERATIONMANAGER_HPP_INCLUDED
