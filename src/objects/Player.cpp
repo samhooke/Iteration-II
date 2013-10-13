@@ -7,7 +7,8 @@
 #include "../Defs.hpp"
 #include "../EventData.hpp"
 #include "../Events.hpp"
-#include <iostream> // Temporary
+#include "../General.hpp"
+#include <iostream>
 
 namespace GameObject {
     Player::Player(int x, int y, GameEngine* game, LevelManager* levelManager, bool original, GameObject::Player* parent, int expiryTime) : Dynamic(x, y, game, levelManager) {
@@ -24,7 +25,7 @@ namespace GameObject {
 
     void Player::Update() {
 #ifdef DEBUG_TIMETRAVEL_VERBOSE
-        std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' about to update" << std::endl;
+        std::cout << ::Timestamp(levelManager->iterationData->GetTime()) << "This is clone '" << cloneDesignation << "' about to update" << std::endl;
 #endif // DEBUG_TIMETRAVEL_VERBOSE
         UpdateDisplayCharacter();
         if (Controlling()) {
@@ -109,7 +110,7 @@ namespace GameObject {
                         int index = GetObjectIndexAtPosWithTag(x, y, TAG_TIMEMACHINE);
                         if (index >= 0) {
 #ifdef DEBUG_TIMETRAVEL
-                            std::cout << Timestamp() << "Clone '" << cloneDesignation << "' has entered a time machine" << std::endl;
+                            std::cout << ::Timestamp(levelManager->iterationData->GetTime()) << "Clone '" << cloneDesignation << "' has entered a time machine" << std::endl;
 #endif // DEBUG_TIMETRAVEL
                             // Pass control to time machine
                             hasControl = false;
@@ -130,13 +131,13 @@ namespace GameObject {
             }
         }
 #ifdef DEBUG_TIMETRAVEL_VERBOSE
-        std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' updated without incident" << std::endl;
+        std::cout << ::Timestamp(levelManager->iterationData->GetTime()) << "This is clone '" << cloneDesignation << "' updated without incident" << std::endl;
 #endif // DEBUG_TIMETRAVEL_VERBOSE
     }
 
     void Player::UpdateTimeChanged() {
 #ifdef DEBUG_TIMETRAVEL_VERBOSE
-        std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' reporting that time has changed" << std::endl;
+        std::cout << ::Timestamp(levelManager->iterationData->GetTime()) << "This is clone '" << cloneDesignation << "' reporting that time has changed" << std::endl;
 #endif // DEBUG_TIMETRAVEL_VERBOSE
         if (Controlling()) {
             if (expiryTime == levelManager->iterationData->GetTime()) {
@@ -145,7 +146,7 @@ namespace GameObject {
                     std::cout << "(my expiryTime is: " << expiryTime << " and my designation is '" << cloneDesignation << "'" << std::endl;
                 }
 #ifdef DEBUG_TIMETRAVEL
-                std::cout << Timestamp() << "Transferring control from clone '" << cloneDesignation << "' to clone '" << parent->cloneDesignation << "'" << std::endl;
+                std::cout << ::Timestamp(levelManager->iterationData->GetTime()) << "Transferring control from clone '" << cloneDesignation << "' to clone '" << parent->cloneDesignation << "'" << std::endl;
 #endif // DEBUG_TIMETRAVEL
                 // This object has expired, so transfer control back to our parent
                 hasControl = false;
@@ -155,7 +156,7 @@ namespace GameObject {
             }
         }
 #ifdef DEBUG_TIMETRAVEL_VERBOSE
-        std::cout << Timestamp() << "This is clone '" << cloneDesignation << "' reporting that time changed without incident" << std::endl;
+        std::cout << ::Timestamp(levelManager->iterationData->GetTime()) << "This is clone '" << cloneDesignation << "' reporting that time changed without incident" << std::endl;
 #endif // DEBUG_TIMETRAVEL_VERBOSE
     }
 

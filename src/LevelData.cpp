@@ -1,6 +1,7 @@
 #include <iostream>
 #include "LevelData.hpp"
 #include "Tiles.hpp"
+#include "General.hpp"
 
 #include "objects/Tags.hpp"
 #include "objects/Player.hpp"
@@ -149,11 +150,11 @@ bool LevelData::CompareObjectTag(int index, std::string tag) {
 
 void LevelData::CallObjectUpdate(int index) {
 #ifdef DEBUG_TIMETRAVEL_VERBOSE
-    std::cout << Timestamp() << "About to call Update() on an object" << std::endl;
+    std::cout << ::Timestamp(levelManager->iterationData->GetTime()) << "About to call Update() on an object" << std::endl;
 #endif // DEBUG_TIMETRAVEL_VERBOSE
     levelObjects[index]->Update();
 #ifdef DEBUG_TIMETRAVEL_VERBOSE
-    std::cout << Timestamp() << "Called Update() successfully" << std::endl;
+    std::cout << ::Timestamp(levelManager->iterationData->GetTime()) << "Called Update() successfully" << std::endl;
 #endif // DEBUG_TIMETRAVEL_VERBOSE
 }
 
@@ -170,7 +171,7 @@ void LevelData::CreatePlayerOriginal(int x, int y) {
     obj->canHaveControl = true;
     obj->hasControl = true;
 #ifdef DEBUG_TIMETRAVEL
-    std::cout << Timestamp() << "Created player (original) with designation '" << nextCloneDesignation << "'" << std::endl;
+    std::cout << ::Timestamp(levelManager->iterationData->GetTime()) << "Created player (original) with designation '" << nextCloneDesignation << "'" << std::endl;
 #endif
     ((GameObject::Player*)obj)->cloneDesignation = nextCloneDesignation;
     nextCloneDesignation++;
@@ -186,7 +187,7 @@ void LevelData::CreatePlayer(int x, int y, bool hasControl, GameObject::Player* 
     obj->canHaveControl = true;
     obj->hasControl = hasControl;
 #ifdef DEBUG_TIMETRAVEL
-    std::cout << Timestamp() << "Created player with designation '" << nextCloneDesignation << "', whose parent is '" << parent->cloneDesignation << "'" << std::endl;
+    std::cout << ::Timestamp(levelManager->iterationData->GetTime()) << "Created player with designation '" << nextCloneDesignation << "', whose parent is '" << parent->cloneDesignation << "'" << std::endl;
 #endif
     ((GameObject::Player*)obj)->cloneDesignation = nextCloneDesignation;
     nextCloneDesignation++;
@@ -236,13 +237,4 @@ void LevelData::CreateRadiation(int x, int y, int intensity) {
         levelObjects.push_back(new GameObject::RadiationStrong(x, y, game, levelManager));
     else
         std::cout << "WARNING: Tried to create radiation with an invalid intensity" << std::endl;
-}
-
-std::string LevelData::Timestamp() {
-    std::ostringstream os;
-    os << " [";
-    os.width(3);
-    os << levelManager->iterationData->GetTime();
-    os << "] ";
-    return os.str();
 }

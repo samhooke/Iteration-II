@@ -1,6 +1,6 @@
 #include "EventData.hpp"
-
-#include <iostream> // Temporary
+#include <iostream>
+#include "General.hpp"
 
 EventData::EventData() {}
 EventData::~EventData() {
@@ -14,8 +14,10 @@ EventData::~EventData() {
 
 void EventData::AddEvent(Event::Base* event) {
     // Read the time from the event and use that as the key
-    std::cout << "Adding event that occurs at time: " << event->time << std::endl;
-    events[event->time].push_back(event);
+    if (event->time >= 0)
+        events[event->time].push_back(event);
+    else
+        std::cout << "WARNING: Tried to perform EventData::AddEvent for invalid time: " << event->time << std::endl;
 }
 
 void EventData::ExecuteForwardEvents(int time) {
@@ -24,7 +26,7 @@ void EventData::ExecuteForwardEvents(int time) {
         Event::Result result = events[time].at(i)->ForwardEvent();
 
         if (!result.success) {
-            std::cout << "[" << time << "] Forward paradox with " << events[time].at(i)->debugName << ": " << result.msg << std::endl;
+            std::cout << ::Timestamp(time) << "Forward paradox with " << events[time].at(i)->debugName << ": " << result.msg << std::endl;
         }
     }
 }
@@ -35,7 +37,7 @@ void EventData::ExecuteBackwardEvents(int time) {
         Event::Result result = events[time].at(i)->BackwardEvent();
 
         if (!result.success) {
-            std::cout << "[" << time << "] Backward paradox with " << events[time].at(i)->debugName << ": " << result.msg << std::endl;
+            std::cout << ::Timestamp(time) << "Backward paradox with " << events[time].at(i)->debugName << ": " << result.msg << std::endl;
         }
     }
 }

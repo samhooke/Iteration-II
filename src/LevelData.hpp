@@ -56,8 +56,6 @@ public:
     void CreateTerminal(int x, int y);
     void CreateTimeMachine(int x, int y);
     void CreateRadiation(int x, int y, int intensity);
-
-    std::string Timestamp();
 };
 
 #endif // LEVELDATA_HPP_INCLUDED

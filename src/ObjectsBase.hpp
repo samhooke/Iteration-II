@@ -22,7 +22,6 @@ namespace GameObject {
 
         virtual void Update() = 0;
         virtual void UpdateTimeChanged();
-        std::string Timestamp();
 
         GameEngine* game;
         LevelManager* levelManager;

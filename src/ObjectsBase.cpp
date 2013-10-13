@@ -28,15 +28,6 @@ namespace GameObject {
         //std::cout << "Time changed!" << std::endl;
     }
 
-    std::string Base::Timestamp() {
-        std::ostringstream os;
-        os << " [";
-        os.width(3);
-        os << levelManager->iterationData->GetTime();
-        os << "] ";
-        return os.str();
-    }
-
     // Static
     Static::Static(int x, int y, GameEngine* game, LevelManager* levelManager) {
         this->x = x;
