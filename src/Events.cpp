@@ -18,15 +18,39 @@ namespace Event {
 
     /// PlayerMove
     PlayerMove::PlayerMove(int time, GameObject::Player* player, int xFrom, int yFrom, int xTo, int yTo) : Base(time) {
-
+        this->player = player;
+        this->xFrom = xFrom;
+        this->yFrom = yFrom;
+        this->xTo = xTo;
+        this->yTo = yTo;
     }
 
     bool PlayerMove::ForwardEvent() {
-        return true;
+        bool eventSuccess = true;
+
+        if (player->x == xFrom && player->y == yFrom) {
+            //TODO: Also check that (xTo,yTo) are free!
+            player->x = xTo;
+            player->y = yTo;
+        } else {
+            eventSuccess = false;
+        }
+
+        return eventSuccess;
     }
 
     bool PlayerMove::BackwardEvent() {
-        return true;
+        bool eventSuccess = true;
+
+        if (player->x == xTo && player->y == yTo) {
+            //TODO: Also check that (xFrom,yFrom) are free!
+            player->x = xFrom;
+            player->y = yFrom;
+        } else {
+            eventSuccess = false;
+        }
+
+        return eventSuccess;
     }
 
     /// DoorOpen

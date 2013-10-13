@@ -31,6 +31,9 @@ namespace GameObject {
             if (game->controls->GetKeyDelaySufficient()) {
                 bool moved = false;
 
+                int preMoveX;
+                int preMoveY;
+
                 // Only try to move if it is possible to go forward in time!
                 if (levelManager->iterationData->CanGoForward()) {
                     bool keyL = game->controls->GetKey(InputKey::Left);
@@ -40,8 +43,8 @@ namespace GameObject {
 
                     int keyMask = (int)keyL | ((int)keyR << 1) | ((int) keyU << 2) | ((int) keyD << 3);
 
-                    int preMoveX = x;
-                    int preMoveY = y;
+                    preMoveX = x;
+                    preMoveY = y;
 
                     switch (keyMask) {
                         case 0b0001:    moved = SetPosRelative(-1, 0);  break;
@@ -80,10 +83,24 @@ namespace GameObject {
 
                 // `moved` will never be true if it was not possible to go forward in time
                 if (moved) {
-                    // Moved, so go forward in time and save our position
+                    // It was possible to move to that location, however, we must move only using events
+                    // So undo the movent (but remember where we had moved to in xTo,yTo)
+                    int xTo = x;
+                    int yTo = y;
+                    x = preMoveX;
+                    y = preMoveY;
+
+                    // Now create an event to do this movement
+                    Event::Base* eventPlayerMove = new Event::PlayerMove(levelManager->iterationData->GetTime(),
+                                                                         this,
+                                                                         x,
+                                                                         y,
+                                                                         xTo,
+                                                                         yTo);
+                    levelManager->eventData->AddEvent(eventPlayerMove);
+
                     game->controls->ResetKeyDelay();
                     levelManager->iterationData->GoForward();
-                    TimeDataWrite(true);
                 } else {
                     bool keyAction1 = game->controls->GetKey(InputKey::Action1);
                     bool keyAction2 = game->controls->GetKey(InputKey::Action2);
@@ -108,7 +125,6 @@ namespace GameObject {
                         // Move forward in time without moving
                         game->controls->ResetKeyDelay();
                         levelManager->iterationData->GoForward();
-                        TimeDataWrite(true);
                     }
                 }
             }
@@ -134,27 +150,6 @@ namespace GameObject {
                 // This object has expired, so transfer control back to our parent
                 hasControl = false;
                 parent->hasControl = true;
-                x = -1;
-                y = -1;
-                TimeDataWrite(false); // 'false' because we do not exist in this time
-            }
-        }
-
-        if (!Controlling()) {
-            bool exists = false;
-
-            // Time data being available does not mean the object necessarily exists at this point in time
-            // So first check if data is available, and if true, also check whether the data says we exist!
-            if (TimeDataAvailable()) {
-                TimeData currentTimeData = TimeDataRead();
-                if (currentTimeData.exists) {
-                    exists = true;
-                    x = currentTimeData.x;
-                    y = currentTimeData.y;
-                }
-            }
-            if (!exists) {
-                // If we do not exist, simply move ourselves out of the display so we are not rendered
                 x = -1;
                 y = -1;
             }

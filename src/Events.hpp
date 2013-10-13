@@ -21,6 +21,12 @@ namespace Event {
         PlayerMove(int time, GameObject::Player* player, int xFrom, int yFrom, int xTo, int yTo);
         bool ForwardEvent();
         bool BackwardEvent();
+
+        GameObject::Player* player;
+        int xFrom;
+        int yFrom;
+        int xTo;
+        int yTo;
     };
 
     /// DoorOpen
