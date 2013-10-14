@@ -8,6 +8,7 @@
 class LevelData;
 class IterationData;
 class EventData;
+class LinkData;
 
 class LevelManager {
 private:
@@ -19,6 +20,7 @@ public:
     LevelData* levelData;
     IterationData* iterationData;
     EventData* eventData;
+    LinkData* linkData;
 
     void Load(const char* levelName);
     void Update(GameEngine* game);

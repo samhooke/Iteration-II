@@ -8,6 +8,7 @@
 #include "IterationData.hpp"
 #include "LevelData.hpp"
 #include "EventData.hpp"
+#include "LinkData.hpp"
 
 #include "Events.hpp"
 
@@ -15,11 +16,13 @@ LevelManager::LevelManager(GameEngine* game) {
     levelData = new LevelData(game, this);
     iterationData = new IterationData(this);
     eventData = new EventData();
+    linkData = new LinkData();
 }
 LevelManager::~LevelManager() {
     delete levelData;
     delete iterationData;
     delete eventData;
+    delete linkData;
 }
 
 bool LevelManager::StringToInt(std::string &s, int &i) {
