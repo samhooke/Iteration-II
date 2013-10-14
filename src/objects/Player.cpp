@@ -114,7 +114,15 @@ namespace GameObject {
                     bool keyAction2 = game->controls->GetKey(InputKey::Action2);
                     if (keyAction1) {
                         // Perform action with objects we are on
-                        int index = GetObjectIndexAtPosWithTag(x, y, TAG_TIMEMACHINE);
+                        int index;
+
+                        //TODO: Make sure only one action can happen at a time
+                        // This should not happen so far because all objects are in different tiles
+                        // But the current code means that if, say, a time machine and lever were
+                        // at the same position, they would both have actions carried out!
+
+                        /// Time Machine
+                        index = GetObjectIndexAtPosWithTag(x, y, TAG_TIMEMACHINE);
                         if (index >= 0) {
 #ifdef DEBUG_TIMETRAVEL
                             std::cout << ::Timestamp(time) << "Clone '" << cloneDesignation << "' has entered a time machine" << std::endl;
@@ -128,6 +136,46 @@ namespace GameObject {
                             timeMachine->SetNextCloneDetails(this, time);
 
                             game->controls->ResetKeyDelay();
+                        }
+
+                        /// Lever
+                        index = GetObjectIndexAtPosWithTag(x, y, TAG_LEVER);
+                        if (index >= 0) {
+                            // Get a pointer to the lever
+                            Lever* lever = (Lever*)levelManager->levelData->GetObjectPointer(index);
+
+                            bool stateFrom;
+                            bool stateTo;
+
+                            // Check what state the lever is
+                            if (lever->state == false) {
+                                // We will switch lever from off (false) to on (true)
+                                stateFrom = false;
+                                stateTo = true;
+                            } else {
+                                // We will switch lever from on (true) to off (false)
+                                stateFrom = true;
+                                stateTo = false;
+                            }
+
+                            // Create a LeverPull event
+                            Event::Base* eventLeverPull = new Event::LeverPull(time, lever, this, x, y, stateFrom, stateTo);
+
+                            // Attempt the event forward and backward to verify we satisfy the conditions for it
+                            Event::Result resultForward = eventLeverPull->ForwardEvent();
+                            Event::Result resultBackward = eventLeverPull->BackwardEvent();
+
+                            if (resultForward.success && resultBackward.success) {
+                                // The event was tested successfully, so add it to the events
+                                levelManager->eventData->AddEvent(eventLeverPull);
+                                game->controls->ResetKeyDelay();
+                                levelManager->iterationData->GoForward();
+                            } else {
+                                std::cout << "ERROR: Could not add Event::LeverPull for the following reasons:" << std::endl;
+                                std::cout << "ForwardEvent: " << resultForward.msg << std::endl;
+                                std::cout << "BackwardEvent: " << resultBackward.msg << std::endl;
+                                delete eventLeverPull;
+                            }
                         }
                     } else if (keyAction2 && levelManager->iterationData->CanGoForward()) {
                         // Move forward in time without moving

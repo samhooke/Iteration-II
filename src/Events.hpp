@@ -47,6 +47,21 @@ namespace Event {
         int xPlayer;
         int yPlayer;
     };
+
+    ///LeverPull
+    class LeverPull : public Base {
+    public:
+        LeverPull(int time, GameObject::Lever* lever, GameObject::Player* player, int xPlayer, int yPlayer, bool stateFrom, bool stateTo);
+        Result ForwardEvent();
+        Result BackwardEvent();
+
+        GameObject::Lever* lever;
+        GameObject::Player* player;
+        int xPlayer;
+        int yPlayer;
+        bool stateFrom;
+        bool stateTo;
+    };
 }
 
 #endif // EVENTS_HPP_INCLUDED

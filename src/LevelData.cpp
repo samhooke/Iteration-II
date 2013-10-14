@@ -203,6 +203,15 @@ void LevelData::CreateDoor(int x, int y, bool requiresKey) {
     levelObjects.push_back(obj);
 }
 
+void LevelData::CreateLever(int x, int y, bool state) {
+#ifdef DEBUG_VERBOSE
+    std::cout << "CreateLever(" << x << "," << y << ")" << std::endl;
+#endif
+    GameObject::Base* obj = new GameObject::Lever(x, y, game, levelManager, state);
+    obj->tag = TAG_LEVER;
+    levelObjects.push_back(obj);
+}
+
 void LevelData::CreateWindow(int x, int y) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreateWindow(" << x << "," << y << ")" << std::endl;

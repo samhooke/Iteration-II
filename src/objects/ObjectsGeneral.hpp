@@ -34,6 +34,18 @@ namespace GameObject {
         Terminal(int x, int y, GameEngine* game, LevelManager* levelManager);
         ~Terminal();
     };
+
+    class Lever : public GameObject::Static {
+    public:
+        void Update();
+
+        Lever(int x, int y, GameEngine* game, LevelManager* levelManager, bool state);
+        ~Lever();
+
+        bool state = false;
+
+        void UpdateSprite();
+    };
 }
 
 #endif // OBJECTSGENERAL_HPP_INCLUDED

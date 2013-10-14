@@ -12,6 +12,7 @@ namespace Event {
     class Base {
     public:
         Base(int time);
+        virtual ~Base();
 
         std::string debugName = "No debugName set";
         int time;

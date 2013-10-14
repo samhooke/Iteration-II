@@ -133,4 +133,56 @@ namespace Event {
         result.msg = msg.str();
         return result;
     }
+
+    /// LeverPull
+    LeverPull::LeverPull(int time, GameObject::Lever* lever, GameObject::Player* player, int xPlayer, int yPlayer, bool stateFrom, bool stateTo) : Base(time) {
+        this->lever = lever;
+        this->player = player;
+        this->xPlayer = xPlayer;
+        this->yPlayer = yPlayer;
+        this->stateFrom = stateFrom;
+        this->stateTo = stateTo;
+    }
+
+    Result LeverPull::ForwardEvent() {
+        Result result;
+        result.success = false;
+        result.msg = "";
+        std::ostringstream msg;
+
+        if (player->x == xPlayer && player->y == yPlayer) {
+            if (lever->state == stateFrom) {
+                lever->state = stateTo;
+                result.success = true;
+            } else {
+                msg << "Lever was not in the expected state (stateFrom:" << stateFrom << ")";
+            }
+        } else {
+            msg << "Player (" << player->cloneDesignation << ") was not at (xPlayer:" << xPlayer << ",yPlayer:" << yPlayer << ")";
+        }
+
+        result.msg = msg.str();
+        return result;
+    }
+
+    Result LeverPull::BackwardEvent() {
+        Result result;
+        result.success = false;
+        result.msg = "";
+        std::ostringstream msg;
+
+        if (player->x == xPlayer && player->y == yPlayer) {
+            if (lever->state == stateTo) {
+                lever->state = stateFrom;
+                result.success = true;
+            } else {
+                msg << "Lever was not in the expected state (stateTo:" << stateTo << ")";
+            }
+        } else {
+            msg << "Player (" << player->cloneDesignation << ") was not at (xPlayer:" << xPlayer << ",yPlayer:" << yPlayer << ")";
+        }
+
+        result.msg = msg.str();
+        return result;
+    }
 }

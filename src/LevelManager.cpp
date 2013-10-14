@@ -76,7 +76,7 @@ void LevelManager::Load(const char* levelName) {
                     for (x = 0; x < expectedWidth; x++) {
                         // Convert the read symbol into a TileType
                         switch (line[x]) {
-                        /// Structure
+                        /// Structure and Mechanisms
                         case '#': // Wall
                             levelData->SetTileDetails(x, y, TileType::Wall, true);
                             break;
@@ -91,6 +91,14 @@ void LevelManager::Load(const char* levelName) {
                         case 'W': // Window
                             levelData->SetTileDetails(x, y, TileType::Wall, true);
                             levelData->CreateWindow(x, y);
+                            break;
+                        case 'l': // Lever (state = off)
+                            levelData->SetTileDetails(x, y, TileType::Floor, true);
+                            levelData->CreateLever(x, y, false);
+                            break;
+                        case 'L': // Lever (state = on)
+                            levelData->SetTileDetails(x, y, TileType::Floor, true);
+                            levelData->CreateLever(x, y, true);
                             break;
                         /// Radiation
                         case 'r': // Radiation (weak)
