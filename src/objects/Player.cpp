@@ -91,14 +91,8 @@ namespace GameObject {
                         x = preMoveX;
                         y = preMoveY;
 
-                        //TODO: Replace this with a Event::PlayerExpire
                         // Now create an expiry event
-                        Event::Base* eventPlayerExpire = new Event::PlayerMove(levelManager->iterationData->GetTime(),
-                                                                             this,
-                                                                             x,
-                                                                             y,
-                                                                             -1,
-                                                                             -1);
+                        Event::Base* eventPlayerExpire = new Event::PlayerExpire(levelManager->iterationData->GetTime(), this, x, y);
                         levelManager->eventData->AddEvent(eventPlayerExpire);
 
                         game->controls->ResetKeyDelay();

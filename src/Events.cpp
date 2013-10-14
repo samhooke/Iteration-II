@@ -77,6 +77,11 @@ namespace Event {
         return result;
     }
 
+    /// PlayerExpire
+    PlayerExpire::PlayerExpire(int time, GameObject::Player* player, int xFrom, int yFrom) : PlayerMove(time, player, xFrom, yFrom, -1, -1) {
+        debugName = "PlayerExpire";
+    }
+
     /// DoorOpen
     DoorOpen::DoorOpen(int time, GameObject::Door* door, GameObject::Player* player, int xPlayer, int yPlayer) : Base(time) {
         debugName = "DoorOpen";

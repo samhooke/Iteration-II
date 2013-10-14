@@ -29,6 +29,12 @@ namespace Event {
         int yTo;
     };
 
+    /// PlayerExpire
+    class PlayerExpire : public PlayerMove {
+    public:
+        PlayerExpire(int time, GameObject::Player* player, int x, int y);
+    };
+
     /// DoorOpen
     class DoorOpen : public Base {
     public:
