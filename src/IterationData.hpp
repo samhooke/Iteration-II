@@ -7,12 +7,13 @@
 
 class IterationData {
 private:
-    int time = 0;
     int meltdown = 20;
     int catastrophe = 40;
     LevelManager* levelManager;
 public:
     IterationData(LevelManager* levelManager);
+
+    int time = 0;
 
     void UpdateTimeline(Timeline* timeline);
 

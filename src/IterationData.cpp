@@ -41,7 +41,7 @@ bool IterationData::CanGoForward() {
 
 void IterationData::GoForward() {
     if (CanGoForward()) {
-        time++;
+        //time++; // Time is changed by LevelManager
         TimeChangedForward();
     } else {
         std::cout << "WARNING: Tried to go forwards in time when there is no more time to go forwards to" << std::endl;
@@ -54,7 +54,7 @@ bool IterationData::CanGoBackward() {
 
 void IterationData::GoBackward() {
     if (CanGoBackward()) {
-        time--;
+        //time--; // Time is changed by LevelManager
         TimeChangedBackward();
     } else {
         std::cout << "WARNING: Tried to go backwards in time when there is no more time to go backwards to" << std::endl;

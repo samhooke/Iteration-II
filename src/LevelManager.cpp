@@ -164,36 +164,42 @@ void LevelManager::Load(const char* levelName) {
 
 void LevelManager::Update(GameEngine* game) {
 
-    // Call Update() in all GameObjects
-    int num = levelData->GetNumObjects();
-    for (int index = 0; index < num; index++) {
-        levelData->CallObjectUpdate(index);
-    }
-
     if (timeChangedForwardFlag && timeChangedBackwardFlag) {
         std::cout << "WARNING: Time changed forward and backward in the same instant" << std::endl;
-    }
-
-    // If time has changed forward
-    if (timeChangedForwardFlag) {
-        timeChangedForwardFlag = false;
-
-        // Call UpdateTimeChanged() in all GameObjects
-        UpdateTimeChanged();
-
-        // Execute all events for the current time
-        eventData->ExecuteForwardEvents(iterationData->GetTime() - 1);
     }
 
     // If time has changed backward
     if (timeChangedBackwardFlag) {
         timeChangedBackwardFlag = false;
 
+        // 1) Decrement time
+        iterationData->time--;
+
+        // 2) Execute all events for the current time
+        eventData->ExecuteBackwardEvents(iterationData->GetTime());
+
         // Call UpdateTimeChanged() in all GameObjects
         UpdateTimeChanged();
+    }
 
-        // Execute all events for the current time
-        eventData->ExecuteBackwardEvents(iterationData->GetTime());
+    // Call Update() in all GameObjects
+    int num = levelData->GetNumObjects();
+    for (int index = 0; index < num; index++) {
+        levelData->CallObjectUpdate(index);
+    }
+
+    // If time has changed forward
+    if (timeChangedForwardFlag) {
+        timeChangedForwardFlag = false;
+
+        // 1) Execute all events for the current time
+        eventData->ExecuteForwardEvents(iterationData->GetTime());
+
+        // 2) Increment time
+        iterationData->time++;
+
+        // Call UpdateTimeChanged() in all GameObjects
+        UpdateTimeChanged();
     }
 }
 

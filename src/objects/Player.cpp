@@ -90,6 +90,18 @@ namespace GameObject {
                         // because it will not be able to be fulfilled because in the next timeframe we no longer exist!!
                         x = preMoveX;
                         y = preMoveY;
+
+                        //TODO: Replace this with a Event::PlayerExpire
+                        // Now create an expiry event
+                        Event::Base* eventPlayerExpire = new Event::PlayerMove(levelManager->iterationData->GetTime(),
+                                                                             this,
+                                                                             x,
+                                                                             y,
+                                                                             -1,
+                                                                             -1);
+                        levelManager->eventData->AddEvent(eventPlayerExpire);
+
+                        game->controls->ResetKeyDelay();
                         levelManager->iterationData->GoForward();
                     } else {
                         // It was possible to move to that location, however, we must move only using events
