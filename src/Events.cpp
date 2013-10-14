@@ -136,6 +136,7 @@ namespace Event {
 
     /// LeverPull
     LeverPull::LeverPull(int time, GameObject::Lever* lever, GameObject::Player* player, int xPlayer, int yPlayer, bool stateFrom, bool stateTo) : Base(time) {
+        debugName = "LeverPull";
         this->lever = lever;
         this->player = player;
         this->xPlayer = xPlayer;

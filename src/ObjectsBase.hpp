@@ -3,6 +3,7 @@
 
 #include <string>
 #include <map>
+#include "objects/Tags.hpp"
 #include "Tiles.hpp"
 #include "GameEngine.hpp"
 
@@ -26,8 +27,8 @@ namespace GameObject {
         GameEngine* game;
         LevelManager* levelManager;
 
-        std::string debugName = "No debug name";
-        std::string tag = "Undefined";
+        std::string debugName = "Undefined debugName (GameObject::Base)";
+        std::string tag = TAG_DEFAULT;
         int x;
         int y;
         int displayCharacter;

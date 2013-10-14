@@ -14,7 +14,7 @@ namespace Event {
         Base(int time);
         virtual ~Base();
 
-        std::string debugName = "No debugName set";
+        std::string debugName = "Undefined debugName (Event::Base)";
         int time;
 
         virtual Result ForwardEvent() = 0;
