@@ -9,5 +9,5 @@
 #.......D.....D.T.#
 #.......#.....#...#
 ###################
-Set    door[8,6].open  lever[11,2].state
-SetInv door[14,6].open lever[11,2].state
+Link Set    Door#1 Lever#1
+Link SetInv Door#2 Lever#1

@@ -91,6 +91,8 @@
 		<Unit filename="src/LevelManager.hpp" />
 		<Unit filename="src/LevelTile.cpp" />
 		<Unit filename="src/LevelTile.hpp" />
+		<Unit filename="src/LinkData.cpp" />
+		<Unit filename="src/LinkData.hpp" />
 		<Unit filename="src/Logger.hpp" />
 		<Unit filename="src/Main.cpp" />
 		<Unit filename="src/ObjectsBase.cpp" />

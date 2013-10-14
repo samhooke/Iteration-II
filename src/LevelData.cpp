@@ -162,7 +162,7 @@ void LevelData::CallObjectUpdateTimeChanged(int index) {
     levelObjects[index]->UpdateTimeChanged();
 }
 
-void LevelData::CreatePlayerOriginal(int x, int y) {
+int LevelData::CreatePlayerOriginal(int x, int y) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreatePlayerOriginal(" << x << "," << y << ")" << std::endl;
 #endif
@@ -176,9 +176,10 @@ void LevelData::CreatePlayerOriginal(int x, int y) {
     ((GameObject::Player*)obj)->cloneDesignation = nextCloneDesignation;
     nextCloneDesignation++;
     levelObjects.push_back(obj);
+    return (int)levelObjects.size() - 1;
 }
 
-void LevelData::CreatePlayer(int x, int y, bool hasControl, GameObject::Player* parent, int expiryTime) {
+int LevelData::CreatePlayer(int x, int y, bool hasControl, GameObject::Player* parent, int expiryTime) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreatePlayer(" << x << "," << y << ")" << std::endl;
 #endif
@@ -192,41 +193,46 @@ void LevelData::CreatePlayer(int x, int y, bool hasControl, GameObject::Player* 
     ((GameObject::Player*)obj)->cloneDesignation = nextCloneDesignation;
     nextCloneDesignation++;
     levelObjects.push_back(obj);
+    return (int)levelObjects.size() - 1;
 }
 
-void LevelData::CreateDoor(int x, int y, bool requiresKey) {
+int LevelData::CreateDoor(int x, int y, bool requiresKey) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreateDoor(" << x << "," << y << ")" << std::endl;
 #endif
     GameObject::Base* obj = new GameObject::Door(x, y, game, levelManager, requiresKey, STATE_DOOR_SHUT);
     obj->tag = TAG_DOOR;
     levelObjects.push_back(obj);
+    return (int)levelObjects.size() - 1;
 }
 
-void LevelData::CreateLever(int x, int y, bool state) {
+int LevelData::CreateLever(int x, int y, bool state) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreateLever(" << x << "," << y << ")" << std::endl;
 #endif
     GameObject::Base* obj = new GameObject::Lever(x, y, game, levelManager, state);
     obj->tag = TAG_LEVER;
     levelObjects.push_back(obj);
+    return (int)levelObjects.size() - 1;
 }
 
-void LevelData::CreateWindow(int x, int y) {
+int LevelData::CreateWindow(int x, int y) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreateWindow(" << x << "," << y << ")" << std::endl;
 #endif
     levelObjects.push_back(new GameObject::Window(x, y, game, levelManager));
+    return (int)levelObjects.size() - 1;
 }
 
-void LevelData::CreateTerminal(int x, int y) {
+int LevelData::CreateTerminal(int x, int y) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreateTerminal(" << x << "," << y << ")" << std::endl;
 #endif
     levelObjects.push_back(new GameObject::Terminal(x, y, game, levelManager));
+    return (int)levelObjects.size() - 1;
 }
 
-void LevelData::CreateTimeMachine(int x, int y) {
+int LevelData::CreateTimeMachine(int x, int y) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreateTimeMachine(" << x << "," << y << ")" << std::endl;
 #endif
@@ -234,9 +240,10 @@ void LevelData::CreateTimeMachine(int x, int y) {
     obj->tag = TAG_TIMEMACHINE;
     obj->canHaveControl = true;
     levelObjects.push_back(obj);
+    return (int)levelObjects.size() - 1;
 }
 
-void LevelData::CreateRadiation(int x, int y, int intensity) {
+int LevelData::CreateRadiation(int x, int y, int intensity) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreateRadiation(" << x << "," << y << ")" << std::endl;
 #endif
@@ -246,4 +253,5 @@ void LevelData::CreateRadiation(int x, int y, int intensity) {
         levelObjects.push_back(new GameObject::RadiationStrong(x, y, game, levelManager));
     else
         std::cout << "WARNING: Tried to create radiation with an invalid intensity" << std::endl;
+    return (int)levelObjects.size() - 1;
 }

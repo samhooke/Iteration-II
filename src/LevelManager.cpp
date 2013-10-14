@@ -38,6 +38,13 @@ void LevelManager::Load(const char* levelName) {
     expectedWidth = 80;
     expectedHeight = 30;
 
+    // In the level file, there are descriptions for how objects are linked together
+    // These links refer to objects by the order in which they appear in the level
+    // We use these vectors to record the order in which these linkable objects are created
+    // These vectors are then used to link up the appropriate objects
+    std::vector<int> doors;
+    std::vector<int> levers;
+
     bool invalidMap = false;
     if (f.is_open()) {
         x = y = lineNumber = 0;
@@ -85,11 +92,11 @@ void LevelManager::Load(const char* levelName) {
                             break;
                         case 'd': // Door
                             levelData->SetTileDetails(x, y, TileType::Floor, true);
-                            levelData->CreateDoor(x, y, false);
+                            doors.push_back(levelData->CreateDoor(x, y, false));
                             break;
-                        case 'D': // Door (requires key)
+                        case 'D': // Door (cannot be opened directly)
                             levelData->SetTileDetails(x, y, TileType::Floor, true);
-                            levelData->CreateDoor(x, y, true);
+                            doors.push_back(levelData->CreateDoor(x, y, true));
                             break;
                         case 'W': // Window
                             levelData->SetTileDetails(x, y, TileType::Wall, true);
@@ -97,11 +104,11 @@ void LevelManager::Load(const char* levelName) {
                             break;
                         case 'l': // Lever (state = off)
                             levelData->SetTileDetails(x, y, TileType::Floor, true);
-                            levelData->CreateLever(x, y, STATE_LEVER_OFF);
+                            levers.push_back(levelData->CreateLever(x, y, STATE_LEVER_OFF));
                             break;
                         case 'L': // Lever (state = on)
                             levelData->SetTileDetails(x, y, TileType::Floor, true);
-                            levelData->CreateLever(x, y, STATE_LEVER_ON);
+                            levers.push_back(levelData->CreateLever(x, y, STATE_LEVER_ON));
                             break;
                         /// Radiation
                         case 'r': // Radiation (weak)
@@ -170,6 +177,18 @@ void LevelManager::Load(const char* levelName) {
     } else {
         // Map was valid, so work out what characters should be displayed
         levelData->CalculateDisplayCharacters();
+
+        // Finally, create the links
+
+        // TEMPORARY: Test links
+        GameObject::StaticLinkable* lever0 = (GameObject::StaticLinkable*)levelData->GetObjectPointer(levers[0]);
+        GameObject::StaticLinkable* door1 = (GameObject::StaticLinkable*)levelData->GetObjectPointer(doors[1]);
+        GameObject::StaticLinkable* door2 = (GameObject::StaticLinkable*)levelData->GetObjectPointer(doors[2]);
+        linkData->Add(LinkFunction::Set, lever0, door1);
+        linkData->Add(LinkFunction::SetInv, lever0, door2);
+
+        // And update the links once before we start
+        linkData->Update();
     }
 }
 

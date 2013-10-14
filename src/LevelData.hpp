@@ -49,14 +49,14 @@ public:
     void CallObjectUpdate(int index);
     void CallObjectUpdateTimeChanged(int index);
 
-    void CreatePlayerOriginal(int x, int y);
-    void CreatePlayer(int x, int y, bool hasControl, GameObject::Player* parent, int expiryTime);
-    void CreateDoor(int x, int y, bool requiresKey);
-    void CreateLever(int x, int y, bool state);
-    void CreateWindow(int x, int y);
-    void CreateTerminal(int x, int y);
-    void CreateTimeMachine(int x, int y);
-    void CreateRadiation(int x, int y, int intensity);
+    int CreatePlayerOriginal(int x, int y);
+    int CreatePlayer(int x, int y, bool hasControl, GameObject::Player* parent, int expiryTime);
+    int CreateDoor(int x, int y, bool requiresKey);
+    int CreateLever(int x, int y, bool state);
+    int CreateWindow(int x, int y);
+    int CreateTerminal(int x, int y);
+    int CreateTimeMachine(int x, int y);
+    int CreateRadiation(int x, int y, int intensity);
 };
 
 #endif // LEVELDATA_HPP_INCLUDED
