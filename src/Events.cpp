@@ -93,28 +93,44 @@ namespace Event {
 
     Result DoorOpen::ForwardEvent() {
         Result result;
-        result.success = true;
+        result.success = false;
         result.msg = "";
+        std::ostringstream msg;
 
         if (player->x == xPlayer && player->y == yPlayer) {
-            door->open = true;
+            if (door->open != true) {
+                door->open = true;
+                result.success = true;
+            } else {
+                msg << "Door was already open";
+            }
         } else {
-            result.success = false;
-            std::ostringstream msg;
             msg << "Player (" << player->cloneDesignation << ") was not at (xPlayer:" << xPlayer << ",yPlayer:" << yPlayer << ")";
-            result.msg = msg.str();
         }
 
+        result.msg = msg.str();
         return result;
     }
 
     Result DoorOpen::BackwardEvent() {
         Result result;
-        result.success = true;
+        result.success = false;
         result.msg = "";
+        std::ostringstream msg;
 
-        door->open = false;
+        if (player->x == xPlayer && player->y == yPlayer) {
+            if (door->open != false) {
+                door->open = false;
+                result.success = true;
+            } else {
+                msg << "Door was already shut";
 
+            }
+        } else {
+            msg << "Player (" << player->cloneDesignation << ") was not at (xPlayer:" << xPlayer << ",yPlayer:" << yPlayer << ")";
+        }
+
+        result.msg = msg.str();
         return result;
     }
 }
