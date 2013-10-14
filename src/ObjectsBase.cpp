@@ -7,7 +7,7 @@
 
 namespace GameObject {
 
-    // Base
+    /// Base
     Base::~Base() {}
 
     bool Base::Controlling() {
@@ -28,7 +28,7 @@ namespace GameObject {
         //std::cout << "Time changed!" << std::endl;
     }
 
-    // Static
+    /// Static
     Static::Static(int x, int y, GameEngine* game, LevelManager* levelManager) {
         this->x = x;
         this->y = y;
@@ -36,7 +36,7 @@ namespace GameObject {
         this->levelManager = levelManager;
     }
 
-    // Dynamic
+    /// Dynamic
     Dynamic::Dynamic(int x, int y, GameEngine* game, LevelManager* levelManager) {
         this->x = x;
         this->y = y;
@@ -94,5 +94,10 @@ namespace GameObject {
             }
         }
     return -1;
+    }
+
+    /// StaticLinkable
+    StaticLinkable::StaticLinkable(int x, int y, GameEngine* game, LevelManager* levelManager, bool state) : Static(x, y, game, levelManager) {
+        this->state = state;
     }
 }

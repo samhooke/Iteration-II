@@ -59,7 +59,7 @@ namespace GameObject {
                     int index = GetObjectIndexAtPosWithTag(x, y, TAG_DOOR);
                     if (index >= 0) {
                         GameObject::Door* door = (GameObject::Door*)levelManager->levelData->GetObjectPointer(index);
-                        if (door->open == false) {
+                        if (door->state == false) {
                             // Door is shut, so move back to where we were
                             x = preMoveX;
                             y = preMoveY;
@@ -67,7 +67,7 @@ namespace GameObject {
                             // See if we can open the door
                             if (door->requiresKey == false) {
                                 // No key is required, so open the door
-                                Event::Base* eventDoorOpen = new Event::DoorOpen(time, door, this, x, y);
+                                Event::Base* eventDoorOpen = new Event::LinkableStateChange(time, (GameObject::StaticLinkable*)door, this, x, y, door->state);
                                 levelManager->eventData->AddEvent(eventDoorOpen);
                             } else {
                                 // A key is required, so we cannot open the door
@@ -144,22 +144,8 @@ namespace GameObject {
                             // Get a pointer to the lever
                             Lever* lever = (Lever*)levelManager->levelData->GetObjectPointer(index);
 
-                            bool stateFrom;
-                            bool stateTo;
-
-                            // Check what state the lever is
-                            if (lever->state == false) {
-                                // We will switch lever from off (false) to on (true)
-                                stateFrom = false;
-                                stateTo = true;
-                            } else {
-                                // We will switch lever from on (true) to off (false)
-                                stateFrom = true;
-                                stateTo = false;
-                            }
-
                             // Create a LeverPull event
-                            Event::Base* eventLeverPull = new Event::LeverPull(time, lever, this, x, y, stateFrom, stateTo);
+                            Event::LinkableStateChange* eventLeverPull = new Event::LinkableStateChange(time, (GameObject::StaticLinkable*)lever, this, x, y, lever->state);
 
                             // Attempt the event forward and backward to verify we satisfy the conditions for it
                             Event::Result resultForward = eventLeverPull->ForwardEvent();
@@ -171,7 +157,7 @@ namespace GameObject {
                                 game->controls->ResetKeyDelay();
                                 levelManager->iterationData->GoForward();
                             } else {
-                                std::cout << "ERROR: Could not add Event::LeverPull for the following reasons:" << std::endl;
+                                std::cout << "ERROR: Could not add Event::LinkableStateChange for the following reasons:" << std::endl;
                                 std::cout << "ForwardEvent: " << resultForward.msg << std::endl;
                                 std::cout << "BackwardEvent: " << resultBackward.msg << std::endl;
                                 delete eventLeverPull;

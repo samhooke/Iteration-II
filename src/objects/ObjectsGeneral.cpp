@@ -2,7 +2,7 @@
 
 namespace GameObject {
     /// Door
-    Door::Door(int x, int y, GameEngine* game, LevelManager* levelManager, bool requiresKey) : Static(x, y, game, levelManager) {
+    Door::Door(int x, int y, GameEngine* game, LevelManager* levelManager, bool requiresKey, bool state) : StaticLinkable(x, y, game, levelManager, state) {
 
         debugName = "Door";
 
@@ -12,12 +12,12 @@ namespace GameObject {
 
     void Door::UpdateSprite() {
         if (requiresKey) {
-            if (open)
+            if (state)
                 displayCharacter = TILE_DOORREQUIRESKEY_OPEN;
             else
                 displayCharacter = TILE_DOORREQUIRESKEY_SHUT;
         } else {
-            if (open)
+            if (state)
                 displayCharacter = TILE_DOOR_OPEN;
             else
                 displayCharacter = TILE_DOOR_SHUT;
@@ -51,9 +51,8 @@ namespace GameObject {
     void Terminal::Update() {}
 
     /// Lever
-    Lever::Lever(int x, int y, GameEngine* game, LevelManager* levelManager, bool state) : Static(x, y, game, levelManager) {
+    Lever::Lever(int x, int y, GameEngine* game, LevelManager* levelManager, bool state) : StaticLinkable(x, y, game, levelManager, state) {
         debugName = "Lever";
-        this->state = state;
         UpdateSprite();
     }
 

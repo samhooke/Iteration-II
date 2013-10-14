@@ -6,15 +6,14 @@
 #include "../LevelManager.hpp"
 
 namespace GameObject {
-    class Door : public GameObject::Static {
+    class Door : public GameObject::StaticLinkable {
     public:
         void Update();
 
-        Door(int x, int y, GameEngine* game, LevelManager* levelManager, bool requiresKey);
+        Door(int x, int y, GameEngine* game, LevelManager* levelManager, bool requiresKey, bool state);
         ~Door();
 
         bool requiresKey = false;
-        bool open = false;
 
         void UpdateSprite();
     };
@@ -35,14 +34,12 @@ namespace GameObject {
         ~Terminal();
     };
 
-    class Lever : public GameObject::Static {
+    class Lever : public GameObject::StaticLinkable {
     public:
         void Update();
 
         Lever(int x, int y, GameEngine* game, LevelManager* levelManager, bool state);
         ~Lever();
-
-        bool state = false;
 
         void UpdateSprite();
     };

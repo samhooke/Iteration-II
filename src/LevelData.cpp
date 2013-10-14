@@ -198,7 +198,7 @@ void LevelData::CreateDoor(int x, int y, bool requiresKey) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreateDoor(" << x << "," << y << ")" << std::endl;
 #endif
-    GameObject::Base* obj = new GameObject::Door(x, y, game, levelManager, requiresKey);
+    GameObject::Base* obj = new GameObject::Door(x, y, game, levelManager, requiresKey, STATE_DOOR_SHUT);
     obj->tag = TAG_DOOR;
     levelObjects.push_back(obj);
 }

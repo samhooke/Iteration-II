@@ -82,81 +82,29 @@ namespace Event {
         debugName = "PlayerExpire";
     }
 
-    /// DoorOpen
-    DoorOpen::DoorOpen(int time, GameObject::Door* door, GameObject::Player* player, int xPlayer, int yPlayer) : Base(time) {
-        debugName = "DoorOpen";
-        this->door = door;
-        this->player = player;
-        this->xPlayer = xPlayer;
-        this->yPlayer = yPlayer;
-    }
-
-    Result DoorOpen::ForwardEvent() {
-        Result result;
-        result.success = false;
-        result.msg = "";
-        std::ostringstream msg;
-
-        if (player->x == xPlayer && player->y == yPlayer) {
-            if (door->open != true) {
-                door->open = true;
-                result.success = true;
-            } else {
-                msg << "Door was already open";
-            }
-        } else {
-            msg << "Player (" << player->cloneDesignation << ") was not at (xPlayer:" << xPlayer << ",yPlayer:" << yPlayer << ")";
-        }
-
-        result.msg = msg.str();
-        return result;
-    }
-
-    Result DoorOpen::BackwardEvent() {
-        Result result;
-        result.success = false;
-        result.msg = "";
-        std::ostringstream msg;
-
-        if (player->x == xPlayer && player->y == yPlayer) {
-            if (door->open != false) {
-                door->open = false;
-                result.success = true;
-            } else {
-                msg << "Door was already shut";
-
-            }
-        } else {
-            msg << "Player (" << player->cloneDesignation << ") was not at (xPlayer:" << xPlayer << ",yPlayer:" << yPlayer << ")";
-        }
-
-        result.msg = msg.str();
-        return result;
-    }
-
-    /// LeverPull
-    LeverPull::LeverPull(int time, GameObject::Lever* lever, GameObject::Player* player, int xPlayer, int yPlayer, bool stateFrom, bool stateTo) : Base(time) {
-        debugName = "LeverPull";
-        this->lever = lever;
+    /// LinkableStateChange
+    LinkableStateChange::LinkableStateChange(int time, GameObject::StaticLinkable* linkable, GameObject::Player* player, int xPlayer, int yPlayer, bool stateFrom) : Base(time) {
+        debugName = "LinkableStateChange";
+        this->linkable = linkable;
         this->player = player;
         this->xPlayer = xPlayer;
         this->yPlayer = yPlayer;
         this->stateFrom = stateFrom;
-        this->stateTo = stateTo;
+        this->stateTo = !stateFrom;
     }
 
-    Result LeverPull::ForwardEvent() {
+    Result LinkableStateChange::ForwardEvent() {
         Result result;
         result.success = false;
         result.msg = "";
         std::ostringstream msg;
 
         if (player->x == xPlayer && player->y == yPlayer) {
-            if (lever->state == stateFrom) {
-                lever->state = stateTo;
+            if (linkable->state == stateFrom) {
+                linkable->state = stateTo;
                 result.success = true;
             } else {
-                msg << "Lever was not in the expected state (stateFrom:" << stateFrom << ")";
+                msg << "StaticLinkable was not in the expected state (stateFrom:" << stateFrom << ")";
             }
         } else {
             msg << "Player (" << player->cloneDesignation << ") was not at (xPlayer:" << xPlayer << ",yPlayer:" << yPlayer << ")";
@@ -166,18 +114,18 @@ namespace Event {
         return result;
     }
 
-    Result LeverPull::BackwardEvent() {
+    Result LinkableStateChange::BackwardEvent() {
         Result result;
         result.success = false;
         result.msg = "";
         std::ostringstream msg;
 
         if (player->x == xPlayer && player->y == yPlayer) {
-            if (lever->state == stateTo) {
-                lever->state = stateFrom;
+            if (linkable->state == stateTo) {
+                linkable->state = stateFrom;
                 result.success = true;
             } else {
-                msg << "Lever was not in the expected state (stateTo:" << stateTo << ")";
+                msg << "StaticLinkable was not in the expected state (stateTo:" << stateTo << ")";
             }
         } else {
             msg << "Player (" << player->cloneDesignation << ") was not at (xPlayer:" << xPlayer << ",yPlayer:" << yPlayer << ")";

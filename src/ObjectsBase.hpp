@@ -62,5 +62,12 @@ namespace GameObject {
 
         int GetObjectIndexAtPosWithTag(int x, int y, std::string tag);
     };
+
+    class StaticLinkable : public Static {
+    public:
+        StaticLinkable(int x, int y, GameEngine* game, LevelManager* levelManager, bool state);
+
+        bool state;
+    };
 }
 #endif // OBJECTSBASE_HPP_INCLUDED

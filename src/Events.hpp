@@ -35,27 +35,14 @@ namespace Event {
         PlayerExpire(int time, GameObject::Player* player, int x, int y);
     };
 
-    /// DoorOpen
-    class DoorOpen : public Base {
+    /// LinkableStateChange
+    class LinkableStateChange : public Base {
     public:
-        DoorOpen(int time, GameObject::Door* door, GameObject::Player* player, int xPlayer, int yPlayer);
+        LinkableStateChange(int time, GameObject::StaticLinkable* linkable, GameObject::Player* player, int xPlayer, int yPlayer, bool stateFrom);
         Result ForwardEvent();
         Result BackwardEvent();
 
-        GameObject::Door* door;
-        GameObject::Player* player;
-        int xPlayer;
-        int yPlayer;
-    };
-
-    ///LeverPull
-    class LeverPull : public Base {
-    public:
-        LeverPull(int time, GameObject::Lever* lever, GameObject::Player* player, int xPlayer, int yPlayer, bool stateFrom, bool stateTo);
-        Result ForwardEvent();
-        Result BackwardEvent();
-
-        GameObject::Lever* lever;
+        GameObject::StaticLinkable* linkable;
         GameObject::Player* player;
         int xPlayer;
         int yPlayer;
