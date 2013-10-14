@@ -24,7 +24,7 @@ public:
     EventData* eventData;
     LinkData* linkData;
 
-    void Load(const char* levelName);
+    bool Load(const char* levelName);
     void Update(GameEngine* game);
     void UpdateDisplay(GameEngine* game);
     void UpdateTimeChanged();

@@ -30,7 +30,7 @@ bool LevelManager::StringToInt(std::string &s, int &i) {
     return (myStream>>i);
 }
 
-void LevelManager::Load(const char* levelName) {
+bool LevelManager::Load(const char* levelName) {
     std::string line;
     std::ifstream f(levelName);
     int x, y, lineNumber;
@@ -304,6 +304,9 @@ void LevelManager::Load(const char* levelName) {
         // And update the links once before we start
         linkData->Update();
     }
+
+    // Return whether we were successful
+    return !invalidMap;
 }
 
 std::vector<std::string> LevelManager::Explode(std::string str, char split) {

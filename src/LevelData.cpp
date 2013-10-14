@@ -40,7 +40,29 @@ void LevelData::SetTileDetails(int x, int y, TileType type, bool connectsWithWal
 
 int LevelData::GetTileDisplayCharacter(int x, int y) {
     int index = x + y * width;
-    return levelTiles[index].displayCharacter;
+    if (index >= 0 && index < (int)levelTiles.size())
+        return levelTiles[index].displayCharacter;
+    else {
+#if DEBUG_VERBOSE
+        std::cout << "ERROR: Call to GetTileDisplayCharacter(x:" << x << ",y:" << y << ") was out of range" << std::endl;
+#endif // DEBUG_VERBOSE
+
+        // A fun pattern that prints out staggered copies of "Error!"
+        // Will only be visible though when this function fails for multiple adjacent tiles
+        // But when it fails, it is usually because everything is failing, so that's okay
+        char c = '?';
+        int s = ((x % 6) + 2 * y) % 6;
+        switch (s) {
+            case 0: c = 'E'; break;
+            case 1: c = 'r'; break;
+            case 2: c = 'r'; break;
+            case 3: c = 'o'; break;
+            case 4: c = 'r'; break;
+            case 5: c = '!'; break;
+        }
+
+        return c;
+    }
 }
 
 TileType LevelData::GetTileType(int x, int y) {
