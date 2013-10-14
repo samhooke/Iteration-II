@@ -17,6 +17,7 @@ public:
     LinkData();
     ~LinkData();
 
+    void Update();
     void Add(LinkFunction func, GameObject::StaticLinkable* objectFrom, GameObject::StaticLinkable* objectTo);
 
     std::vector<Link> links;

@@ -189,6 +189,8 @@ void LevelManager::Update(GameEngine* game) {
         // 2) Execute all events for the current time
         eventData->ExecuteBackwardEvents(iterationData->GetTime());
 
+        linkData->Update();
+
         // Call UpdateTimeChanged() in all GameObjects
         UpdateTimeChanged();
     }
@@ -208,6 +210,8 @@ void LevelManager::Update(GameEngine* game) {
 
         // 2) Increment time
         iterationData->time++;
+
+        linkData->Update();
 
         // Call UpdateTimeChanged() in all GameObjects
         UpdateTimeChanged();
