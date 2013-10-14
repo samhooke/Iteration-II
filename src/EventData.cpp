@@ -6,7 +6,7 @@ EventData::EventData() {}
 EventData::~EventData() {
     // Destroy all events
     for (std::map<int, std::vector<Event::Base*>>::iterator itr = events.begin(), itrEnd = events.end(); itr != itrEnd; ++itr) {
-        for (int i = 0; i < (itr->second).size(); ++i) {
+        for (int i = 0; i < (int)(itr->second).size(); ++i) {
             delete (itr->second).at(i);
         }
     }
