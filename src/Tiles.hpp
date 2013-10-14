@@ -189,5 +189,7 @@
 
 #define STATE_DOOR_SHUT false
 #define STATE_DOOR_OPEN true
+#define STATE_LEVER_OFF false
+#define STATE_LEVER_ON true
 
 #endif // TILES_HPP_INCLUDED

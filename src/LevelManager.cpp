@@ -94,11 +94,11 @@ void LevelManager::Load(const char* levelName) {
                             break;
                         case 'l': // Lever (state = off)
                             levelData->SetTileDetails(x, y, TileType::Floor, true);
-                            levelData->CreateLever(x, y, false);
+                            levelData->CreateLever(x, y, STATE_LEVER_OFF);
                             break;
                         case 'L': // Lever (state = on)
                             levelData->SetTileDetails(x, y, TileType::Floor, true);
-                            levelData->CreateLever(x, y, true);
+                            levelData->CreateLever(x, y, STATE_LEVER_ON);
                             break;
                         /// Radiation
                         case 'r': // Radiation (weak)
