@@ -2,6 +2,7 @@
 #define LEVELMANAGER_HPP_INCLUDED
 
 #include <sstream>
+#include <vector>
 #include <string>
 #include "GameEngine.hpp"
 
@@ -13,6 +14,7 @@ class LinkData;
 class LevelManager {
 private:
     bool StringToInt(std::string &s, int &i);
+    std::vector<std::string> Explode(std::string str, char split);
 public:
     LevelManager(GameEngine* game);
     ~LevelManager();

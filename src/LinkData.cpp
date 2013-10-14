@@ -3,7 +3,7 @@
 LinkData::LinkData() {}
 LinkData::~LinkData() {}
 
-void LinkData::Add(LinkFunction func, GameObject::StaticLinkable* objectFrom, GameObject::StaticLinkable* objectTo) {
+void LinkData::Add(GameObject::StaticLinkable* objectFrom, LinkFunction func, GameObject::StaticLinkable* objectTo) {
     Link link;
     link.func = func;
     link.objectFrom = objectFrom;
@@ -18,10 +18,10 @@ void LinkData::Update() {
         LinkFunction func = links[i].func;
 
         switch (func) {
-        case LinkFunction::Set:
+        case LinkFunction::SetEqual:
             links[i].objectTo->state = links[i].objectFrom->state;
             break;
-        case LinkFunction::SetInv:
+        case LinkFunction::SetInverse:
             links[i].objectTo->state = !links[i].objectFrom->state;
             break;
         }

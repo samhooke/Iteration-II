@@ -9,5 +9,5 @@
 #.......D.....D.T.#
 #.......#.....#...#
 ###################
-Link Set    Door#1 Lever#1
-Link SetInv Door#2 Lever#1
+Link: Lever#1 => Door#2
+Link: Lever#1 ~> Door#3

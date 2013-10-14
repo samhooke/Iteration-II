@@ -48,7 +48,8 @@ void LevelManager::Load(const char* levelName) {
     bool invalidMap = false;
     if (f.is_open()) {
         x = y = lineNumber = 0;
-        while (getline(f, line) && !invalidMap && y < expectedHeight) {
+        //while (getline(f, line) && !invalidMap && y < expectedHeight) {
+        while (getline(f, line) && !invalidMap) {
             if (lineNumber == 0) {
                 // Read expectedWidth
                 if (StringToInt(line, expectedWidth)) {
@@ -152,6 +153,128 @@ void LevelManager::Load(const char* levelName) {
                     std::cout << "(Should have been width " << expectedWidth << ". Actual width was " << line.length() << ")" << std::endl;
                 }
                 y++;
+            } else {
+                // Read the rest of the file
+
+                // Split the line by spaces to read the command
+                std::vector<std::string> lineExp = Explode(line, ' ');
+
+                // Check if it is a link command
+                if (lineExp[0] == "Link:") {
+                    if (lineExp.size() == 4) {
+                        // This is a link command
+                        std::vector<std::string> objectFromExp = Explode(lineExp[1], '#');
+                        std::vector<std::string> objectToExp = Explode(lineExp[3], '#');
+
+                        if (objectFromExp.size() != 2) {
+                            std::cout << "Invalid \"Link:\" command: " << line << std::endl;
+                            std::cout << "(The first object is formatted wrong)" << std::endl;
+                            invalidMap = true;
+                        } else if (objectToExp.size() != 2) {
+                            std::cout << "Invalid \"Link:\" command: " << line << std::endl;
+                            std::cout << "(The second object is formatted wrong)" << std::endl;
+                            invalidMap = true;
+                        } else {
+                            // Objects are formatted okay
+                            int objectFromIndex, objectToIndex;
+                            if (StringToInt(objectFromExp[1], objectFromIndex)) {
+                                if (StringToInt(objectToExp[1], objectToIndex)) {
+
+                                    // Indexes in the level file start at 1, but start at 0 in game, so subtract one
+                                    --objectFromIndex;
+                                    --objectToIndex;
+
+                                    if (objectFromIndex < 0) {
+                                        std::cout << "Invalid \"Link:\" command: " << line << std::endl;
+                                        std::cout << "(First object index is negative)" << std::endl;
+                                        invalidMap = true;
+                                    }
+
+                                    if (objectToIndex < 0) {
+                                        std::cout << "Invalid \"Link:\" command: " << line << std::endl;
+                                        std::cout << "(Second object index is negative)" << std::endl;
+                                        invalidMap = true;
+                                    }
+
+                                    // We know the object indexes, so let's get references to the GameObject::StaticLinkable
+                                    bool indexTooGreat = false;
+
+                                    // Get a reference to objectFrom
+                                    GameObject::StaticLinkable* objectFrom;
+                                    if (objectFromExp[0] == "Lever") {
+                                        if (objectFromIndex >= (int)levers.size())
+                                            indexTooGreat = true;
+                                        else
+                                            objectFrom = (GameObject::StaticLinkable*)levelData->GetObjectPointer(levers[objectFromIndex]);
+                                    } else if (objectFromExp[0] == "Door") {
+                                        if (objectFromIndex >= (int)doors.size())
+                                            indexTooGreat = true;
+                                        else
+                                            objectFrom = (GameObject::StaticLinkable*)levelData->GetObjectPointer(doors[objectFromIndex]);
+                                    } else {
+                                        std::cout << "Invalid \"Link:\" command: " << line << std::endl;
+                                        std::cout << "(First object is not recognised)" << std::endl;
+                                        invalidMap = true;
+                                    }
+
+                                    // Get a reference to objectTo
+                                    GameObject::StaticLinkable* objectTo;
+                                    if (objectToExp[0] == "Lever") {
+                                        if (objectToIndex >= (int)levers.size())
+                                            indexTooGreat = true;
+                                        else
+                                            objectTo = (GameObject::StaticLinkable*)levelData->GetObjectPointer(levers[objectToIndex]);
+                                    } else if (objectToExp[0] == "Door") {
+                                        if (objectToIndex >= (int)doors.size())
+                                            indexTooGreat = true;
+                                        else
+                                            objectTo = (GameObject::StaticLinkable*)levelData->GetObjectPointer(doors[objectToIndex]);
+                                    } else {
+                                        std::cout << "Invalid \"Link:\" command: " << line << std::endl;
+                                        std::cout << "(Second object is not recognised)" << std::endl;
+                                        invalidMap = true;
+                                    }
+
+                                    if (indexTooGreat) {
+                                        std::cout << "Invalid \"Link:\" command: " << line << std::endl;
+                                        std::cout << "(An object index exceeded the number of objects)" << std::endl;
+                                        invalidMap = true;
+                                    }
+
+                                    // Work out what the function is
+                                    LinkFunction func;
+                                    if (lineExp[2] == "=>") {
+                                        func = LinkFunction::SetEqual;
+                                    } else if (lineExp[2] == "~>") {
+                                        func = LinkFunction::SetInverse;
+                                    } else {
+                                        std::cout << "Invalid \"Link:\" command: " << line << std::endl;
+                                        std::cout << "(Function is not recognised)" << std::endl;
+                                        invalidMap = true;
+                                    }
+
+                                    if (!invalidMap) {
+                                        // Now we have all the information
+                                        linkData->Add(objectFrom, func, objectTo);
+                                        }
+
+                                } else {
+                                    std::cout << "Invalid \"Link:\" command: " << line << std::endl;
+                                    std::cout << "(Invalid index for the second object)" << std::endl;
+                                    invalidMap = true;
+                                }
+                            } else {
+                                std::cout << "Invalid \"Link:\" command: " << line << std::endl;
+                                std::cout << "(Invalid index for the first object)" << std::endl;
+                                invalidMap = true;
+                            }
+                        }
+                    } else {
+                        std::cout << "Invalid \"Link:\" command: " << line << std::endl;
+                        std::cout << "(There are the wrong number of arguments)" << std::endl;
+                        invalidMap = true;
+                    }
+                }
             }
             lineNumber++;
         }
@@ -178,18 +301,39 @@ void LevelManager::Load(const char* levelName) {
         // Map was valid, so work out what characters should be displayed
         levelData->CalculateDisplayCharacters();
 
-        // Finally, create the links
-
-        // TEMPORARY: Test links
-        GameObject::StaticLinkable* lever0 = (GameObject::StaticLinkable*)levelData->GetObjectPointer(levers[0]);
-        GameObject::StaticLinkable* door1 = (GameObject::StaticLinkable*)levelData->GetObjectPointer(doors[1]);
-        GameObject::StaticLinkable* door2 = (GameObject::StaticLinkable*)levelData->GetObjectPointer(doors[2]);
-        linkData->Add(LinkFunction::Set, lever0, door1);
-        linkData->Add(LinkFunction::SetInv, lever0, door2);
-
         // And update the links once before we start
         linkData->Update();
     }
+}
+
+std::vector<std::string> LevelManager::Explode(std::string str, char split) {
+
+    std::vector<std::string> exploded;
+    std::ostringstream currentString;
+
+    char lastChar = split;
+    for (int i = 0; i < (int)str.length(); i++) {
+        char thisChar = str[i];
+
+        // Build up currentString
+        if (thisChar != split)
+            currentString << thisChar;
+
+        // If we go from a non-split to a split, that is the end of this section
+        if (lastChar != split && thisChar == split) {
+            exploded.push_back(currentString.str());
+
+            // Reset the currentString to a blank string
+            currentString.str(std::string());
+        }
+
+        lastChar = thisChar;
+    }
+
+    // Place the final string in the array
+    exploded.push_back(currentString.str());
+
+    return exploded;
 }
 
 void LevelManager::Update(GameEngine* game) {

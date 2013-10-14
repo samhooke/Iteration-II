@@ -4,7 +4,7 @@
 #include "ObjectsBase.hpp"
 #include <vector>
 
-enum class LinkFunction {Set, SetInv};
+enum class LinkFunction {SetEqual, SetInverse};
 
 struct Link {
     LinkFunction func;
@@ -18,7 +18,7 @@ public:
     ~LinkData();
 
     void Update();
-    void Add(LinkFunction func, GameObject::StaticLinkable* objectFrom, GameObject::StaticLinkable* objectTo);
+    void Add(GameObject::StaticLinkable* objectFrom, LinkFunction func, GameObject::StaticLinkable* objectTo);
 
     std::vector<Link> links;
 };
