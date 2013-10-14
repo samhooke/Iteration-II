@@ -24,8 +24,9 @@ namespace GameObject {
     Player::~Player() {}
 
     void Player::Update() {
+    int time = levelManager->iterationData->GetTime();
 #ifdef DEBUG_TIMETRAVEL_VERBOSE
-        std::cout << ::Timestamp(levelManager->iterationData->GetTime()) << "This is clone '" << cloneDesignation << "' about to update" << std::endl;
+        std::cout << ::Timestamp(time) << "This is clone '" << cloneDesignation << "' about to update" << std::endl;
 #endif // DEBUG_TIMETRAVEL_VERBOSE
         UpdateDisplayCharacter();
         if (Controlling()) {
@@ -66,11 +67,7 @@ namespace GameObject {
                             // See if we can open the door
                             if (door->requiresKey == false) {
                                 // No key is required, so open the door
-                                Event::Base* eventDoorOpen = new Event::DoorOpen(levelManager->iterationData->GetTime(),
-                                                                                   door,
-                                                                                   this,
-                                                                                   x,
-                                                                                   y);
+                                Event::Base* eventDoorOpen = new Event::DoorOpen(time, door, this, x, y);
                                 levelManager->eventData->AddEvent(eventDoorOpen);
                             } else {
                                 // A key is required, so we cannot open the door
@@ -92,7 +89,7 @@ namespace GameObject {
                         y = preMoveY;
 
                         // Now create an expiry event
-                        Event::Base* eventPlayerExpire = new Event::PlayerExpire(levelManager->iterationData->GetTime(), this, x, y);
+                        Event::Base* eventPlayerExpire = new Event::PlayerExpire(time, this, x, y);
                         levelManager->eventData->AddEvent(eventPlayerExpire);
 
                         game->controls->ResetKeyDelay();
@@ -106,12 +103,7 @@ namespace GameObject {
                         y = preMoveY;
 
                         // Now create an event to do this movement
-                        Event::Base* eventPlayerMove = new Event::PlayerMove(levelManager->iterationData->GetTime(),
-                                                                             this,
-                                                                             x,
-                                                                             y,
-                                                                             xTo,
-                                                                             yTo);
+                        Event::Base* eventPlayerMove = new Event::PlayerMove(time, this, x, y, xTo, yTo);
                         levelManager->eventData->AddEvent(eventPlayerMove);
 
                         game->controls->ResetKeyDelay();
@@ -125,7 +117,7 @@ namespace GameObject {
                         int index = GetObjectIndexAtPosWithTag(x, y, TAG_TIMEMACHINE);
                         if (index >= 0) {
 #ifdef DEBUG_TIMETRAVEL
-                            std::cout << ::Timestamp(levelManager->iterationData->GetTime()) << "Clone '" << cloneDesignation << "' has entered a time machine" << std::endl;
+                            std::cout << ::Timestamp(time) << "Clone '" << cloneDesignation << "' has entered a time machine" << std::endl;
 #endif // DEBUG_TIMETRAVEL
                             // Pass control to time machine
                             hasControl = false;
@@ -133,7 +125,7 @@ namespace GameObject {
 
                             // Tell the time machine information about ourselves so it can pass it on to the clone in the future (past)
                             TimeMachine* timeMachine = (TimeMachine*)levelManager->levelData->GetObjectPointer(index);
-                            timeMachine->SetNextCloneDetails(this, levelManager->iterationData->GetTime());
+                            timeMachine->SetNextCloneDetails(this, time);
 
                             game->controls->ResetKeyDelay();
                         }
@@ -146,7 +138,7 @@ namespace GameObject {
             }
         }
 #ifdef DEBUG_TIMETRAVEL_VERBOSE
-        std::cout << ::Timestamp(levelManager->iterationData->GetTime()) << "This is clone '" << cloneDesignation << "' updated without incident" << std::endl;
+        std::cout << ::Timestamp(time) << "This is clone '" << cloneDesignation << "' updated without incident" << std::endl;
 #endif // DEBUG_TIMETRAVEL_VERBOSE
     }
 
