@@ -25,6 +25,8 @@ public:
     LevelData(GameEngine* game, LevelManager* levelManager);
     ~LevelData();
 
+    void DestroyAllObjects();
+
     char nextCloneDesignation = 'A';
 
     void CreateBlankLevel(int width, int height);

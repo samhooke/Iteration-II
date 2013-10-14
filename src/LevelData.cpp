@@ -17,10 +17,15 @@ LevelData::LevelData(GameEngine* game, LevelManager* levelManager) {
 }
 
 LevelData::~LevelData() {
+    DestroyAllObjects();
+}
+
+void LevelData::DestroyAllObjects() {
     // Destroy all generated GameObjects
     for (int i = 0; i < (int)levelObjects.size(); i++) {
         delete levelObjects[i];
     }
+    levelObjects.resize(0);
 }
 
 void LevelData::CreateBlankLevel(int width, int height) {

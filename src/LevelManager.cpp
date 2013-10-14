@@ -297,6 +297,10 @@ bool LevelManager::Load(const char* levelName) {
                 levelData->SetTileDetails(x, y, TileType::Wall, true);
             }
         }
+
+        // Delete all objects because we failed
+        std::cout << "Destroying all generated game objects because level failed to load completely" << std::endl;
+        levelData->DestroyAllObjects();
     } else {
         // Map was valid, so work out what characters should be displayed
         levelData->CalculateDisplayCharacters();
