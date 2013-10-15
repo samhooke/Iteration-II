@@ -112,13 +112,21 @@ namespace GameObject {
             // A potential fix might be to add an UpdateTimeChangedEarly() event which is called BEFORE eventData->ExecuteForwardEvents()
             // but that makes the main loop even more complicated, especially when considering it must be in the right order forward and backwards
             state = STATE_PRESSUREPLATE_DOWN;
+
             /*
             Player* player = (Player*)levelManager->levelData->GetObjectPointer(index);
-            int time = levelManager->iterationData->GetTime();
-            Event::LinkableStateChange* eventPlatePress = new Event::LinkableStateChange(time, (GameObject::StaticLinkable*)this, player, x, y, state);
-            eventPlatePress->ForwardEvent();
+            int time = levelManager->iterationData->GetTime() - 1;
+
+            Event::LinkableStateChange* eventPlatePress = new Event::LinkableStateChange(time, (GameObject::StaticLinkable*)this, player, x, y, STATE_PRESSUREPLATE_UP);
             levelManager->eventData->AddEvent(eventPlatePress);
+
+            Event::LinkableStateChange* eventPlateRelease = new Event::LinkableStateChange(time + 1, (GameObject::StaticLinkable*)this, player, x, y, STATE_PRESSUREPLATE_DOWN);
+            levelManager->eventData->AddEvent(eventPlateRelease);
+
+            eventPlatePress->ForwardEvent();
             */
         }
+
     }
+
 }

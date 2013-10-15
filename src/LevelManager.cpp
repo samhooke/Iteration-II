@@ -113,15 +113,15 @@ bool LevelManager::Load(const char* levelName) {
                             levelData->CreateWindow(x, y);
                             break;
                         case 'l': // Lever (state = off)
-                            levelData->SetTileDetails(x, y, TileType::Floor, true);
+                            levelData->SetTileDetails(x, y, TileType::Floor, false);
                             levers.push_back(levelData->CreateLever(x, y, STATE_LEVER_OFF));
                             break;
                         case 'L': // Lever (state = on)
-                            levelData->SetTileDetails(x, y, TileType::Floor, true);
+                            levelData->SetTileDetails(x, y, TileType::Floor, false);
                             levers.push_back(levelData->CreateLever(x, y, STATE_LEVER_ON));
                             break;
                         case '_': // Pressure plate
-                            levelData->SetTileDetails(x, y, TileType::Floor, true);
+                            levelData->SetTileDetails(x, y, TileType::Floor, false);
                             plates.push_back(levelData->CreatePressurePlate(x, y));
                             break;
                         /// Radiation
