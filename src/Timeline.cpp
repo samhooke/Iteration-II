@@ -41,6 +41,7 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
     }
 
     int timeLimit = levelManager->iterationData->GetTimeLimit();
+    int timeMeltdown = levelManager->iterationData->GetTimeMeltdown();
     int currentTime = levelManager->iterationData->GetTime();
 
     int lineWidth = timeLimit + 4; // Add on four for the "[A:" and the "]"
@@ -52,15 +53,31 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
         t << "[" << players[i].designation << ":";
         for (int j = 0; j < timeLimit; j++) {
             if (j < players[i].timeBegin) {
-                t << " ";
+                if (j == timeMeltdown) {
+                    t << "!";
+                } else {
+                    t << " ";
+                }
             } else if (j < currentTime && j < players[i].timeExpire) {
-                t << "=";
+                if (j == timeMeltdown) {
+                    t << "!";
+                } else {
+                    t << "=";
+                }
             } else if (j == currentTime && players[i].controlling) {
                 t << "@";
             } else if (j < players[i].timeExpire) {
-                t << "-";
+                if (j == timeMeltdown) {
+                    t << "!";
+                } else {
+                    t << "-";
+                }
             } else {
-                t << " ";
+                if (j == timeMeltdown) {
+                    t << "!";
+                } else {
+                    t << " ";
+                }
             }
         }
         t << "]";

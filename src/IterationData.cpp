@@ -11,6 +11,10 @@ int IterationData::GetTime() {
     return time;
 }
 
+int IterationData::GetTimeMeltdown() {
+    return meltdown;
+}
+
 int IterationData::GetTimeLimit() {
     return catastrophe;
 }
