@@ -124,7 +124,12 @@ namespace GameObject {
 
                         /// Time Machine
                         index = GetObjectIndexAtPosWithTag(x, y, TAG_TIMEMACHINE);
-                        if (index >= 0) {
+
+                        // Check that time is at least 1
+                        // This is because a player is not allowed in a time machine when time == 0
+                        // This is because a player in a time machine automatically goes back 1 unit in time
+                        // This is because of Issue #4 where a player could avoid expiring by going back in time 0 units
+                        if (index >= 0 && time >= 1) {
 #ifdef DEBUG_TIMETRAVEL
                             std::cout << ::Timestamp(time) << "Clone '" << cloneDesignation << "' has entered a time machine" << std::endl;
 #endif // DEBUG_TIMETRAVEL
@@ -135,6 +140,9 @@ namespace GameObject {
                             // Tell the time machine information about ourselves so it can pass it on to the clone in the future (past)
                             TimeMachine* timeMachine = (TimeMachine*)levelManager->levelData->GetObjectPointer(index);
                             timeMachine->SetNextCloneDetails(this, time);
+
+                            // Automatically go back in time 1 unit
+                            levelManager->iterationData->GoBackward();
 
                             game->controls->ResetKeyDelay();
                         }
