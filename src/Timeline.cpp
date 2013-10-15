@@ -43,6 +43,10 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
     int timeLimit = levelManager->iterationData->GetTimeLimit();
     int currentTime = levelManager->iterationData->GetTime();
 
+    int lineWidth = timeLimit + 4; // Add on four for the "[A:" and the "]"
+    int displayWidth = game->display->GetWidth();
+    int xOffset = (displayWidth - lineWidth) / 2;
+
     for (int i = 0; i < (int)players.size(); i++) {
         std::ostringstream t;
         t << "[" << players[i].designation << ":";
@@ -60,6 +64,6 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
             }
         }
         t << "]";
-        game->display->WriteText(0, 30 + i, t.str().c_str());
+        game->display->WriteText(xOffset, 30 + i, t.str().c_str());
     }
 }
