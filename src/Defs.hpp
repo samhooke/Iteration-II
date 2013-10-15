@@ -21,7 +21,7 @@
 #define SLEEP_MILLISECONDS 20
 
 // How many seconds to wait before allowing to move again
-#define MOVEMENT_DELAY 0.15
+#define MOVEMENT_DELAY 0.05
 
 /// Controls
 

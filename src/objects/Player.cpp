@@ -247,8 +247,6 @@ namespace GameObject {
                 // This object has expired, so transfer control back to our parent
                 hasControl = false;
                 parent->hasControl = true;
-                x = -1;
-                y = -1;
             }
         }
 #ifdef DEBUG_TIMETRAVEL_VERBOSE
