@@ -31,10 +31,6 @@ std::string IterationData::GetCatastropheTMinus() {
     return os.str();
 }
 
-void IterationData::UpdateTimeline(Timeline* timeline) {
-    timeline->SetTMinus(GetMeltdownTMinus(), GetCatastropheTMinus());
-}
-
 bool IterationData::CanGoForward() {
     return time < catastrophe;
 }

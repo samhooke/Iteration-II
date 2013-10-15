@@ -1,7 +1,6 @@
 #ifndef ITERATIONMANAGER_HPP_INCLUDED
 #define ITERATIONMANAGER_HPP_INCLUDED
 
-#include "Timeline.hpp"
 #include "LevelManager.hpp"
 #include <string>
 
@@ -14,8 +13,6 @@ public:
     IterationData(LevelManager* levelManager);
 
     int time = 0;
-
-    void UpdateTimeline(Timeline* timeline);
 
     int GetTime();
     std::string GetMeltdownTMinus();

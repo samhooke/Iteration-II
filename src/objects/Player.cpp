@@ -19,6 +19,7 @@ namespace GameObject {
         this->original = original;
         this->parent = parent;
         this->expiryTime = expiryTime;
+        this->creationTime = levelManager->iterationData->GetTime();
     }
 
     Player::~Player() {}

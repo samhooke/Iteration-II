@@ -8,7 +8,6 @@
 PlayState PlayState::m_PlayState;
 
 void PlayState::Init(GameEngine* game) {
-    timeline = new Timeline();
     levelManager = new LevelManager(game);
     if (levelManager->Load(LEVEL_000)) {
         std::cout << "Loaded level successfully" << std::endl;
@@ -17,7 +16,6 @@ void PlayState::Init(GameEngine* game) {
     }
 }
 void PlayState::CleanUp() {
-    delete timeline;
     delete levelManager;
 }
 void PlayState::Pause() {}
@@ -50,12 +48,6 @@ void PlayState::RenderFrame(GameEngine* game) {
 
     // Update the tiles in Display
     levelManager->UpdateDisplay(game);
-
-    // Get Iteration to update the timeline's information
-    levelManager->iterationData->UpdateTimeline(timeline);
-
-    // Update the timeline in Display
-    timeline->UpdateDisplay(game);
 
     game->display->Render(game);
     game->window->display();

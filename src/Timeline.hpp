@@ -3,23 +3,14 @@
 
 #include <string>
 #include "GameEngine.hpp"
+#include "LevelManager.hpp"
 
 class Timeline {
-private:
-    int x = 1;
-    int y = 25;
-    int width = 78;
-    int height = 9;
-
-    std::string meltdownTMinus;
-    std::string catastropheTMinus;
 public:
     Timeline();
     ~Timeline();
 
-    void SetTMinus(std::string meltdownTMinus, std::string catastropheTMinus);
-
-    void UpdateDisplay(GameEngine* game);
+    void UpdateDisplay(GameEngine* game, LevelManager* levelManager);
 };
 
 #endif // TIMELINE_HPP_INCLUDED

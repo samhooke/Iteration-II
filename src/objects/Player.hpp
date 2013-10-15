@@ -18,6 +18,7 @@ namespace GameObject {
         bool original;          // True if this was the first Player
         Player* parent;         // Reference to the Player that made us
         int expiryTime;         // The time this Player was sent back in time (and so, the time it stops existing)
+        int creationTime;       // The time this Player was created (used by Timeline)
     private:
         float lastActionTime;
         void UpdateDisplayCharacter();

@@ -9,6 +9,7 @@
 #include "LevelData.hpp"
 #include "EventData.hpp"
 #include "LinkData.hpp"
+#include "Timeline.hpp"
 
 #include "Events.hpp"
 
@@ -17,12 +18,14 @@ LevelManager::LevelManager(GameEngine* game) {
     iterationData = new IterationData(this);
     eventData = new EventData();
     linkData = new LinkData();
+    timeline = new Timeline();
 }
 LevelManager::~LevelManager() {
     delete levelData;
     delete iterationData;
     delete eventData;
     delete linkData;
+    delete timeline;
 }
 
 bool LevelManager::StringToInt(std::string &s, int &i) {
@@ -462,4 +465,7 @@ void LevelManager::UpdateDisplay(GameEngine* game) {
             }
         }
     }
+
+    // Draw the timeline
+    timeline->UpdateDisplay(game, this);
 }
