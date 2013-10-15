@@ -40,7 +40,7 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
         }
     }
 
-    int timeLimit = 40;
+    int timeLimit = levelManager->iterationData->GetTimeLimit();
     int currentTime = levelManager->iterationData->GetTime();
 
     for (int i = 0; i < (int)players.size(); i++) {

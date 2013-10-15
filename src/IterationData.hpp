@@ -15,6 +15,7 @@ public:
     int time = 0;
 
     int GetTime();
+    int GetTimeLimit();
     std::string GetMeltdownTMinus();
     std::string GetCatastropheTMinus();
 

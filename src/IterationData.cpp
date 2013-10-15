@@ -11,6 +11,10 @@ int IterationData::GetTime() {
     return time;
 }
 
+int IterationData::GetTimeLimit() {
+    return catastrophe;
+}
+
 std::string IterationData::GetMeltdownTMinus() {
     int t = time - meltdown;
     std::ostringstream os;
