@@ -52,7 +52,6 @@ namespace GameObject {
         ~PressurePlate();
 
         void UpdateSprite();
-        void UpdateTimeChanged();
     };
 }
 

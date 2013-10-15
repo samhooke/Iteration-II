@@ -32,6 +32,9 @@ namespace GameObject {
 #endif // DEBUG_TIMETRAVEL_VERBOSE
         UpdateDisplayCharacter();
 
+        // index is used by various GetObjectAtPosWithTag() calls
+        int index;
+
         // Only act upon input if we are the player in control, and if the game has not ended
         if (Controlling() && !levelManager->endGame->Ended()) {
             if (game->controls->GetKeyDelaySufficient()) {
@@ -60,7 +63,7 @@ namespace GameObject {
                     }
 
                     // If we moved on top of a door that is shut, open it and move back
-                    int index = GetObjectIndexAtPosWithTag(x, y, TAG_DOOR);
+                    index = GetObjectIndexAtPosWithTag(x, y, TAG_DOOR);
                     if (index >= 0) {
                         GameObject::Door* door = (GameObject::Door*)levelManager->levelData->GetObjectPointer(index);
                         if (door->state == false) {
@@ -109,6 +112,36 @@ namespace GameObject {
                         // Now create an event to do this movement
                         Event::Base* eventPlayerMove = new Event::PlayerMove(time, this, x, y, xTo, yTo);
                         levelManager->eventData->AddEvent(eventPlayerMove);
+
+                        /// PressurePlate (stepping on)
+                        // Check for pressure plates in the square we are about to move to
+                        index = GetObjectIndexAtPosWithTag(xTo, yTo, TAG_PRESSUREPLATE);
+                        if (index >= 0) {
+                            // We are going to step on a pressure plate
+                            GameObject::PressurePlate* pressurePlate = (GameObject::PressurePlate*)levelManager->levelData->GetObjectPointer(index);
+
+                            // Check if the plate is up
+                            if (pressurePlate->state == STATE_PRESSUREPLATE_UP) {
+                                // The plate is not pressed, so create an event to press it
+                                Event::Base* eventPressurePlatePress = new Event::LinkableStateChange(time, pressurePlate, this, xTo, yTo, STATE_PRESSUREPLATE_UP);
+                                levelManager->eventData->AddEvent(eventPressurePlatePress);
+                            }
+                        }
+
+                        /// PressurePlate (stepping off)
+                        // Check for pressure plates in the square we are about to move off
+                        index = GetObjectIndexAtPosWithTag(x, y, TAG_PRESSUREPLATE);
+                        if (index >= 0) {
+                            // We are going to step off a pressure plate
+                            GameObject::PressurePlate* pressurePlate = (GameObject::PressurePlate*)levelManager->levelData->GetObjectPointer(index);
+
+                            // Check if the plate is down
+                            if (pressurePlate->state == STATE_PRESSUREPLATE_DOWN) {
+                                // The plate is pressed, so create an event to release it
+                                Event::Base* eventPressurePlateRelease = new Event::LinkableStateChange(time, pressurePlate, this, xTo, yTo, STATE_PRESSUREPLATE_DOWN);
+                                levelManager->eventData->AddEvent(eventPressurePlateRelease);
+                            }
+                        }
 
                         game->controls->ResetKeyDelay();
                         levelManager->iterationData->GoForward();

@@ -1,20 +1,23 @@
-22
-7
-####################  
-#..._._._._._._._._#  
-#...################  
-#P.Y#                 
-#...##################
-#...D.D.D.D.D.D.D.D.T#
-######################
+25
+11
+   #####                 
+   #_._#                 
+   #.#.#                 
+   #_._#                 
+####...##################
+#P...Y.D.D.D.D.D.D.D.D.T#
+####...##################
+   #_._#                 
+   #.#.#                 
+   #_._#                 
+   #####                 
 Timelimit: 40
 Critical: 20
-Link: Plate#1 => Door#5
-Link: Plate#2 => Door#7
-Link: Plate#3 => Door#1
-Link: Plate#4 => Door#3
-Link: Plate#5 => Door#2
+Link: Plate#1 => Door#1
+Link: Plate#2 => Door#2
+Link: Plate#3 => Door#3
+Link: Plate#4 => Door#4
+Link: Plate#5 => Door#5
 Link: Plate#6 => Door#6
-Link: Plate#7 => Door#8
-Link: Plate#8 => Door#4
-// 3, 5, 4, 8, 1, 6, 2, 7
+Link: Plate#7 => Door#7
+Link: Plate#8 => Door#8
