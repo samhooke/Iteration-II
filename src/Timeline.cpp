@@ -103,7 +103,9 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
                     t << "=";
                 }
             } else if (j == currentTime && players[i].controlling) {
-                t << "@";
+                t << (char)TILE_FACE_SOLID;
+            } else if (j == currentTime && j < players[i].timeExpire) {
+                t << (char)TILE_FACE_OUTLINE;
             } else if (j < players[i].timeExpire) {
                 if (j == timeMeltdown) {
                     t << "!";
