@@ -10,6 +10,7 @@
 #include "EventData.hpp"
 #include "LinkData.hpp"
 #include "Timeline.hpp"
+#include "EndGame.hpp"
 
 #include "Events.hpp"
 
@@ -19,6 +20,7 @@ LevelManager::LevelManager(GameEngine* game) {
     eventData = new EventData();
     linkData = new LinkData();
     timeline = new Timeline();
+    endGame = new EndGame();
 }
 LevelManager::~LevelManager() {
     delete levelData;
@@ -26,6 +28,7 @@ LevelManager::~LevelManager() {
     delete eventData;
     delete linkData;
     delete timeline;
+    delete endGame;
 }
 
 bool LevelManager::StringToInt(std::string &s, int &i) {
@@ -397,6 +400,13 @@ void LevelManager::UpdateTimeChanged() {
     for (int index = 0; index < num; index++) {
         levelData->CallObjectUpdateTimeChanged(index);
     }
+
+    // Check if we have lost
+    if (iterationData->GetTime() == iterationData->GetTimeLimit()) {
+
+        // We have lost
+        endGame->Meltdown();
+    }
 }
 
 void LevelManager::UpdateDisplay(GameEngine* game) {
@@ -468,4 +478,6 @@ void LevelManager::UpdateDisplay(GameEngine* game) {
 
     // Draw the timeline
     timeline->UpdateDisplay(game, this);
+
+    endGame->UpdateDisplay(game, this);
 }

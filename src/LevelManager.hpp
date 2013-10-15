@@ -11,6 +11,7 @@ class IterationData;
 class EventData;
 class LinkData;
 class Timeline;
+class EndGame;
 
 class LevelManager {
 private:
@@ -25,6 +26,7 @@ public:
     EventData* eventData;
     LinkData* linkData;
     Timeline* timeline;
+    EndGame* endGame;
 
     bool Load(const char* levelName);
     void Update(GameEngine* game);

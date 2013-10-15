@@ -71,6 +71,8 @@
 		<Unit filename="src/Defs.hpp" />
 		<Unit filename="src/Display.cpp" />
 		<Unit filename="src/Display.hpp" />
+		<Unit filename="src/EndGame.cpp" />
+		<Unit filename="src/EndGame.hpp" />
 		<Unit filename="src/EventBase.cpp" />
 		<Unit filename="src/EventBase.hpp" />
 		<Unit filename="src/EventData.cpp" />
