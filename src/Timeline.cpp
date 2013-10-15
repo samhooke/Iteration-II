@@ -17,6 +17,7 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
 
     struct PlayerData {
         char designation;
+        char parentDesignation;
         int timeBegin;
         int timeExpire;
         bool controlling;
@@ -35,6 +36,11 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
             GameObject::Player* player = (GameObject::Player*)tempObj;
 
             pd.designation = player->cloneDesignation;
+            if (player->original) {
+                pd.parentDesignation = ' ';
+            } else {
+                pd.parentDesignation = player->parent->cloneDesignation;
+            }
             pd.timeBegin = player->creationTime;
             if (player->original) {
                 // Give the original player a really high expiry time because it never expires
@@ -60,7 +66,7 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
     int timeMeltdown = levelManager->iterationData->GetTimeMeltdown();
     int currentTime = levelManager->iterationData->GetTime();
 
-    int lineWidth = timeLimit + 5; // Add on four for the "[A:" and the "]|"
+    int lineWidth = timeLimit + 6; // Add on six for the "A[" and the "]A |"
     int displayWidth = game->display->GetWidth();
     int displayHeight = game->display->GetHeight();
     int xOffset = (displayWidth - lineWidth) / 2;
@@ -90,7 +96,7 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
 
         // Build up a timeline for a player
         std::ostringstream t;
-        t << "[" << players[i].designation << ":";
+        t << players[i].designation << "[";
         for (int j = 0; j < timeLimit; j++) {
             if (j < players[i].timeBegin) {
                 if (j == timeMeltdown) {
@@ -122,7 +128,7 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
                 }
             }
         }
-        t << "]";
+        t << "]" << players[i].parentDesignation << " ";
 
         if (i == iScroll) {
             t << "*";

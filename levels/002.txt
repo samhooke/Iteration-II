@@ -8,7 +8,7 @@
   #_._#     
   #####     
 Timelimit: 10
-Critical: 9
+Critical: 10
 Link: Plate#1 => Door#1
 Link: Plate#2 => Door#3
 Link: Plate#3 => Door#2
