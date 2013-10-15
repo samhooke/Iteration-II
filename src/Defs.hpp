@@ -69,4 +69,10 @@
 #define LEVEL_DIR "levels/"
 #define LEVEL_000 LEVEL_DIR "000.txt"
 
+/// Timeline
+
+// Timeline will be as high as we can fit into the remainder of the screen
+#define TIMELINE_HEIGHT_MAX (DISPLAY_HEIGHT - LEVEL_HEIGHT_MAX)
+#define TIMELINE_WIDTH_MAX (DISPLAY_WIDTH)
+
 #endif // DEFS_HPP_INCLUDED

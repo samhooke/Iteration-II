@@ -22,6 +22,11 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
         bool controlling;
     } ;
 
+    // Define as 0 because this value will not be set when the player is in time travel
+    // That is because there will be no player controlling (the time machine will be controlling)
+    int playerControlling = 0;
+
+    // Read all player information required for the timeline into a vector of PlayerData
     std::vector<PlayerData> players;
     for (int index = 0; index < (int)levelManager->levelData->GetNumObjects(); index++) {
         GameObject::Base* tempObj = levelManager->levelData->GetObjectPointer(index);
@@ -31,24 +36,57 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
 
             pd.designation = player->cloneDesignation;
             pd.timeBegin = player->creationTime;
-            if (player->original)
+            if (player->original) {
+                // Give the original player a really high expiry time because it never expires
+                // TODO: When death is added, this may no longer work. In that case, perhaps check
+                // for whether the expiry time < 0 to see if it never dies
                 pd.timeExpire = 999999;
-            else
+            } else
                 pd.timeExpire = player->expiryTime;
             pd.controlling = player->hasControl;
+
+            if (pd.controlling) {
+                // playerControlling stores the position in players of the player for which controlling==true
+                // The position in the vector is equal to the size of the vector at the moment
+                playerControlling = players.size();
+            }
+
             players.push_back(pd);
         }
     }
 
+    // Get various time limits
     int timeLimit = levelManager->iterationData->GetTimeLimit();
     int timeMeltdown = levelManager->iterationData->GetTimeMeltdown();
     int currentTime = levelManager->iterationData->GetTime();
 
     int lineWidth = timeLimit + 4; // Add on four for the "[A:" and the "]"
     int displayWidth = game->display->GetWidth();
+    int displayHeight = game->display->GetHeight();
     int xOffset = (displayWidth - lineWidth) / 2;
 
-    for (int i = 0; i < (int)players.size(); i++) {
+    int maxHeight = TIMELINE_HEIGHT_MAX;
+    int maxWidth = TIMELINE_WIDTH_MAX;
+
+    if (lineWidth > maxWidth) {
+        std::cout << "WARNING: The width of the timeline exceeds the maximum (lineWidth:" << lineWidth << ",maxWidth:" << maxWidth << ")" << std::endl;
+    }
+
+    // Place the controlling player in the center
+    int iStart = playerControlling - (maxHeight / 2);
+    if (iStart < 0) {
+        iStart = 0;
+    }
+
+    // Show as much as possible
+    int iEnd = (int)players.size();
+    if (iEnd > maxHeight + iStart)
+        iEnd = maxHeight + iStart;
+
+    // Loop through PlayerData
+    for (int i = iStart; i < iEnd; i++) {
+
+        // Build up a timeline for a player
         std::ostringstream t;
         t << "[" << players[i].designation << ":";
         for (int j = 0; j < timeLimit; j++) {
@@ -81,6 +119,7 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
             }
         }
         t << "]";
-        game->display->WriteText(xOffset, 30 + i, t.str().c_str());
+
+        game->display->WriteText(xOffset, displayHeight - maxHeight + i - iStart, t.str().c_str());
     }
 }
