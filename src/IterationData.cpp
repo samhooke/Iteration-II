@@ -19,6 +19,14 @@ int IterationData::GetTimeLimit() {
     return catastrophe;
 }
 
+void IterationData::SetTimeMeltdown(int meltdown) {
+    this->meltdown = meltdown;
+}
+
+void IterationData::SetTimeLimit(int timelimit) {
+    this->catastrophe = timelimit;
+}
+
 std::string IterationData::GetMeltdownTMinus() {
     int t = time - meltdown;
     std::ostringstream os;

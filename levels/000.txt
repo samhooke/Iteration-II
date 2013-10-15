@@ -9,5 +9,7 @@
 #.......D.....D.T.#
 #.......#.....#...#
 ###################
+Timelimit: 40
+Critical: 20
 Link: Lever#1 => Door#2
 Link: Lever#1 ~> Door#3

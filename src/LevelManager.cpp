@@ -44,6 +44,8 @@ bool LevelManager::Load(const char* levelName) {
     expectedWidth = 80;
     expectedHeight = 30;
 
+    int timelimit = 40, critical = 20; // These values are read from the file
+
     // In the level file, there are descriptions for how objects are linked together
     // These links refer to objects by the order in which they appear in the level
     // We use these vectors to record the order in which these linkable objects are created
@@ -280,6 +282,36 @@ bool LevelManager::Load(const char* levelName) {
                         std::cout << "(There are the wrong number of arguments)" << std::endl;
                         invalidMap = true;
                     }
+                } else if (lineExp[0] == "Timelimit:") {
+                    if (lineExp.size() == 2) {
+                        // Read the Timelimit
+                        if (StringToInt(lineExp[1], timelimit)) {
+#if DEBUG_VERBOSE
+                            std::cout << "Read timelimit as: " << timelimit << std::endl;
+#endif // DEBUG_VERBOSE
+                        } else {
+                            std::cout << "Invalid \"Timelimit:\" command: " << line << std::endl;
+                            std::cout << "(Invalid timelimit)" << std::endl;
+                        }
+                    } else {
+                        std::cout << "Invalid \"Timelimit:\" command: " << line << std::endl;
+                        std::cout << "(There are the wrong number of arguments)" << std::endl;
+                    }
+                } else if (lineExp[0] == "Critical:") {
+                    if (lineExp.size() == 2) {
+                        // Read the Critical
+                        if (StringToInt(lineExp[1], critical)) {
+#if DEBUG_VERBOSE
+                            std::cout << "Read critical as: " << critical << std::endl;
+#endif // DEBUG_VERBOSE
+                        } else {
+                            std::cout << "Invalid \"Critical:\" command: " << line << std::endl;
+                            std::cout << "(Invalid critical)" << std::endl;
+                        }
+                    } else {
+                        std::cout << "Invalid \"Critical:\" command: " << line << std::endl;
+                        std::cout << "(There are the wrong number of arguments)" << std::endl;
+                    }
                 }
             }
             lineNumber++;
@@ -296,6 +328,17 @@ bool LevelManager::Load(const char* levelName) {
         invalidMap = true;
         std::cout << "ERROR: Cannot open file: " << levelName << std::endl;
     }
+
+    // Check the timelimit and critical times are valid
+    if (timelimit >= 1 && critical >= 1 && critical <= timelimit && timelimit <= 75 && critical <= 75) {
+#if DEBUG_VERBOSE
+        std::cout << "timelimit and critical are valid" << std::endl;
+#endif // DEBUG_VERBOSE
+    } else {
+        invalidMap = true;
+        std::cout << "ERROR: Invalid values for timelimit and/or critical" << std::endl;
+    }
+
     if (invalidMap) {
         // Map was invalid, so just populated the levelData with walls
         for (y = 0; y < expectedHeight; y++) {
@@ -308,7 +351,13 @@ bool LevelManager::Load(const char* levelName) {
         std::cout << "Destroying all generated game objects because level failed to load completely" << std::endl;
         levelData->DestroyAllObjects();
     } else {
-        // Map was valid, so work out what characters should be displayed
+        // Map was valid
+
+        // Set the timelimit and critical that were read from file
+        iterationData->SetTimeLimit(timelimit);
+        iterationData->SetTimeMeltdown(critical);
+
+        // Work out what characters should be displayed
         levelData->CalculateDisplayCharacters();
 
         // And update the links once before we start
