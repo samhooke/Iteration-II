@@ -52,6 +52,7 @@ bool LevelManager::Load(const char* levelName) {
     // These vectors are then used to link up the appropriate objects
     std::vector<int> doors;
     std::vector<int> levers;
+    std::vector<int> plates;
 
     bool invalidMap = false;
     if (f.is_open()) {
@@ -118,6 +119,10 @@ bool LevelManager::Load(const char* levelName) {
                         case 'L': // Lever (state = on)
                             levelData->SetTileDetails(x, y, TileType::Floor, true);
                             levers.push_back(levelData->CreateLever(x, y, STATE_LEVER_ON));
+                            break;
+                        case '_': // Pressure plate
+                            levelData->SetTileDetails(x, y, TileType::Floor, true);
+                            plates.push_back(levelData->CreatePressurePlate(x, y));
                             break;
                         /// Radiation
                         case 'r': // Radiation (weak)
@@ -219,6 +224,11 @@ bool LevelManager::Load(const char* levelName) {
                                             indexTooGreat = true;
                                         else
                                             objectFrom = (GameObject::StaticLinkable*)levelData->GetObjectPointer(doors[objectFromIndex]);
+                                    } else if (objectFromExp[0] == "Plate") {
+                                        if (objectFromIndex >= (int)doors.size())
+                                            indexTooGreat = true;
+                                        else
+                                            objectFrom = (GameObject::StaticLinkable*)levelData->GetObjectPointer(plates[objectFromIndex]);
                                     } else {
                                         std::cout << "Invalid \"Link:\" command: " << line << std::endl;
                                         std::cout << "(First object is not recognised)" << std::endl;
@@ -237,6 +247,11 @@ bool LevelManager::Load(const char* levelName) {
                                             indexTooGreat = true;
                                         else
                                             objectTo = (GameObject::StaticLinkable*)levelData->GetObjectPointer(doors[objectToIndex]);
+                                    } else if (objectFromExp[0] == "Plate") {
+                                        if (objectFromIndex >= (int)doors.size())
+                                            indexTooGreat = true;
+                                        else
+                                            objectFrom = (GameObject::StaticLinkable*)levelData->GetObjectPointer(plates[objectFromIndex]);
                                     } else {
                                         std::cout << "Invalid \"Link:\" command: " << line << std::endl;
                                         std::cout << "(Second object is not recognised)" << std::endl;
@@ -414,10 +429,9 @@ void LevelManager::Update(GameEngine* game) {
         // 2) Execute all events for the current time
         eventData->ExecuteBackwardEvents(iterationData->GetTime());
 
-        linkData->Update();
-
         // Call UpdateTimeChanged() in all GameObjects
         UpdateTimeChanged();
+        linkData->Update();
     }
 
     // Call Update() in all GameObjects
@@ -436,10 +450,9 @@ void LevelManager::Update(GameEngine* game) {
         // 2) Increment time
         iterationData->time++;
 
-        linkData->Update();
-
         // Call UpdateTimeChanged() in all GameObjects
         UpdateTimeChanged();
+        linkData->Update();
     }
 }
 

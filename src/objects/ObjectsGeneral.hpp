@@ -43,6 +43,17 @@ namespace GameObject {
 
         void UpdateSprite();
     };
+
+    class PressurePlate : public GameObject::StaticLinkable {
+    public:
+        void Update();
+
+        PressurePlate(int x, int y, GameEngine* game, LevelManager* levelManager, bool state);
+        ~PressurePlate();
+
+        void UpdateSprite();
+        void UpdateTimeChanged();
+    };
 }
 
 #endif // OBJECTSGENERAL_HPP_INCLUDED

@@ -284,3 +284,13 @@ int LevelData::CreateRadiation(int x, int y, int intensity) {
         std::cout << "WARNING: Tried to create radiation with an invalid intensity" << std::endl;
     return (int)levelObjects.size() - 1;
 }
+
+int LevelData::CreatePressurePlate(int x, int y) {
+#ifdef DEBUG_VERBOSE
+    std::cout << "PressurePlate(" << x << "," << y << ")" << std::endl;
+#endif
+    GameObject::Base* obj = new GameObject::PressurePlate(x, y, game, levelManager, STATE_PRESSUREPLATE_UP);
+    obj->tag = TAG_PRESSUREPLATE;
+    levelObjects.push_back(obj);
+    return (int)levelObjects.size() - 1;
+}

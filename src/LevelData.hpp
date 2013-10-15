@@ -59,6 +59,7 @@ public:
     int CreateTerminal(int x, int y);
     int CreateTimeMachine(int x, int y);
     int CreateRadiation(int x, int y, int intensity);
+    int CreatePressurePlate(int x, int y);
 };
 
 #endif // LEVELDATA_HPP_INCLUDED

@@ -36,6 +36,9 @@ namespace GameObject {
         bool hasControl = false;
 
         bool Controlling();
+
+        bool IsPosFree(int x, int y);       // Checks only against tiles (wall, floor, restricted)
+        int GetObjectIndexAtPosWithTag(int x, int y, std::string tag);
     };
 
     // Objects that remain fixed
@@ -58,9 +61,6 @@ namespace GameObject {
 
         bool SetPos(int x, int y);          // Jumps to position x,y if IsPosFree
         bool SetPosRelative(int x, int y);  // Moves relative to current position by x,y if IsPosFree
-        bool IsPosFree(int x, int y);       // Checks only against tiles (wall, floor, restricted)
-
-        int GetObjectIndexAtPosWithTag(int x, int y, std::string tag);
     };
 
     class StaticLinkable : public Static {
