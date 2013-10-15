@@ -60,7 +60,7 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
     int timeMeltdown = levelManager->iterationData->GetTimeMeltdown();
     int currentTime = levelManager->iterationData->GetTime();
 
-    int lineWidth = timeLimit + 4; // Add on four for the "[A:" and the "]"
+    int lineWidth = timeLimit + 5; // Add on four for the "[A:" and the "]|"
     int displayWidth = game->display->GetWidth();
     int displayHeight = game->display->GetHeight();
     int xOffset = (displayWidth - lineWidth) / 2;
@@ -82,6 +82,8 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
     int iEnd = (int)players.size();
     if (iEnd > maxHeight + iStart)
         iEnd = maxHeight + iStart;
+
+    int iScroll = iStart + ((float)playerControlling / (float)players.size()) * (iEnd - iStart);
 
     // Loop through PlayerData
     for (int i = iStart; i < iEnd; i++) {
@@ -121,6 +123,12 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
             }
         }
         t << "]";
+
+        if (i == iScroll) {
+            t << "*";
+        } else {
+            t << "|";
+        }
 
         game->display->WriteText(xOffset, displayHeight - maxHeight + i - iStart, t.str().c_str());
     }
