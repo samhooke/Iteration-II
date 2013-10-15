@@ -179,8 +179,11 @@ namespace GameObject {
                         /// Terminal
                         index = GetObjectIndexAtPosWithTag(x, y, TAG_TERMINAL);
                         if (index >= 0) {
-                            // We win
-                            levelManager->endGame->Victory();
+                            // Check that the meltdown has not occurred yet
+                            if (levelManager->iterationData->GetTime() < levelManager->iterationData->GetTimeMeltdown()) {
+                                // We win
+                                levelManager->endGame->Victory();
+                            }
                         }
                     } else if (keyAction2 && levelManager->iterationData->CanGoForward()) {
                         // Move forward in time without moving

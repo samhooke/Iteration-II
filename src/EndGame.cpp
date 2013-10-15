@@ -31,12 +31,19 @@ void EndGame::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
         std::ostringstream msg2;
 
         switch (endReason) {
-            case EndReason::Meltdown: msg << "Meltdown"; break;
-            case EndReason::Victory:  msg << "Victory";  break;
-            default:                  msg << "???ERR???"; break;
+            case EndReason::Meltdown:
+                msg << "Meltdown";
+                msg2 << "Press <Enter> to retry";
+                break;
+            case EndReason::Victory:
+                msg << "Victory";
+                msg2 << "Press <Enter> to continue";
+                break;
+            default:
+                msg << "???ERR???";
+                msg2 << "Press <Enter> to panic";
+                break;
         }
-
-        msg2 << "<R> to retry";
 
         int msgLen = msg.str().length();
         int msgLen2 = msg2.str().length();
