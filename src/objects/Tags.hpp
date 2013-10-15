@@ -6,5 +6,6 @@
 #define TAG_PLAYER      "Player"
 #define TAG_DOOR        "Door"
 #define TAG_LEVER       "Lever"
+#define TAG_TERMINAL    "Terminal"
 
 #endif // TAGS_HPP_INCLUDED

@@ -255,7 +255,9 @@ int LevelData::CreateTerminal(int x, int y) {
 #ifdef DEBUG_VERBOSE
     std::cout << "CreateTerminal(" << x << "," << y << ")" << std::endl;
 #endif
-    levelObjects.push_back(new GameObject::Terminal(x, y, game, levelManager));
+    GameObject::Base* obj = new GameObject::Terminal(x, y, game, levelManager);
+    obj->tag = TAG_TERMINAL;
+    levelObjects.push_back(obj);
     return (int)levelObjects.size() - 1;
 }
 

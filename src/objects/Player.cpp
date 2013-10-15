@@ -8,6 +8,7 @@
 #include "../EventData.hpp"
 #include "../Events.hpp"
 #include "../General.hpp"
+#include "../EndGame.hpp"
 #include <iostream>
 
 namespace GameObject {
@@ -30,7 +31,9 @@ namespace GameObject {
         std::cout << ::Timestamp(time) << "This is clone '" << cloneDesignation << "' about to update" << std::endl;
 #endif // DEBUG_TIMETRAVEL_VERBOSE
         UpdateDisplayCharacter();
-        if (Controlling()) {
+
+        // Only act upon input if we are the player in control, and if the game has not ended
+        if (Controlling() && !levelManager->endGame->Ended()) {
             if (game->controls->GetKeyDelaySufficient()) {
                 bool moved = false;
 
@@ -171,6 +174,13 @@ namespace GameObject {
                                 std::cout << "BackwardEvent: " << resultBackward.msg << std::endl;
                                 delete eventLeverPull;
                             }
+                        }
+
+                        /// Terminal
+                        index = GetObjectIndexAtPosWithTag(x, y, TAG_TERMINAL);
+                        if (index >= 0) {
+                            // We win
+                            levelManager->endGame->Victory();
                         }
                     } else if (keyAction2 && levelManager->iterationData->CanGoForward()) {
                         // Move forward in time without moving
