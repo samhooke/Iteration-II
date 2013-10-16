@@ -368,6 +368,17 @@ bool LevelManager::Load(const char* levelName) {
     } else {
         // Map was valid
 
+        // Tell LinkData which objects are linkable
+        for (int i = 0; i < (int)doors.size(); i++) {
+            linkData->GiveReferenceToStaticLinkableObject((GameObject::StaticLinkable*)levelData->GetObjectPointer(doors[i]));
+        }
+        for (int i = 0; i < (int)levers.size(); i++) {
+            linkData->GiveReferenceToStaticLinkableObject((GameObject::StaticLinkable*)levelData->GetObjectPointer(levers[i]));
+        }
+        for (int i = 0; i < (int)plates.size(); i++) {
+            linkData->GiveReferenceToStaticLinkableObject((GameObject::StaticLinkable*)levelData->GetObjectPointer(plates[i]));
+        }
+
         // Set the timelimit and critical that were read from file
         iterationData->SetTimeLimit(timelimit);
         iterationData->SetTimeMeltdown(critical);

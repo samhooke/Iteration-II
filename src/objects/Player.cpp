@@ -235,28 +235,37 @@ namespace GameObject {
                             Event::LinkableStateChange* eventLeverPull = new Event::LinkableStateChange(time, (GameObject::StaticLinkable*)lever, this, x, y, lever->state);
 
                             // Attempt the event forward and backward to verify we satisfy the conditions for it
-                            Event::Result resultForward = eventLeverPull->ForwardEvent();
-                            Event::Result resultBackward = eventLeverPull->BackwardEvent();
+                            //Event::Result resultForward = eventLeverPull->ForwardEvent();
+                            //Event::Result resultBackward = eventLeverPull->BackwardEvent();
 
-                            /*
-                            // NOTE: This code is flawed logically
-                            // The aim was to try and see whether a player will be killed next frame, and if so, create the kill event this frame
-                            // The problem is we don't know where all the players will be next frame (unless if we wind the simulation forward...
-                            // ...but that will open up a whole host of new problems)
+                            // Take a snapshot of the state of every single GameObject::StaticLinkable
+                            levelManager->linkData->SnapshotTake();
+
+                            // Go forward one step and update links to see what effect pulling this lever has
                             Event::Result resultForward = eventLeverPull->ForwardEvent();
                             levelManager->linkData->Update();
 
-                            // Check if this action killed anyone
-                            std::vector<GameObject::Player*> playersOnShutDoors = levelManager->levelData->GetAllPlayersOnShutDoors();
-                            for (int i = 0; i < (int)playersOnShutDoors.size(); i++) {
-                                // Kill all players who will be on closed doors
-                                Event::PlayerDie_Linkable* eventPlayerKilledByDoor = new Event::PlayerDie_Linkable(time, playersOnShutDoors[i], playersOnShutDoors[i]->x, playersOnShutDoors[i]->y, lever, lever->x, lever->y, !lever->state);
-                                levelManager->eventData->AddEvent(eventPlayerKilledByDoor);
+                            // Take another snapshot of the state of every single GameObject::StaticLinkable
+                            // All those whose states have changed are returned and stored in `snapshot`
+                            std::vector<GameObject::StaticLinkable*> doorsThatShut = levelManager->linkData->SnapshotDiff(TAG_DOOR, STATE_DOOR_SHUT);
+
+                            // `doorsThatShut` now contains a list of all GameObject::StaticLinkable whose tag
+                            // is TAG_DOOR and whose state changed to STATE_DOOR_SHUT as a result of the LeverPull event
+
+                            // Get a list of every single player because we need to iterate though this list a lot
+                            std::vector<GameObject::Player*> players = levelManager->levelData->GetListOfAllPlayers();
+
+                            // Create tentative events for each of those doors killing each player
+                            for (int i = 0; i < (int)doorsThatShut.size(); i++) {
+                                for (int j = 0; j < (int)players.size(); j++) {
+                                    Event::PlayerDie_Linkable* eventPlayerKilledByDoor = new Event::PlayerDie_Linkable(time, players[j], doorsThatShut[i]->x, doorsThatShut[i]->y, doorsThatShut[i], doorsThatShut[i]->x, doorsThatShut[i]->y, STATE_DOOR_OPEN);
+                                    levelManager->eventData->AddTentativeEvent(eventPlayerKilledByDoor);
+                                }
                             }
 
+                            // Go back one step and update all links to reverse all the changes that we made
                             Event::Result resultBackward = eventLeverPull->BackwardEvent();
                             levelManager->linkData->Update();
-                            */
 
                             if (resultForward.success && resultBackward.success) {
                                 // The event was tested successfully, so add it to the events

@@ -182,6 +182,18 @@ std::vector<GameObject::Player*> LevelData::GetAllPlayersOnShutDoors() {
     return playersOnShutDoors;
 }
 
+std::vector<GameObject::Player*> LevelData::GetListOfAllPlayers() {
+    std::vector<GameObject::Player*> allPlayers;
+
+    for (int i = 0; i < (int)levelObjects.size(); i++) {
+        if (levelObjects[i]->tag == TAG_PLAYER) {
+            allPlayers.push_back((GameObject::Player*)levelObjects[i]);
+        }
+    }
+
+    return allPlayers;
+}
+
 void LevelData::SetObjectHasControl(int index, bool hasControl) {
     if (levelObjects[index]->canHaveControl)
         levelObjects[index]->hasControl = hasControl;
