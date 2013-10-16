@@ -5,6 +5,8 @@
 #include "../GameEngine.hpp"
 #include "../LevelManager.hpp"
 
+#include "../Events.hpp"
+
 namespace GameObject {
     class Player : public Dynamic {
     public:
@@ -23,6 +25,7 @@ namespace GameObject {
     private:
         float lastActionTime;
         void UpdateDisplayCharacter();
+        void CreateFutureRepercussions(Event::LinkableStateChange* event);
 
         bool ExpiresThisFrame(); // True if it is our expiryTime this (time)
         bool ExpiresNextFrame(); // True if it is our expiryTime this (time + 1)

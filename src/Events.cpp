@@ -173,7 +173,7 @@ namespace Event {
         result.msg = "";
         std::ostringstream msg;
 
-        if (player->x == xPlayer && player->y == yPlayer) {
+        if ((player->x == xPlayer && player->y == yPlayer) || !failOnPlayerPos) {
             if (linkable->state == stateFrom) {
                 linkable->state = stateTo;
                 result.success = true;
@@ -194,7 +194,7 @@ namespace Event {
         result.msg = "";
         std::ostringstream msg;
 
-        if (player->x == xPlayer && player->y == yPlayer) {
+        if ((player->x == xPlayer && player->y == yPlayer) || !failOnPlayerPos) {
             if (linkable->state == stateTo) {
                 linkable->state = stateFrom;
                 result.success = true;

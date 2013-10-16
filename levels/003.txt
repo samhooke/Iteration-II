@@ -1,10 +1,11 @@
 8
 5
 ########
-#.....l#
-#.P.Y.##
-#.....D#
+#_....l#
+##.PY.##
+#D....D#
 ########
 Timelimit: 40
 Critical: 40
-Link: Lever#1 ~> Door#1
+Link: Lever#1 ~> Door#2
+Link: Plate#1 => Door#1

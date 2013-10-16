@@ -19,6 +19,9 @@ namespace Event {
 
         virtual Result ForwardEvent() = 0;
         virtual Result BackwardEvent() = 0;
+
+        void SetFailOnPlayerPos(bool failOnPlayerPos);
+        bool failOnPlayerPos = true;
     };
 }
 

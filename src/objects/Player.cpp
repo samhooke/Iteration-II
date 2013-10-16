@@ -165,8 +165,10 @@ namespace GameObject {
                             // Check if the plate is up
                             if (pressurePlate->state == STATE_PRESSUREPLATE_UP) {
                                 // The plate is not pressed, so create an event to press it
-                                Event::Base* eventPressurePlatePress = new Event::LinkableStateChange(time, pressurePlate, this, xTo, yTo, STATE_PRESSUREPLATE_UP);
-                                levelManager->eventData->AddEvent(eventPressurePlatePress);
+                                Event::LinkableStateChange* eventPressurePlatePress = new Event::LinkableStateChange(time, pressurePlate, this, xTo, yTo, STATE_PRESSUREPLATE_UP);
+
+                                CreateFutureRepercussions(eventPressurePlatePress);
+                                //levelManager->eventData->AddEvent(eventPressurePlatePress);
                             }
                         }
 
@@ -180,8 +182,10 @@ namespace GameObject {
                             // Check if the plate is down
                             if (pressurePlate->state == STATE_PRESSUREPLATE_DOWN) {
                                 // The plate is pressed, so create an event to release it
-                                Event::Base* eventPressurePlateRelease = new Event::LinkableStateChange(time, pressurePlate, this, xTo, yTo, STATE_PRESSUREPLATE_DOWN);
-                                levelManager->eventData->AddEvent(eventPressurePlateRelease);
+                                Event::LinkableStateChange* eventPressurePlateRelease = new Event::LinkableStateChange(time, pressurePlate, this, xTo, yTo, STATE_PRESSUREPLATE_DOWN);
+
+                                CreateFutureRepercussions(eventPressurePlateRelease);
+                                //levelManager->eventData->AddEvent(eventPressurePlateRelease);
                             }
                         }
 
@@ -234,65 +238,7 @@ namespace GameObject {
                             // Create a LeverPull event
                             Event::LinkableStateChange* eventLeverPull = new Event::LinkableStateChange(time, (GameObject::StaticLinkable*)lever, this, x, y, lever->state);
 
-                            // Attempt the event forward and backward to verify we satisfy the conditions for it
-                            //Event::Result resultForward = eventLeverPull->ForwardEvent();
-                            //Event::Result resultBackward = eventLeverPull->BackwardEvent();
-
-                            // Take a snapshot of the state of every single GameObject::StaticLinkable
-                            levelManager->linkData->SnapshotTake();
-
-                            // Go forward one step and update links to see what effect pulling this lever has
-                            Event::Result resultForward = eventLeverPull->ForwardEvent();
-                            levelManager->linkData->Update();
-
-                            // Take another snapshot of the state of every single GameObject::StaticLinkable
-                            // All those whose states have changed are returned and stored in `snapshot`
-                            std::vector<GameObject::StaticLinkable*> doorsThatShut = levelManager->linkData->SnapshotDiff(TAG_DOOR, STATE_DOOR_SHUT);
-
-                            // `doorsThatShut` now contains a list of all GameObject::StaticLinkable whose tag
-                            // is TAG_DOOR and whose state changed to STATE_DOOR_SHUT as a result of the LeverPull event
-
-                            // Create an event where each door kills every player on its square
-                            for (int i = 0; i < (int)doorsThatShut.size(); i++) {
-                                Event::LinkableKillAllPlayersAt* eventPlayersKilledByDoor = new Event::LinkableKillAllPlayersAt(time, levelManager->levelData, doorsThatShut[i], doorsThatShut[i]->x, doorsThatShut[i]->y, STATE_DOOR_OPEN, STATE_DOOR_SHUT);
-                                levelManager->eventData->AddEvent(eventPlayersKilledByDoor);
-                            }
-
-                            // This below section of code is the old approach to killing players. It does not work
-                            // because it only kills players who exist - it does not kill those who don't exist *yet*.
-                            // This means that the controlling player could not be killed by any of their past actions!
-                            // The new approach, above, which uses Event::LinkableKillAllPlayersAt uses a rather crude
-                            // solution whereby an event is created that kills every single player at a given position.
-                            // Since the list of players is generated when the event is called, all players who exist
-                            // are affeted!
-                            /*
-                            // Get a list of every single player because we need to iterate though this list a lot
-                            std::vector<GameObject::Player*> players = levelManager->levelData->GetListOfAllPlayers();
-
-                            // Create tentative events for each of those doors killing each player
-                            for (int i = 0; i < (int)doorsThatShut.size(); i++) {
-                                for (int j = 0; j < (int)players.size(); j++) {
-                                    Event::PlayerDie_Linkable* eventPlayerKilledByDoor = new Event::PlayerDie_Linkable(time, players[j], doorsThatShut[i]->x, doorsThatShut[i]->y, doorsThatShut[i], doorsThatShut[i]->x, doorsThatShut[i]->y, STATE_DOOR_OPEN);
-                                    levelManager->eventData->AddTentativeEvent(eventPlayerKilledByDoor);
-                                }
-                            }
-                            */
-
-                            // Go back one step and update all links to reverse all the changes that we made
-                            Event::Result resultBackward = eventLeverPull->BackwardEvent();
-                            levelManager->linkData->Update();
-
-                            if (resultForward.success && resultBackward.success) {
-                                // The event was tested successfully, so add it to the events
-                                levelManager->eventData->AddEvent(eventLeverPull);
-                                game->controls->ResetKeyDelay();
-                                levelManager->iterationData->GoForward();
-                            } else {
-                                std::cout << "ERROR: Could not add Event::LinkableStateChange for the following reasons:" << std::endl;
-                                std::cout << "ForwardEvent: " << resultForward.msg << std::endl;
-                                std::cout << "BackwardEvent: " << resultBackward.msg << std::endl;
-                                delete eventLeverPull;
-                            }
+                            CreateFutureRepercussions(eventLeverPull);
                         }
 
                         /// Terminal
@@ -338,6 +284,58 @@ namespace GameObject {
 #ifdef DEBUG_TIMETRAVEL_VERBOSE
         std::cout << ::Timestamp(levelManager->iterationData->GetTime()) << "This is clone '" << cloneDesignation << "' reporting that time changed without incident" << std::endl;
 #endif // DEBUG_TIMETRAVEL_VERBOSE
+    }
+
+// The overview of the following function is this:
+// * Tests the supplied event runs successfully
+// * Creates an event to kill any players who will die
+//   as a result of this event (e.g. crushed in door)
+// * Adds the event to the event list
+// * Resets the key delay and goes forward in time 1 step
+// * If the event was not successful, it is deleted
+    void Player::CreateFutureRepercussions(Event::LinkableStateChange* event) {
+        // Take a snapshot of the state of every single GameObject::StaticLinkable
+        levelManager->linkData->SnapshotTake();
+
+        // Disable ForwardEvent() and BackwardEvent() failing when the player is in the wrong place
+        // This is required because in the following stage where we test the event, the player will
+        // NOT move and so will almost certainly be in the wrong place
+        event->SetFailOnPlayerPos(false);
+
+        // Go forward one step and update links to see what effect pulling this lever has
+        Event::Result resultForward = event->ForwardEvent();
+        levelManager->linkData->Update();
+
+        // Take another snapshot of the state of every single GameObject::StaticLinkable
+        // All those whose states have changed are returned and stored in `snapshot`
+        std::vector<GameObject::StaticLinkable*> doorsOpenToShut = levelManager->linkData->SnapshotDiff(TAG_DOOR, STATE_DOOR_SHUT);
+
+        std::cout << (int)doorsOpenToShut.size() << " doors changed" << std::endl;
+
+        // Create an event where each door kills every player on its square
+        for (int i = 0; i < (int)doorsOpenToShut.size(); i++) {
+            Event::LinkableKillAllPlayersAt* eventPlayersKilledByDoor = new Event::LinkableKillAllPlayersAt(levelManager->iterationData->GetTime(), levelManager->levelData, doorsOpenToShut[i], doorsOpenToShut[i]->x, doorsOpenToShut[i]->y, STATE_DOOR_OPEN, STATE_DOOR_SHUT);
+            levelManager->eventData->AddEvent(eventPlayersKilledByDoor);
+        }
+
+        // Go back one step and update all links to reverse all the changes that we made
+        Event::Result resultBackward = event->BackwardEvent();
+        levelManager->linkData->Update();
+
+        // Enable ForwardEvent() and BackwardEvent() failing when the player is in the wrong place
+        event->SetFailOnPlayerPos(true);
+
+        if (resultForward.success && resultBackward.success) {
+            // The event was tested successfully, so add it to the events
+            levelManager->eventData->AddEvent(event);
+            game->controls->ResetKeyDelay();
+            levelManager->iterationData->GoForward();
+        } else {
+            std::cout << "ERROR: Could not add Event::LinkableStateChange for the following reasons:" << std::endl;
+            std::cout << "ForwardEvent: " << resultForward.msg << std::endl;
+            std::cout << "BackwardEvent: " << resultBackward.msg << std::endl;
+            delete event;
+        }
     }
 
     bool Player::ExpiresThisFrame() {

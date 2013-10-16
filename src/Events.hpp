@@ -2,9 +2,11 @@
 #define EVENTS_HPP_INCLUDED
 
 #include "EventBase.hpp"
-#include "objects/Player.hpp"
 #include "objects/ObjectsGeneral.hpp"
 
+namespace GameObject {
+    class Player;
+}
 class LevelData;
 
 namespace Event {
