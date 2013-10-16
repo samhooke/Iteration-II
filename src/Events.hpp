@@ -5,6 +5,8 @@
 #include "objects/Player.hpp"
 #include "objects/ObjectsGeneral.hpp"
 
+class LevelData;
+
 namespace Event {
 
     /// Test
@@ -64,6 +66,21 @@ namespace Event {
         int yPlayer;
         bool stateFrom;
         bool stateTo;
+    };
+
+    /// LinkableKillAllPlayersAt
+    class LinkableKillAllPlayersAt : public Base {
+    public:
+        LinkableKillAllPlayersAt(int time, LevelData* levelData, GameObject::StaticLinkable* linkable, int x, int y, bool stateForward, bool stateBackward);
+        Result ForwardEvent();
+        Result BackwardEvent();
+
+        LevelData* levelData;
+        GameObject::StaticLinkable* linkable;
+        int x;
+        int y;
+        bool stateForward;
+        bool stateBackward;
     };
 }
 

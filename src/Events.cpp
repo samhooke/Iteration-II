@@ -2,6 +2,10 @@
 #include <iostream>
 #include <sstream>
 
+#include <vector>
+#include "LevelData.hpp"
+#include "objects/Player.hpp"
+
 namespace Event {
 
     /// Test
@@ -199,6 +203,65 @@ namespace Event {
             }
         } else {
             msg << "Player (" << player->cloneDesignation << ") was not at (xPlayer:" << xPlayer << ",yPlayer:" << yPlayer << ")";
+        }
+
+        result.msg = msg.str();
+        return result;
+    }
+
+    /// LinkableKillAllPlayersAt
+    LinkableKillAllPlayersAt::LinkableKillAllPlayersAt(int time, LevelData* levelData, GameObject::StaticLinkable* linkable, int x, int y, bool stateForward, bool stateBackward) : Base(time) {
+        debugName = "LinkableKillAllPlayersAt";
+        this->levelData = levelData;
+        this->linkable = linkable;
+        this->x = x;
+        this->y = y;
+        this->stateForward = stateForward;
+        this->stateBackward = stateBackward;
+    }
+
+    Result LinkableKillAllPlayersAt::ForwardEvent() {
+        Result result;
+        result.success = false;
+        result.msg = "";
+        std::ostringstream msg;
+
+        if (linkable->state == stateForward) {
+            result.success = true;
+            std::vector<GameObject::Player*> players = levelData->GetListOfAllPlayers();
+            for (int i = 0; i < (int)players.size(); i++) {
+                if (players[i]->x == x && players[i]->y == y) {
+                    // Kill the player
+                    if (players[i]->dead == false)
+                        players[i]->dead = true;
+                }
+            }
+        } else {
+            msg << "StaticLinkable was not in the expected state (stateForward:" << stateForward << ")";
+        }
+
+        result.msg = msg.str();
+        return result;
+    }
+
+    Result LinkableKillAllPlayersAt::BackwardEvent() {
+        Result result;
+        result.success = false;
+        result.msg = "";
+        std::ostringstream msg;
+
+        if (linkable->state == stateBackward) {
+            result.success = true;
+            std::vector<GameObject::Player*> players = levelData->GetListOfAllPlayers();
+            for (int i = 0; i < (int)players.size(); i++) {
+                if (players[i]->x == x && players[i]->y == y) {
+                    // Revive the player
+                    if (players[i]->dead == true)
+                        players[i]->dead = false;
+                }
+            }
+        } else {
+            msg << "StaticLinkable was not in the expected state (stateBackward:" << stateBackward << ")";
         }
 
         result.msg = msg.str();

@@ -252,6 +252,20 @@ namespace GameObject {
                             // `doorsThatShut` now contains a list of all GameObject::StaticLinkable whose tag
                             // is TAG_DOOR and whose state changed to STATE_DOOR_SHUT as a result of the LeverPull event
 
+                            // Create an event where each door kills every player on its square
+                            for (int i = 0; i < (int)doorsThatShut.size(); i++) {
+                                Event::LinkableKillAllPlayersAt* eventPlayersKilledByDoor = new Event::LinkableKillAllPlayersAt(time, levelManager->levelData, doorsThatShut[i], doorsThatShut[i]->x, doorsThatShut[i]->y, STATE_DOOR_OPEN, STATE_DOOR_SHUT);
+                                levelManager->eventData->AddEvent(eventPlayersKilledByDoor);
+                            }
+
+                            // This below section of code is the old approach to killing players. It does not work
+                            // because it only kills players who exist - it does not kill those who don't exist *yet*.
+                            // This means that the controlling player could not be killed by any of their past actions!
+                            // The new approach, above, which uses Event::LinkableKillAllPlayersAt uses a rather crude
+                            // solution whereby an event is created that kills every single player at a given position.
+                            // Since the list of players is generated when the event is called, all players who exist
+                            // are affeted!
+                            /*
                             // Get a list of every single player because we need to iterate though this list a lot
                             std::vector<GameObject::Player*> players = levelManager->levelData->GetListOfAllPlayers();
 
@@ -262,6 +276,7 @@ namespace GameObject {
                                     levelManager->eventData->AddTentativeEvent(eventPlayerKilledByDoor);
                                 }
                             }
+                            */
 
                             // Go back one step and update all links to reverse all the changes that we made
                             Event::Result resultBackward = eventLeverPull->BackwardEvent();
