@@ -7,4 +7,4 @@
 ########
 Timelimit: 40
 Critical: 40
-Link: Lever#1 => Door#1
+Link: Lever#1 ~> Door#1

@@ -9,6 +9,7 @@
 #include "../Events.hpp"
 #include "../General.hpp"
 #include "../EndGame.hpp"
+#include "../LinkData.hpp"
 #include <iostream>
 
 namespace GameObject {
@@ -38,6 +39,7 @@ namespace GameObject {
 
         bool diedThisFrame = false;
 
+        /*
         // If controlling and not dead, check if we should die
         if (Controlling() && !dead && !levelManager->endGame->Ended()) {
             // We wait for a sufficient delay because if the player does die, then time moves forward automatically
@@ -61,6 +63,7 @@ namespace GameObject {
                 }
             }
         }
+        */
 
         // If controlling and dead, our only action is to move forward in time
         if (Controlling() && dead && !levelManager->endGame->Ended()) {
@@ -234,6 +237,26 @@ namespace GameObject {
                             // Attempt the event forward and backward to verify we satisfy the conditions for it
                             Event::Result resultForward = eventLeverPull->ForwardEvent();
                             Event::Result resultBackward = eventLeverPull->BackwardEvent();
+
+                            /*
+                            // NOTE: This code is flawed logically
+                            // The aim was to try and see whether a player will be killed next frame, and if so, create the kill event this frame
+                            // The problem is we don't know where all the players will be next frame (unless if we wind the simulation forward...
+                            // ...but that will open up a whole host of new problems)
+                            Event::Result resultForward = eventLeverPull->ForwardEvent();
+                            levelManager->linkData->Update();
+
+                            // Check if this action killed anyone
+                            std::vector<GameObject::Player*> playersOnShutDoors = levelManager->levelData->GetAllPlayersOnShutDoors();
+                            for (int i = 0; i < (int)playersOnShutDoors.size(); i++) {
+                                // Kill all players who will be on closed doors
+                                Event::PlayerDie_Linkable* eventPlayerKilledByDoor = new Event::PlayerDie_Linkable(time, playersOnShutDoors[i], playersOnShutDoors[i]->x, playersOnShutDoors[i]->y, lever, lever->x, lever->y, !lever->state);
+                                levelManager->eventData->AddEvent(eventPlayerKilledByDoor);
+                            }
+
+                            Event::Result resultBackward = eventLeverPull->BackwardEvent();
+                            levelManager->linkData->Update();
+                            */
 
                             if (resultForward.success && resultBackward.success) {
                                 // The event was tested successfully, so add it to the events

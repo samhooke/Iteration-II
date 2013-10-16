@@ -163,6 +163,25 @@ GameObject::Base* LevelData::GetObjectPointer(int index) {
     return levelObjects[index];
 }
 
+std::vector<GameObject::Player*> LevelData::GetAllPlayersOnShutDoors() {
+    std::vector<GameObject::Player*> playersOnShutDoors;
+
+    for (int i = 0; i < (int)levelObjects.size(); i++) {
+        if (levelObjects[i]->tag == TAG_PLAYER) {
+            GameObject::Player* thisPlayer = (GameObject::Player*)levelObjects[i];
+            int index = thisPlayer->GetObjectIndexAtPosWithTag(thisPlayer->x, thisPlayer->y, TAG_DOOR);
+            if (index >= 0) {
+                GameObject::Door* thisDoor = (GameObject::Door*)levelObjects[index];
+                if (thisDoor->state == STATE_DOOR_SHUT) {
+                    playersOnShutDoors.push_back(thisPlayer);
+                }
+            }
+        }
+    }
+
+    return playersOnShutDoors;
+}
+
 void LevelData::SetObjectHasControl(int index, bool hasControl) {
     if (levelObjects[index]->canHaveControl)
         levelObjects[index]->hasControl = hasControl;

@@ -45,6 +45,7 @@ public:
     int GetObjectX(int index);
     int GetObjectY(int index);
     GameObject::Base* GetObjectPointer(int index);
+    std::vector<GameObject::Player*> GetAllPlayersOnShutDoors();
     void SetObjectHasControl(int index, bool hasControl);
     bool CompareObjectTag(int index, std::string tag);
 
