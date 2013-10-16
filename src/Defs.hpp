@@ -67,7 +67,7 @@
 
 // Level files
 #define LEVEL_DIR "levels/"
-#define LEVEL_000 LEVEL_DIR "002.txt"
+#define LEVEL_000 LEVEL_DIR "003.txt"
 
 /// Timeline
 

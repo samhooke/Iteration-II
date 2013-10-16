@@ -17,6 +17,7 @@ namespace GameObject {
         debugName = "Player";
         TimeDataWrite(true);
 
+        this->dead = false; // Player is created ALIVE
         this->original = original;
         this->parent = parent;
         this->expiryTime = expiryTime;
@@ -35,8 +36,46 @@ namespace GameObject {
         // index is used by various GetObjectAtPosWithTag() calls
         int index;
 
-        // Only act upon input if we are the player in control, and if the game has not ended
-        if (Controlling() && !levelManager->endGame->Ended()) {
+        bool diedThisFrame = false;
+
+        // If controlling and not dead, check if we should die
+        if (Controlling() && !dead && !levelManager->endGame->Ended()) {
+            // We wait for a sufficient delay because if the player does die, then time moves forward automatically
+            // because the death itself takes up 1 unit of time, because the event must be created and then time
+            // must go forward in order to execute the event
+            if (game->controls->GetKeyDelaySufficient()) {
+                index = GetObjectIndexAtPosWithTag(x, y, TAG_DOOR);
+                if (index >= 0) {
+                    GameObject::Door* door = (GameObject::Door*)levelManager->levelData->GetObjectPointer(index);
+                    if (door->state == STATE_DOOR_SHUT) {
+                        // We are on a door that is shut, so we must die
+                        Event::Base* eventDoorKillsPlayer = new Event::PlayerDie_Linkable(time, this, x, y, door, door->x, door->y, door->state);
+                        levelManager->eventData->AddEvent(eventDoorKillsPlayer);
+                        game->controls->ResetKeyDelay();
+                        levelManager->iterationData->GoForward();
+
+                        // This flag stops any more input from being read this turn
+                        // to avoid the player from being able to perform actions when dead
+                        diedThisFrame = true;
+                    }
+                }
+            }
+        }
+
+        // If controlling and dead, our only action is to move forward in time
+        if (Controlling() && dead && !levelManager->endGame->Ended()) {
+            if (game->controls->GetKeyDelaySufficient()) {
+                bool keyAction2 = game->controls->GetKey(InputKey::Action2);
+                if (keyAction2 && levelManager->iterationData->CanGoForward()) {
+                    // Move forward in time without moving
+                    game->controls->ResetKeyDelay();
+                    levelManager->iterationData->GoForward();
+                }
+            }
+        }
+
+        // If controlling and not dead, and we did not die this frame, and the game has not ended, do all the player controlling stuff
+        if (Controlling() && !dead && !diedThisFrame && !levelManager->endGame->Ended()) {
             if (game->controls->GetKeyDelaySufficient()) {
                 bool moved = false;
 
@@ -66,7 +105,7 @@ namespace GameObject {
                     index = GetObjectIndexAtPosWithTag(x, y, TAG_DOOR);
                     if (index >= 0) {
                         GameObject::Door* door = (GameObject::Door*)levelManager->levelData->GetObjectPointer(index);
-                        if (door->state == false) {
+                        if (door->state == STATE_DOOR_SHUT) {
                             // Door is shut, so move back to where we were
                             x = preMoveX;
                             y = preMoveY;
@@ -263,9 +302,13 @@ namespace GameObject {
     }
 
     void Player::UpdateDisplayCharacter() {
-        if (Controlling())
-            displayCharacter = TILE_PLAYER_CONTROLLING;
-        else
-            displayCharacter = TILE_PLAYER_NOTCONTROLLING;
+        if (dead)
+            displayCharacter = TILE_PLAYER_DEAD;
+        else {
+            if (Controlling())
+                displayCharacter = TILE_PLAYER_CONTROLLING;
+            else
+                displayCharacter = TILE_PLAYER_NOTCONTROLLING;
+        }
     }
 }

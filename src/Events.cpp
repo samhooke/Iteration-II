@@ -82,6 +82,76 @@ namespace Event {
         debugName = "PlayerExpire";
     }
 
+    ///PlayerDie_Linkable
+    PlayerDie_Linkable::PlayerDie_Linkable(int time, GameObject::Player* player, int xPlayer, int yPlayer, GameObject::StaticLinkable* killer, int xKiller, int yKiller, bool stateKiller) : Base(time) {
+        debugName = "PlayerDie_Linkable";
+        this->player = player;
+        this->xPlayer = xPlayer;
+        this->yPlayer = yPlayer;
+        this->killer = killer;
+        this->xKiller = xKiller;
+        this->yKiller = yKiller;
+        this->stateKiller = stateKiller;
+    }
+
+    Result PlayerDie_Linkable::ForwardEvent() {
+        Result result;
+        result.success = false;
+        result.msg = "";
+        std::ostringstream msg;
+
+        if (player->x == xPlayer && player->y == yPlayer) {
+            if (killer->x == xKiller && killer->y == yKiller) {
+                if (killer->state == stateKiller) {
+                    if (player->dead == false) {
+                        player->dead = true;
+                        result.success = true;
+                    } else {
+                        msg << "Player (" << player->cloneDesignation << ") was already dead";
+                    }
+                } else {
+                    msg << "Killer was not in expected state (stateKiller:" << stateKiller << ")";
+                }
+            } else {
+                msg << "Killer was not at (xKiller:" << xKiller << ",yKiller:" << yKiller << ")";
+            }
+        } else {
+            msg << "Player (" << player->cloneDesignation << ") was not at (xPlayer:" << xPlayer << ",yPlayer:" << yPlayer << ")";
+        }
+
+        result.msg = msg.str();
+        return result;
+    }
+
+    Result PlayerDie_Linkable::BackwardEvent() {
+        Result result;
+        result.success = false;
+        result.msg = "";
+        std::ostringstream msg;
+
+        if (player->x == xPlayer && player->y == yPlayer) {
+            if (killer->x == xKiller && killer->y == yKiller) {
+                if (killer->state == stateKiller) {
+                    if (player->dead == true) {
+                        player->dead = false;
+                        result.success = true;
+                    } else {
+                        msg << "Player (" << player->cloneDesignation << ") was already alive";
+                    }
+                } else {
+                    msg << "Killer was not in expected state (stateKiller:" << stateKiller << ")";
+                }
+            } else {
+                msg << "Killer was not at (xKiller:" << xKiller << ",yKiller:" << yKiller << ")";
+            }
+        } else {
+            msg << "Player (" << player->cloneDesignation << ") was not at (xPlayer:" << xPlayer << ",yPlayer:" << yPlayer << ")";
+        }
+
+        result.msg = msg.str();
+        return result;
+    }
+
     /// LinkableStateChange
     LinkableStateChange::LinkableStateChange(int time, GameObject::StaticLinkable* linkable, GameObject::Player* player, int xPlayer, int yPlayer, bool stateFrom) : Base(time) {
         debugName = "LinkableStateChange";

@@ -35,6 +35,22 @@ namespace Event {
         PlayerExpire(int time, GameObject::Player* player, int x, int y);
     };
 
+    /// PlayerDie_Linkable
+    class PlayerDie_Linkable : public Base {
+    public:
+        PlayerDie_Linkable(int time, GameObject::Player* player, int x, int y, GameObject::StaticLinkable* killer, int xKiller, int yKiller, bool stateKiller);
+        Result ForwardEvent();
+        Result BackwardEvent();
+
+        GameObject::Player* player;
+        int xPlayer;
+        int yPlayer;
+        GameObject::StaticLinkable* killer;
+        int xKiller;
+        int yKiller;
+        bool stateKiller;
+    };
+
     /// LinkableStateChange
     class LinkableStateChange : public Base {
     public:

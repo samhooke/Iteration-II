@@ -1,0 +1,10 @@
+8
+5
+########
+#.....l#
+#.P.Y.##
+#.....D#
+########
+Timelimit: 40
+Critical: 40
+Link: Lever#1 => Door#1

@@ -21,6 +21,7 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
         int timeBegin;
         int timeExpire;
         bool controlling;
+        bool dead;
     } ;
 
     // Define as 0 because this value will not be set when the player is in time travel
@@ -56,7 +57,7 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
                 // The position in the vector is equal to the size of the vector at the moment
                 playerControlling = players.size();
             }
-
+            pd.dead = player->dead;
             players.push_back(pd);
         }
     }
@@ -111,9 +112,20 @@ void Timeline::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
                     t << "=";
                 }
             } else if (j == currentTime && players[i].controlling) {
-                t << (char)TILE_FACE_SOLID;
+                if (players[i].dead) {
+                    // If active player is dead, flash between TILE_PLAYER_CONTROLLING and TILE_PLAYER_DEAD
+                    // Spends 0.25 seconds on TILE_PLAYER_CONTROLLING and 0.75 seconds on TILE_PLAYER_DEAD
+                    if ((int)(game->gameClock->getElapsedTime().asSeconds() / 0.25) % 4 == 0)
+                        t << (char)TILE_PLAYER_CONTROLLING;
+                    else
+                        t << (char)TILE_PLAYER_DEAD;
+                } else
+                    t << (char)TILE_PLAYER_CONTROLLING;
             } else if (j == currentTime && j < players[i].timeExpire) {
-                t << (char)TILE_FACE_OUTLINE;
+                if (players[i].dead)
+                    t << (char)TILE_PLAYER_DEAD;
+                else
+                    t << (char)TILE_PLAYER_NOTCONTROLLING;
             } else if (j < players[i].timeExpire) {
                 if (j == timeMeltdown) {
                     t << "!";
