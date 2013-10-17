@@ -49,7 +49,7 @@ void GameEngine::Init(const char* title, bool fullscreen, bool maintainAspectRat
 
 void GameEngine::CleanUp() {
     while (!states.empty()) {
-        states.back()->CleanUp();
+        states.back()->CleanUp(this);
         states.pop_back();
     }
 
@@ -64,7 +64,7 @@ void GameEngine::CleanUp() {
 
 void GameEngine::ChangeState(GameState* state) {
     if (!states.empty()) {
-        states.back()->CleanUp();
+        states.back()->CleanUp(this);
         states.pop_back();
     }
 
@@ -83,7 +83,7 @@ void GameEngine::PushState(GameState* state) {
 
 void GameEngine::PopState(GameState* state) {
     if (!states.empty()) {
-        states.back()->CleanUp();
+        states.back()->CleanUp(this);
         states.pop_back();
     }
 

@@ -15,7 +15,7 @@ void PlayState::Init(GameEngine* game) {
         std::cout << "Failed to load level" << std::endl;
     }
 }
-void PlayState::CleanUp() {
+void PlayState::CleanUp(GameEngine* game) {
     delete levelManager;
 }
 void PlayState::Pause() {}

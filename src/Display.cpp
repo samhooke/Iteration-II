@@ -18,8 +18,13 @@ void Display::LoadGraphics() {
         throw std::runtime_error("Could not create surface.");
     }
 
-    // Load the texture
+    // Load the tileset texture
     tileSet.loadFromFile(SPRITESHEET_FILENAME);
+
+    // Load the logo texture and create sprite
+    logo.loadFromFile(LOGO_FILENAME);
+    logoSprite.setTexture(logo, true);
+    logoSprite.setColor(sf::Color(0, badRand(224, 255), 0));
 
     // Load each tile sprite
     for (int y = 0; y < SPRITESHEET_ROWS; y++) {
@@ -42,6 +47,11 @@ void Display::LoadGraphics() {
             throw std::runtime_error("Could not load shader from file: SHADER_FRAG_MONITOR3");
         }
     }
+}
+
+void Display::DrawLogo(bool drawLogo, int logoPosX, int logoPosY) {
+    this->drawLogo = drawLogo;
+    logoSprite.setPosition(logoPosX * SPRITESHEET_SPRITE_W, logoPosY * SPRITESHEET_SPRITE_H);
 }
 
 void Display::DrawTitle() {
@@ -130,6 +140,8 @@ void Display::WriteText(int x, int y, const char* text, int maxCharsPerRow, int 
 //void Display::Render(sf::RenderWindow* window, sf::Clock* gameClock) {
 void Display::Render(GameEngine* game) {
     RenderTilesToSurface();
+    if (drawLogo)
+        RenderLogoToSurface();
     RenderSurfaceToWindow(game);
 }
 
@@ -141,6 +153,10 @@ void Display::RenderTilesToSurface() {
             surface.draw(tileSprites[index]);
         }
     }
+}
+
+void Display::RenderLogoToSurface() {
+    surface.draw(logoSprite);
 }
 
 void Display::RenderSurfaceToWindow(GameEngine* game) {

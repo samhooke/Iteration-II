@@ -32,6 +32,13 @@ public:
 
     void WriteText(int x, int y, const char* text, int maxCharsPerRow = -1, int maxRows = -1, int mask[] = NULL);
 
+    // Really lazy, hacky logo implementation
+    sf::Texture logo;
+    sf::Sprite logoSprite;
+    bool drawLogo = false;
+    void DrawLogo(bool drawLogo, int logoPosX = 0, int logoPosY = 0);
+    void RenderLogoToSurface();
+
     void DrawTitle();
 
     void Render(GameEngine* game);

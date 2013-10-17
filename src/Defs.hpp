@@ -57,6 +57,8 @@
 #define SPRITESHEET_SPRITE_W 9
 #define SPRITESHEET_SPRITE_H 16
 
+#define LOGO_FILENAME "resources/logo.png"
+
 /// Levels
 
 // Range of the level
