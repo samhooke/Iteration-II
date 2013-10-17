@@ -102,28 +102,48 @@ namespace GameObject {
 
                 // `moved` will never be true if it was not possible to go forward in time
                 if (moved) {
+
+                    // It was possible to move to that location, however, we must move only using events
+                    // So undo the movent (but remember where we had moved to in xTo,yTo)
+                    int xTo = x;
+                    int yTo = y;
+                    x = preMoveX;
+                    y = preMoveY;
+
                     if (ExpiresNextFrame()) {
-                        // It is our expiry time, so do not allow any movement
-                        // This is because if we create an Event::PlayerMove, it will cause a paradox
-                        // because it will not be able to be fulfilled because in the next timeframe we no longer exist!!
-                        x = preMoveX;
-                        y = preMoveY;
 
                         // Now create an expiry event
                         Event::Base* eventPlayerExpire = new Event::PlayerExpire(time, this, x, y);
                         levelManager->eventData->AddEvent(eventPlayerExpire);
 
+                        // The following pressure plate stepping off event needs to know where the player will move to
+                        // The above event (Event::PlayerExpire()) causes the player to move to -1, -1
+                        xTo = -1;
+                        yTo = -1;
+
+                        /// PressurePlate (stepping off)
+                        // Check for pressure plates in the square we are about to move off
+                        index = GetObjectIndexAtPosWithTag(x, y, TAG_PRESSUREPLATE);
+                        if (index >= 0) {
+                            // We are going to step off a pressure plate
+                            GameObject::PressurePlate* pressurePlate = (GameObject::PressurePlate*)levelManager->levelData->GetObjectPointer(index);
+
+                            // Check if the plate is down
+                            if (pressurePlate->state == STATE_PRESSUREPLATE_DOWN) {
+                                // The plate is pressed, so create an event to release it
+                                Event::LinkableStateChange* eventPressurePlateRelease = new Event::LinkableStateChange(time, pressurePlate, this, xTo, yTo, STATE_PRESSUREPLATE_DOWN);
+
+                                CreateFutureRepercussions(eventPressurePlateRelease);
+                            }
+                        }
+
+                        // This code is redundant because CreateFutureRepercussions() calls these lines
+                        // However there is no bad side effect from calling these lines of code multiple times
                         game->controls->ResetKeyDelay();
                         levelManager->iterationData->GoForward();
                     } else {
-                        // It was possible to move to that location, however, we must move only using events
-                        // So undo the movent (but remember where we had moved to in xTo,yTo)
-                        int xTo = x;
-                        int yTo = y;
-                        x = preMoveX;
-                        y = preMoveY;
 
-                        // Now create an event to do this movement
+                        // Now create an event to do the movement that we undid earlier
                         Event::Base* eventPlayerMove = new Event::PlayerMove(time, this, x, y, xTo, yTo);
                         levelManager->eventData->AddEvent(eventPlayerMove);
 
@@ -159,6 +179,8 @@ namespace GameObject {
                             }
                         }
 
+                        // This code is redundant because CreateFutureRepercussions() calls these lines
+                        // However there is no bad side effect from calling these lines of code multiple times
                         game->controls->ResetKeyDelay();
                         levelManager->iterationData->GoForward();
                     }
