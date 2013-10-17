@@ -51,9 +51,13 @@ namespace Event {
 
         if (player->x == xFrom && player->y == yFrom) {
             if (player->IsPosFree(xTo, yTo) || (xTo == -1 && yTo == -1)) {
-                player->x = xTo;
-                player->y = yTo;
-                result.success = true;
+                if (player->dead == false) {
+                    player->x = xTo;
+                    player->y = yTo;
+                    result.success = true;
+                } else {
+                    msg << "Player is dead";
+                }
             } else {
                 msg << "Position (xTo:" << xTo << ",yTo:" << yTo << ") was not free";
             }
@@ -73,9 +77,13 @@ namespace Event {
 
         if (player->x == xTo && player->y == yTo) {
             if (player->IsPosFree(xFrom, yFrom) || (xFrom == -1 && yFrom == -1)) {
+                if (player->dead == false) {
                 player->x = xFrom;
                 player->y = yFrom;
                 result.success = true;
+                } else {
+                    msg << "Player is dead";
+                }
             } else {
                 msg << "Position (xFrom:" << xFrom << ",yFrom:" << yFrom << ") was not free";
             }
