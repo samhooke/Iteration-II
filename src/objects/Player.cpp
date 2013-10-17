@@ -302,7 +302,9 @@ namespace GameObject {
         // All those whose states have changed are returned and stored in `snapshot`
         std::vector<GameObject::StaticLinkable*> doorsOpenToShut = levelManager->linkData->SnapshotDiff(TAG_DOOR, STATE_DOOR_SHUT);
 
+#ifdef DEBUG_VERBOSE
         std::cout << (int)doorsOpenToShut.size() << " doors changed" << std::endl;
+#endif
 
         // Create an event where each door kills every player on its square
         for (int i = 0; i < (int)doorsOpenToShut.size(); i++) {
