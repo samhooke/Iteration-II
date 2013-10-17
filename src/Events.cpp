@@ -45,39 +45,45 @@ namespace Event {
 
     Result PlayerMove::ForwardEvent() {
         Result result;
-        result.success = true;
+        result.success = false;
         result.msg = "";
+        std::ostringstream msg;
 
         if (player->x == xFrom && player->y == yFrom) {
-            //TODO: Also check that (xTo,yTo) are free!
-            player->x = xTo;
-            player->y = yTo;
+            if (player->IsPosFree(xTo, yTo) || (xTo == -1 && yTo == -1)) {
+                player->x = xTo;
+                player->y = yTo;
+                result.success = true;
+            } else {
+                msg << "Position (xTo:" << xTo << ",yTo:" << yTo << ") was not free";
+            }
         } else {
-            result.success = false;
-            std::ostringstream msg;
             msg << "Player (" << player->cloneDesignation << ") was not at (xFrom:" << xFrom << ",yFrom:" << yFrom << ")";
-            result.msg = msg.str();
         }
 
+        result.msg = msg.str();
         return result;
     }
 
     Result PlayerMove::BackwardEvent() {
         Result result;
-        result.success = true;
+        result.success = false;
         result.msg = "";
+        std::ostringstream msg;
 
         if (player->x == xTo && player->y == yTo) {
-            //TODO: Also check that (xFrom,yFrom) are free!
-            player->x = xFrom;
-            player->y = yFrom;
+            if (player->IsPosFree(xFrom, yFrom) || (xFrom == -1 && yFrom == -1)) {
+                player->x = xFrom;
+                player->y = yFrom;
+                result.success = true;
+            } else {
+                msg << "Position (xFrom:" << xFrom << ",yFrom:" << yFrom << ") was not free";
+            }
         } else {
-            result.success = false;
-            std::ostringstream msg;
             msg << "Player (" << player->cloneDesignation << ") was not at (xTo:" << xTo << ",yTo:" << yTo << ")";
-            result.msg = msg.str();
         }
 
+        result.msg = msg.str();
         return result;
     }
 
