@@ -152,19 +152,37 @@ void Display::RenderSurfaceToWindow(GameEngine* game) {
 
     // Calculate position and scale
     sf::Vector2i pos;
-    sf::Vector2f scaleAdjusted;
+    sf::Vector2f scaleAdjusted; // Amount to scale the surface sprite so that it fits the window and maintains aspect ratio
+    sf::Vector2f scaleAdjustedStretch; // Same as scaleAdjusted, but does not maintain ratio
+
     if (fullscreen) {
         pos.x = windowSize.x/2;
         pos.y = windowSize.y/2;
 
-        // When fullscreen, scale is set manually from config.txt
-        scaleAdjusted.x = scale.x;
-        scaleAdjusted.y = scale.y;
+        scaleAdjustedStretch.x = ((float)windowSize.x / (float)GetPixelWidth());
+        scaleAdjustedStretch.y = ((float)windowSize.y / (float)GetPixelHeight());
+
+        if (maintainAspectRatio) {
+            // Maintain aspect ratio
+            scaleAdjusted.x = 1;
+            scaleAdjusted.y = 1;
+
+            // Resize to fit the window
+            float scaleResize;
+            if (windowSize.x > windowSize.y)
+                scaleResize = (float)windowSize.y / (float)GetPixelHeight();
+            else
+                scaleResize = (float)windowSize.x / (float)GetPixelWidth();
+
+            scaleAdjusted.x *= scaleResize;
+            scaleAdjusted.y *= scaleResize;
+        }
     } else {
+        scaleAdjustedStretch.x = 1;
+        scaleAdjustedStretch.y = 1;
+
         pos.x = GetPixelWidth()/2;
         pos.y = GetPixelHeight()/2;
-
-        scaleAdjusted.x = scaleAdjusted.y = 1;
 
         if (maintainAspectRatio) {
             // Maintain aspect ratio
@@ -211,8 +229,7 @@ void Display::RenderSurfaceToWindow(GameEngine* game) {
         monitorSprite.setOrigin(GetPixelWidth()/2, GetPixelHeight()/2);
         monitorSprite.setPosition(pos.x, pos.y);
 
-
-        monitorSprite.setScale(scaleAdjusted.x, scaleAdjusted.y);
+        monitorSprite.setScale(scaleAdjustedStretch.x, scaleAdjustedStretch.y);
 
         game->window->draw(monitorSprite, &shader);
     }
