@@ -37,34 +37,6 @@ namespace GameObject {
         // index is used by various GetObjectAtPosWithTag() calls
         int index;
 
-        bool diedThisFrame = false;
-
-        /*
-        // If controlling and not dead, check if we should die
-        if (Controlling() && !dead && !levelManager->endGame->Ended()) {
-            // We wait for a sufficient delay because if the player does die, then time moves forward automatically
-            // because the death itself takes up 1 unit of time, because the event must be created and then time
-            // must go forward in order to execute the event
-            if (game->controls->GetKeyDelaySufficient()) {
-                index = GetObjectIndexAtPosWithTag(x, y, TAG_DOOR);
-                if (index >= 0) {
-                    GameObject::Door* door = (GameObject::Door*)levelManager->levelData->GetObjectPointer(index);
-                    if (door->state == STATE_DOOR_SHUT) {
-                        // We are on a door that is shut, so we must die
-                        Event::Base* eventDoorKillsPlayer = new Event::PlayerDie_Linkable(time, this, x, y, door, door->x, door->y, door->state);
-                        levelManager->eventData->AddEvent(eventDoorKillsPlayer);
-                        game->controls->ResetKeyDelay();
-                        levelManager->iterationData->GoForward();
-
-                        // This flag stops any more input from being read this turn
-                        // to avoid the player from being able to perform actions when dead
-                        diedThisFrame = true;
-                    }
-                }
-            }
-        }
-        */
-
         // If controlling and dead, our only action is to move forward in time
         if (Controlling() && dead && !levelManager->endGame->Ended()) {
             if (game->controls->GetKeyDelaySufficient()) {
@@ -77,8 +49,8 @@ namespace GameObject {
             }
         }
 
-        // If controlling and not dead, and we did not die this frame, and the game has not ended, do all the player controlling stuff
-        if (Controlling() && !dead && !diedThisFrame && !levelManager->endGame->Ended()) {
+        // If controlling and not dead and the game has not ended, do all the player controlling stuff
+        if (Controlling() && !dead && !levelManager->endGame->Ended()) {
             if (game->controls->GetKeyDelaySufficient()) {
                 bool moved = false;
 
@@ -168,7 +140,6 @@ namespace GameObject {
                                 Event::LinkableStateChange* eventPressurePlatePress = new Event::LinkableStateChange(time, pressurePlate, this, xTo, yTo, STATE_PRESSUREPLATE_UP);
 
                                 CreateFutureRepercussions(eventPressurePlatePress);
-                                //levelManager->eventData->AddEvent(eventPressurePlatePress);
                             }
                         }
 
@@ -185,7 +156,6 @@ namespace GameObject {
                                 Event::LinkableStateChange* eventPressurePlateRelease = new Event::LinkableStateChange(time, pressurePlate, this, xTo, yTo, STATE_PRESSUREPLATE_DOWN);
 
                                 CreateFutureRepercussions(eventPressurePlateRelease);
-                                //levelManager->eventData->AddEvent(eventPressurePlateRelease);
                             }
                         }
 
