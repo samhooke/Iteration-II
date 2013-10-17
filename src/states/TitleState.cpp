@@ -1,8 +1,8 @@
 #include <iostream>
-#include "Chronact.hpp"
+#include "../Chronact.hpp"
 #include "TitleState.hpp"
 #include "PlayState.hpp"
-#include "Tiles.hpp"
+#include "../Tiles.hpp"
 
 TitleState TitleState::m_TitleState;
 

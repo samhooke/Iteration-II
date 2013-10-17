@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "GameEngine.hpp"
-#include "GameState.hpp"
+#include "states/GameState.hpp"
 #include "Display.hpp"
 
 #ifdef OS_WINDOWS

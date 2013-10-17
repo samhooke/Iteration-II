@@ -1,9 +1,9 @@
 #include <iostream>
-#include "Chronact.hpp"
+#include "../Chronact.hpp"
 #include "PlayState.hpp"
 #include "TitleState.hpp"
-#include "Tiles.hpp"
-#include "IterationData.hpp"
+#include "../Tiles.hpp"
+#include "../IterationData.hpp"
 
 PlayState PlayState::m_PlayState;
 

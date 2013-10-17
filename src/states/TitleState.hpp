@@ -2,6 +2,7 @@
 #define TITLESTATE_HPP_INCLUDED
 
 #include "GameState.hpp"
+#include "../GameEngine.hpp"
 
 class TitleState : public GameState {
 public:

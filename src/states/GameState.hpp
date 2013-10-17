@@ -1,7 +1,7 @@
 #ifndef GAMESTATE_HPP_INCLUDED
 #define GAMESTATE_HPP_INCLUDED
 
-#include "GameEngine.hpp"
+#include "../GameEngine.hpp"
 
 class GameState {
 public:

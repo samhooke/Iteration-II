@@ -2,8 +2,8 @@
 #define PLAYSTATE_HPP_INCLUDED
 
 #include "GameState.hpp"
-#include "LevelManager.hpp"
-#include "GameEngine.hpp"
+#include "../GameEngine.hpp"
+#include "../LevelManager.hpp"
 
 class PlayState : public GameState {
 public:

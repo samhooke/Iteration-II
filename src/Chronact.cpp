@@ -4,7 +4,7 @@
 #include <sstream>
 #include <fstream>
 #include "GameEngine.hpp"
-#include "TitleState.hpp"
+#include "states/TitleState.hpp"
 #include "Logger.hpp"
 #include "Defs.hpp"
 
