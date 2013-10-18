@@ -11,7 +11,7 @@ Content::Content(GameEngine* game) {
 void Content::LoadOutline() {
     // Load the level list
     ContentItem a;
-    a.type = ContentType::Level;
+    a.type = ContentType::Scene;
     a.filename = "001.txt";
     AddContent(a);
 }
