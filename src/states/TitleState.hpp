@@ -28,6 +28,9 @@ private:
 
     sf::Clock clock;
 
+    float startTime = 0.25f;
+    float timeMultiplier = 3.0f;
+
     int memCount = 0;
     int memCountMax = 32768;
     int memCountStep = 2048;
@@ -38,6 +41,16 @@ private:
 
     int progressCount[2];
     int progressTime[2];
+
+    char executeKey = ' ';
+
+    bool reboot = false;
+    float rebootTime;
+
+    bool executing = false;
+    float executeTime;
+
+    float timeskip = 0.0f;
     };
 
 #endif // TITLESTATE_HPP_INCLUDED
