@@ -1,4 +1,5 @@
 #include "SceneState.hpp"
+#include "TitleState.hpp"
 #include "../Display.hpp"
 #include "../Tiles.hpp"
 #include <iostream>
@@ -32,7 +33,24 @@ void SceneState::CleanUp(GameEngine* game) {}
 void SceneState::Pause() {}
 void SceneState::Resume() {}
 
-void SceneState::ProcessInput(GameEngine* game) {}
+void SceneState::ProcessInput(GameEngine* game) {
+    sf::Event event;
+
+    // Loop through all window events
+    while (game->window->pollEvent(event)) {
+        switch (event.type) {
+        case sf::Event::Closed:
+            game->Quit();
+            break;
+        case sf::Event::KeyPressed:
+            if (event.key.code == sf::Keyboard::Escape)
+                game->ChangeState(TitleState::Instance());
+            break;
+        default:
+            break;
+        }
+    }
+}
 void SceneState::Update(GameEngine* game) {}
 void SceneState::RenderFrame(GameEngine* game) {
     game->window->clear();
