@@ -10,6 +10,8 @@
 SceneState SceneState::m_SceneState;
 
 void SceneState::Init(GameEngine* game) {
+    text.clear();
+
     std::string filename = game->content->GetCurrentContentFilename();
 
     std::cout << "Reading file '" << filename << "'" << std::endl;

@@ -3,9 +3,15 @@
 #include "GameEngine.hpp"
 #include "states/SceneState.hpp"
 #include "states/PlayState.hpp"
+#include "states/TitleState.hpp"
 
 Content::Content(GameEngine* game) {
     this->game = game;
+    Reset();
+}
+
+void Content::Reset() {
+    contentPosition = 0;
 }
 
 void Content::LoadOutline() {
@@ -16,18 +22,30 @@ void Content::LoadOutline() {
     AddContent(a);
 }
 
-void Content::LoadNext() {
+void Content::Next() {
     contentPosition++;
-    ContentType type = GetCurrentContentType();
+}
 
-    if (type == ContentType::Level) {
-        // Load level
-        game->ChangeState(PlayState::Instance());
+void Content::Load() {
+    if (AtValidContent()) {
+        ContentType type = GetCurrentContentType();
+
+        if (type == ContentType::Level) {
+            // Load level
+            game->ChangeState(PlayState::Instance());
+        }
+        if (type == ContentType::Scene) {
+            // Load scene
+            game->ChangeState(SceneState::Instance());
+        }
+    } else {
+        std::cout << "ERROR: Exceeded content range" << std::endl;
+        game->ChangeState(TitleState::Instance());
     }
-    if (type == ContentType::Scene) {
-        // Load scene
-        game->ChangeState(SceneState::Instance());
-    }
+}
+
+bool Content::AtValidContent() {
+    return contentPosition < (int)contentList.size();
 }
 
 void Content::AddContent(ContentItem content) {
@@ -35,7 +53,7 @@ void Content::AddContent(ContentItem content) {
 }
 
 ContentType Content::GetCurrentContentType() {
-    if (contentPosition < (int)contentList.size()) {
+    if (AtValidContent()) {
         return contentList[contentPosition].type;
     } else {
         std::cout << "WARNING: ContentType type out of range" << std::endl;
@@ -44,7 +62,7 @@ ContentType Content::GetCurrentContentType() {
 }
 
 std::string Content::GetCurrentContentFilename() {
-    if (contentPosition < (int)contentList.size()) {
+    if (AtValidContent()) {
         std::ostringstream os;
         if (contentList[contentPosition].type == ContentType::Level)
             os << LEVEL_DIR;

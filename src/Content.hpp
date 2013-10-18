@@ -18,15 +18,18 @@ struct ContentItem {
 class Content {
 public:
     Content(GameEngine* game);
+    void Reset();
 
     GameEngine* game;
 
-    void LoadNext();
+    bool AtValidContent();
+    void Next();
+    void Load();
     void LoadOutline();
 
     // Content list
     std::vector<ContentItem> contentList;
-    int contentPosition = -1;
+    int contentPosition;
     void AddContent(ContentItem content);
     ContentType GetCurrentContentType();
     std::string GetCurrentContentFilename();

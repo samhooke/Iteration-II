@@ -257,7 +257,8 @@ void TitleState::RenderFrame(GameEngine* game) {
     if (executing) {
         game->display->WriteText(2, 29, "EXECUTING...");
         if (time > executeTime + 0.5f)
-            game->content->LoadNext();
+            game->content->Load();
+            //game->content->LoadNext();
             //game->ChangeState(PlayState::Instance());
     }
 
