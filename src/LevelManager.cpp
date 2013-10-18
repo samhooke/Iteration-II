@@ -36,6 +36,10 @@ bool LevelManager::StringToInt(std::string &s, int &i) {
     return (myStream>>i);
 }
 
+bool LevelManager::Load(std::string levelName) {
+    return Load(levelName.c_str());
+}
+
 bool LevelManager::Load(const char* levelName) {
     std::string line;
     std::ifstream f(levelName);

@@ -29,6 +29,7 @@ public:
     EndGame* endGame;
 
     bool Load(const char* levelName);
+    bool Load(std::string levelName);
     void Update(GameEngine* game);
     void UpdateDisplay(GameEngine* game);
     void UpdateTimeChanged();

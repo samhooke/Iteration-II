@@ -9,7 +9,7 @@ PlayState PlayState::m_PlayState;
 
 void PlayState::Init(GameEngine* game) {
     levelManager = new LevelManager(game);
-    if (levelManager->Load(LEVEL_000)) {
+    if (levelManager->Load(game->content->GetCurrentContentFilename())) {
         std::cout << "Loaded level successfully" << std::endl;
     } else {
         std::cout << "Failed to load level" << std::endl;

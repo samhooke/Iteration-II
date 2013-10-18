@@ -57,10 +57,6 @@ void TitleState::ProcessInput(GameEngine* game) {
                         executeTime = time;
                     }
                 }
-                //if (event.key.code == sf::Keyboard::Y || sf::Keyboard::Return)
-                //if (event.key.code == sf::Keyboard::Y)
-                //    game->ChangeState(PlayState::Instance());
-                //if (event.key.code == sf::Keyboard::N)
             }
             break;
         default:
@@ -252,7 +248,8 @@ void TitleState::RenderFrame(GameEngine* game) {
     }
 
     if (reboot) {
-        game->display->WriteText(2, 29, "REBOOTING...");
+        game->display->WriteText(2, 29, "FATAL ERROR");
+        game->display->WriteText(2, 30, "REBOOTING...");
         if (time > rebootTime + 1.0f)
             game->ChangeState(TitleState::Instance());
     }
@@ -260,7 +257,8 @@ void TitleState::RenderFrame(GameEngine* game) {
     if (executing) {
         game->display->WriteText(2, 29, "EXECUTING...");
         if (time > executeTime + 0.5f)
-            game->ChangeState(PlayState::Instance());
+            game->content->LoadNext();
+            //game->ChangeState(PlayState::Instance());
     }
 
     game->display->Render(game);

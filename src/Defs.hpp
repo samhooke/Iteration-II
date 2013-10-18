@@ -68,8 +68,10 @@
 #define LEVEL_HEIGHT_MAX 24
 
 // Level files
-#define LEVEL_DIR "levels/"
-#define LEVEL_000 LEVEL_DIR "003.txt"
+#define CONTENT_DIR "content/"
+#define LEVEL_DIR CONTENT_DIR "levels/"
+#define SCENE_DIR CONTENT_DIR "scenes/"
+#define OUTLINE_FILE CONTENT_DIR "outline.txt"
 
 /// Timeline
 

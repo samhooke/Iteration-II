@@ -66,6 +66,8 @@
 		</Linker>
 		<Unit filename="src/Chronact.cpp" />
 		<Unit filename="src/Chronact.hpp" />
+		<Unit filename="src/Content.cpp" />
+		<Unit filename="src/Content.hpp" />
 		<Unit filename="src/Controls.cpp" />
 		<Unit filename="src/Controls.hpp" />
 		<Unit filename="src/Defs.hpp" />
@@ -115,6 +117,8 @@
 		<Unit filename="src/states/GameState.hpp" />
 		<Unit filename="src/states/PlayState.cpp" />
 		<Unit filename="src/states/PlayState.hpp" />
+		<Unit filename="src/states/SceneState.cpp" />
+		<Unit filename="src/states/SceneState.hpp" />
 		<Unit filename="src/states/TitleState.cpp" />
 		<Unit filename="src/states/TitleState.hpp" />
 		<Extensions>

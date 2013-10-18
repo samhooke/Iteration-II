@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <sstream>
 #include "GameEngine.hpp"
 #include "states/GameState.hpp"
 #include "Display.hpp"
@@ -44,6 +45,10 @@ void GameEngine::Init(const char* title, bool fullscreen, bool maintainAspectRat
     // Create object to handle controls
     controls = new Controls();
 
+    // Create object to handle content
+    content = new Content(this);
+    content->LoadOutline();
+
     std::cout << "Running..." << std::endl;
 }
 
@@ -58,6 +63,7 @@ void GameEngine::CleanUp() {
     // Clear used resources
     window->close();
     delete controls;
+    delete content;
     delete display;
     delete window;
 }
