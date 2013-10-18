@@ -27,6 +27,10 @@ private:
     static SceneState m_SceneState;
 
     LevelManager* levelManager;
+
+    std::vector<std::string> text;
+
+    sf::Clock clock;
 };
 
 #endif // SCENESTATE_HPP_INCLUDED
