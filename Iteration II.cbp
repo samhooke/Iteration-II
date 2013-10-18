@@ -82,7 +82,6 @@
 		<Unit filename="src/Exception.hpp" />
 		<Unit filename="src/GameEngine.cpp" />
 		<Unit filename="src/GameEngine.hpp" />
-		<Unit filename="src/GameState.hpp" />
 		<Unit filename="src/General.cpp" />
 		<Unit filename="src/General.hpp" />
 		<Unit filename="src/IterationData.cpp" />
@@ -101,13 +100,9 @@
 		<Unit filename="src/ObjectsBase.hpp" />
 		<Unit filename="src/PRNG.cpp" />
 		<Unit filename="src/PRNG.hpp" />
-		<Unit filename="src/PlayState.cpp" />
-		<Unit filename="src/PlayState.hpp" />
 		<Unit filename="src/Tiles.hpp" />
 		<Unit filename="src/Timeline.cpp" />
 		<Unit filename="src/Timeline.hpp" />
-		<Unit filename="src/TitleState.cpp" />
-		<Unit filename="src/TitleState.hpp" />
 		<Unit filename="src/objects/ObjectsGeneral.cpp" />
 		<Unit filename="src/objects/ObjectsGeneral.hpp" />
 		<Unit filename="src/objects/Player.cpp" />
@@ -117,6 +112,11 @@
 		<Unit filename="src/objects/Tags.hpp" />
 		<Unit filename="src/objects/TimeMachine.cpp" />
 		<Unit filename="src/objects/TimeMachine.hpp" />
+		<Unit filename="src/states/GameState.hpp" />
+		<Unit filename="src/states/PlayState.cpp" />
+		<Unit filename="src/states/PlayState.hpp" />
+		<Unit filename="src/states/TitleState.cpp" />
+		<Unit filename="src/states/TitleState.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
