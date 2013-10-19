@@ -11,7 +11,6 @@
 #include "LinkData.hpp"
 #include "Timeline.hpp"
 #include "EndGame.hpp"
-#include "states/PlayState.hpp"
 
 #include "Events.hpp"
 
@@ -514,7 +513,7 @@ void LevelManager::Update(GameEngine* game) {
             if (endGame->GetEndReason() == EndReason::Meltdown) {
                 // Restart the current level
                 game->controls->ResetKeyDelay();
-                game->ChangeState(PlayState::Instance());
+                game->content->Load();
             }
         }
     }
