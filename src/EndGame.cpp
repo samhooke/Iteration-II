@@ -25,6 +25,10 @@ bool EndGame::Ended() {
     return ended;
 }
 
+EndReason EndGame::GetEndReason() {
+    return endReason;
+}
+
 void EndGame::UpdateDisplay(GameEngine* game, LevelManager* levelManager) {
     if (Ended()) {
         std::ostringstream msg;

@@ -72,12 +72,14 @@ void SceneState::RenderFrame(GameEngine* game) {
             game->display->WriteText(2, game->display->GetHeight() - 2, "Press <Enter> to continue");
 
         if (keyEnter) {
+            // Continue on to the next content item
             game->controls->ResetKeyDelay();
             game->content->Next();
             game->content->Load();
         }
     } else {
         if (keyEnter) {
+            // Force all the cutscene text to appear instantly
             game->controls->ResetKeyDelay();
             timeSkip = 9999;
         }

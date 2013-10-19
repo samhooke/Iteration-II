@@ -18,6 +18,7 @@ public:
     void Victory();
 
     bool Ended();
+    EndReason GetEndReason();
     void UpdateDisplay(GameEngine* game, LevelManager* levelManager);
 };
 

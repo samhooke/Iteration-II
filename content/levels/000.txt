@@ -9,4 +9,4 @@ Timelimit: 20
 Critical: 20
 Title: Baby Steps
 Subtitle1: Use your arrow keys to walk through that door
-Subtitle2: Active the terminal with Z
+Subtitle2: Then activate that terminal with Z

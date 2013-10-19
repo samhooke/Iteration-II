@@ -11,6 +11,7 @@
 #include "LinkData.hpp"
 #include "Timeline.hpp"
 #include "EndGame.hpp"
+#include "states/PlayState.hpp"
 
 #include "Events.hpp"
 
@@ -497,6 +498,25 @@ void LevelManager::Update(GameEngine* game) {
         // Call UpdateTimeChanged() in all GameObjects
         UpdateTimeChanged();
         linkData->Update();
+    }
+
+    // For when the game has ended
+    if (endGame->Ended()) {
+        bool keyEnter = game->controls->GetKeyDown(InputKey::Enter);
+
+        if (keyEnter) {
+            if (endGame->GetEndReason() == EndReason::Victory) {
+                // Go to the next level
+                game->controls->ResetKeyDelay();
+                game->content->Next();
+                game->content->Load();
+            }
+            if (endGame->GetEndReason() == EndReason::Meltdown) {
+                // Restart the current level
+                game->controls->ResetKeyDelay();
+                game->ChangeState(PlayState::Instance());
+            }
+        }
     }
 }
 
