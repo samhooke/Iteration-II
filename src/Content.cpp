@@ -18,8 +18,14 @@ void Content::LoadOutline() {
     // Load the level list
     ContentItem a;
     a.type = ContentType::Scene;
-    a.filename = "001.txt";
+    a.filename = "000.txt";
+
+    ContentItem b;
+    b.type = ContentType::Level;
+    b.filename = "000.txt";
+
     AddContent(a);
+    AddContent(b);
 }
 
 void Content::Next() {

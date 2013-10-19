@@ -31,6 +31,7 @@
 #define INPUT_RIGHT sf::Keyboard::Right
 #define INPUT_ACTION_1 sf::Keyboard::Z
 #define INPUT_ACTION_2 sf::Keyboard::X
+#define INPUT_ENTER sf::Keyboard::Return
 
 /// Drawing
 
@@ -66,6 +67,10 @@
 #define LEVEL_WIDTH_MAX 80
 #define LEVEL_HEIGHT_MIN 1
 #define LEVEL_HEIGHT_MAX 24
+
+// The size of the array that contains a level's title and subtitles
+// If changing this, you must also update the code where it appears
+#define LEVEL_NUM_TITLES 4
 
 // Level files
 #define CONTENT_DIR "content/"

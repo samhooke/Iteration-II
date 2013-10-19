@@ -1,16 +1,12 @@
-20
-11
-               #####
-################...#
-#.....d........d._.#
-#.....##########...#
-#.....#        #####
-#.P.Y.#             
-#.....#        #####
-#.....##########...#
-#.....d........D.T.#
-################...#
-               #####
-Timelimit: 40
+13
+5
+#############
+#.....#.....#
+#.P...d...T.#
+#.....#.....#
+#############
+Timelimit: 20
 Critical: 20
-Link: Plate#1 => Door#4
+Title: Baby Steps
+Subtitle1: Use your arrow keys to walk through that door
+Subtitle2: Active the terminal with Z

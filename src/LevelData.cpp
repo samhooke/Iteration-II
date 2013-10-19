@@ -37,6 +37,27 @@ void LevelData::CreateBlankLevel(int width, int height) {
     }
 }
 
+void LevelData::SetTitles(std::string levelTitles[LEVEL_NUM_TITLES]) {
+    // NOTE: If LEVEL_NUM_TITLES is changed, this section will need updating!
+    this->levelTitles[0] = levelTitles[0];
+    this->levelTitles[1] = levelTitles[1];
+    this->levelTitles[2] = levelTitles[2];
+    this->levelTitles[3] = levelTitles[3];
+}
+
+std::string LevelData::GetTitle() {
+    return levelTitles[0];
+}
+
+std::string LevelData::GetSubtitle(int subtitle) {
+    if (subtitle >= 1 && subtitle <= LEVEL_NUM_TITLES)
+        return levelTitles[subtitle];
+    else {
+        std::cout << "WARNING: Tried to GetSubtitle() on a subtitle outside of range" << std::endl;
+        return "";
+    }
+}
+
 void LevelData::SetTileDetails(int x, int y, TileType type, bool connectsWithWall) {
     int index = x + y * width;
     levelTiles[index].type = type;

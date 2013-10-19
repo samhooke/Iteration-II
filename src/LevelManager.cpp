@@ -58,6 +58,10 @@ bool LevelManager::Load(const char* levelName) {
     std::vector<int> levers;
     std::vector<int> plates;
 
+    // Title and subtitles (0 = Title, 1...LEVEL_NUM_TITLES == Subtitles #1 -> #LEVEL_NUM_TITLES)
+    std::string levelTitles[LEVEL_NUM_TITLES];
+
+
     bool invalidMap = false;
     if (f.is_open()) {
         x = y = lineNumber = 0;
@@ -331,6 +335,28 @@ bool LevelManager::Load(const char* levelName) {
                         std::cout << "Invalid \"Critical:\" command: " << line << std::endl;
                         std::cout << "(There are the wrong number of arguments)" << std::endl;
                     }
+                } else if (lineExp[0] == "Title:" || lineExp[0] == "Subtitle:" || lineExp[0] == "Subtitle1:" || lineExp[0] == "Subtitle2:" || lineExp[0] == "Subtitl3:") {
+                    if (lineExp.size() >= 2) {
+                        // NOTE: If LEVEL_NUM_TITLES is changed, this section will need updating!
+                        // Work out the index within the levelTitles array for this particular title/subtitle
+                        int levelTitleIndex = 0;
+                        if (lineExp[0] == "Title:")
+                            levelTitleIndex = 0;
+                        if (lineExp[0] == "Subtitle:" || lineExp[0] == "Subtitle1:")
+                            levelTitleIndex = 1;
+                        if (lineExp[0] == "Subtitle2:")
+                            levelTitleIndex = 2;
+                        if (lineExp[0] == "Subtitle3:")
+                            levelTitleIndex = 3;
+
+                        // Concatenate the rest of lineExp
+                        std::ostringstream os;
+                        os << line.substr(lineExp[0].size() + 1, std::string::npos);
+                        levelTitles[levelTitleIndex] = os.str();
+                    } else {
+                        std::cout << "Invalid \"Title:\" or \"Subtitle:\" command: " << line << std::endl;
+                        std::cout << "(No string supplied)" << std::endl;
+                    }
                 }
             }
             lineNumber++;
@@ -382,6 +408,9 @@ bool LevelManager::Load(const char* levelName) {
         for (int i = 0; i < (int)plates.size(); i++) {
             linkData->GiveReferenceToStaticLinkableObject((GameObject::StaticLinkable*)levelData->GetObjectPointer(plates[i]));
         }
+
+        // Pass the titles to levelData
+        levelData->SetTitles(levelTitles);
 
         // Set the timelimit and critical that were read from file
         iterationData->SetTimeLimit(timelimit);
@@ -556,5 +585,40 @@ void LevelManager::UpdateDisplay(GameEngine* game) {
     // Draw the timeline
     timeline->UpdateDisplay(game, this);
 
+    // Draw the titles
+    DrawTitles(game);
+
+    // Draw the victory/failure things on top
     endGame->UpdateDisplay(game, this);
+}
+
+void LevelManager::DrawTitles(GameEngine* game) {
+    std::string titles[LEVEL_NUM_TITLES];
+    titles[0] = levelData->GetTitle();
+    titles[1] = levelData->GetSubtitle(1);
+    titles[2] = levelData->GetSubtitle(2);
+    titles[3] = levelData->GetSubtitle(3);
+
+    // Decorate title[0]
+    std::ostringstream os;
+    os << "/// " << titles[0] << " \\\\\\";
+    titles[0] = os.str();
+
+    int xm, x, y;
+
+    xm = game->display->GetWidth() / 2;
+
+    for (int i = 0; i < LEVEL_NUM_TITLES; i++) {
+        if (titles[i].size() >= 0) {
+            x = xm - titles[i].size() / 2;
+
+            // Have a gap between the title (i==0) and the subtitles (i>0)
+            if (i == 0)
+                y = 1;
+            else
+                y = 2 + i;
+
+            game->display->WriteText(x, y, titles[i].c_str());
+        }
+    }
 }

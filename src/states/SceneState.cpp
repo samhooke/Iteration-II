@@ -66,9 +66,17 @@ void SceneState::RenderFrame(GameEngine* game) {
             game->display->WriteText(2, 2 + i, text[i].c_str());
     }
 
-    if (time2 > (int)text.size())
+    if (time2 > (int)text.size()) {
         if ((int)(time / 0.25f) % 4 != 0)
             game->display->WriteText(2, game->display->GetHeight() - 2, "Press <Enter> to continue");
+
+        bool keyEnter = game->controls->GetKey(InputKey::Enter);
+        if (keyEnter) {
+            game->controls->ResetKeyDelay();
+            game->content->Next();
+            game->content->Load();
+        }
+    }
 
     game->display->Render(game);
     game->window->display();

@@ -19,6 +19,8 @@ private:
     std::vector<LevelTile> levelTiles;
     std::vector<GameObject::Base*> levelObjects;
 
+    std::string levelTitles[LEVEL_NUM_TITLES];
+
     GameEngine* game;
     LevelManager* levelManager;
 public:
@@ -26,6 +28,10 @@ public:
     ~LevelData();
 
     void DestroyAllObjects();
+
+    void SetTitles(std::string levelTitles[LEVEL_NUM_TITLES]);
+    std::string GetTitle();
+    std::string GetSubtitle(int subtitle);
 
     char nextCloneDesignation = 'A';
 

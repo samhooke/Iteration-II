@@ -32,6 +32,7 @@ public:
     bool Load(std::string levelName);
     void Update(GameEngine* game);
     void UpdateDisplay(GameEngine* game);
+    void DrawTitles(GameEngine* game);
     void UpdateTimeChanged();
 
     bool timeChangedForwardFlag = false;  // Set to true by IterationData when time changes forward
