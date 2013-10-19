@@ -76,7 +76,7 @@
 #define CONTENT_DIR "content/"
 #define LEVEL_DIR CONTENT_DIR "levels/"
 #define SCENE_DIR CONTENT_DIR "scenes/"
-#define OUTLINE_FILE CONTENT_DIR "outline.txt"
+#define OUTLINE_FILENAME CONTENT_DIR "outline.txt"
 
 /// Timeline
 

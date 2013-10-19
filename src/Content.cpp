@@ -4,6 +4,11 @@
 #include "states/SceneState.hpp"
 #include "states/PlayState.hpp"
 #include "states/TitleState.hpp"
+#include <string>
+#include <iostream>
+#include <sstream>
+#include <fstream>
+#include "General.hpp"
 
 Content::Content(GameEngine* game) {
     this->game = game;
@@ -15,17 +20,40 @@ void Content::Reset() {
 }
 
 void Content::LoadOutline() {
-    // Load the level list
-    ContentItem a;
-    a.type = ContentType::Scene;
-    a.filename = "000.txt";
 
-    ContentItem b;
-    b.type = ContentType::Level;
-    b.filename = "000.txt";
+    // Read the file outline.txt and generate the content list (of levels and scenes)
 
-    AddContent(a);
-    AddContent(b);
+    bool failure = false;
+
+    std::string line;
+    std::ifstream myfile(OUTLINE_FILENAME);
+    if (myfile.is_open()) {
+        while (getline(myfile, line) && !failure) {
+            std::vector<std::string> lineExp = ::Explode(line, ' ');
+            if (lineExp.size() == 2) {
+                // Read the tile and filename
+                ContentItem ci;
+                if (lineExp[0] == "Scene:") {
+                    ci.type = ContentType::Scene;
+                } else if (lineExp[0] == "Level:") {
+                    ci.type = ContentType::Level;
+                } else {
+                    failure = true;
+                    std::cout << "ERROR: Unknown content type '" << lineExp[0] << "'" << std::endl;
+                }
+
+                if (!failure) {
+                    ci.filename = lineExp[1];
+                    AddContent(ci);
+                }
+            } else {
+                failure = true;
+                std::cout << "ERROR: Invalid content item or filename contains spaces" << std::endl;
+            }
+        }
+    } else {
+        std::cout << "ERROR: Could not open outline file" << std::endl;
+    }
 }
 
 void Content::Next() {

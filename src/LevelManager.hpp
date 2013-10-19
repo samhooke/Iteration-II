@@ -14,9 +14,6 @@ class Timeline;
 class EndGame;
 
 class LevelManager {
-private:
-    bool StringToInt(std::string &s, int &i);
-    std::vector<std::string> Explode(std::string str, char split);
 public:
     LevelManager(GameEngine* game);
     ~LevelManager();

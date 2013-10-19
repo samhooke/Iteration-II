@@ -11,7 +11,7 @@
 #include "LinkData.hpp"
 #include "Timeline.hpp"
 #include "EndGame.hpp"
-
+#include "General.hpp"
 #include "Events.hpp"
 
 LevelManager::LevelManager(GameEngine* game) {
@@ -29,11 +29,6 @@ LevelManager::~LevelManager() {
     delete linkData;
     delete timeline;
     delete endGame;
-}
-
-bool LevelManager::StringToInt(std::string &s, int &i) {
-    std::istringstream myStream(s);
-    return (myStream>>i);
 }
 
 bool LevelManager::Load(std::string levelName) {
@@ -69,7 +64,7 @@ bool LevelManager::Load(const char* levelName) {
         while (getline(f, line) && !invalidMap) {
             if (lineNumber == 0) {
                 // Read expectedWidth
-                if (StringToInt(line, expectedWidth)) {
+                if (::StringToInt(line, expectedWidth)) {
 #ifdef DEBUG_VERBOSE
                     std::cout << "expectedWidth: " << expectedWidth << std::endl;
 #endif
@@ -83,7 +78,7 @@ bool LevelManager::Load(const char* levelName) {
                 }
             } else if (lineNumber == 1) {
                 // Read expectedHeight
-                if (StringToInt(line, expectedHeight)) {
+                if (::StringToInt(line, expectedHeight)) {
 #ifdef DEBUG_VERBOSE
                     std::cout << "expectedHeight: " << expectedHeight << std::endl;
 #endif
@@ -178,14 +173,14 @@ bool LevelManager::Load(const char* levelName) {
                 // Read the rest of the file
 
                 // Split the line by spaces to read the command
-                std::vector<std::string> lineExp = Explode(line, ' ');
+                std::vector<std::string> lineExp = ::Explode(line, ' ');
 
                 // Check if it is a link command
                 if (lineExp[0] == "Link:") {
                     if (lineExp.size() == 4) {
                         // This is a link command
-                        std::vector<std::string> objectFromExp = Explode(lineExp[1], '#');
-                        std::vector<std::string> objectToExp = Explode(lineExp[3], '#');
+                        std::vector<std::string> objectFromExp = ::Explode(lineExp[1], '#');
+                        std::vector<std::string> objectToExp = ::Explode(lineExp[3], '#');
 
                         if (objectFromExp.size() != 2) {
                             std::cout << "Invalid \"Link:\" command: " << line << std::endl;
@@ -198,8 +193,8 @@ bool LevelManager::Load(const char* levelName) {
                         } else {
                             // Objects are formatted okay
                             int objectFromIndex, objectToIndex;
-                            if (StringToInt(objectFromExp[1], objectFromIndex)) {
-                                if (StringToInt(objectToExp[1], objectToIndex)) {
+                            if (::StringToInt(objectFromExp[1], objectFromIndex)) {
+                                if (::StringToInt(objectToExp[1], objectToIndex)) {
 
                                     // Indexes in the level file start at 1, but start at 0 in game, so subtract one
                                     --objectFromIndex;
@@ -308,7 +303,7 @@ bool LevelManager::Load(const char* levelName) {
                 } else if (lineExp[0] == "Timelimit:") {
                     if (lineExp.size() == 2) {
                         // Read the Timelimit
-                        if (StringToInt(lineExp[1], timelimit)) {
+                        if (::StringToInt(lineExp[1], timelimit)) {
 #if DEBUG_VERBOSE
                             std::cout << "Read timelimit as: " << timelimit << std::endl;
 #endif // DEBUG_VERBOSE
@@ -323,7 +318,7 @@ bool LevelManager::Load(const char* levelName) {
                 } else if (lineExp[0] == "Critical:") {
                     if (lineExp.size() == 2) {
                         // Read the Critical
-                        if (StringToInt(lineExp[1], critical)) {
+                        if (::StringToInt(lineExp[1], critical)) {
 #if DEBUG_VERBOSE
                             std::cout << "Read critical as: " << critical << std::endl;
 #endif // DEBUG_VERBOSE
@@ -425,36 +420,6 @@ bool LevelManager::Load(const char* levelName) {
 
     // Return whether we were successful
     return !invalidMap;
-}
-
-std::vector<std::string> LevelManager::Explode(std::string str, char split) {
-
-    std::vector<std::string> exploded;
-    std::ostringstream currentString;
-
-    char lastChar = split;
-    for (int i = 0; i < (int)str.length(); i++) {
-        char thisChar = str[i];
-
-        // Build up currentString
-        if (thisChar != split)
-            currentString << thisChar;
-
-        // If we go from a non-split to a split, that is the end of this section
-        if (lastChar != split && thisChar == split) {
-            exploded.push_back(currentString.str());
-
-            // Reset the currentString to a blank string
-            currentString.str(std::string());
-        }
-
-        lastChar = thisChar;
-    }
-
-    // Place the final string in the array
-    exploded.push_back(currentString.str());
-
-    return exploded;
 }
 
 void LevelManager::Update(GameEngine* game) {
