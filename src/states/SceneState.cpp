@@ -58,7 +58,7 @@ void SceneState::RenderFrame(GameEngine* game) {
     game->window->clear();
     game->display->SetAll(TILE_BLANK);
 
-    float time = clock.getElapsedTime().asSeconds();
+    float time = clock.getElapsedTime().asSeconds() + timeSkip;
     float time2 = (time * 2) - 1;
 
     for (int i = 0; i < (int)text.size(); i++) {
@@ -66,15 +66,20 @@ void SceneState::RenderFrame(GameEngine* game) {
             game->display->WriteText(2, 2 + i, text[i].c_str());
     }
 
+    bool keyEnter = game->controls->GetKeyDown(InputKey::Enter);
     if (time2 > (int)text.size()) {
         if ((int)(time / 0.25f) % 4 != 0)
             game->display->WriteText(2, game->display->GetHeight() - 2, "Press <Enter> to continue");
 
-        bool keyEnter = game->controls->GetKey(InputKey::Enter);
         if (keyEnter) {
             game->controls->ResetKeyDelay();
             game->content->Next();
             game->content->Load();
+        }
+    } else {
+        if (keyEnter) {
+            game->controls->ResetKeyDelay();
+            timeSkip = 9999;
         }
     }
 

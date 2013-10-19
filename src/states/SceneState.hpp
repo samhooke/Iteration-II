@@ -31,6 +31,7 @@ private:
     std::vector<std::string> text;
 
     sf::Clock clock;
+    float timeSkip = 0.0f;
 };
 
 #endif // SCENESTATE_HPP_INCLUDED
