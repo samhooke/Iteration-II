@@ -380,13 +380,6 @@ bool LevelManager::Load(const char* levelName) {
     }
 
     if (invalidMap) {
-        // Map was invalid, so just populated the levelData with walls
-        for (y = 0; y < expectedHeight; y++) {
-            for (x = 0; x < expectedWidth; x++) {
-                levelData->SetTileDetails(x, y, TileType::Wall, true);
-            }
-        }
-
         // Delete all objects because we failed
         std::cout << "Destroying all generated game objects because level failed to load completely" << std::endl;
         levelData->DestroyAllObjects();
