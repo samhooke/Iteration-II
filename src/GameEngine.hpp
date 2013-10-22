@@ -23,11 +23,15 @@ public:
     void ProcessInput();
     void Update();
     void RenderFrame();
+    void CheckFlags();
 
     bool Running() { return m_running; }
     void Quit() { m_running = false; }
 
     void Pause();
+
+    void LevelLoadNext();
+    void LevelLoadCurrent();
 
     // SFML Render Window
     sf::RenderWindow* window;
@@ -48,6 +52,9 @@ private:
     std::vector<GameState*> states;
 
     bool m_running;
+
+    bool levelLoadNext = false;
+    bool levelLoadCurrent = false;
     };
 
 #endif // GAMEENGINE_HPP_INCLUDED

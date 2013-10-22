@@ -304,7 +304,7 @@ bool LevelManager::Load(const char* levelName) {
                     if (lineExp.size() == 2) {
                         // Read the Timelimit
                         if (::StringToInt(lineExp[1], timelimit)) {
-#if DEBUG_VERBOSE
+#ifdef DEBUG_VERBOSE
                             std::cout << "Read timelimit as: " << timelimit << std::endl;
 #endif // DEBUG_VERBOSE
                         } else {
@@ -319,7 +319,7 @@ bool LevelManager::Load(const char* levelName) {
                     if (lineExp.size() == 2) {
                         // Read the Critical
                         if (::StringToInt(lineExp[1], critical)) {
-#if DEBUG_VERBOSE
+#ifdef DEBUG_VERBOSE
                             std::cout << "Read critical as: " << critical << std::endl;
 #endif // DEBUG_VERBOSE
                         } else {
@@ -371,7 +371,7 @@ bool LevelManager::Load(const char* levelName) {
 
     // Check the timelimit and critical times are valid
     if (timelimit >= 1 && critical >= 1 && critical <= timelimit && timelimit <= 75 && critical <= 75) {
-#if DEBUG_VERBOSE
+#ifdef DEBUG_VERBOSE
         std::cout << "timelimit and critical are valid" << std::endl;
 #endif // DEBUG_VERBOSE
     } else {
@@ -465,13 +465,15 @@ void LevelManager::Update(GameEngine* game) {
             if (endGame->GetEndReason() == EndReason::Victory) {
                 // Go to the next level
                 game->controls->ResetKeyDelay();
-                game->content->Next();
-                game->content->Load();
+                game->LevelLoadNext();
+                //game->content->Next();
+                //game->content->Load();
             }
             if (endGame->GetEndReason() == EndReason::Meltdown) {
                 // Restart the current level
                 game->controls->ResetKeyDelay();
-                game->content->Load();
+                game->LevelLoadCurrent();
+                //game->content->Load();
             }
         }
     }

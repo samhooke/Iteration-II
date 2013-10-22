@@ -61,14 +61,23 @@ void Content::Next() {
 }
 
 void Content::Load() {
+#ifdef DEBUG_VERBOSE
+    std::cout << "Going to load new content" << std::endl;
+#endif // DEBUG_VERBOSE
     if (AtValidContent()) {
         ContentType type = GetCurrentContentType();
 
         if (type == ContentType::Level) {
+#ifdef DEBUG_VERBOSE
+            std::cout << "game->ChangeState(PlayState::Instance());" << std::endl;
+#endif // DEBUG_VERBOSE
             // Load level
             game->ChangeState(PlayState::Instance());
         }
         if (type == ContentType::Scene) {
+#ifdef DEBUG_VERBOSE
+            std::cout << "game->ChangeState(SceneState::Instance());" << std::endl;
+#endif // DEBUG_VERBOSE
             // Load scene
             game->ChangeState(SceneState::Instance());
         }

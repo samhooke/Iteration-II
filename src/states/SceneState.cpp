@@ -28,6 +28,7 @@ void SceneState::Init(GameEngine* game) {
     }
 
     clock.restart();
+    timeSkip = 0.0f;
 }
 
 void SceneState::CleanUp(GameEngine* game) {}

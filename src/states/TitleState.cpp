@@ -16,7 +16,7 @@ void TitleState::Init(GameEngine* game) {
     executeKey = ' ';
     reboot = false;
     executing = false;
-    timeskip = 0.0f;
+    timeSkip = 0.0f;
 }
 
 void TitleState::CleanUp(GameEngine* game) {
@@ -27,7 +27,7 @@ void TitleState::Resume() {}
 void TitleState::ProcessInput(GameEngine* game) {
     sf::Event event;
 
-    float time = clock.getElapsedTime().asSeconds() + timeskip;
+    float time = clock.getElapsedTime().asSeconds() + timeSkip;
 
     // Loop through all window events
     while (game->window->pollEvent(event)) {
@@ -37,7 +37,7 @@ void TitleState::ProcessInput(GameEngine* game) {
             break;
         case sf::Event::KeyPressed:
             if (event.key.code == sf::Keyboard::Space)
-                timeskip = 100.0f;
+                timeSkip = 100.0f;
             if (event.key.code == sf::Keyboard::Escape)
                 game->Quit();
             if (time > startTime + 8.5f / timeMultiplier) {
@@ -73,7 +73,7 @@ void TitleState::RenderFrame(GameEngine* game) {
 
     game->display->SetAll(TILE_BLANK);
 
-    float time = clock.getElapsedTime().asSeconds() + timeskip;
+    float time = clock.getElapsedTime().asSeconds() + timeSkip;
 
     if (time > startTime)
         game->display->DrawLogo(true, 2, 2);

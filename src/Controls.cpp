@@ -1,5 +1,6 @@
 #include "Controls.hpp"
 #include "Defs.hpp"
+#include <iostream>
 
 Controls::Controls() {
     // Start clock

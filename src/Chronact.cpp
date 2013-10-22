@@ -34,6 +34,7 @@ void Chronact::MainLoop() {
         game->Update();
         game->RenderFrame();
         game->Pause();
+        game->CheckFlags();
     }
 
     game->CleanUp();

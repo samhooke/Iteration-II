@@ -15,7 +15,7 @@ namespace GameObject {
             if (canHaveControl) {
                 return true;
             } else {
-#if DEBUG_VERBOSE
+#ifdef DEBUG_VERBOSE
                 // This would print out once per frame, which is a lot
                 std::cout << "ERROR: An object has control which cannot assume control" << std::endl;
 #endif

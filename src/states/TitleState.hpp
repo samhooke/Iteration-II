@@ -50,7 +50,7 @@ private:
     bool executing = false;
     float executeTime;
 
-    float timeskip = 0.0f;
+    float timeSkip = 0.0f;
     };
 
 #endif // TITLESTATE_HPP_INCLUDED

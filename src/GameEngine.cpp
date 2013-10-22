@@ -110,3 +110,24 @@ void GameEngine::Update() {
 void GameEngine::RenderFrame() {
     states.back()->RenderFrame(this);
 }
+
+void GameEngine::CheckFlags() {
+    if (levelLoadNext) {
+        levelLoadNext = false;
+        content->Next();
+        content->Load();
+    }
+
+    if (levelLoadCurrent) {
+        levelLoadCurrent = false;
+        content->Load();
+    }
+}
+
+void GameEngine::LevelLoadNext() {
+    levelLoadNext = true;
+}
+
+void GameEngine::LevelLoadCurrent() {
+    levelLoadCurrent = true;
+}

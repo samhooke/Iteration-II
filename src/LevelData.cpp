@@ -69,7 +69,7 @@ int LevelData::GetTileDisplayCharacter(int x, int y) {
     if (index >= 0 && index < (int)levelTiles.size())
         return levelTiles[index].displayCharacter;
     else {
-#if DEBUG_VERBOSE
+#ifdef DEBUG_VERBOSE
         std::cout << "ERROR: Call to GetTileDisplayCharacter(x:" << x << ",y:" << y << ") was out of range" << std::endl;
 #endif // DEBUG_VERBOSE
 
