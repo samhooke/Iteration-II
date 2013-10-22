@@ -1,0 +1,13 @@
+Good work, you understand the very basics of movement.
+
+   Here's some advice
+   Try to think of movement as spatial translation...
+
+
+
+...soon I'll need you to translate your temporal position.
+
+  First though,
+    something *very* important:
+      
+      

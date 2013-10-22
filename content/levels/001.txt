@@ -1,0 +1,20 @@
+11
+12
+#########  
+#...#...#  
+#...d.P.#  
+#...#...#  
+#.l.#####  
+#...#      
+##d##      
+ #.#  #####
+ #.####...#
+ #....D.T.#
+ ######...#
+      #####
+Title: Security Priority
+Subtitle1: Secure doors cannot be opened directly
+Subtitle2: Operate the lever with Z
+Timelimit: 40
+Critical: 40
+Link: Lever#1 => Door#3

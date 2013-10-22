@@ -1,0 +1,22 @@
+17
+13
+      #####      
+      #...#      
+      #.l.#      
+      #...#      
+##### ##D## #####
+#...###...###...#
+#.T...D.P.D...l.#
+#...###...###...#
+##### ##d## #####
+      #...#      
+      #.l.#      
+      #...#      
+      #####      
+Title: Nothing Wasted
+Subtitle1: Make every action count
+Timelimit: 39
+Critical: 39
+Link: Lever#3 => Door#1
+Link: Lever#1 => Door#3
+Link: Lever#2 => Door#2
