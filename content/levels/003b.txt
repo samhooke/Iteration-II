@@ -8,6 +8,7 @@
 Title: XOR #2
 Subtitle1: Open and close the door for yourself...
 Subtitle2: ...not on yourself
+Subtitle3: (I've heard they can be lethal)
 Timelimit: 15
 Critical: 15
 Link: Lever#1 => Door#1

@@ -1,6 +1,6 @@
 While we're at it,
 Here's one more troublesome item to deal with:
-                                              motion sensors
+                                              motion alarms
 
   Once triggered, they cannot be deactivated
     Well,

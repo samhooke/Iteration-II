@@ -1,0 +1,21 @@
+22
+7
+#############         
+#...P...#...#    #####
+#...Y...#...######...#
+#...l...D.....D....T.#
+#.################...#
+#.DDDDD.=...Y.l# #####
+################      
+Title: Grandfather Paradox
+Subtitle1: Death will stop all future actions of a clone
+Subtitle2: Except for the action of time travel
+Timelimit: 40
+Critical: 40
+Link: Lever#1 => Door#3
+Link: Lever#1 => Door#4
+Link: Lever#1 => Door#5
+Link: Lever#1 => Door#6
+Link: Lever#1 => Door#7
+Link: Alarm#1 ~> Door#1
+Link: Lever#2 => Door#2
