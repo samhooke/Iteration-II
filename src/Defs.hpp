@@ -60,13 +60,18 @@
 
 #define LOGO_FILENAME "resources/logo.png"
 
+/// Title
+
+// How many rows the title and subtitles require
+#define TITLE_HEIGHT 5 //NOTE: This affects TIMELINE_HEIGHT_MAX
+
 /// Levels
 
 // Range of the level
 #define LEVEL_WIDTH_MIN 1
 #define LEVEL_WIDTH_MAX 80
 #define LEVEL_HEIGHT_MIN 1
-#define LEVEL_HEIGHT_MAX 24
+#define LEVEL_HEIGHT_MAX 19 //NOTE: This affects TIMELINE_HEIGHT_MAX
 
 // The size of the array that contains a level's title and subtitles
 // If changing this, you must also update the code where it appears
@@ -81,7 +86,7 @@
 /// Timeline
 
 // Timeline will be as high as we can fit into the remainder of the screen
-#define TIMELINE_HEIGHT_MAX (DISPLAY_HEIGHT - LEVEL_HEIGHT_MAX)
+#define TIMELINE_HEIGHT_MAX (DISPLAY_HEIGHT - (LEVEL_HEIGHT_MAX + TITLE_HEIGHT))
 #define TIMELINE_WIDTH_MAX (DISPLAY_WIDTH)
 
 #endif // DEFS_HPP_INCLUDED
