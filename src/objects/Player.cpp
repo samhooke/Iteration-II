@@ -309,6 +309,11 @@ namespace GameObject {
         // Create an event where each door kills every player on its square
         for (int i = 0; i < (int)doorsOpenToShut.size(); i++) {
             Event::LinkableKillAllPlayersAt* eventPlayersKilledByDoor = new Event::LinkableKillAllPlayersAt(levelManager->iterationData->GetTime(), levelManager->levelData, doorsOpenToShut[i], doorsOpenToShut[i]->x, doorsOpenToShut[i]->y, STATE_DOOR_OPEN, STATE_DOOR_SHUT);
+
+            // Make the event be executed last because it relies upon player movement
+            // and player movement occurs at EVENT_ORDER_MIDDLE
+            eventPlayersKilledByDoor->order = EVENT_ORDER_BACK;
+
             levelManager->eventData->AddEvent(eventPlayersKilledByDoor);
         }
 

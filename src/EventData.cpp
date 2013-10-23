@@ -60,22 +60,32 @@ void EventData::ExecuteForwardEvents(int time) {
     tentativeEvents.clear();
 
     // Execute events in forwards order
-    for (int i = 0; i < (int)events[time].size(); ++i) {
-        Event::Result result = events[time].at(i)->ForwardEvent();
+    for (int o = EVENT_ORDER_FRONT; o <= EVENT_ORDER_BACK; o++) {
+        for (int i = 0; i < (int)events[time].size(); ++i) {
+            Event::Base* e = events[time].at(i);
+            if (e->order == o) {
+                Event::Result result = e->ForwardEvent();
 
-        if (!result.success) {
-            std::cout << ::Timestamp(time) << "Forward paradox with " << events[time].at(i)->debugName << ": " << result.msg << std::endl;
+                if (!result.success) {
+                    std::cout << ::Timestamp(time) << "Forward paradox with " << events[time].at(i)->debugName << ": " << result.msg << std::endl;
+                }
+            }
         }
     }
 }
 
 void EventData::ExecuteBackwardEvents(int time) {
     // Execute events in backwards order
-    for (int i = (int)events[time].size() - 1; i >= 0 ; --i) {
-        Event::Result result = events[time].at(i)->BackwardEvent();
+    for (int o = EVENT_ORDER_BACK; o >= EVENT_ORDER_FRONT; o--) {
+        for (int i = (int)events[time].size() - 1; i >= 0 ; --i) {
+            Event::Base* e = events[time].at(i);
+            if (e->order == o) {
+                Event::Result result = e->BackwardEvent();
 
-        if (!result.success) {
-            std::cout << ::Timestamp(time) << "Backward paradox with " << events[time].at(i)->debugName << ": " << result.msg << std::endl;
+                if (!result.success) {
+                    std::cout << ::Timestamp(time) << "Backward paradox with " << events[time].at(i)->debugName << ": " << result.msg << std::endl;
+                }
+            }
         }
     }
 }
