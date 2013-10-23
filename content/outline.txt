@@ -11,3 +11,6 @@ Scene: 002.txt
 Level: 002a.txt
 Level: 002b.txt
 Level: 002c.txt
+Scene: 003.txt
+Level: 003a.txt
+Level: 003b.txt

@@ -1,13 +1,24 @@
-19
-5
-############# #####
-#.....#.....###...#
-#.P.l.D..Y..D...T.#
-#.....#.....###...#
-############# #####
-Title: Going Backwards
-Subtitle1: Press X to let time pass without moving
-Timelimit: 20
-Critical: 20
-Link: Lever#1 => Door#1
-Link: Lever#1 ~> Door#2
+13
+13
+#############
+#.....l....Y#
+#P####.####.#
+#.#  #.#  #.#
+#.# ##D## #.#
+#.###...###.#
+#l..D.T.D..l#
+#.###...###.#
+#.# ##D## #.#
+#.#  #.#  #.#
+#.####.####.#
+#.....l...Y.#
+#############
+Title: Not Everything Is Necessary
+Subtitle1: Sometimes you need to go forward in time without moving in space
+Subtitle2: To do this, press X
+Timelimit: 13
+Critical: 13
+Link: Lever#1 => Door#4
+Link: Lever#2 => Door#3
+Link: Lever#3 => Door#2
+Link: Lever#4 => Door#1

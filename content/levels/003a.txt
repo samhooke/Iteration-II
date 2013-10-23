@@ -1,0 +1,14 @@
+19
+5
+############# #####
+#.....#.....###...#
+#.P.l.D..Y..D...T.#
+#.....#.....###...#
+############# #####
+Title: Going Backwards
+Subtitle1: Your clones are temporary
+Subtitle2: They stop existing when they reach their time of creation
+Timelimit: 20
+Critical: 20
+Link: Lever#1 => Door#1
+Link: Lever#1 ~> Door#2

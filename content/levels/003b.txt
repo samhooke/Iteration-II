@@ -5,6 +5,9 @@
 #.PY.D.D.T.#
 #....###...#
 ###### #####
+Title: XOR #2
+Subtitle1: Open and close the door for yourself...
+Subtitle2: ...not on yourself
 Timelimit: 10
 Critical: 10
 Link: Lever#1 => Door#1

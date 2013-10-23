@@ -10,8 +10,8 @@
   ##..l.D.###     
    ########       
 Title: Even Less Straight Forward
-Subtitle1: Pulling levers takes time too
-Subtitle2: But don't walk too out of your way
+Subtitle1: Pulling levers takes time, too
+Subtitle2: But don't walk far out of your way
 Timelimit: 23
 Critical: 23
 Link: Lever#1 => Door#1

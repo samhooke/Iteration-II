@@ -466,14 +466,11 @@ void LevelManager::Update(GameEngine* game) {
                 // Go to the next level
                 game->controls->ResetKeyDelay();
                 game->LevelLoadNext();
-                //game->content->Next();
-                //game->content->Load();
             }
             if (endGame->GetEndReason() == EndReason::Meltdown) {
                 // Restart the current level
                 game->controls->ResetKeyDelay();
                 game->LevelLoadCurrent();
-                //game->content->Load();
             }
         }
     }

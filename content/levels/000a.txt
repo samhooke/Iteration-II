@@ -6,7 +6,8 @@
 #.....#.....#
 #############
 Title: Baby Steps
-Subtitle1: Use your arrow keys to walk through that door
-Subtitle2: Then activate that terminal with Z
+Subtitle1: This is the first of many training simulations
+Subtitle2: Use your arrow keys to walk through that door
+Subtitle3: Then activate that terminal with Z
 Timelimit: 30
 Critical: 30
