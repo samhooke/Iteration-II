@@ -1,18 +1,17 @@
-12
-7
-  #####     
-  #_._#     
-###...######
-#P..Y.DDDDT#
-###...######
-  #_._#     
-  #####     
-Title: Increasing Pressure
-Subtitle1: Call upon as many clones as necessary
-Subtitle2: Just make sure not to waste a single action
-Timelimit: 10
-Critical: 10
+20
+5
+####################
+#....D..D..D..D..DT#
+#P.Y.###############
+#...._.._.._.._.._.#
+####################
+Title: Somewhat Familiar
+Subtitle1: Lend a hand to yourself with all those pressure plates
+Subtitle2: Just make sure to leave enough time
+Timelimit: 25
+Critical: 25
 Link: Plate#1 => Door#1
-Link: Plate#2 => Door#3
-Link: Plate#3 => Door#2
+Link: Plate#2 => Door#2
+Link: Plate#3 => Door#3
 Link: Plate#4 => Door#4
+Link: Plate#5 => Door#5
