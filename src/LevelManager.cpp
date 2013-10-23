@@ -52,6 +52,7 @@ bool LevelManager::Load(const char* levelName) {
     std::vector<int> doors;
     std::vector<int> levers;
     std::vector<int> plates;
+    std::vector<int> alarms;
 
     // Title and subtitles (0 = Title, 1...LEVEL_NUM_TITLES == Subtitles #1 -> #LEVEL_NUM_TITLES)
     std::string levelTitles[LEVEL_NUM_TITLES];
@@ -126,6 +127,10 @@ bool LevelManager::Load(const char* levelName) {
                         case '_': // Pressure plate
                             levelData->SetTileDetails(x, y, TileType::Floor, false);
                             plates.push_back(levelData->CreatePressurePlate(x, y));
+                            break;
+                        case '=': // Motion alarm
+                            levelData->SetTileDetails(x, y, TileType::Floor, false);
+                            alarms.push_back(levelData->CreateMotionAlarm(x, y));
                             break;
                         /// Radiation
                         case 'r': // Radiation (weak)
@@ -232,6 +237,11 @@ bool LevelManager::Load(const char* levelName) {
                                             indexTooGreat = true;
                                         else
                                             objectFrom = (GameObject::StaticLinkable*)levelData->GetObjectPointer(plates[objectFromIndex]);
+                                    } else if (objectFromExp[0] == "Alarm") {
+                                        if (objectFromIndex >= (int)doors.size())
+                                            indexTooGreat = true;
+                                        else
+                                            objectFrom = (GameObject::StaticLinkable*)levelData->GetObjectPointer(alarms[objectFromIndex]);
                                     } else {
                                         std::cout << "Invalid \"Link:\" command: " << line << std::endl;
                                         std::cout << "(First object is not recognised)" << std::endl;
@@ -255,6 +265,11 @@ bool LevelManager::Load(const char* levelName) {
                                             indexTooGreat = true;
                                         else
                                             objectFrom = (GameObject::StaticLinkable*)levelData->GetObjectPointer(plates[objectFromIndex]);
+                                    } else if (objectFromExp[0] == "Alarm") {
+                                        if (objectFromIndex >= (int)doors.size())
+                                            indexTooGreat = true;
+                                        else
+                                            objectFrom = (GameObject::StaticLinkable*)levelData->GetObjectPointer(alarms[objectFromIndex]);
                                     } else {
                                         std::cout << "Invalid \"Link:\" command: " << line << std::endl;
                                         std::cout << "(Second object is not recognised)" << std::endl;
@@ -395,6 +410,9 @@ bool LevelManager::Load(const char* levelName) {
         }
         for (int i = 0; i < (int)plates.size(); i++) {
             linkData->GiveReferenceToStaticLinkableObject((GameObject::StaticLinkable*)levelData->GetObjectPointer(plates[i]));
+        }
+        for (int i = 0; i < (int)alarms.size(); i++) {
+            linkData->GiveReferenceToStaticLinkableObject((GameObject::StaticLinkable*)levelData->GetObjectPointer(alarms[i]));
         }
 
         // Pass the titles to levelData

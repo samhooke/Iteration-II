@@ -53,6 +53,16 @@ namespace GameObject {
 
         void UpdateSprite();
     };
+
+    class MotionAlarm : public GameObject::StaticLinkable {
+    public:
+        void Update();
+
+        MotionAlarm(int x, int y, GameEngine* game, LevelManager* levelManager, bool state);
+        ~MotionAlarm();
+
+        void UpdateSprite();
+    };
 }
 
 #endif // OBJECTSGENERAL_HPP_INCLUDED

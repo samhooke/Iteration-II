@@ -147,6 +147,22 @@ namespace GameObject {
                         Event::Base* eventPlayerMove = new Event::PlayerMove(time, this, x, y, xTo, yTo);
                         levelManager->eventData->AddEvent(eventPlayerMove);
 
+                        /// MotionAlarm
+                        // Check for pressure plates in the square we are about to move to
+                        index = GetObjectIndexAtPosWithTag(xTo, yTo, TAG_MOTIONALARM);
+                        if (index >= 0) {
+                            // We are going to step into a motion alarm
+                            GameObject::MotionAlarm* motionAlarm = (GameObject::MotionAlarm*)levelManager->levelData->GetObjectPointer(index);
+
+                            // Check if the plate is up
+                            if (motionAlarm->state == STATE_MOTIONALARM_INACTIVE) {
+                                // The alarm is not active, so create an event to activate it
+                                Event::LinkableStateChange* eventMotionAlarmActivate = new Event::LinkableStateChange(time, motionAlarm, this, xTo, yTo, STATE_MOTIONALARM_INACTIVE);
+
+                                CreateFutureRepercussions(eventMotionAlarmActivate);
+                            }
+                        }
+
                         /// PressurePlate (stepping on)
                         // Check for pressure plates in the square we are about to move to
                         index = GetObjectIndexAtPosWithTag(xTo, yTo, TAG_PRESSUREPLATE);

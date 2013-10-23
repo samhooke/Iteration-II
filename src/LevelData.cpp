@@ -346,3 +346,13 @@ int LevelData::CreatePressurePlate(int x, int y) {
     levelObjects.push_back(obj);
     return (int)levelObjects.size() - 1;
 }
+
+int LevelData::CreateMotionAlarm(int x, int y) {
+#ifdef DEBUG_VERBOSE
+    std::cout << "MotionAlarm(" << x << "," << y << ")" << std::endl;
+#endif
+    GameObject::Base* obj = new GameObject::MotionAlarm(x, y, game, levelManager, STATE_PRESSUREPLATE_UP);
+    obj->tag = TAG_MOTIONALARM;
+    levelObjects.push_back(obj);
+    return (int)levelObjects.size() - 1;
+}

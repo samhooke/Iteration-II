@@ -94,4 +94,28 @@ namespace GameObject {
     void PressurePlate::Update() {
         UpdateSprite();
     }
+
+    /// MotionAlarm
+    MotionAlarm::MotionAlarm(int x, int y, GameEngine* game, LevelManager* levelManager, bool state) : StaticLinkable(x, y, game, levelManager, state) {
+        debugName = "MotionAlarm";
+        UpdateSprite();
+    }
+
+    void MotionAlarm::UpdateSprite() {
+        if (state == STATE_MOTIONALARM_INACTIVE) {
+            displayCharacter = TILE_MOTIONALARM;
+        } else {
+            int t = ((int)(game->gameClock->getElapsedTime().asSeconds() / TIMEMACHINE_SECONDS_PER_DISPLAYCHARACTER));
+            if (t % 2 == 0)
+                displayCharacter = TILE_MOTIONALARM_ACTIVE_1;
+            else
+                displayCharacter = TILE_MOTIONALARM_ACTIVE_2;
+        }
+    }
+
+    MotionAlarm::~MotionAlarm() {}
+
+    void MotionAlarm::Update() {
+        UpdateSprite();
+    }
 }
