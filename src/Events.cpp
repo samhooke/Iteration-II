@@ -49,8 +49,10 @@ namespace Event {
         result.msg = "";
         std::ostringstream msg;
 
+        bool checkObjects = true;
+
         if (player->x == xFrom && player->y == yFrom) {
-            if (player->IsPosFree(xTo, yTo) || (xTo == -1 && yTo == -1)) {
+            if (player->IsPosFree(xTo, yTo, checkObjects) || (xTo == -1 && yTo == -1)) {
                 if (player->dead == false) {
                     player->x = xTo;
                     player->y = yTo;
@@ -75,8 +77,16 @@ namespace Event {
         result.msg = "";
         std::ostringstream msg;
 
+        // TODO: Currently, collision checking against objects when time is in reverse is disabled
+        // This will lead to bugs where a player going back in time will walk through closed doors
+        // However, it is currently this way because otherwise backwards time does not work at all
+        // If a player walks through a door onto a sensor that closes the door immediately, then
+        // they could not go back through the door in reverse time if object collision detection
+        // is enabled, because it would detect the door was closed and not let the player go through
+        bool checkObjects = false;
+
         if (player->x == xTo && player->y == yTo) {
-            if (player->IsPosFree(xFrom, yFrom) || (xFrom == -1 && yFrom == -1)) {
+            if (player->IsPosFree(xFrom, yFrom, checkObjects) || (xFrom == -1 && yFrom == -1)) {
                 if (player->dead == false) {
                 player->x = xFrom;
                 player->y = yFrom;

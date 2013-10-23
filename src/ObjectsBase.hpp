@@ -37,7 +37,7 @@ namespace GameObject {
 
         bool Controlling();
 
-        bool IsPosFree(int x, int y);       // Checks only against tiles (wall, floor, restricted)
+        bool IsPosFree(int x, int y, bool checkObjects = false);       // Checks only against tiles (wall, floor, restricted)
         int GetObjectIndexAtPosWithTag(int x, int y, std::string tag);
     };
 

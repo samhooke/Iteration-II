@@ -28,8 +28,30 @@ namespace GameObject {
         //std::cout << "Time changed!" << std::endl;
     }
 
-    bool Base::IsPosFree(int x, int y) {
-        return levelManager->levelData->GetTileType(x, y) == TileType::Floor;
+    bool Base::IsPosFree(int x, int y, bool checkObjects) {
+        //return levelManager->levelData->GetTileType(x, y) == TileType::Floor;
+        bool posFree = true;
+
+        if (levelManager->levelData->GetTileType(x, y) != TileType::Floor) {
+            posFree = false;
+        }
+
+        if (checkObjects) {
+            if (posFree) {
+                // Check for doors
+                int index = GetObjectIndexAtPosWithTag(x, y, TAG_DOOR);
+
+                if (index >= 0) {
+                    GameObject::StaticLinkable* door = (GameObject::StaticLinkable*)levelManager->levelData->GetObjectPointer(index);
+                    if (door->state == STATE_DOOR_SHUT) {
+                        // Door at this position is shut, so the position is not free
+                        posFree = false;
+                    }
+                }
+            }
+        }
+
+        return posFree;
     }
 
     // If there is an object at position x,y with tag `tag`, its index is returned

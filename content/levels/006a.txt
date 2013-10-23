@@ -1,0 +1,16 @@
+15
+6
+###############
+#...#.....#...#
+#...D..P..D..T#
+##D############
+ #=.L.....l.Y# 
+ ############# 
+Title: Paradoxical
+Subtitle1: Sometimes a paradox is necessary
+Subtitle2: Your past self can survive being interrupted
+Timelimit: 40
+Critical: 40
+Link: Alarm#1 ~> Door#3
+Link: Lever#1 => Door#1
+Link: Lever#2 => Door#2

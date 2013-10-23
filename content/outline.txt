@@ -1,4 +1,4 @@
-Level: 005a.txt
+Level: 005b.txt
 Title: builtin
 Scene: 000.txt
 Level: 000a.txt
@@ -21,3 +21,6 @@ Level: 004a.txt
 Level: 004b.txt
 Level: 004c.txt
 Scene: 005.txt
+Level: 005a.txt
+Scene: 006.txt
+Level: 006a.txt
