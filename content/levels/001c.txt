@@ -1,0 +1,26 @@
+18
+9
+   ########       
+  ##..L.D.###     
+ ##..l..#.D.###   
+##..L.l.D.#.D.####
+#P.l.l..#.D.#.D.T#
+##..l.l.D.#.D.####
+ ##..l..#.D.###   
+  ##..l.D.###     
+   ########       
+Title: Even Less Straight Forward
+Subtitle1: Pulling levers takes time too
+Subtitle2: But don't walk too out of your way
+Timelimit: 23
+Critical: 23
+Link: Lever#1 => Door#1
+Link: Lever#2 => Door#2
+Link: Lever#3 => Door#4
+Link: Lever#4 => Door#3
+Link: Lever#5 => Door#6
+Link: Lever#6 => Door#5
+Link: Lever#7 => Door#8
+Link: Lever#8 => Door#7
+Link: Lever#9 => Door#9
+Link: Lever#10 => Door#10

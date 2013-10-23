@@ -1,0 +1,16 @@
+20
+7
+#####     #######   
+#...#######..P..#   
+#...#.....#.....####
+#.T.D.....D..l..D.l#
+#...#.....#.....####
+#...#######.....#   
+#####     #######   
+Title: XOR
+Subtitle1: Levers can operate multiple doors
+Timelimit: 40
+Critical: 40
+Link: Lever#1 ~> Door#2
+Link: Lever#1 => Door#3
+Link: Lever#2 => Door#1

@@ -12,6 +12,6 @@
        #............#      
        ##############      
 Title: Not Straight Forward
-Subtitle1: Opening doors takes time, too
+Subtitle1: Opening doors takes time
 Timelimit: 33
 Critical: 33

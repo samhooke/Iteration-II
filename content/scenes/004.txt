@@ -1,6 +1,0 @@
-    Good work, you understand the very basics of movement.
-
-  Movement through the three dimensions of space, that is.
-
-Now for the fourth dimension:
-Time
