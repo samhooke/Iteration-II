@@ -11,6 +11,9 @@
 #.....d........D.T.#
 ################...#
                #####
-Timelimit: 40
-Critical: 20
+Title: Press That Plate
+Subtitle1: Pressure plates activate automatically
+Subtitle2: A suitably heavy object, such as a person, will activate them
+Timelimit: 25
+Critical: 25
 Link: Plate#1 => Door#4

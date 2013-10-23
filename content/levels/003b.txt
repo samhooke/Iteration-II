@@ -1,14 +1,18 @@
-12
+16
 5
-###### #####
-#...l###...#
-#.PY.D.D.T.#
-#....###...#
-###### #####
+######     #####
+#...l#######...#
+#.PY.DDD.DDD.T.#
+#....#######...#
+######     #####
 Title: XOR #2
 Subtitle1: Open and close the door for yourself...
 Subtitle2: ...not on yourself
-Timelimit: 10
-Critical: 10
+Timelimit: 15
+Critical: 15
 Link: Lever#1 => Door#1
-Link: Lever#1 ~> Door#2
+Link: Lever#1 => Door#2
+Link: Lever#1 => Door#3
+Link: Lever#1 ~> Door#4
+Link: Lever#1 ~> Door#5
+Link: Lever#1 ~> Door#6

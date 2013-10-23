@@ -1,14 +1,17 @@
-19
+20
 5
-############# #####
-#.....#.....###...#
-#.P.l.D..Y..D...T.#
-#.....#.....###...#
-############# #####
-Title: Going Backwards
-Subtitle1: Your clones are temporary
-Subtitle2: They stop existing when they reach their time of creation
-Timelimit: 20
-Critical: 20
+####################
+#....D..D..D..D..DT#
+#P.Y.###############
+#....l..l..l..l..l.#
+####################
+Title: Helping Hand
+Subtitle1: Lend a hand to yourself with all those levers
+Subtitle2: Remember, press X to pass time without moving
+Timelimit: 27
+Critical: 27
 Link: Lever#1 => Door#1
-Link: Lever#1 ~> Door#2
+Link: Lever#2 => Door#2
+Link: Lever#3 => Door#3
+Link: Lever#4 => Door#4
+Link: Lever#5 => Door#5

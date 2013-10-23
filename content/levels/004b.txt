@@ -7,6 +7,9 @@
 ###...######
   #_._#     
   #####     
+Title: Increasing Pressure
+Subtitle1: Call upon as many clones as necessary
+Subtitle2: Just make sure not to waste a single action
 Timelimit: 10
 Critical: 10
 Link: Plate#1 => Door#1
