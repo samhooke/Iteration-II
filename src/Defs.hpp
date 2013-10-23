@@ -32,6 +32,7 @@
 #define INPUT_ACTION_1 sf::Keyboard::Z
 #define INPUT_ACTION_2 sf::Keyboard::X
 #define INPUT_ENTER sf::Keyboard::Return
+#define INPUT_RESTART sf::Keyboard::R
 
 /// Drawing
 

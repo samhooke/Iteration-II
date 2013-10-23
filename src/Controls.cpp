@@ -28,7 +28,8 @@ void Controls::UpdateKeyStates() {
         case InputKey::Right:   keyStateNow[iKey] = sf::Keyboard::isKeyPressed(INPUT_RIGHT);       break;
         case InputKey::Action1: keyStateNow[iKey] = sf::Keyboard::isKeyPressed(INPUT_ACTION_1);    break;
         case InputKey::Action2: keyStateNow[iKey] = sf::Keyboard::isKeyPressed(INPUT_ACTION_2);    break;
-        case InputKey::Enter:   keyStateNow[iKey] = sf::Keyboard::isKeyPressed(INPUT_ENTER);    break;
+        case InputKey::Enter:   keyStateNow[iKey] = sf::Keyboard::isKeyPressed(INPUT_ENTER);       break;
+        case InputKey::Restart: keyStateNow[iKey] = sf::Keyboard::isKeyPressed(INPUT_RESTART);     break;
         default:
 #ifdef DEBUG_VERBOSE
             std::cout << "WARNING: Trying to update the state of a key that does not exist" << std::endl;

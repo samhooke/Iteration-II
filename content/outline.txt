@@ -1,4 +1,3 @@
-Level: 001c.txt
 Title: builtin
 Scene: 000.txt
 Level: 000a.txt

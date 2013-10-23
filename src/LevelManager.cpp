@@ -477,6 +477,11 @@ void LevelManager::Update(GameEngine* game) {
             }
         }
     }
+
+    // For restarting current level
+    if (game->controls->GetKeyDown(InputKey::Restart)) {
+        game->LevelLoadCurrent();
+    }
 }
 
 void LevelManager::UpdateTimeChanged() {

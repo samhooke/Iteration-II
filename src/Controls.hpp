@@ -4,7 +4,7 @@
 #include <map>
 #include <SFML/Graphics.hpp>
 
-enum class InputKey {Up = 0, Down = 1, Left = 2, Right = 3, Action1 = 4, Action2 = 5, Enter = 6, __COUNT = 7};
+enum class InputKey {Up = 0, Down = 1, Left = 2, Right = 3, Action1 = 4, Action2 = 5, Enter = 6, Restart = 7, __COUNT = 8};
 
 class Controls {
 private:
