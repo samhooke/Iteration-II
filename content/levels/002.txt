@@ -14,7 +14,8 @@
       #...#      
       #####      
 Title: Nothing Wasted
-Subtitle1: Make every action count
+Subtitle1: Watch the timeline at the bottom carefully
+Subtitle2: Every action costs time
 Timelimit: 39
 Critical: 39
 Link: Lever#3 => Door#1

@@ -1,0 +1,13 @@
+18
+5
+#####        #####
+#...##########...#
+#.P......Y.....T.#
+#...##########...#
+#####        #####
+Title: First Time
+Subtitle1: Enter the time machine with Z
+Subtitle2: While inside, hold Z to go back in time
+Subtitle3: Press X to get out of the time machine
+Timelimit: 8
+Critical: 8

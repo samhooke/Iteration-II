@@ -4,3 +4,6 @@ Level: 000.txt
 Level: 001.txt
 Scene: 002.txt
 Level: 002.txt
+Level: 003.txt
+Scene: 004.txt
+Level: 004.txt
