@@ -1,12 +1,17 @@
-13
-5
-####### #####
-#.....###...#
-#=..P.D...T.#
-#.....###...#
-####### #####
+17
+7
+      #####      
+##### #.P.# #####
+#...###...###...#
+#.T.DDD.Y.D=..l.#
+#...###...###...#
+##### #...# #####
+      #####      
 Title: Undeactivatable
-Subtitle1: Motion sensors stay active once activated
-Timelimit: 10
-Critical: 10
-Link: Alarm#1 => Door#1
+Subtitle1: Motion alarms stay active once activated
+Timelimit: 25
+Critical: 25
+Link: Alarm#1 ~> Door#4
+Link: Lever#1 => Door#1
+Link: Lever#1 => Door#2
+Link: Lever#1 => Door#3

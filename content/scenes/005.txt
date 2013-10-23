@@ -1,14 +1,7 @@
-I'm beginning to actually have some faith in you...
+While we're at it,
+Here's one more troublesome item to deal with:
+                                              motion sensors
 
-Now,
-    don't get too confident.
-
-
-
-Ever heard of the "grandfather paradox"?
-
-  Yes, the one where you go back in time, and kill your grandfather
-
-  ...
-
-  Did I mention yet that doors can be lethal?
+  Once triggered, they cannot be deactivated
+    Well,
+         unless if you can go backwards in time
