@@ -4,7 +4,7 @@
 #include <sstream>
 #include <fstream>
 #include "GameEngine.hpp"
-#include "states/TitleState.hpp"
+#include "states/EntryState.hpp"
 #include "Logger.hpp"
 #include "Defs.hpp"
 
@@ -25,8 +25,8 @@ void Chronact::MainLoop() {
     GameEngine* game = new GameEngine();
     game->Init("Iteration II", fullscreen, maintainAspectRatio, scale, useShaders);
 
-    // Change game state to the title screen
-    game->ChangeState(TitleState::Instance());
+    // Change game state to the entry state, which will load the appropriate game content
+    game->ChangeState(EntryState::Instance());
 
     // Actually enter the main loop
     while(game->Running()) {

@@ -114,6 +114,8 @@
 		<Unit filename="src/objects/Tags.hpp" />
 		<Unit filename="src/objects/TimeMachine.cpp" />
 		<Unit filename="src/objects/TimeMachine.hpp" />
+		<Unit filename="src/states/EntryState.cpp" />
+		<Unit filename="src/states/EntryState.hpp" />
 		<Unit filename="src/states/GameState.hpp" />
 		<Unit filename="src/states/PlayState.cpp" />
 		<Unit filename="src/states/PlayState.hpp" />

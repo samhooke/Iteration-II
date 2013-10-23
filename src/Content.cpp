@@ -4,6 +4,7 @@
 #include "states/SceneState.hpp"
 #include "states/PlayState.hpp"
 #include "states/TitleState.hpp"
+#include "states/EntryState.hpp"
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -33,7 +34,9 @@ void Content::LoadOutline() {
             if (lineExp.size() == 2) {
                 // Read the tile and filename
                 ContentItem ci;
-                if (lineExp[0] == "Scene:") {
+                if (lineExp[0] == "Title:") {
+                    ci.type = ContentType::Title;
+                } else if (lineExp[0] == "Scene:") {
                     ci.type = ContentType::Scene;
                 } else if (lineExp[0] == "Level:") {
                     ci.type = ContentType::Level;
@@ -67,6 +70,13 @@ void Content::Load() {
     if (AtValidContent()) {
         ContentType type = GetCurrentContentType();
 
+        if (type == ContentType::Title) {
+#ifdef DEBUG_VERBOSE
+            std::cout << "game->ChangeState(TitleState::Instance());" << std::endl;
+#endif // DEBUG_VERBOSE
+            // Load title
+            game->ChangeState(TitleState::Instance());
+        }
         if (type == ContentType::Level) {
 #ifdef DEBUG_VERBOSE
             std::cout << "game->ChangeState(PlayState::Instance());" << std::endl;
@@ -83,7 +93,11 @@ void Content::Load() {
         }
     } else {
         std::cout << "ERROR: Exceeded content range" << std::endl;
-        game->ChangeState(TitleState::Instance());
+
+        // Reset contentPosition and go back to first state
+        // This effectively restarts the game
+        Reset();
+        game->ChangeState(EntryState::Instance());
     }
 }
 

@@ -8,7 +8,7 @@
 
 class GameEngine;
 
-enum class ContentType {Level, Scene};
+enum class ContentType {Title, Level, Scene};
 
 struct ContentItem {
     ContentType type;
