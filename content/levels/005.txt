@@ -1,0 +1,20 @@
+17
+12
+ ################
+ #T..Y.......Y..#
+ #...######.....#
+ ##d##    #.....#
+  #.#     #.....#
+  #d#     ###.###
+  #.#       #.#  
+###d###     #.#  
+#.....#    ##d## 
+#.....######...# 
+#.P..........Y.# 
+################ 
+Title: Unbroken Chain
+Subtitle1: Enter the time machine with Z
+Subtitle2: While inside, hold Z to go back in time
+Subtitle3: Press X to get out of the time machine
+Timelimit: 12
+Critical: 12
