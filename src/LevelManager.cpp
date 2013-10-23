@@ -330,7 +330,7 @@ bool LevelManager::Load(const char* levelName) {
                         std::cout << "Invalid \"Critical:\" command: " << line << std::endl;
                         std::cout << "(There are the wrong number of arguments)" << std::endl;
                     }
-                } else if (lineExp[0] == "Title:" || lineExp[0] == "Subtitle:" || lineExp[0] == "Subtitle1:" || lineExp[0] == "Subtitle2:" || lineExp[0] == "Subtitl3:") {
+                } else if (lineExp[0] == "Title:" || lineExp[0] == "Subtitle:" || lineExp[0] == "Subtitle1:" || lineExp[0] == "Subtitle2:" || lineExp[0] == "Subtitle3:") {
                     if (lineExp.size() >= 2) {
                         // NOTE: If LEVEL_NUM_TITLES is changed, this section will need updating!
                         // Work out the index within the levelTitles array for this particular title/subtitle
