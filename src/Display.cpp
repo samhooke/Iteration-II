@@ -239,7 +239,8 @@ void Display::RenderSurfaceToWindow(GameEngine* game) {
         shader.setParameter("resolution", windowSize.x, windowSize.y);
         float mSpeed = 0.05;
         float mDis = 2.0 + std::sin(t * 0.013) * 1.2;
-        shader.setParameter("mouse", std::cos(t * mSpeed) * mDis, std::sin(t * mSpeed) * mDis);
+        //NOTE: Uncomment this if using shader with USE_FRACTAL defined
+        //shader.setParameter("mouse", std::cos(t * mSpeed) * mDis, std::sin(t * mSpeed) * mDis);
         shader.setParameter("alpha", 0.2);
         shader.setParameter("time", t);
 

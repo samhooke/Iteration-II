@@ -2,6 +2,7 @@
 // which was inspired by: http://www.fractalforums.com/new-theories-and-research/very-simple-formula-for-fractal-patterns/
 
 // Uncomment to use the (intensive, weird, distracting) fractal shader
+// Remember to also update Display.cpp where it mentions USE_FRACTAL
 // #define USE_FRACTAL
 
 #ifdef GL_ES
