@@ -39,7 +39,7 @@ namespace GameObject {
 
         // If controlling and dead, our only action is to move forward in time
         if (Controlling() && dead && !levelManager->endGame->Ended()) {
-            if (game->controls->GetKeyDelaySufficient()) {
+            if (game->controls->GetKeyDelaySufficient(true)) {
                 bool keyAction2 = game->controls->GetKey(InputKey::Action2);
                 if (keyAction2 && levelManager->iterationData->CanGoForward()) {
                     // Move forward in time without moving
@@ -51,7 +51,7 @@ namespace GameObject {
 
         // If controlling and not dead and the game has not ended, do all the player controlling stuff
         if (Controlling() && !dead && !levelManager->endGame->Ended()) {
-            if (game->controls->GetKeyDelaySufficient()) {
+            if (game->controls->GetKeyDelaySufficient(true)) {
                 bool moved = false;
 
                 int preMoveX;
@@ -200,7 +200,7 @@ namespace GameObject {
                         game->controls->ResetKeyDelay();
                         levelManager->iterationData->GoForward();
                     }
-                } else {
+                } else if (game->controls->GetKeyDelaySufficient(false)) {
                     bool keyAction1 = game->controls->GetKey(InputKey::Action1);
                     bool keyAction2 = game->controls->GetKey(InputKey::Action2);
                     if (keyAction1) {

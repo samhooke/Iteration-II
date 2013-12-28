@@ -5,6 +5,7 @@
 Controls::Controls() {
     // Start clock
     delayClock.restart();
+    lastPress.restart();
 
     // Set all key states to false
     for (int i = 0; i < (int)InputKey::__COUNT; i++) {
@@ -36,6 +37,16 @@ void Controls::UpdateKeyStates() {
 #endif
             break;
         }
+        
+        // Whenever there is any press, reset the lastPress clock
+        if (!keyStatePrev[iKey] && keyStateNow[iKey]) {
+            ResetLastPress();
+        }
+        
+        // Whenever there is any release, reset the lastRelease clock
+        if (keyStatePrev[iKey] && !keyStateNow[iKey]) {
+            ResetLastRelease();
+        }
     }
 }
 
@@ -51,10 +62,26 @@ bool Controls::GetKeyUp(InputKey key) {
     return (keyStatePrev[key] && !keyStateNow[key]);
 }
 
-bool Controls::GetKeyDelaySufficient() {
-    return (delayClock.getElapsedTime().asSeconds() > MOVEMENT_DELAY);
+bool Controls::GetKeyDelaySufficient(bool goFastIfKeyReleasedRecently) {
+    // If it has been sufficient time since a key was pressed,
+    // or if a key has recently been released,
+    // use the fast delay, else use the slow delay
+    if (lastPress.getElapsedTime().asSeconds() > MOVEMENT_DELAY_FAST_THRESHOLD ||
+        (goFastIfKeyReleasedRecently && lastRelease.getElapsedTime().asSeconds() < MOVEMENT_DELAY_FAST_THRESHOLD)) {
+        return (delayClock.getElapsedTime().asSeconds() > MOVEMENT_DELAY_FAST);
+    } else {
+        return (delayClock.getElapsedTime().asSeconds() > MOVEMENT_DELAY_SLOW);
+    }
 }
 
 void Controls::ResetKeyDelay() {
     delayClock.restart();
+}
+
+void Controls::ResetLastPress() {
+    lastPress.restart();
+}
+
+void Controls::ResetLastRelease() {
+    lastRelease.restart();
 }

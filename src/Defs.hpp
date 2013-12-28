@@ -21,7 +21,11 @@
 #define SLEEP_MILLISECONDS 20
 
 // How many seconds to wait before allowing to move again
-#define MOVEMENT_DELAY 0.10
+#define MOVEMENT_DELAY_SLOW 0.40
+#define MOVEMENT_DELAY_FAST 0.10
+
+// If a key is held down, the movement delay switches from slow to fast after this threshold
+#define MOVEMENT_DELAY_FAST_THRESHOLD 0.40
 
 /// Controls
 
