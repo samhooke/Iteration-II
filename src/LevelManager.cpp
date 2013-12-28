@@ -532,10 +532,12 @@ void LevelManager::UpdateDisplay(GameEngine* game) {
     }
 
     // 2D array of int vectors
-    //2D//std::vector<int> objectQueue[levelData->GetWidth()][levelData->GetHeight()];
-    //int queueLength = levelData->GetWidth() * levelData->GetHeight();
-    const int queueLength = 9999; //TODO: Find what the upper limit should be
-    std::vector<int> objectQueue[queueLength];
+
+    // NOTE: In order to make clang happy, we use this:
+    //   LEVEL_WIDTH_MAX * LEVEL_HEIGHT_MAX
+    // Instead of this:
+    //   levelData->GetWidth() * levelData->GetHeight();
+    std::vector<int> objectQueue[LEVEL_WIDTH_MAX * LEVEL_HEIGHT_MAX];
 
     // Queue all the objects to be drawn in the 2D array of int vectors
     for (int index = 0; index < levelData->GetNumObjects(); index++) {
