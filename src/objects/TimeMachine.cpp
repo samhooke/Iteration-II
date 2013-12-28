@@ -15,7 +15,7 @@ namespace GameObject {
     void TimeMachine::Update() {
         UpdateDisplayCharacter();
         if (Controlling()) {
-            if (game->controls->GetKeyDelaySufficient(true)) {
+            if (game->controls->GetKeyDelaySufficient()) {
                 bool keyAction1 = game->controls->GetKey(InputKey::Action1);
                 bool keyAction2 = game->controls->GetKey(InputKey::Action2);
                 if (keyAction1 && levelManager->iterationData->CanGoBackward()) {

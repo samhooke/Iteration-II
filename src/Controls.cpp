@@ -62,12 +62,11 @@ bool Controls::GetKeyUp(InputKey key) {
     return (keyStatePrev[key] && !keyStateNow[key]);
 }
 
-bool Controls::GetKeyDelaySufficient(bool goFastIfKeyReleasedRecently) {
+bool Controls::GetKeyDelaySufficient() {
     // If it has been sufficient time since a key was pressed,
     // or if a key has recently been released,
     // use the fast delay, else use the slow delay
-    if (lastPress.getElapsedTime().asSeconds() > MOVEMENT_DELAY_FAST_THRESHOLD ||
-        (goFastIfKeyReleasedRecently && lastRelease.getElapsedTime().asSeconds() < MOVEMENT_DELAY_FAST_THRESHOLD)) {
+    if (lastPress.getElapsedTime().asSeconds() > MOVEMENT_DELAY_FAST_THRESHOLD) {
         return (delayClock.getElapsedTime().asSeconds() > MOVEMENT_DELAY_FAST);
     } else {
         return (delayClock.getElapsedTime().asSeconds() > MOVEMENT_DELAY_SLOW);
