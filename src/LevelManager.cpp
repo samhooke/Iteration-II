@@ -533,7 +533,9 @@ void LevelManager::UpdateDisplay(GameEngine* game) {
 
     // 2D array of int vectors
     //2D//std::vector<int> objectQueue[levelData->GetWidth()][levelData->GetHeight()];
-    std::vector<int> objectQueue[levelData->GetWidth() * levelData->GetHeight()];
+    //int queueLength = levelData->GetWidth() * levelData->GetHeight();
+    const int queueLength = 9999; //TODO: Find what the upper limit should be
+    std::vector<int> objectQueue[queueLength];
 
     // Queue all the objects to be drawn in the 2D array of int vectors
     for (int index = 0; index < levelData->GetNumObjects(); index++) {
@@ -608,7 +610,7 @@ void LevelManager::DrawTitles(GameEngine* game) {
     xm = game->display->GetWidth() / 2;
 
     for (int i = 0; i < LEVEL_NUM_TITLES; i++) {
-        if (titles[i].size() >= 0) {
+        if ((signed)titles[i].size() >= 0) {
             x = xm - titles[i].size() / 2;
 
             // Have a gap between the title (i==0) and the subtitles (i>0)

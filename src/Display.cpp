@@ -3,6 +3,10 @@
 #include "Logger.hpp"
 #include "PRNG.hpp"
 
+#ifdef OS_UNIX
+#include <cmath> // Required for trigonometry under OSX
+#endif
+
 Display::Display(bool fullscreen, bool maintainAspectRatio, sf::Vector2f scale, bool useShaders) {
     this->fullscreen = fullscreen;
     this->maintainAspectRatio = maintainAspectRatio;

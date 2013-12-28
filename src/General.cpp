@@ -42,5 +42,6 @@ std::vector<std::string> Explode(std::string str, char split) {
 
 bool StringToInt(std::string &s, int &i) {
     std::istringstream myStream(s);
-    return (myStream>>i);
+    myStream >> i;
+    return !(myStream.fail());
 }

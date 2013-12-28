@@ -4,8 +4,8 @@
 /// Compiling
 
 // Choose the #define for your OS
-#define OS_WINDOWS
-//#define OS_UNIX
+//#define OS_WINDOWS
+#define OS_UNIX
 
 // Whether to print out detailed debugging information
 //#define DEBUG_VERBOSE
