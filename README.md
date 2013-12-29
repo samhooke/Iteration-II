@@ -23,10 +23,10 @@ The levels are actually split into two different types: levels and scenes. Level
 The outline file, stored at `content\outline.txt`, stores the order of levels and scenes. It is like the contents page of a book, going from top to bottom. Each line must be one of the three following examples:
 
 * `Title: builtin`
-* `Scene: <filename>`
-* `Level: <filename>`
+* `Scene: [filename]`
+* `Level: [filename]`
 
-Where <filename> represents the name of the relevant scene or level file, e.g. `some_level.txt`. The `Title: builtin` simply goes to the game's built in title screen. This allows you to leave out the title screen entirely, or use it at a later date, even repeatedly.
+Where [filename] represents the name of the relevant scene or level file, e.g. `some_level.txt`. The `Title: builtin` simply goes to the game's built in title screen. This allows you to leave out the title screen entirely, or use it at a later date, even repeatedly.
 
 ## Scenes
 
@@ -47,7 +47,7 @@ The level map is where the initial layout of the level is represented with ASCII
 
 * Non-walkable
 	* `#`: Wall (the specific wall graphic is generated automatically when the game is played)
-	* `<space>`: Invisible wall
+	* `[space]`: Invisible wall
 	* `d`: Door (can be opened manually)
 	* `D`: Door (can only be opened via links)
 	* `W`: Window (purely cosmetic)
@@ -66,19 +66,19 @@ The level map is where the initial layout of the level is represented with ASCII
 
 The following parameters exist:
 
-* `Title: <text>`: The title for the level
-* `Subtitle1: <text>`: First line of the subtitle
-* `Subtitle2: <text>`: Second line of the subtitle
-* `Subtitle3: <text>`: Third line of the subtitle
-* `Timelimit: <number>`: How many actions can be performed before the level ends
-* `Critical: <number>`: How many actions can be performed before the meltdown goes critical
+* `Title: [text]`: The title for the level
+* `Subtitle1: [text]`: First line of the subtitle
+* `Subtitle2: [text]`: Second line of the subtitle
+* `Subtitle3: [text]`: Third line of the subtitle
+* `Timelimit: [number]`: How many actions can be performed before the level ends
+* `Critical: [number]`: How many actions can be performed before the meltdown goes critical
 
 ### Links
 
 Links allow mechanics and doors to be connected together. They connect one object to one other object. This means that you can, for example, link a lever to a door. The lever will then operate opening and closing that door. Links are defined in the following format:
 
 ```
-Link: <object_from> <link_type> <object_to>
+Link: [object_from] [link_type] [object_to]
 ```
 
 Each object must refer to an object in the above level map. References are made by using the object's name, followed by a hash, and the index of that object. The following object names exist:
